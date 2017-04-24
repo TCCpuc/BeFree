@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="BeFreeAPP.BeFreeAPP" android:versionCode="1" android:versionName="1.0">
+  <!--suppress UsesMinSdkAttributes-->
+  <uses-sdk android:minSdkVersion="11" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <application android:label="BeFreeAPP" android:name="android.app.Application" android:allowBackup="true" android:icon="@drawable/icon" android:debuggable="true">
+    <activity android:icon="@drawable/icon" android:label="BeFreeAPP" android:name="md525c4f20d41dd32c44437258279ff9d1d.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:label="LoginActivity" android:name="md59ca0c701abc97dbc597b91b79fa0cde7.LoginActivity" />
+    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="BeFreeAPP.BeFreeAPP.mono.MonoRuntimeProvider.__mono_init__" />
+    <!--suppress ExportedReceiver-->
+    <receiver android:name="mono.android.Seppuku">
+      <intent-filter>
+        <action android:name="mono.android.intent.action.SEPPUKU" />
+        <category android:name="mono.android.intent.category.SEPPUKU.BeFreeAPP.BeFreeAPP" />
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>
