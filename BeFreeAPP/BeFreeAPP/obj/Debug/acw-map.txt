@@ -1,8 +1,0 @@
-BeFreeAPP.MainActivity, BeFreeAPP;md525c4f20d41dd32c44437258279ff9d1d.MainActivity
-BeFreeAPP.MainActivity, BeFreeAPP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md525c4f20d41dd32c44437258279ff9d1d.MainActivity
-BeFreeAPP.MainActivity;md525c4f20d41dd32c44437258279ff9d1d.MainActivity
-befreeapp.MainActivity;md525c4f20d41dd32c44437258279ff9d1d.MainActivity
-BeFreeAPP.Activities.LoginActivity, BeFreeAPP;md59ca0c701abc97dbc597b91b79fa0cde7.LoginActivity
-BeFreeAPP.Activities.LoginActivity, BeFreeAPP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59ca0c701abc97dbc597b91b79fa0cde7.LoginActivity
-BeFreeAPP.Activities.LoginActivity;md59ca0c701abc97dbc597b91b79fa0cde7.LoginActivity
-befreeapp.activities.LoginActivity;md59ca0c701abc97dbc597b91b79fa0cde7.LoginActivity
