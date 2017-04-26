@@ -28,8 +28,6 @@ namespace BeFreeAPP.Activities
             SetContentView(Resource.Layout.Login);
 
             Button btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
-            EditText edtUsuario = FindViewById<EditText>(Resource.Id.edtUsuario);
-            EditText edtSenha = FindViewById<EditText>(Resource.Id.edtSenha);
 
             btnLogin.Click += BtnLogin_Click;
 
@@ -37,45 +35,27 @@ namespace BeFreeAPP.Activities
 
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
-            string url = "http://192.168.219.57:8080/api/Usuarios/";
-
-            //List <Usuario> usuarios =  (<List<Usuario>)dataService.GetObjAsync(url);
-            /*using (HttpClient httpClient = new HttpClient())
-            {
-                List<Usuario> models = new List<Usuario>();
-
-                try
-                {
-
-                    UriBuilder uriBuilder = new UriBuilder(url);
-                    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
-                    string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                    models = JsonConvert.DeserializeObject<List<Usuario>>(result);
-                }
-                catch (Exception err)
-                {
-                    string erro = err.Message.ToString();
-                }
-            }*/
-
+            EditText edtUsuario = FindViewById<EditText>(Resource.Id.edtUsuario);
+            EditText edtSenha = FindViewById<EditText>(Resource.Id.edtSenha);
+            List<Usuario> usuarios = null;
             using (HttpClient client = new HttpClient())
             {
-                try
+                ;
+                Uri uri = new Uri("http://192.168.219.57:8080/api/Usuarios/");
+                var response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
                 {
-                    var uri = new Uri(url);
-                    var response = await client.GetAsync(url);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = response.Content.ReadAsStringAsync().Result;
-                        var _clsUsuario = JsonConvert.DeserializeObject(result);
-                        List<Usuario> clsUsuario = JsonConvert.DeserializeObject<List<Usuario>>(_clsUsuario.ToString());
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    var _clsUsuario = JsonConvert.DeserializeObject(result);
+                    usuarios = JsonConvert.DeserializeObject<List<Usuario>>(_clsUsuario.ToString());
+
+                    if (usuarios.Where(u => u.nomeUsuario == edtUsuario.Text).Count() > 0) {
+
+
                     }
                 }
-                catch (Exception er)
-                {
-                    string erro = er.Message;
-                }
             }
+
         }
     }
 }
