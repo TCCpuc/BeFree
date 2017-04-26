@@ -37,10 +37,10 @@ namespace BeFreeAPP.Activities
 
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
-            string url = "http://localhost:1994/api/Usuarios";
+            string url = "http://192.168.219.57:8080/api/Usuarios/";
 
             //List <Usuario> usuarios =  (<List<Usuario>)dataService.GetObjAsync(url);
-            using (HttpClient httpClient = new HttpClient())
+            /*using (HttpClient httpClient = new HttpClient())
             {
                 List<Usuario> models = new List<Usuario>();
 
@@ -56,8 +56,26 @@ namespace BeFreeAPP.Activities
                 {
                     string erro = err.Message.ToString();
                 }
+            }*/
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    var uri = new Uri(url);
+                    var response = await client.GetAsync(url);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var result = response.Content.ReadAsStringAsync().Result;
+                        var _clsUsuario = JsonConvert.DeserializeObject(result);
+                        List<Usuario> clsUsuario = JsonConvert.DeserializeObject<List<Usuario>>(_clsUsuario.ToString());
+                    }
+                }
+                catch (Exception er)
+                {
+                    string erro = er.Message;
+                }
             }
-            /*Task<List<Usuario>> usuarios = dataService.GetObjAsync(url);*/
         }
     }
 }
