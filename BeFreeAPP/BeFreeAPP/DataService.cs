@@ -19,24 +19,21 @@ namespace BeFreeAPP
     class DataService
     {
 
-        public async Task<List<Object>> GetObjAsync(string url)
+        public async Task<List<Usuario>> GetUsuariosAsync(string url)
         {
-            using (HttpClient httpClient = new HttpClient())
+            Task<List<Usuario>> clsUsuario = null;
+            using (HttpClient client = new HttpClient())
             {
-                List<Object> models = new List<Object>();
-                try
+                var uri = new Uri(url);
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
                 {
-
-                    UriBuilder uriBuilder = new UriBuilder(url);
-                    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
-                    string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                    models = JsonConvert.DeserializeObject<List<Object>>(result);
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    var _clsUsuario = JsonConvert.DeserializeObject(result);
+                    clsUsuario = JsonConvert.DeserializeObject<Task<List<Usuario>>>(_clsUsuario.ToString());
+                    return await clsUsuario;
                 }
-                catch (Exception err)
-                {
-                    string erro = err.Message.ToString();
-                }
-                return models;
+                return await clsUsuario;
             }
         }
     }
