@@ -35,6 +35,10 @@ namespace BeFreeAPP.Activities
 
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
+            //Linha inserida para teste de Layout **SEM LOGIN**
+            Intent service = new Intent(this, typeof(ServiceActivity));
+            StartActivity(service);
+            //Apagar ^^
             EditText edtUsuario = FindViewById<EditText>(Resource.Id.edtUsuario);
             EditText edtSenha = FindViewById<EditText>(Resource.Id.edtSenha);
             List<Usuario> usuarios = null;
