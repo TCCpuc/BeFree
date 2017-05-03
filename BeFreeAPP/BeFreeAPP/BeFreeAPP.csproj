@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ServiceAnnounce.cs" />
     <Compile Include="Activities\ServiceActivity.cs" />
     <Compile Include="Activities\ServiceAdapter.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
