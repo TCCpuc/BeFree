@@ -44,7 +44,6 @@ namespace BeFreeAPP.Activities
             List<Usuario> usuarios = null;
             using (HttpClient client = new HttpClient())
             {
-                ;
                 Uri uri = new Uri("http://192.168.219.57:8080/api/Usuarios/");
                 var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)

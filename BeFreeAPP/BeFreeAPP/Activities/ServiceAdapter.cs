@@ -60,7 +60,7 @@ namespace BeFreeAPP.Activities
             {
                 row = LayoutInflater.From(serviceContext).Inflate(Resource.Layout.Service_row, null, false);
             }
-
+            //Aqui que vai filtrar?
             TextView txtNome = row.FindViewById<TextView>(Resource.Id.servico_row_txt);
             txtNome.Text = serviceItens[position].nome;
             TextView txtCidade = row.FindViewById<TextView>(Resource.Id.cidade_row_txt);
@@ -69,10 +69,8 @@ namespace BeFreeAPP.Activities
             txtBairro.Text = serviceItens[position].bairro;
             TextView txtSubCategoria = row.FindViewById<TextView>(Resource.Id.subcategoria_row_txt);
             txtSubCategoria.Text = serviceItens[position].subcategoria;
-
-
+            
             return row;
-
         }
 
 
