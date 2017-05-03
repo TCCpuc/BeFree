@@ -17,7 +17,7 @@ namespace BeFreeAPP.Activities
     [Activity(Label = "ServiceActivity")]
     class ServiceActivity : Activity
     {
-        private List<Servico> serviceItens;
+        private List<Servico> serviceItens { set; get; }
         private ListView serviceListView;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,7 +26,7 @@ namespace BeFreeAPP.Activities
             // Create your application here
             SetContentView(Resource.Layout.Service);
             serviceListView = FindViewById<ListView>(Resource.Id.ServiceView);
-
+            
             serviceItens = new List<Servico>();
 
             serviceItens.Add(new Servico()
@@ -85,6 +85,8 @@ namespace BeFreeAPP.Activities
 
         private void serviceListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+
+            //ServiceAnnounce sv = new ServiceAnnounce();
             SetContentView(Resource.Layout.Service_anuncio);
 
             TextView txtTitulo = FindViewById<TextView>(Resource.Id.service_anuncio_titulo);
@@ -101,8 +103,9 @@ namespace BeFreeAPP.Activities
             Button btnVoltar = FindViewById<Button>(Resource.Id.service_anuncio_button_voltar);
 
             btnVoltar.Click += BtnVoltar_Click;
+            
+          
         }
-
         private void BtnVoltar_Click(object sender, EventArgs e)
         {
             this.Finish();
