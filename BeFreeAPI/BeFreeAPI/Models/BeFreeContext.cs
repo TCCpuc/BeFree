@@ -15,6 +15,10 @@ namespace BeFreeAPI.Models
         public DbSet<Cidade> tbCidades { get; set; }
         public DbSet<Estado> tbEstadoes { get; set; }
         public DbSet<Usuario> tbUsuarios { get; set; }
+        public virtual DbSet<Busca> tbBuscas { get; set; }
+        public virtual DbSet<Categoria> tbCategorias { get; set; }
+        public virtual DbSet<Servico> tbServicoes { get; set; }
+        public virtual DbSet<SubCategoria> tbSubCategorias { get; set; }
 
         /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -64,6 +68,30 @@ namespace BeFreeAPI.Models
 
             modelBuilder.Entity<Usuario>()
                 .Property(e => e.cep)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbBusca>()
+                .Property(e => e.titulo)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbBusca>()
+                .Property(e => e.descricao)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbCategoria>()
+                .Property(e => e.descricao)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbServico>()
+                .Property(e => e.titulo)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbServico>()
+                .Property(e => e.descricao)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbSubCategoria>()
+                .Property(e => e.descricao)
                 .IsUnicode(false);
         }*/
     }
