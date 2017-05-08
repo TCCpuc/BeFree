@@ -42,5 +42,11 @@ namespace BeFreeAPI.Models
 
         [StringLength(20)]
         public string senha { get; set; }
+
+        [StringLength(50)]
+        public string email { get; set; }
+
+        [StringLength(3)]
+        public string ddd { get; set; }
     }
 }

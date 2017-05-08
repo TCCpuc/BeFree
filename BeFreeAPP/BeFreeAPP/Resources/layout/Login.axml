@@ -12,17 +12,19 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNome" />
+        android:id="@+id/txtNome"
+        android:textColor="@android:color/background_dark" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edtUsuario" />
     <TextView
-        android:text="Nome"
+        android:text="Senha"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtSenha" />
+        android:id="@+id/txtSenha"
+        android:textColor="@android:color/background_dark" />
     <EditText
         android:inputType="textPassword"
         android:layout_width="match_parent"
