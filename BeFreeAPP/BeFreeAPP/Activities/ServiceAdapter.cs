@@ -58,17 +58,15 @@ namespace BeFreeAPP.Activities
 
             if(row == null)
             {
-                row = LayoutInflater.From(serviceContext).Inflate(Resource.Layout.Service_row, null, false);
+                row = LayoutInflater.From(serviceContext).Inflate(Resource.Layout.ServiceList, null, false);
             }
             //Aqui que vai filtrar?
-            TextView txtNome = row.FindViewById<TextView>(Resource.Id.servico_row_txt);
-            txtNome.Text = serviceItens[position].nome;
-            TextView txtCidade = row.FindViewById<TextView>(Resource.Id.cidade_row_txt);
-            txtCidade.Text = serviceItens[position].cidade;
-            TextView txtBairro = row.FindViewById<TextView>(Resource.Id.bairro_row_txt);
-            txtBairro.Text = serviceItens[position].bairro;
-            TextView txtSubCategoria = row.FindViewById<TextView>(Resource.Id.subcategoria_row_txt);
-            txtSubCategoria.Text = serviceItens[position].subcategoria;
+            TextView txtTitulo = row.FindViewById<TextView>(Resource.Id.txtServiceListTitulo);
+            txtTitulo.Text = serviceItens[position].titulo;
+            TextView txtDescricao = row.FindViewById<TextView>(Resource.Id.txtServiceListDescricao);
+            txtDescricao.Text = serviceItens[position].descricao;
+            TextView txtSubCategoria = row.FindViewById<TextView>(Resource.Id.txtServiceListSubCategoria);
+            txtSubCategoria.Text = serviceItens[position].idSubCategoria.ToString();
             
             return row;
         }

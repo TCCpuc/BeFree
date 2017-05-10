@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="1.0dp"
+      android:id="@+id/linearLayout1"
+      android:minWidth="25px"
+      android:minHeight="25px" />
+
+  <TextView
+      android:text="Sub-Categoria"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/textView2"
+      android:background="@android:color/holo_red_light" />
+  <TextView
+      android:text="[SUB CATEGORIA]"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:layout_width="match_parent"
+      android:layout_height="60.0dp"
+      android:id="@+id/txtServiceAnuncioSubCategoria" />
+  <TextView
+      android:text="Titulo"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/textView1"
+      android:background="@android:color/holo_red_light" />
+  <TextView
+      android:text="[TITULO]"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:layout_width="match_parent"
+      android:layout_height="60.0dp"
+      android:id="@+id/txtServiceAnuncioTitulo" />
+  <TextView
+      android:text="Descrição"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/textView5"
+      android:background="@android:color/holo_red_light" />
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="163.5dp"
+      android:id="@+id/linearLayout2">
+    <TextView
+        android:text="[DESCRICAO]"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="233.0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/txtServiceAnuncioDescricao" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="151.0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout3">
+      <Button
+          android:text="COMPRAR"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/btnServiceAnuncioComprar" />
+      <Button
+          android:text="DENUNCIAR"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/btnServiceAnuncioDenunciar" />
+      <Button
+          android:text="VOLTAR"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/btnServiceAnuncioVoltar" />
+    </LinearLayout>
+  </LinearLayout>
+</LinearLayout>

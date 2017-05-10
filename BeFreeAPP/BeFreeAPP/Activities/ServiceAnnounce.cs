@@ -20,9 +20,9 @@ namespace BeFreeAPP.Activities
             base.OnCreate(savedInstanceState);
 
             // Create your application here
-            SetContentView(Resource.Layout.Service_anuncio);
+            SetContentView(Resource.Layout.ServiceAnuncio);
 
-            Button btnVoltar = FindViewById<Button>(Resource.Id.service_anuncio_button_voltar);
+            Button btnVoltar = FindViewById<Button>(Resource.Id.btnServiceAnuncioVoltar);
 
             btnVoltar.Click += BtnVoltar_Click;
 

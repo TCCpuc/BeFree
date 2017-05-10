@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using BeFreeAPP.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace BeFreeAPP.Activities
 {
@@ -19,60 +21,26 @@ namespace BeFreeAPP.Activities
     {
         private List<Servico> serviceItens { set; get; }
         private ListView serviceListView;
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your application here
             SetContentView(Resource.Layout.Service);
+
             serviceListView = FindViewById<ListView>(Resource.Id.ServiceView);
-            
             serviceItens = new List<Servico>();
 
-            serviceItens.Add(new Servico()
+            using (HttpClient client = new HttpClient())
             {
-                nome = "Pintor Rodape",
-                categoria = "Construcao Civil",
-                subcategoria = "Pintor",
-                cidade = "Campinas",
-                bairro = "Cidade Universitaria",
-                descricao = "Pinto o rodape",
-                id_servico = 001,
-                cpf = 12345665489
-            });
-            serviceItens.Add(new Servico()
-            {
-                nome = "Trocador de Pneu",
-                categoria = "Veiculos",
-                subcategoria = "Manutencao",
-                cidade = "Valinhos",
-                bairro = "Cidade Universitaria",
-                descricao = "Troco Pneu",
-                id_servico = 002,
-                cpf = 12343335489
-            });
-            serviceItens.Add(new Servico()
-            {
-                nome = "Aulas de Matematia",
-                categoria = "Professor",
-                subcategoria = "Professor particular",
-                cidade = "Valinhos",
-                bairro = "Cidade Universitaria",
-                descricao = "Dou aulas de Matematica",
-                id_servico = 003,
-                cpf = 12345895489
-            });
-            serviceItens.Add(new Servico()
-            {
-                nome = "Fabrico Picole",
-                categoria = "Outros",
-                subcategoria = "alimenticio",
-                cidade = "Campinas",
-                bairro = "Cidade Universitaria",
-                descricao = "Fabrico sorvete",
-                id_servico = 004,
-                cpf = 12345665490
-            });
+
+                Uri uri = new Uri("http://befree.somee.com/BeFreeAPI/api/Servico/");
+                var response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    var json = JsonConvert.DeserializeObject(result);
+                    serviceItens = JsonConvert.DeserializeObject<List<Servico>>(json.ToString());
+                }
+            }
 
             ServiceAdapter adapter = new ServiceAdapter(this, serviceItens);
 
@@ -87,20 +55,16 @@ namespace BeFreeAPP.Activities
         {
 
             //ServiceAnnounce sv = new ServiceAnnounce();
-            SetContentView(Resource.Layout.Service_anuncio);
+            SetContentView(Resource.Layout.ServiceAnuncio);
 
-            TextView txtTitulo = FindViewById<TextView>(Resource.Id.service_anuncio_titulo);
-            txtTitulo.Text = serviceItens[e.Position].nome;
-            TextView txtSubCategoria = FindViewById<TextView>(Resource.Id.service_anuncio_categoria);
-            txtSubCategoria.Text = serviceItens[e.Position].subcategoria;
-            TextView txtCidade = FindViewById<TextView>(Resource.Id.service_anuncio_cidade);
-            txtCidade.Text = serviceItens[e.Position].cidade;
-            TextView txtBairro = FindViewById<TextView>(Resource.Id.service_anuncio_bairro);
-            txtBairro.Text = serviceItens[e.Position].bairro;
-            TextView txtDescricao = FindViewById<TextView>(Resource.Id.service_anuncio_descricao);
+            TextView txtTitulo = FindViewById<TextView>(Resource.Id.txtServiceAnuncioTitulo);
+            txtTitulo.Text = serviceItens[e.Position].titulo;
+            TextView txtSubCategoria = FindViewById<TextView>(Resource.Id.txtServiceAnuncioSubCategoria);
+            txtSubCategoria.Text = serviceItens[e.Position].idSubCategoria.ToString();
+            TextView txtDescricao = FindViewById<TextView>(Resource.Id.txtServiceAnuncioDescricao);
             txtDescricao.Text = serviceItens[e.Position].descricao;
 
-            Button btnVoltar = FindViewById<Button>(Resource.Id.service_anuncio_button_voltar);
+            Button btnVoltar = FindViewById<Button>(Resource.Id.btnServiceAnuncioVoltar);
 
             btnVoltar.Click += BtnVoltar_Click;
             
