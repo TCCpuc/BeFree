@@ -27,5 +27,7 @@ namespace BeFreeAPP.Models
         public DateTime? dataCadastro { get; set; }
         public bool? ativo { get; set; }
         public string senha { get; set; }
+        public string email { get; set; }
+        public string ddd { get; set; }
     }
 }

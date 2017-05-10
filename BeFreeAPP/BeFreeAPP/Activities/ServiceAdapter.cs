@@ -19,7 +19,7 @@ namespace BeFreeAPP.Activities
             //    nome
             //    categoria
             //    subcategoria
-            // cidade = "valinhos"
+             cidade = "valinhos"
             //  bairro
         };
         private List<Servico> serviceItens;

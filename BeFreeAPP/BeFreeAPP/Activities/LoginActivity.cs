@@ -43,7 +43,7 @@ namespace BeFreeAPP.Activities
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    Uri uri = new Uri("http://192.168.1.36:8080/api/Usuarios/");
+                    Uri uri = new Uri("http://befree.somee.com/BeFreeAPI/api/Usuarios/");
                     var response = await client.GetAsync(uri);
                     if (response.IsSuccessStatusCode)
                     {
@@ -53,8 +53,9 @@ namespace BeFreeAPP.Activities
 
                         if (usuarios.Where(u => u.nomeUsuario == edtUsuario.Text && u.senha == edtSenha.Text).Count() > 0)
                         {
-
                             Toast.MakeText(this, "Login realizado com sucesso", ToastLength.Short).Show();
+                            Intent home = new Intent(this, typeof(ServiceActivity));
+                            StartActivity(home);
                         }
                         else
                         {
