@@ -24,17 +24,26 @@ namespace BeFreeAPP.Activities
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            return inflater.Inflate(Resource.Layout.fragment_sample, container, false);
+            return inflater.Inflate(Resource.Layout.Service, container, false);
         }
 
-        public async  override void OnViewCreated(View view, Bundle savedInstanceState)
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        {
+            mSlidingTabScrollView = view.FindViewById<SlidingTabScrollView>(Resource.Id.sliding_tabs);
+            mViewPager = view.FindViewById<ViewPager>(Resource.Id.viewpager);
+            mViewPager.Adapter = new SamplePagerAdapter();
+
+            mSlidingTabScrollView.ViewPager = mViewPager;
+        }
+
+        /*public async  override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             await con.GetServiceList(serviceItens);
             mSlidingTabScrollView = view.FindViewById<SlidingTabScrollView>(Resource.Id.sliding_tabs);
             mViewPager = view.FindViewById<ViewPager>(Resource.Id.viewpager);
             mViewPager.Adapter = new SamplePagerAdapter(this.serviceItens);       
             mSlidingTabScrollView.ViewPager = mViewPager;
-        }
+        }*/
 
         public class SamplePagerAdapter : PagerAdapter
         {
@@ -67,16 +76,17 @@ namespace BeFreeAPP.Activities
 
             public override Java.Lang.Object InstantiateItem(ViewGroup container, int position)
             {
-                View view = LayoutInflater.From(container.Context).Inflate(Resource.Layout.ServiceList, container, false);
+                View view = LayoutInflater.From(container.Context).Inflate(Resource.Layout.pager_item, container, false);
                 container.AddView(view);
-                /*
-                TextView txtTitle = view.FindViewById<TextView>(Resource.Id.item_title);
+                TextView txtTitle = view.FindViewById<TextView>(Resource.Id.txtServiceListTitulo);
                 int pos = position + 1;
                 txtTitle.Text = pos.ToString();
-                */
+                /*
+                
                 ListView serviceListView = view.FindViewById<ListView>(Resource.Id.ServiceView); 
                 ServiceAdapter adapter = new ServiceAdapter(this, serviceItens);
                 serviceListView.Adapter = adapter;
+                */
                 return view;
             }
 
