@@ -51,11 +51,13 @@ namespace BeFreeAPP.Activities
                         var _clsUsuario = JsonConvert.DeserializeObject(result);
                         usuarios = JsonConvert.DeserializeObject<List<Usuario>>(_clsUsuario.ToString());
 
-                        if (usuarios.Where(u => u.nomeUsuario == edtUsuario.Text && u.senha == edtSenha.Text).Count() > 0)
-                        {
+                        if (usuarios.Where(u => (u.email == edtUsuario.Text || u.nomeUsuario == edtUsuario.Text) && u.senha == edtSenha.Text).Count() > 0)
+                        { 
+
                             Toast.MakeText(this, "Login realizado com sucesso", ToastLength.Short).Show();
                             Intent home = new Intent(this, typeof(ServiceActivity));
                             StartActivity(home);
+
                         }
                         else
                         {
