@@ -18,18 +18,11 @@ namespace BeFreeAPP.Activities
 
         private List<Servico> serviceItens;
         private Context serviceContext;
-        private SlidingTabsFragment.SamplePagerAdapter samplePagerAdapter;
 
         public ServiceAdapter(Context context , List<Servico> itens)
         {
             serviceItens = itens;
             serviceContext = context;
-        }
-
-        public ServiceAdapter(SlidingTabsFragment.SamplePagerAdapter samplePagerAdapter, List<Servico> serviceItens)
-        {
-            this.samplePagerAdapter = samplePagerAdapter;
-            this.serviceItens = serviceItens;
         }
 
         public override int Count
