@@ -6,15 +6,16 @@
     android:minWidth="25px"
     android:minHeight="25px"
     android:weightSum="100">
-    <TextView
-        android:text="SubCategoria"
-        android:layout_width="match_parent"
-        android:layout_weight="25"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtServiceListSubCategoria"
-        android:paddingLeft="5dp"
-        android:paddingBottom="2dp"
-        android:paddingTop="2dp" />
+
+  <TextView
+      android:text="SubCategoria"
+      android:layout_width="match_parent"
+      android:layout_weight="25"
+      android:layout_height="wrap_content"
+      android:id="@+id/txtServiceListSubCategoria"
+      android:paddingLeft="5dp"
+      android:paddingBottom="2dp"
+      android:paddingTop="2dp" />  
     <TextView
         android:text="Titulo"
         android:layout_width="match_parent"

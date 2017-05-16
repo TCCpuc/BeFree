@@ -55,21 +55,10 @@ namespace BeFreeAPP.Activities
                         { 
 
                             Toast.MakeText(this, "Login realizado com sucesso", ToastLength.Short).Show();
+                            Intent home = new Intent(this, typeof(ServiceActivity));
+                            StartActivity(home);
 
-                            SetContentView(Resource.Layout.SlideMain);
-
-                            FragmentTransaction transaction = FragmentManager.BeginTransaction();
-                            SlidingTabsFragment fragment = new SlidingTabsFragment();
-                            transaction.Replace(Resource.Id.sample_content_fragment, fragment);
-                            transaction.Commit();
-
-                        //MUDEI
-                        /*
-                        Intent home = new Intent(this, typeof(SlidingTabsFragment));
-                        StartActivity(home);
-                        */
-
-                    }
+                        }
                         else
                         {
                             Toast.MakeText(this, "Nome do Usuário e/ou Senha invalida(os)", ToastLength.Short).Show();
@@ -83,6 +72,5 @@ namespace BeFreeAPP.Activities
                 string erro = err.Message;
             }
         }
-
     }
 }
