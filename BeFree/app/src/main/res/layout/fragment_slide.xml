@@ -6,23 +6,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="tcc.befree.Main2Activity$PlaceholderFragment">
+    tools:context="tcc.befree.SlideActivity$PlaceholderFragment">
 
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/section_label"
-        android:layout_marginLeft="80dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="80dp"
-        android:layout_toEndOf="@+id/section_label"
-        android:layout_toRightOf="@+id/section_label"
-        android:text="TESTE" />
 
 </RelativeLayout>

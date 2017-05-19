@@ -19,7 +19,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,10 +37,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import tcc.befree.models.Usuarios;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -158,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void attemptLogin() {
 
-        Intent intent = new Intent(this,Main2Activity.class);
+        Intent intent = new Intent(this,SlideActivity.class);
         startActivity(intent);
 
         if (mAuthTask != null) {
