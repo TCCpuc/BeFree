@@ -22,4 +22,39 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_slide">Slide</string>
+
+    <string-array name="Planets">
+        <item>Sun</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+    <string-array name="Bolas">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+        <item>7</item>
+    </string-array>
 </resources>
