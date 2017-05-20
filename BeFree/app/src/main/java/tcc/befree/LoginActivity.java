@@ -29,14 +29,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.jalasoft.net.http.HttpClient;
+import tcc.befree.models.Usuarios;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -61,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private ArrayList<Usuarios> usuarios = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -153,8 +168,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void attemptLogin() {
 
-        Intent intent = new Intent(this,SlideActivity.class);
-        startActivity(intent);
+
 
         if (mAuthTask != null) {
             return;
@@ -200,6 +214,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
+
+        Intent intent = new Intent(this,SlideActivity.class);
+        startActivity(intent);
     }
 
     private boolean isEmailValid(String email) {
@@ -291,7 +308,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -320,39 +336,44 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+            Gson g = new Gson();
+            Usuarios usuario = null;
+            try{
+                JSONArray jsonArray = getJSONObjectFromURL("http://befree.somee.com/BeFreeAPI/api/Usuarios");
 
-            StringBuilder result = new StringBuilder();
+                for (int i = 0; i < jsonArray.length();i++){
+                    JSONObject jSonObject = jsonArray.getJSONObject(i);
+
+                    int idUsuario = jSonObject.getInt("idUsuario");
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            /*StringBuilder stringBuilder = new StringBuilder();
+            String line;
 
             try {
+
                 URL url = new URL("http://befree.somee.com/BeFreeAPI/api/Usuarios");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-            }catch (Exception err){
-
-                String erro = err.getMessage();
-            }
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
 
-            /*try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                while ((line = bufferedReader.readLine()) != null)
+                    stringBuilder.append(line).append("\n");
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
+                bufferedReader.close();
+                //return stringBuilder.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }*/
 
             // TODO: register the new account here.
@@ -377,6 +398,45 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+
+        public JSONArray getJSONObjectFromURL(String urlString) throws IOException, JSONException {
+
+            Gson g = new Gson();
+            HttpURLConnection urlConnection = null;
+
+            //HttpResponse teste = null;
+            URL url = new URL(urlString);
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+
+            urlConnection.setDoOutput(true);
+
+            urlConnection.connect();
+
+            BufferedReader br=new BufferedReader(new InputStreamReader(url.openStream()));
+
+            char[] buffer = new char[1024];
+
+            String jsonString = new String();
+
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line+"\n");
+            }
+            br.close();
+
+            jsonString = sb.toString();
+
+            System.out.println("JSON: " + jsonString);
+
+            return new JSONArray(jsonString);
+        }
+
     }
 }
 
