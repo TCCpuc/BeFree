@@ -7,10 +7,10 @@
     tools:context="tcc.befree.AnuncioActivity">
 
     <RelativeLayout
-        android:layout_width="389dp"
-        android:layout_height="500dp"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="5dp">
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <TextView
             android:id="@+id/txtNome"
@@ -39,36 +39,36 @@
             android:id="@+id/btnDenunciar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnFalarComAnunciante"
+            android:layout_alignEnd="@+id/txtNome"
+            android:layout_alignRight="@+id/txtNome"
             android:text="Denunciar"
             tools:layout_editor_absoluteX="76dp"
-            tools:layout_editor_absoluteY="447dp"
-            android:layout_alignBottom="@+id/btnFalarComAnunciante"
-            android:layout_alignRight="@+id/txtNome"
-            android:layout_alignEnd="@+id/txtNome" />
+            tools:layout_editor_absoluteY="447dp" />
 
         <Button
             android:id="@+id/btnFalarComAnunciante"
             android:layout_width="170dp"
             android:layout_height="72dp"
+            android:layout_alignEnd="@+id/txtDescricao"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/txtDescricao"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="11dp"
             android:layout_marginRight="11dp"
             android:text="Falar com anunciante"
             tools:layout_editor_absoluteX="178dp"
-            tools:layout_editor_absoluteY="433dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/txtDescricao"
-            android:layout_alignEnd="@+id/txtDescricao" />
+            tools:layout_editor_absoluteY="433dp" />
 
         <TextView
             android:id="@+id/txtCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="87dp"
-            android:text="Categoria"
-            android:layout_below="@+id/txtNome"
             android:layout_alignLeft="@+id/txtNome"
-            android:layout_alignStart="@+id/txtNome" />
+            android:layout_alignStart="@+id/txtNome"
+            android:layout_below="@+id/txtNome"
+            android:layout_marginTop="87dp"
+            android:text="Categoria" />
 
         <TextView
             android:id="@+id/txtSubCategoria"
