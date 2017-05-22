@@ -37,11 +37,7 @@
             android:name=".SlideActivity"
             android:label="@string/title_activity_slide"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AnuncioActivity" />
-        <activity
-            android:name=".models.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AnuncioActivity"></activity>
     </application>
 
 </manifest>
