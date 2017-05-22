@@ -7,7 +7,7 @@ package tcc.befree.models;
 public class Busca {
     public int idBusca;
     public String titulo;
-    public String descricao ;
+    public String descricao;
     public int idUsuario;
     public int idSubCategoria;
     public int idStatus;

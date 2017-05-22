@@ -1,12 +1,5 @@
 <resources>
 
-    <style name="ThemeTwo" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorSplash</item>
-        <item name="colorPrimaryDark">@color/colorSplash</item>
-        <item name="colorAccent">@color/colorSplash</item>
-    </style>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -15,13 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <color name="color_green">#33ff33</color>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

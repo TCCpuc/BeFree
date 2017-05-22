@@ -18,14 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SlideActivity extends AppCompatActivity {
@@ -67,6 +64,8 @@ public class SlideActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(SlideActivity.this,AnuncioActivity.class);
+                startActivity(intent);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -133,15 +132,15 @@ public class SlideActivity extends AppCompatActivity {
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
 
-
                 ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
-                    R.array.Planets, android.R.layout.simple_list_item_1);
+                        R.array.Planets, android.R.layout.simple_list_item_1);
 
                 ListView ls = (ListView) rootView.findViewById(R.id.list);
                 ls.setAdapter(adapter);
 
 
-            System.out.println(R.array.Planets+ "  MAE EU TE AMO " + getArguments().getInt(ARG_SECTION_NUMBER + "   "));
+
+            System.out.println("MAE EU TE AMO" + getArguments().getInt(ARG_SECTION_NUMBER));
 
 
             return rootView;
