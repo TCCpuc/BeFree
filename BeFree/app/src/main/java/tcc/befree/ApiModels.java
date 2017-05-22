@@ -126,7 +126,7 @@ public class ApiModels implements Runnable{
         Servico servico = new Servico();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicoes/"+id;
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicos/"+id;
 
             Thread thread = new Thread(this);
             thread.start();
