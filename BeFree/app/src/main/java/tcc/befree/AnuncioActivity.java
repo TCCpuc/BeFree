@@ -10,13 +10,19 @@ public class AnuncioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
+        
+        int id = '1';//TEM QUE RECEBER AQUI O ID DO ITEM SELECIONADO
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
 
-        ((TextView)findViewById(getResources().getIdentifier("txtNome", "id", getPackageName()))).setText("a");
-        ((TextView)findViewById(getResources().getIdentifier("txtDescricao", "id", getPackageName()))).setText("a");
-        ((TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText("a");
-        ((TextView)findViewById(getResources().getIdentifier("txtCategoria", "id", getPackageName()))).setText("a");
-        ((TextView)findViewById(getResources().getIdentifier("txtSubCategoria", "id", getPackageName()))).setText("a");
+        ApiModels conexao = new ApiModels();
+
+        ((TextView)findViewById(getResources().getIdentifier("txtNome", "id", getPackageName()))).setText(conexao.getServicosById(id).idServico);
+        ((TextView)findViewById(getResources().getIdentifier("txtDescricao", "id", getPackageName()))).setText(conexao.getServicosById(id).descricao);
+//        ((TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText(conexao.getServicosById(id).);
+//        ((TextView)findViewById(getResources().getIdentifier("txtCategoria", "id", getPackageName()))).setText(conexao.getServicosById(id).);
+//        ((TextView)findViewById(getResources().getIdentifier("txtSubCategoria", "id", getPackageName()))).setText(conexao.getServicosById(id).);
     }
 }

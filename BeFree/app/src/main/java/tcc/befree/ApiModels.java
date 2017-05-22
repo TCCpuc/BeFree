@@ -121,12 +121,12 @@ public class ApiModels implements Runnable{
     }
 
     //Retorna Servicos pelo id
-    public Servico getServicosById(){
+    public Servico getServicosById(int id){
 
         Servico servico = new Servico();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicoes";
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicoes/"+id;
 
             Thread thread = new Thread(this);
             thread.start();
