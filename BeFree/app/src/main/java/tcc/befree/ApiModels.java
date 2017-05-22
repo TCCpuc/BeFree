@@ -153,28 +153,7 @@ public class ApiModels implements Runnable{
         return arrayBuscas;
     }
 
-    private boolean getJson(final String urlString) {
-        // Toda chamada externa necessita rodar em background, então utilizamos thread
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                }
-            }
-
-        }).start();*/
-        return true;
-    }
-
-    private void setJsonArray(JSONArray param){
-        this.jSonArray = param;
-    }
-
-    public JSONObject postJSONObjectFromURL(){
-
-        return null;
-    }
-
+    //Verifica se a thread foi executada com sucesso para executar proxima
     private void controlaThread(){
         for(;;){
             if (semaforo)
