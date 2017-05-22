@@ -5,13 +5,10 @@ package tcc.befree.models;
  */
 
 public class Busca {
-    public String nome;
-    public String categoria ;
-    public String subcategoria ;
-    public String cidade ;
-    public String bairro ;
+    public int idBusca;
+    public String titulo;
     public String descricao ;
-    public int id_busca ;
-    public long cpf ;
-    public boolean status ;
+    public int idUsuario;
+    public int idSubCategoria;
+    public int idStatus;
 }

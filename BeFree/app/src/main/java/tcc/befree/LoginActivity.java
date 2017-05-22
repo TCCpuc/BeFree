@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,11 +72,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
-    private ArrayList<Usuarios> usuarios = null;
+
+    private ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
+    private Usuarios usuario = new Usuarios();
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -168,12 +167,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void attemptLogin() {
 
-
-
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -186,7 +179,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        /*if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -201,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
-        }*/
+        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -210,13 +203,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            //showProgress(true);
+            ApiModels api = new ApiModels();
+
+            usuario = api.getUsuariosByEmail(email);
+            if (!(validaUsuario(usuario,email,password))) {
+                focusView = mEmailView;
+                focusView.requestFocus();
+            }
+            else {
+                Intent intent = new Intent(this, SlideActivity.class);
+                startActivity(intent);
+            }
+        }
+    }
+
+    public boolean validaUsuario(Usuarios usuarioValida, String email, String senha){
+
+        if (usuarioValida != null) {
+            if(usuarioValida.email == null) {
+                mEmailView.setError("Email inválido");
+                return false;
+            }
+            if(usuarioValida.senha == null){
+                mPasswordView.setError("Senha inválida");
+                return false;
+            }
+            if(!(usuarioValida.email.toString().equals(email.toString()))){
+                mEmailView.setError("Email inválido");
+                return false;
+            }
+            if(!(usuarioValida.senha.toString().equals(senha.toString()))){
+                mPasswordView.setError("Senha inválida");
+                return false;
+            }
+        }
+        else {
+            mEmailView.setError("Email inválido");
+            return false;
         }
 
-        Intent intent = new Intent(this,SlideActivity.class);
-        startActivity(intent);
+        return true;
+
     }
 
     private boolean isEmailValid(String email) {
@@ -226,7 +254,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     /**
@@ -318,125 +346,5 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            Gson g = new Gson();
-            Usuarios usuario = null;
-            try{
-                JSONArray jsonArray = getJSONObjectFromURL("http://befree.somee.com/BeFreeAPI/api/Usuarios");
-
-                for (int i = 0; i < jsonArray.length();i++){
-                    JSONObject jSonObject = jsonArray.getJSONObject(i);
-
-                    int idUsuario = jSonObject.getInt("idUsuario");
-
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            /*StringBuilder stringBuilder = new StringBuilder();
-            String line;
-
-            try {
-
-                URL url = new URL("http://befree.somee.com/BeFreeAPI/api/Usuarios");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-
-                while ((line = bufferedReader.readLine()) != null)
-                    stringBuilder.append(line).append("\n");
-
-                bufferedReader.close();
-                //return stringBuilder.toString();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-
-        public JSONArray getJSONObjectFromURL(String urlString) throws IOException, JSONException {
-
-            Gson g = new Gson();
-            HttpURLConnection urlConnection = null;
-
-            //HttpResponse teste = null;
-            URL url = new URL(urlString);
-
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
-
-            urlConnection.setDoOutput(true);
-
-            urlConnection.connect();
-
-            BufferedReader br=new BufferedReader(new InputStreamReader(url.openStream()));
-
-            char[] buffer = new char[1024];
-
-            String jsonString = new String();
-
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line+"\n");
-            }
-            br.close();
-
-            jsonString = sb.toString();
-
-            System.out.println("JSON: " + jsonString);
-
-            return new JSONArray(jsonString);
-        }
-
-    }
 }
 
