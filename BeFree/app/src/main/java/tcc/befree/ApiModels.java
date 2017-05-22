@@ -120,6 +120,38 @@ public class ApiModels implements Runnable{
         return arrayServicos;
     }
 
+    //Retorna Servicos pelo id
+    public Servico getServicosById(){
+
+        Servico servico = new Servico();
+
+        try{
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicoes";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+
+                servico.idServico = jSonObject.getInt("idServico");
+                servico.titulo = jSonObject.getString("titulo");
+                servico.descricao = jSonObject.getString("descricao");
+                servico.idUsuario = jSonObject.getInt("idUsuario");
+                servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                servico.idStatus = jSonObject.getInt("idStatus");
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return servico;
+    }
+
     //Retorna todas as Buscas
     public ArrayList<Busca> getBuscas(){
 
