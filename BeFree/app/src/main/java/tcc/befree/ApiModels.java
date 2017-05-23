@@ -29,6 +29,8 @@ public class ApiModels implements Runnable{
     private boolean semaforo;
     private String urlAPI = "";
 
+
+    /* ---------------------------------- MÉTODOS DE USUÁRIOS ----------------------------------- */
     //Retorna todos os Usuários
     final public ArrayList<Usuarios> getUsuarios(){
 
@@ -86,6 +88,13 @@ public class ApiModels implements Runnable{
         return  usuario;
     }
 
+    public boolean postUsuario(Usuarios usuario){
+
+
+        return true;
+    }
+
+    /* ---------------------------------- MÉTODOS DE SERVIÇO ----------------------------------- */
     //Retorna todos os Servicos
     public ArrayList<Servico> getServicos(){
 
@@ -126,7 +135,7 @@ public class ApiModels implements Runnable{
         Servico servico = new Servico();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicoes/"+id;
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GetServico/"+id;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -152,6 +161,7 @@ public class ApiModels implements Runnable{
         return servico;
     }
 
+    /* ---------------------------------- MÉTODOS DE BUSCAS ----------------------------------- */
     //Retorna todas as Buscas
     public ArrayList<Busca> getBuscas(){
 
@@ -185,6 +195,8 @@ public class ApiModels implements Runnable{
         return arrayBuscas;
     }
 
+
+    /* ----------------------------------------------------------------------------------------- */
     //Verifica se a thread foi executada com sucesso para executar proxima
     private void controlaThread(){
         for(;;){

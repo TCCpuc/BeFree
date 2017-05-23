@@ -26,10 +26,18 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Servico))]
         public IHttpActionResult GetServico(int id)
         {
-            Servico servico = db.tbServicoes.Find(id);
-            if (servico == null)
+            Servico servico = null;
+            try
             {
-                return NotFound();
+                servico = db.tbServicoes.Find(id);
+                if (servico == null)
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception err)
+            {
+                string erro = err.Message;
             }
 
             return Ok(servico); 

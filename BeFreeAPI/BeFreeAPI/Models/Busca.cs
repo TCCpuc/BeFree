@@ -10,23 +10,16 @@ namespace BeFreeAPI.Models
     public partial class Busca
     {
         [Key]
-        [Column(Order = 0)]
         public int idBusca { get; set; }
 
         [StringLength(100)]
         public string titulo { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         public string descricao { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idUsuario { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idSubCategoria { get; set; }
 

@@ -10,11 +10,8 @@ namespace BeFreeAPI.Models
     public partial class Categoria
     {
         [Key]
-        [Column(Order = 0)]
         public int idCategoria { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         public string descricao { get; set; }
     }
 }

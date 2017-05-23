@@ -10,11 +10,8 @@ namespace BeFreeAPI.Models
     public partial class Cidade
     {
         [Key]
-        [Column(Order = 0)]
         public int idCidade { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         [StringLength(10)]
         public string codMunicipio { get; set; }
 
