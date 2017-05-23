@@ -26,7 +26,7 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Busca))]
         public IHttpActionResult GetBusca(int id)
         {
-            Busca busca = db.tbBuscas.Find(id);
+            List<Busca> busca = db.tbBuscas.Where(b => b.idBusca == id).ToList();
             if (busca == null)
             {
                 return NotFound();
@@ -37,6 +37,7 @@ namespace BeFreeAPI.Controllers
 
         // PUT: api/Busca/5
         [ResponseType(typeof(void))]
+        [HttpPost]
         public IHttpActionResult PutBusca(int id, Busca busca)
         {
             if (!ModelState.IsValid)

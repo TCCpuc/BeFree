@@ -24,8 +24,10 @@ import tcc.befree.models.*;
 
 public class ApiModels implements Runnable{
 
-    //Json que será retornado para prencher model
-    private JSONArray jSonArray;
+
+    private JSONArray jSonArray; //Se for retornado mais de um elemento grava num array
+    private JSONObject jSonObject; //Se retornado apenas um elemento, retorna um unico objeto
+    private int tipoRetornoThread; //Se o
     private boolean semaforo;
     private String urlAPI = "";
 
@@ -135,7 +137,7 @@ public class ApiModels implements Runnable{
         Servico servico = new Servico();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GetServico/"+id;
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GetServico/" + id;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -233,6 +235,7 @@ public class ApiModels implements Runnable{
             semaforo = true;
         }catch (Exception e){
             String erro = e.getMessage();
+            semaforo = true;
         }
     }
 }

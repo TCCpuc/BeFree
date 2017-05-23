@@ -27,7 +27,7 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Usuario))]
         public IHttpActionResult GetUsuario(int id)
         {
-            Usuario usuario = db.tbUsuarios.Find(id);
+            List<Usuario> usuario = db.tbUsuarios.Where(u => u.idUsuario == id).ToList();
             if (usuario == null)
             {
                 return NotFound();
@@ -55,6 +55,7 @@ namespace BeFreeAPI.Controllers
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
+        [HttpPost]
         public IHttpActionResult PutUsuario(int id, Usuario usuario)
         {
             if (!ModelState.IsValid)

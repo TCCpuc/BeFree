@@ -25,9 +25,9 @@ namespace BeFreeAPI.Controllers
 
         // GET: api/SubCategoria/5
         [ResponseType(typeof(SubCategoria))]
-        public async Task<IHttpActionResult> GetSubCategoria(int id)
+        public IHttpActionResult GetSubCategoria(int id)
         {
-            SubCategoria subCategoria = await db.tbSubCategorias.FindAsync(id);
+            List<SubCategoria> subCategoria = db.tbSubCategorias.Where(s => s.idSubCategoria == id).ToList();
             if (subCategoria == null)
             {
                 return NotFound();
@@ -38,7 +38,8 @@ namespace BeFreeAPI.Controllers
 
         // PUT: api/SubCategoria/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSubCategoria(int id, SubCategoria subCategoria)
+        [HttpPost]
+        public IHttpActionResult PutSubCategoria(int id, SubCategoria subCategoria)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +55,7 @@ namespace BeFreeAPI.Controllers
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {

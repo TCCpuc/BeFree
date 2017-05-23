@@ -10,7 +10,6 @@ namespace BeFreeAPI.Models
     public partial class Estado
     {
         [Key]
-        [Column(Order = 0)]
         public int idEstado { get; set; }
 
         [StringLength(10)]

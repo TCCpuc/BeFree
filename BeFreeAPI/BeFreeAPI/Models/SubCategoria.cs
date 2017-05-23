@@ -10,7 +10,6 @@ namespace BeFreeAPI.Models
     public partial class SubCategoria
     {
         [Key]
-        [Column(Order = 0)]
         public int idSubCategoria { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

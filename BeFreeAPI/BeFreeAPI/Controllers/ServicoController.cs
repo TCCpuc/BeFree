@@ -26,10 +26,10 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Servico))]
         public IHttpActionResult GetServico(int id)
         {
-            Servico servico = null;
+            List<Servico> servico = null;
             try
             {
-                servico = db.tbServicoes.Find(id);
+                servico = db.tbServicoes.Where(s => s.idServico == id).ToList();
                 if (servico == null)
                 {
                     return NotFound();
@@ -44,6 +44,7 @@ namespace BeFreeAPI.Controllers
         }
 
         // PUT: api/Servico/5
+        [HttpPost]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutServico(int id, Servico servico)
         {

@@ -17,10 +17,8 @@ namespace BeFreeAPI.Models
 
         public string descricao { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idUsuario { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idSubCategoria { get; set; }
 
         public int? idStatus { get; set; }

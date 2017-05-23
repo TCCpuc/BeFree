@@ -26,7 +26,7 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Categoria))]
         public IHttpActionResult GetCategoria(int id)
         {
-            Categoria categoria = db.tbCategorias.Find(id);
+            List<Categoria> categoria = db.tbCategorias.Where(c => c.idCategoria == id).ToList();
             if (categoria == null)
             {
                 return NotFound();
@@ -37,6 +37,7 @@ namespace BeFreeAPI.Controllers
 
         // PUT: api/Categoria/5
         [ResponseType(typeof(void))]
+        [HttpPost]
         public IHttpActionResult PutCategoria(int id, Categoria categoria)
         {
             if (!ModelState.IsValid)
