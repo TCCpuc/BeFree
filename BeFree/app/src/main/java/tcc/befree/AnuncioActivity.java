@@ -24,6 +24,8 @@ public class AnuncioActivity extends AppCompatActivity {
         ApiModels conexao = new ApiModels();
 
         Servico srv = new Servico();
+        srv = conexao.getServicosById(id);
+
         try {
             ((TextView) findViewById(getResources().getIdentifier("txtNome", "id", getPackageName()))).setText(srv.idServico);
             ((TextView) findViewById(getResources().getIdentifier("txtDescricao", "id", getPackageName()))).setText(srv.descricao);
