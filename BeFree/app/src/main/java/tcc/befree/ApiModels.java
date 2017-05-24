@@ -24,11 +24,15 @@ import tcc.befree.models.*;
 
 public class ApiModels implements Runnable{
 
-    //Json que será retornado para prencher model
-    private JSONArray jSonArray;
+
+    private JSONArray jSonArray; //Se for retornado mais de um elemento grava num array
+    private JSONObject jSonObject; //Se retornado apenas um elemento, retorna um unico objeto
+    private int tipoRetornoThread; //Se o
     private boolean semaforo;
     private String urlAPI = "";
 
+
+    /* ---------------------------------- MÉTODOS DE USUÁRIOS ----------------------------------- */
     //Retorna todos os Usuários
     final public ArrayList<Usuarios> getUsuarios(){
 
@@ -86,6 +90,13 @@ public class ApiModels implements Runnable{
         return  usuario;
     }
 
+    public boolean postUsuario(Usuarios usuario){
+
+
+        return true;
+    }
+
+    /* ---------------------------------- MÉTODOS DE SERVIÇO ----------------------------------- */
     //Retorna todos os Servicos
     public ArrayList<Servico> getServicos(){
 
@@ -126,7 +137,7 @@ public class ApiModels implements Runnable{
         Servico servico = new Servico();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicos/"+id;
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GetServico/" + id;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -152,6 +163,7 @@ public class ApiModels implements Runnable{
         return servico;
     }
 
+    /* ---------------------------------- MÉTODOS DE BUSCAS ----------------------------------- */
     //Retorna todas as Buscas
     public ArrayList<Busca> getBuscas(){
 
@@ -185,6 +197,8 @@ public class ApiModels implements Runnable{
         return arrayBuscas;
     }
 
+
+    /* ----------------------------------------------------------------------------------------- */
     //Verifica se a thread foi executada com sucesso para executar proxima
     private void controlaThread(){
         for(;;){
@@ -221,6 +235,7 @@ public class ApiModels implements Runnable{
             semaforo = true;
         }catch (Exception e){
             String erro = e.getMessage();
+            semaforo = true;
         }
     }
 }

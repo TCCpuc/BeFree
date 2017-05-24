@@ -20,16 +20,10 @@ namespace BeFreeAPI
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            /*config.Routes.MapHttpRoute(
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );*/
-
-            config.Routes.MapHttpRoute(
-                "DefaultApi",
-                "api/{controller}/{action}/{id}",
-                new { id = RouteParameter.Optional }
             );
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }

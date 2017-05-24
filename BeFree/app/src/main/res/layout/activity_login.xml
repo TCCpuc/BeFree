@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,9 +9,48 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="tcc.befree.LoginActivity">
+    tools:context="tcc.befree.LoginActivity"
+    android:weightSum="1">
 
     <!-- Login progress -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnFacebook"
+            android:layout_width="338dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="7dp"
+            android:background="#191970"
+            android:text="Entrar com facebook"
+            android:textColor="#ffff"
+            android:layout_above="@+id/lblOu"
+            android:layout_alignRight="@+id/firstDivider"
+            android:layout_alignEnd="@+id/firstDivider" />
+
+
+        <View
+            android:id="@+id/firstDivider"
+            android:layout_width="346dp"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:background="#D3D3D3" />
+
+        <TextView
+            android:id="@+id/lblOu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/firstDivider"
+            android:layout_centerHorizontal="true"
+            android:text="ou"
+            android:textSize="22dp" />
+
+    </RelativeLayout>
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -22,7 +62,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="182dp">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -53,7 +93,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:hint="Senha"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -72,6 +112,41 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
+
         </LinearLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="376dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.91">
+
+        <TextView
+            android:id="@+id/lblPergunta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnCriaCadastro"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@+id/btnCriaCadastro"
+            android:layout_toStartOf="@+id/btnCriaCadastro"
+            android:text="Não possui cadastro?"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/btnCriaCadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="54dp"
+            android:layout_marginRight="54dp"
+            android:layout_marginTop="6dp"
+            android:text="Cadastre-se"
+            android:textColor="#0000FF"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
 </LinearLayout>

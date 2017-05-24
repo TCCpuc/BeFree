@@ -9,7 +9,6 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BeFreeAPI.Models;
-using System.Data.SqlClient;
 
 namespace BeFreeAPI.Controllers
 {
@@ -35,23 +34,6 @@ namespace BeFreeAPI.Controllers
 
             return Ok(usuario);
         }
-
-        
-        // GET: api/Usuarios/[nome ou email]
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult GetUsuarioByEmail(string email)
-        {
-
-            var usuario = db.tbUsuarios.Where(u => u.email == email);//db.tbUsuarios.SqlQuery(query, parameters);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(usuario);
-        }
-
-    
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
