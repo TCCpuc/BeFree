@@ -21,8 +21,7 @@ public class AnuncioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
-        int id = 1;//TEM QUE RECEBER AQUI O ID DO ITEM SELECIONADO
-
+        int id = getIntent().getIntExtra("id",0);
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);

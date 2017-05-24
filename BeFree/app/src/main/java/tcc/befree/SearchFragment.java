@@ -38,22 +38,27 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
         /*Busca busca1 = new Busca();
         busca1.titulo = "Joao";
+        busca1.idBusca = 1;
         busca1.descricao = "Preciso de um pintor";
 
         Busca busca2 = new Busca();
         busca2.titulo = "Pedro";
+        busca2.idBusca = 2;
         busca2.descricao = "Preciso de um encanador";
 
         Busca busca3 = new Busca();
         busca3.titulo = "Tiago";
+        busca3.idBusca = 3;
         busca3.descricao = "Preciso de um calheiro";
 
         Busca busca4 = new Busca();
         busca4.titulo = "Bruno";
+        busca4.idBusca = 4;
         busca4.descricao = "Preciso de um computeiro";
 
         Busca busca5 = new Busca();
         busca5.titulo = "Maria";
+        busca5.idBusca = 5;
         busca5.descricao = "Preciso de ajuda";
 
         searchs.add(busca1);
@@ -68,16 +73,15 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);
-
         return rootView;
     }
 
     @Override
     public void onClick(Busca busca) {
         Bundle bundle = new Bundle();
-
-        // http://www.guj.com.br/t/android-utilizar-dados-entre-varias-telas-bundle-intent/246395
-
-        Toast.makeText(getContext(), "Oi, eu sou o " + busca.titulo, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), AnuncioActivity.class);
+        int id = busca.idBusca;
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }
