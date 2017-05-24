@@ -12,10 +12,16 @@ import tcc.befree.models.Servico;
 
 public class AnuncioActivity extends AppCompatActivity {
 
+    private void setText(String campo, String valor){
+        int busca = getResources().getIdentifier(campo, "id", getPackageName());
+        TextView elemento = (TextView) findViewById(busca);
+        elemento.setText(valor);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
-        int id = 1002;//TEM QUE RECEBER AQUI O ID DO ITEM SELECIONADO
+        int id = 1;//TEM QUE RECEBER AQUI O ID DO ITEM SELECIONADO
 
         
         super.onCreate(savedInstanceState);
@@ -27,11 +33,15 @@ public class AnuncioActivity extends AppCompatActivity {
         srv = conexao.getServicosById(id);
 
         try {
-            ((TextView) findViewById(getResources().getIdentifier("txtNome", "id", getPackageName()))).setText(srv.idServico);
-            ((TextView) findViewById(getResources().getIdentifier("txtDescricao", "id", getPackageName()))).setText(srv.descricao);
-//        ((TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText(conexao.getServicosById(id).);
-//        ((TextView)findViewById(getResources().getIdentifier("txtCategoria", "id", getPackageName()))).setText(conexao.getServicosById(id).);
-//        ((TextView)findViewById(getResources().getIdentifier("txtSubCategoria", "id", getPackageName()))).setText(conexao.getServicosById(id).);
+            setText("txtNome", (new Integer(srv.idServico)).toString());
+            setText("txtDescricao", (String) srv.descricao);
+
+    //     (TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText(conexao.getServicosById(id).);
+//            setText("txtCidade", (String) srv.descricao);
+////        ((TextView)findViewById(getResources().getIdentifier("txtCategoria", "id", getPackageName()))).setText(conexao.getServicosById(id).);
+//            setText("txtCategoria", (String) srv.descricao);
+////        ((TextView)findViewById(getResources().getIdentifier("txtSubCategoria", "id", getPackageName()))).setText(conexao.getServicosById(id).);
+//            setText("txtSubCategoria", (String) srv.descricao);
         }catch (Exception e){
             String erro = e.getMessage();
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();

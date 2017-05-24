@@ -377,3 +377,4 @@ google-services.json
 
 # End of https://www.gitignore.io/api/androidstudio
 BeFree/.idea/misc.xml
+*.xml___jb_tmp___
