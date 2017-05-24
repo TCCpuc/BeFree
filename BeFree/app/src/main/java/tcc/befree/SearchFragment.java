@@ -33,7 +33,10 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
         ArrayList<Busca> searchs = new ArrayList<>();
 
-        Busca busca1 = new Busca();
+        ApiModels api = new ApiModels();
+        searchs = api.getBuscas();
+
+        /*Busca busca1 = new Busca();
         busca1.titulo = "Joao";
         busca1.descricao = "Preciso de um pintor";
 
@@ -58,6 +61,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         searchs.add(busca3);
         searchs.add(busca4);
         searchs.add(busca5);
+        */
 
 
         SearchAdapter adapter = new SearchAdapter(getContext(), searchs, this);
