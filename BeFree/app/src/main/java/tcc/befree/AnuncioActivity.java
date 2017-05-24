@@ -12,7 +12,7 @@ public class AnuncioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         
         
-        int id = '1';//TEM QUE RECEBER AQUI O ID DO ITEM SELECIONADO
+        int id = 1002;//TEM QUE RECEBER AQUI O ID DO ITEM SELECIONADO
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
