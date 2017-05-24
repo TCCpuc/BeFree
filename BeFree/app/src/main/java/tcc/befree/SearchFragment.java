@@ -27,8 +27,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
 
 
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText("Busca");
+        //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+        //textView.setText("Busca");
 
 
         ArrayList<Busca> searchs = new ArrayList<>();

@@ -22,8 +22,8 @@ public class ServiceFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
 
 
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText("Serviço");
+        //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+        //textView.setText("Serviço");
 
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
