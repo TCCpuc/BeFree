@@ -14,6 +14,14 @@
 
     <!-- Login progress -->
 
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -22,13 +30,13 @@
             android:id="@+id/btnFacebook"
             android:layout_width="338dp"
             android:layout_height="40dp"
+            android:layout_above="@+id/lblOu"
+            android:layout_alignEnd="@+id/firstDivider"
+            android:layout_alignRight="@+id/firstDivider"
             android:layout_marginBottom="7dp"
             android:background="#191970"
             android:text="Entrar com facebook"
-            android:textColor="#ffff"
-            android:layout_above="@+id/lblOu"
-            android:layout_alignRight="@+id/firstDivider"
-            android:layout_alignEnd="@+id/firstDivider" />
+            android:textColor="#ffff" />
 
 
         <View
@@ -50,14 +58,6 @@
             android:textSize="22dp" />
 
     </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/login_form"
@@ -85,10 +85,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
@@ -101,15 +97,13 @@
                     android:maxLines="1"
                     android:singleLine="true" />
 
-            </android.support.design.widget.TextInputLayout>
-
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
+                android:text="Entrar"
                 android:textStyle="bold" />
 
 
@@ -125,9 +119,10 @@
             android:id="@+id/lblPergunta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btnCriaCadastro"
-            android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
             android:layout_toLeftOf="@+id/btnCriaCadastro"
             android:layout_toStartOf="@+id/btnCriaCadastro"
             android:text="Não possui cadastro?"
@@ -137,12 +132,11 @@
             android:id="@+id/btnCriaCadastro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/lblPergunta"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="54dp"
-            android:layout_marginRight="54dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
             android:text="Cadastre-se"
             android:textColor="#0000FF"
             android:textSize="20dp" />
