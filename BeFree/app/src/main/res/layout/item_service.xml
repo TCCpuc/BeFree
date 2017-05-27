@@ -4,27 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="14dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="63dp"
+        android:layout_weight="0.15">
+
 
         <ImageView
-            android:layout_width="22dp"
+            android:id="@+id/img_anuncio"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:scaleType="centerInside"
             android:layout_gravity="center"
-            android:src="@drawable/ic_menu_send" />
+            android:scaleType="centerInside"
+            android:src="@mipmap/pedreiro_perfil"/>
 
         <TextView
             android:id="@+id/item_service_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_gravity="left"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/img_anuncio"
+            android:layout_toRightOf="@+id/img_anuncio"
             android:textSize="14sp"
             tools:text="Pedreiro" />
 
@@ -33,12 +40,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginLeft="14dp"
             android:ellipsize="end"
             android:textSize="14sp"
-            tools:text="Preciso de pedreiro!" />
+            tools:text="Preciso de pedreiro!"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/item_service_title"
+            android:layout_alignStart="@+id/item_service_title" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
