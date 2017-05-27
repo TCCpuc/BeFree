@@ -36,39 +36,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         ApiModels api = new ApiModels();
         searchs = api.getBuscas();
 
-        /*Busca busca1 = new Busca();
-        busca1.titulo = "Joao";
-        busca1.idBusca = 1;
-        busca1.descricao = "Preciso de um pintor";
-
-        Busca busca2 = new Busca();
-        busca2.titulo = "Pedro";
-        busca2.idBusca = 2;
-        busca2.descricao = "Preciso de um encanador";
-
-        Busca busca3 = new Busca();
-        busca3.titulo = "Tiago";
-        busca3.idBusca = 3;
-        busca3.descricao = "Preciso de um calheiro";
-
-        Busca busca4 = new Busca();
-        busca4.titulo = "Bruno";
-        busca4.idBusca = 4;
-        busca4.descricao = "Preciso de um computeiro";
-
-        Busca busca5 = new Busca();
-        busca5.titulo = "Maria";
-        busca5.idBusca = 5;
-        busca5.descricao = "Preciso de ajuda";
-
-        searchs.add(busca1);
-        searchs.add(busca2);
-        searchs.add(busca3);
-        searchs.add(busca4);
-        searchs.add(busca5);
-        */
-
-
         SearchAdapter adapter = new SearchAdapter(getContext(), searchs, this);
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
