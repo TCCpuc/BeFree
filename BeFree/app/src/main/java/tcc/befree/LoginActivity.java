@@ -216,7 +216,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 focusView.requestFocus();
             }
             else {
-                Intent intent = new Intent(this, SlideActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }
         }
