@@ -36,6 +36,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         ApiModels api = new ApiModels();
         searchs = api.getBuscas();
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 92c15cffec32aab12179cd20fd9cb2b6324d030c
         SearchAdapter adapter = new SearchAdapter(getContext(), searchs, this);
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
