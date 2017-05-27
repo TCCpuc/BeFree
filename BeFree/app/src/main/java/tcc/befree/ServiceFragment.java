@@ -1,5 +1,6 @@
 package tcc.befree;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -88,10 +89,10 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
     @Override
     public void onClick(Servico servico) {
         Bundle bundle = new Bundle();
-
-        // http://www.guj.com.br/t/android-utilizar-dados-entre-varias-telas-bundle-intent/246395
-
-        Toast.makeText(getContext(), "Oi, eu sou o " + servico.titulo, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);
+        int id = servico.idServico;
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 
 }

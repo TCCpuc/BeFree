@@ -28,7 +28,8 @@
             android:name=".SlideActivity"
             android:label="@string/title_activity_slide"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AnuncioActivity" />
+        <activity android:name=".AnuncioBuscaActivity" />
+        <activity android:name=".AnuncioServicoActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">

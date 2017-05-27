@@ -1,20 +1,17 @@
 package tcc.befree;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import tcc.befree.models.Servico;
 
-public class AnuncioActivity extends AppCompatActivity {
+public class AnuncioServicoActivity extends AppCompatActivity {
 
     private void setText(String campo, String valor){
-        int busca = getResources().getIdentifier(campo, "id", getPackageName());
-        TextView elemento = (TextView) findViewById(busca);
+        int Servico = getResources().getIdentifier(campo, "id", getPackageName());
+        TextView elemento = (TextView) findViewById(Servico);
         elemento.setText(valor);
     }
 
