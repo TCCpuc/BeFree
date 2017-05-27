@@ -21,8 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+    implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -38,13 +37,19 @@ public class MainActivity extends AppCompatActivity
         ab.setDisplayHomeAsUpEnabled(true);
 
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //----------------
-                Intent intent = new Intent(MainActivity.this, AnuncioActivity.class);
-                //----------------
+                Intent intent;
+                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                if (tabLayout.getSelectedTabPosition() == 0) {
+                    intent = new Intent(MainActivity.this, CreateServicoActivity.class);
+                }
+                else{
+                    intent = new Intent(MainActivity.this, CreateBuscaActivity.class);
+                }
                 startActivity(intent);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
