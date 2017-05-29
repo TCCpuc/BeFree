@@ -197,6 +197,33 @@ public class ApiModels implements Runnable{
         return arrayBuscas;
     }
 
+    public Busca getBuscaByID(int id){
+
+        Busca busca = new Busca();
+        try{
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Busca/GetBusca/" + id;
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+                JSONObject jSonObject = jSonArray.getJSONObject(0);
+
+
+                busca.idBusca = jSonObject.getInt("idBusca");
+                busca.titulo = jSonObject.getString("titulo");
+                busca.descricao = jSonObject.getString("descricao");
+                busca.idUsuario = jSonObject.getInt("idUsuario");
+                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                busca.idStatus = jSonObject.getInt("idStatus");
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return busca;
+    }
 
     /* ----------------------------------------------------------------------------------------- */
     //Verifica se a thread foi executada com sucesso para executar proxima

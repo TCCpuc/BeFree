@@ -12,18 +12,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SlideActivity extends AppCompatActivity {
 
@@ -67,7 +58,7 @@ public class SlideActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //----------------
-                Intent intent = new Intent(SlideActivity.this, AnuncioActivity.class);
+                Intent intent = new Intent(SlideActivity.this, AnuncioBuscaActivity.class);
                 //----------------
                 startActivity(intent);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
