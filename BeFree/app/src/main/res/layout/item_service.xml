@@ -13,7 +13,6 @@
         android:layout_height="63dp"
         android:layout_weight="0.15">
 
-
         <ImageView
             android:id="@+id/img_anuncio"
             android:layout_width="60dp"
