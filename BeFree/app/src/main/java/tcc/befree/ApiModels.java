@@ -225,6 +225,96 @@ public class ApiModels implements Runnable{
         return busca;
     }
 
+    /* ---------------------------------- MÉTODOS DE CATEGORIAS ----------------------------------- */
+    //Retorna todas as categorias
+    final public ArrayList<Categoria> getCategorias(){
+
+        ArrayList<Categoria> arrayCategorias= new ArrayList<Categoria>();
+
+        try{
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Categoria/gettbCategorias";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Categoria categoria = new Categoria();
+                categoria.idCategoria = jSonObject.getInt("idCategoria");
+                categoria.descricao = jSonObject.getString("desricao");
+                arrayCategorias.add(categoria);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return  arrayCategorias;
+    }
+
+    /* ---------------------------------- MÉTODOS DE SUBCATEGORIAS ----------------------------------- */
+    //Retorna todas as categorias
+    final public ArrayList<SubCategoria> getSubCategorias(){
+
+        ArrayList<SubCategoria> arraySubCategorias= new ArrayList<SubCategoria>();
+
+        try{
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbCategorias";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                SubCategoria subCategoria = new SubCategoria();
+                subCategoria.idCategoria = jSonObject.getInt("idCategoria");
+                subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                subCategoria.descricao = jSonObject.getString("descricao");
+                arraySubCategorias.add(subCategoria);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return  arraySubCategorias;
+    }
+    /* ---------------------------------- MÉTODOS DE DDDS ----------------------------------- */
+    //Retorna todas as categorias
+    final public ArrayList<DDD> getDDDs(){
+
+        ArrayList<DDD> arrayDDDs= new ArrayList<DDD>();
+
+        try{
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbCategorias";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                DDD ddd = new DDD();
+                ddd.id = jSonObject.getInt("idDDD");
+                ddd.descricao = jSonObject.getString("descricao");
+                arrayDDDs.add(ddd);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return  arrayDDDs;
+    }
+
     /* ----------------------------------------------------------------------------------------- */
     //Verifica se a thread foi executada com sucesso para executar proxima
     private void controlaThread(){

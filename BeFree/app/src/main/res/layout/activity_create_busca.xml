@@ -17,9 +17,9 @@
         android:id="@+id/login_form"
         android:layout_width="368dp"
         android:layout_height="182dp"
-        tools:layout_editor_absoluteY="0dp"
+        android:layout_weight="0.89"
         tools:layout_editor_absoluteX="8dp"
-        android:layout_weight="0.89">
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:id="@+id/create_account_form"
@@ -32,28 +32,19 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/nome_create_account"
+                    android:id="@+id/txtNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nome"
+                    android:hint="Nome do anúncio"
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <AutoCompleteTextView
-                    android:id="@+id/cpf_create_account"
+                <Spinner
+                    android:id="@+id/selectCategoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="CPF"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:layout_weight="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -61,14 +52,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView
-                    android:id="@+id/email_create_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             </android.support.design.widget.TextInputLayout>
 
@@ -76,46 +64,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/password_create_account"
+                <Spinner
+                    android:id="@+id/selectSubCategoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Senha"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:layout_weight="1" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/txtDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:hint="Descrição"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/confirm_password_create_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Confirmar Senha"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
             </android.support.design.widget.TextInputLayout>
-
-            <CheckBox
-                android:id="@+id/news_create_account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Gostaria de receber novidades" />
 
             <Button
-                android:id="@+id/button_create_account"
+                android:id="@+id/btnCriar"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

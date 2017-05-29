@@ -61,7 +61,7 @@
             android:layout_alignEnd="@+id/txtDescricao" />
 
         <TextView
-            android:id="@+id/txtCategoria"
+            android:id="@+id/selectCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="87dp"
@@ -76,16 +76,16 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/btnFalarComAnunciante"
             android:layout_alignStart="@+id/btnFalarComAnunciante"
-            android:layout_alignTop="@+id/txtCategoria"
+            android:layout_alignTop="@+id/selectCategoria"
             android:text="SubCategoria" />
 
         <TextView
             android:id="@+id/txtCidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txtCategoria"
-            android:layout_alignStart="@+id/txtCategoria"
-            android:layout_below="@+id/txtCategoria"
+            android:layout_alignLeft="@+id/selectCategoria"
+            android:layout_alignStart="@+id/selectCategoria"
+            android:layout_below="@+id/selectCategoria"
             android:layout_marginTop="46dp"
             android:text="TextView" />
 
