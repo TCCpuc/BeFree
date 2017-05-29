@@ -11,4 +11,5 @@ public class Busca {
     public int idUsuario;
     public int idSubCategoria;
     public int idStatus;
+    public int ddd;
 }

@@ -33,7 +33,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/nome_create_account"
-                    android:layout_width="match_parent"
+                    android:layout_width="317dp"
                     android:layout_height="wrap_content"
                     android:hint="Nome"
                     android:inputType="text"
