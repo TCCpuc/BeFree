@@ -6,14 +6,13 @@ namespace BeFreeAPI.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("tbSubCategoria")]
-    public partial class SubCategoria
+    [Table("tbDDD")]
+    public partial class DDD
     {
         [Key]
-        public int idSubCategoria { get; set; }
+        public int idDDD { get; set; }
 
-        public int idCategoria { get; set; }
-
-        public string descricao { get; set; }
+        [StringLength(3)]
+        public string codDDD { get; set; }
     }
 }

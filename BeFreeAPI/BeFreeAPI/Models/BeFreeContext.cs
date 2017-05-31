@@ -20,6 +20,8 @@ namespace BeFreeAPI.Models
         public virtual DbSet<Servico> tbServicoes { get; set; }
         public virtual DbSet<SubCategoria> tbSubCategorias { get; set; }
 
+        public System.Data.Entity.DbSet<BeFreeAPI.Models.DDD> tbDDDs { get; set; }
+
         /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cidade>()

@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu_default);
         ab.setDisplayHomeAsUpEnabled(true);
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -59,11 +59,27 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        //Instancia menu drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
+
             setupDrawerContent(navigationView);
+
+            //navigationView.setNavigationItemSelectedListener(this);
+            View header = navigationView.getHeaderView(0);
+            /*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+
+            TextView mTextViewNomeUsuario = (TextView)header.findViewById(R.id.nome_usuario_menu);
+            TextView mTextViewEmailUsuario = (TextView)header.findViewById(R.id.email_usuario_menu);
+            String nomeUsuario = getIntent().getStringExtra("nomeUsuario");
+            String emailUsuario = getIntent().getStringExtra("emailUsuario");
+
+            mTextViewNomeUsuario.setText(nomeUsuario);
+            mTextViewEmailUsuario.setText(emailUsuario);
         }
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.container);
@@ -192,6 +208,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

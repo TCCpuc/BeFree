@@ -34,54 +34,10 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
         ApiModels api = new ApiModels();
         searchs = api.getServicos();
 
-        /*Servico servico1 = new Servico();
-        servico1.titulo = "Joao";
-        servico1.descricao = "Preciso de um pintor";
-
-        Servico servico2 = new Servico();
-        servico2.titulo = "Pedro";
-        servico2.descricao = "Preciso de um encanador";
-
-        Servico servico3 = new Servico();
-        servico3.titulo = "Tiago";
-        servico3.descricao = "Preciso de um calheiro";
-
-        Servico servico4 = new Servico();
-        servico4.titulo = "Bruno";
-        servico4.descricao = "Preciso de um computeiro";
-
-        Servico servico5 = new Servico();
-        servico5.titulo = "Maria";
-        servico5.descricao = "Preciso de ajuda";
-
-
-        searchs.add(servico1);
-        searchs.add(servico2);
-        searchs.add(servico3);
-        searchs.add(servico4);
-        searchs.add(servico5);
-        */
-
-
         ServiceAdapter adapter = new ServiceAdapter(getContext(), searchs, this);
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);
-
-
-
-
-
-        /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText("Serviço");
-
-
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.Services, android.R.layout.simple_list_item_1);
-
-        ListView ls = (ListView) rootView.findViewById(R.id.list);
-        ls.setAdapter(adapter);
-        */
 
         return rootView;
     }
