@@ -10,10 +10,10 @@ public class Servico {
     //public string subcategoria ;
     //public string cidade ;
     //public string bairro ;
-    //public string descricao;
     //public int id_servico;
     //public long cpf;
     public int idServico;
+    public int ddd;
     public String titulo;
     public String descricao;
     public int idUsuario;
