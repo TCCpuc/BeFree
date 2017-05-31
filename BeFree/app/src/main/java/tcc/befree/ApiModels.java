@@ -256,13 +256,13 @@ public class ApiModels implements Runnable{
     }
 
     /* ---------------------------------- MÉTODOS DE SUBCATEGORIAS ----------------------------------- */
-    //Retorna todas as categorias
+    //Retorna todas as subcategorias
     final public ArrayList<SubCategoria> getSubCategorias(){
 
         ArrayList<SubCategoria> arraySubCategorias= new ArrayList<SubCategoria>();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbCategorias";
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbSubCategorias";
 
             Thread thread = new Thread(this);
             thread.start();
@@ -286,13 +286,13 @@ public class ApiModels implements Runnable{
         return  arraySubCategorias;
     }
     /* ---------------------------------- MÉTODOS DE DDDS ----------------------------------- */
-    //Retorna todas as categorias
+    //Retorna todas os DDDs
     final public ArrayList<DDD> getDDDs(){
 
         ArrayList<DDD> arrayDDDs= new ArrayList<DDD>();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbCategorias";
+            urlAPI = "http://befree.somee.com/BeFreeAPI/api/DDD/gettbDDDs";
 
             Thread thread = new Thread(this);
             thread.start();
