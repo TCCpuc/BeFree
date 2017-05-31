@@ -73,7 +73,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Spinner
-                    android:id="@+id/spinner3"
+                    android:id="@+id/selectDDD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

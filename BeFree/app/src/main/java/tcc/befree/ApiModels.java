@@ -231,27 +231,40 @@ public class ApiModels implements Runnable{
 
         ArrayList<Categoria> arrayCategorias= new ArrayList<Categoria>();
 
-        try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Categoria/gettbCategorias";
+        Categoria ddd1 = new Categoria();
+        ddd1.idCategoria = 1;
+        ddd1.descricao = "1";
+        arrayCategorias.add(ddd1);
+        Categoria ddd2 = new Categoria();
+        ddd2.idCategoria = 2;
+        ddd2.descricao = "2";
+        arrayCategorias.add(ddd2);
+        Categoria ddd3 = new Categoria();
+        ddd3.idCategoria = 3;
+        ddd3.descricao = "3";
+        arrayCategorias.add(ddd3);
 
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Categoria categoria = new Categoria();
-                categoria.idCategoria = jSonObject.getInt("idCategoria");
-                categoria.descricao = jSonObject.getString("desricao");
-                arrayCategorias.add(categoria);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        jSonArray = null;
+//        try{
+//            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Categoria/gettbCategorias";
+//
+//            Thread thread = new Thread(this);
+//            thread.start();
+//            controlaThread();
+//            thread.interrupt();
+//
+//            for (int i = 0; i < jSonArray.length();i++){
+//                JSONObject jSonObject = jSonArray.getJSONObject(i);
+//                Categoria categoria = new Categoria();
+//                categoria.idCategoria = jSonObject.getInt("idCategoria");
+//                categoria.descricao = jSonObject.getString("desricao");
+//                arrayCategorias.add(categoria);
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        jSonArray = null;
         return  arrayCategorias;
     }
 
@@ -261,28 +274,44 @@ public class ApiModels implements Runnable{
 
         ArrayList<SubCategoria> arraySubCategorias= new ArrayList<SubCategoria>();
 
-        try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbSubCategorias";
+        SubCategoria ddd1 = new SubCategoria();
+        ddd1.idCategoria = 1;
+        ddd1.idSubCategoria = 1;
+        ddd1.descricao = "1";
+        arraySubCategorias.add(ddd1);
+        SubCategoria ddd2 = new SubCategoria();
+        ddd2.idCategoria = 2;
+        ddd2.idSubCategoria = 2;
+        ddd2.descricao = "2";
+        arraySubCategorias.add(ddd2);
+        SubCategoria ddd3 = new SubCategoria();
+        ddd3.idCategoria = 3;
+        ddd3.idSubCategoria = 3;
+        ddd3.descricao = "3";
+        arraySubCategorias.add(ddd3);
 
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                SubCategoria subCategoria = new SubCategoria();
-                subCategoria.idCategoria = jSonObject.getInt("idCategoria");
-                subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                subCategoria.descricao = jSonObject.getString("descricao");
-                arraySubCategorias.add(subCategoria);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        jSonArray = null;
+//        try{
+//            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbSubCategorias";
+//
+//            Thread thread = new Thread(this);
+//            thread.start();
+//            controlaThread();
+//            thread.interrupt();
+//
+//            for (int i = 0; i < jSonArray.length();i++){
+//                JSONObject jSonObject = jSonArray.getJSONObject(i);
+//                SubCategoria subCategoria = new SubCategoria();
+//                subCategoria.idCategoria = jSonObject.getInt("idCategoria");
+//                subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
+//                subCategoria.descricao = jSonObject.getString("descricao");
+//                arraySubCategorias.add(subCategoria);
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        jSonArray = null;
         return  arraySubCategorias;
     }
     /* ---------------------------------- MÉTODOS DE DDDS ----------------------------------- */
@@ -291,27 +320,40 @@ public class ApiModels implements Runnable{
 
         ArrayList<DDD> arrayDDDs= new ArrayList<DDD>();
 
-        try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/DDD/gettbDDDs";
+        DDD ddd1 = new DDD();
+        ddd1.id = 1;
+        ddd1.descricao = "1";
+        arrayDDDs.add(ddd1);
+        DDD ddd2 = new DDD();
+        ddd2.id = 2;
+        ddd2.descricao = "2";
+        arrayDDDs.add(ddd2);
+        DDD ddd3 = new DDD();
+        ddd3.id = 3;
+        ddd3.descricao = "3";
+        arrayDDDs.add(ddd3);
 
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                DDD ddd = new DDD();
-                ddd.id = jSonObject.getInt("idDDD");
-                ddd.descricao = jSonObject.getString("descricao");
-                arrayDDDs.add(ddd);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        jSonArray = null;
+//        try{
+//            urlAPI = "http://befree.somee.com/BeFreeAPI/api/DDD/gettbDDDs";
+//
+//            Thread thread = new Thread(this);
+//            thread.start();
+//            controlaThread();
+//            thread.interrupt();
+//
+//            for (int i = 0; i < jSonArray.length();i++){
+//                JSONObject jSonObject = jSonArray.getJSONObject(i);
+//                DDD ddd = new DDD();
+//                ddd.id = jSonObject.getInt("idDDD");
+//                ddd.descricao = jSonObject.getString("descricao");
+//                arrayDDDs.add(ddd);
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        jSonArray = null;
         return  arrayDDDs;
     }
 
