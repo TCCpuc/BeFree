@@ -26,7 +26,21 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Usuario))]
         public IHttpActionResult GetUsuario(int id)
         {
-            Usuario usuario = db.tbUsuarios.Find(id);
+            IQueryable<Usuario> usuario = db.tbUsuarios.Where(u => u.idUsuario == id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(usuario);
+        }
+
+
+        // GET: api/Usuarios/GetUsuarioByEmail/?email=exemplo@exemplo.com
+        [ResponseType(typeof(Usuario))]
+        public IHttpActionResult GetUsuarioByEmail(String email)
+        {
+            IQueryable<Usuario> usuario = db.tbUsuarios.Where(u => u.email == email);
             if (usuario == null)
             {
                 return NotFound();

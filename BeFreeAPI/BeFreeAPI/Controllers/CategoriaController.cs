@@ -26,7 +26,7 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Categoria))]
         public IHttpActionResult GetCategoria(int id)
         {
-            Categoria categoria = db.tbCategorias.Find(id);
+            IQueryable<Categoria> categoria = db.tbCategorias.Where(c => c.idCategoria == id);
             if (categoria == null)
             {
                 return NotFound();

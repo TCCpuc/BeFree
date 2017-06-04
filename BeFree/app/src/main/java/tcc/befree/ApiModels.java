@@ -90,12 +90,6 @@ public class ApiModels implements Runnable{
         return  usuario;
     }
 
-    public boolean postUsuario(Usuarios usuario){
-
-
-        return true;
-    }
-
     /* ---------------------------------- MÉTODOS DE SERVIÇO ----------------------------------- */
     //Retorna todos os Servicos
     public ArrayList<Servico> getServicos(){

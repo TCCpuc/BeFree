@@ -26,13 +26,61 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Servico))]
         public IHttpActionResult GetServico(int id)
         {
-            Servico servico = db.tbServicoes.Find(id);
+            IQueryable<Servico> servico = db.tbServicoes.Where(s => s.idServico == id);
             if (servico == null)
             {
                 return NotFound();
             }
 
             return Ok(servico); 
+        }
+
+        // GET: api/Servico/GetServicoBySubCategoria/?idSubcategoria=1
+        [ResponseType(typeof(Servico))]
+        public IHttpActionResult GetServicoBySubCategoria(int idSubcategoria)
+        {
+            IQueryable<Servico> servico = db.tbServicoes.Where(s => s.idSubCategoria == idSubcategoria);
+            if (servico == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(servico);
+        }
+
+        // GET: api/Servico/GetServicoBySubCategoria/?idSubcategoria=1
+        [ResponseType(typeof(Servico))]
+        public IHttpActionResult GetServicoByUsuario(int idUsuario)
+        {
+            IQueryable<Servico> servico = db.tbServicoes.Where(s => s.idUsuario == idUsuario);
+            if (servico == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(servico);
+        }
+
+        // GET: api/Servico/GetServicoLike/?busca=1
+        [ResponseType(typeof(Servico))]
+        public IHttpActionResult GetServicoByLike(String busca)
+        {
+
+            
+            String str = "SELECT * " +
+                         "FROM tbServico AS S " +  // +, tbSubCategoria SC, tbCategoria AS C " +
+                         "WHERE S.titulo LIKE '%" + busca + "%'" +
+                         "   OR S.descricao LIKE '%" + busca + "%' ";
+            /*
+            "   OR SC.descricao LIKE '%" + busca + "%' " +
+            "   OR C.descricao LIKE '%" + busca + "%') " +
+            "  AND SC.idSubcategoria = S.idSubCategoria " +
+            "  AND C.idCategoria = SC.idCategoria";
+            */
+
+            var servico = db.tbServicoes.SqlQuery(str);
+
+            return Ok(servico);
         }
 
         // PUT: api/Servico/5

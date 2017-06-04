@@ -26,11 +26,57 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Busca))]
         public IHttpActionResult GetBusca(int id)
         {
-            Busca busca = db.tbBuscas.Find(id);
+            IQueryable<Busca> busca = db.tbBuscas.Where(b => b.idBusca ==id);
             if (busca == null)
             {
                 return NotFound();
             }
+
+            return Ok(busca);
+        }
+
+        // GET: api/Busca/5
+        [ResponseType(typeof(Busca))]
+        public IHttpActionResult GetBuscaBySubCategoria(int idSubCategoria)
+        {
+            IQueryable<Busca> busca = db.tbBuscas.Where(b => b.idSubCategoria == idSubCategoria);
+            if (busca == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(busca);
+        }
+
+        // GET: api/Busca/5
+        [ResponseType(typeof(Busca))]
+        public IHttpActionResult GetBuscaByUsuario(int idUsuario)
+        {
+            IQueryable<Busca> busca = db.tbBuscas.Where(b => b.idUsuario == idUsuario);
+            if (busca == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(busca);
+        }
+
+        // GET: api/Busca/5
+        [ResponseType(typeof(Busca))]
+        public IHttpActionResult GetBuscaByLike(String busca)
+        {
+            String str = "SELECT * " +
+                         "FROM tbBusca AS B " +  // +, tbSubCategoria SC, tbCategoria AS C " +
+                         "WHERE B.titulo LIKE '%" + busca + "%'" +
+                         "   OR B.descricao LIKE '%" + busca + "%' ";
+            /*
+            "   OR SC.descricao LIKE '%" + busca + "%' " +
+            "   OR C.descricao LIKE '%" + busca + "%') " +
+            "  AND SC.idSubcategoria = S.idSubCategoria " +
+            "  AND C.idCategoria = SC.idCategoria";
+            */
+
+            var buscar = db.tbBuscas.SqlQuery(str);
 
             return Ok(busca);
         }

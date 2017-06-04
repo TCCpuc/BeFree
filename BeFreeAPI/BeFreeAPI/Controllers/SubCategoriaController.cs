@@ -25,9 +25,22 @@ namespace BeFreeAPI.Controllers
 
         // GET: api/SubCategoria/5
         [ResponseType(typeof(SubCategoria))]
-        public async Task<IHttpActionResult> GetSubCategoria(int id)
+        public IHttpActionResult GetSubCategoria(int id)
         {
-            SubCategoria subCategoria = await db.tbSubCategorias.FindAsync(id);
+            IQueryable<SubCategoria> subCategoria = db.tbSubCategorias.Where(s => s.idSubCategoria == id);
+            if (subCategoria == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(subCategoria);
+        }
+
+        // GET: api/SubCategoria/5
+        [ResponseType(typeof(SubCategoria))]
+        public IHttpActionResult GetSubCategoriaByCategoria(int idCategoria)
+        {
+            IQueryable<SubCategoria> subCategoria = db.tbSubCategorias.Where(s => s.idCategoria == idCategoria);
             if (subCategoria == null)
             {
                 return NotFound();

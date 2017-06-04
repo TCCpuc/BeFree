@@ -26,7 +26,7 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(DDD))]
         public IHttpActionResult GettbDDD(int id)
         {
-            DDD tbDDD = db.tbDDDs.Find(id);
+            IQueryable<DDD> tbDDD = db.tbDDDs.Where(d => d.idDDD == id);
             if (tbDDD == null)
             {
                 return NotFound();

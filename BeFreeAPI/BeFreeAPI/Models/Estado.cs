@@ -13,8 +13,6 @@ namespace BeFreeAPI.Models
         [Column(Order = 0)]
         public int idEstado { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         [StringLength(10)]
         public string codUF { get; set; }
 
