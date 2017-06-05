@@ -39,7 +39,7 @@ public class ApiModels implements Runnable{
         ArrayList<Usuarios> arrayUsuarios = new ArrayList<Usuarios>();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/GettbUsuarios";
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/GettbUsuarios";
 
             Thread thread = new Thread(this);
             thread.start();
@@ -69,7 +69,7 @@ public class ApiModels implements Runnable{
 
         Usuarios usuario = new Usuarios();
         try {
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Usuarios/GetUsuarioByEmail/?email=" + email;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/GetUsuarioByEmail/?email=" + email;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -97,7 +97,7 @@ public class ApiModels implements Runnable{
         ArrayList<Servico> arrayServicos = new ArrayList<Servico>();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GettbServicoes";
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GettbServicoes";
 
             Thread thread = new Thread(this);
             thread.start();
@@ -131,7 +131,7 @@ public class ApiModels implements Runnable{
         Servico servico = new Servico();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Servico/GetServico/" + id;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GetServico/" + id;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -164,7 +164,7 @@ public class ApiModels implements Runnable{
         ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
 
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Busca/GettbBuscas";
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GettbBuscas";
 
             Thread thread = new Thread(this);
             thread.start();
@@ -195,7 +195,7 @@ public class ApiModels implements Runnable{
 
         Busca busca = new Busca();
         try{
-            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Busca/GetBusca/" + id;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GetBusca/" + id;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -224,41 +224,27 @@ public class ApiModels implements Runnable{
     final public ArrayList<Categoria> getCategorias(){
 
         ArrayList<Categoria> arrayCategorias= new ArrayList<Categoria>();
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Categoria/gettbCategorias";
 
-        Categoria ddd1 = new Categoria();
-        ddd1.idCategoria = 1;
-        ddd1.descricao = "1";
-        arrayCategorias.add(ddd1);
-        Categoria ddd2 = new Categoria();
-        ddd2.idCategoria = 2;
-        ddd2.descricao = "2";
-        arrayCategorias.add(ddd2);
-        Categoria ddd3 = new Categoria();
-        ddd3.idCategoria = 3;
-        ddd3.descricao = "3";
-        arrayCategorias.add(ddd3);
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
 
-//        try{
-//            urlAPI = "http://befree.somee.com/BeFreeAPI/api/Categoria/gettbCategorias";
-//
-//            Thread thread = new Thread(this);
-//            thread.start();
-//            controlaThread();
-//            thread.interrupt();
-//
-//            for (int i = 0; i < jSonArray.length();i++){
-//                JSONObject jSonObject = jSonArray.getJSONObject(i);
-//                Categoria categoria = new Categoria();
-//                categoria.idCategoria = jSonObject.getInt("idCategoria");
-//                categoria.descricao = jSonObject.getString("desricao");
-//                arrayCategorias.add(categoria);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        jSonArray = null;
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Categoria categoria = new Categoria();
+                categoria.idCategoria = jSonObject.getInt("idCategoria");
+                categoria.descricao = jSonObject.getString("desricao");
+                arrayCategorias.add(categoria);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
         return  arrayCategorias;
     }
 
@@ -268,44 +254,28 @@ public class ApiModels implements Runnable{
 
         ArrayList<SubCategoria> arraySubCategorias= new ArrayList<SubCategoria>();
 
-        SubCategoria ddd1 = new SubCategoria();
-        ddd1.idCategoria = 1;
-        ddd1.idSubCategoria = 1;
-        ddd1.descricao = "1";
-        arraySubCategorias.add(ddd1);
-        SubCategoria ddd2 = new SubCategoria();
-        ddd2.idCategoria = 2;
-        ddd2.idSubCategoria = 2;
-        ddd2.descricao = "2";
-        arraySubCategorias.add(ddd2);
-        SubCategoria ddd3 = new SubCategoria();
-        ddd3.idCategoria = 3;
-        ddd3.idSubCategoria = 3;
-        ddd3.descricao = "3";
-        arraySubCategorias.add(ddd3);
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/SubCategoria/gettbSubCategorias";
 
-//        try{
-//            urlAPI = "http://befree.somee.com/BeFreeAPI/api/SubCategoria/gettbSubCategorias";
-//
-//            Thread thread = new Thread(this);
-//            thread.start();
-//            controlaThread();
-//            thread.interrupt();
-//
-//            for (int i = 0; i < jSonArray.length();i++){
-//                JSONObject jSonObject = jSonArray.getJSONObject(i);
-//                SubCategoria subCategoria = new SubCategoria();
-//                subCategoria.idCategoria = jSonObject.getInt("idCategoria");
-//                subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
-//                subCategoria.descricao = jSonObject.getString("descricao");
-//                arraySubCategorias.add(subCategoria);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        jSonArray = null;
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                SubCategoria subCategoria = new SubCategoria();
+                subCategoria.idCategoria = jSonObject.getInt("idCategoria");
+                subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                subCategoria.descricao = jSonObject.getString("descricao");
+                arraySubCategorias.add(subCategoria);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
         return  arraySubCategorias;
     }
     /* ---------------------------------- MÉTODOS DE DDDS ----------------------------------- */
@@ -314,40 +284,27 @@ public class ApiModels implements Runnable{
 
         ArrayList<DDD> arrayDDDs= new ArrayList<DDD>();
 
-        DDD ddd1 = new DDD();
-        ddd1.id = 1;
-        ddd1.descricao = "1";
-        arrayDDDs.add(ddd1);
-        DDD ddd2 = new DDD();
-        ddd2.id = 2;
-        ddd2.descricao = "2";
-        arrayDDDs.add(ddd2);
-        DDD ddd3 = new DDD();
-        ddd3.id = 3;
-        ddd3.descricao = "3";
-        arrayDDDs.add(ddd3);
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/DDD/gettbDDDs";
 
-//        try{
-//            urlAPI = "http://befree.somee.com/BeFreeAPI/api/DDD/gettbDDDs";
-//
-//            Thread thread = new Thread(this);
-//            thread.start();
-//            controlaThread();
-//            thread.interrupt();
-//
-//            for (int i = 0; i < jSonArray.length();i++){
-//                JSONObject jSonObject = jSonArray.getJSONObject(i);
-//                DDD ddd = new DDD();
-//                ddd.id = jSonObject.getInt("idDDD");
-//                ddd.descricao = jSonObject.getString("descricao");
-//                arrayDDDs.add(ddd);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        jSonArray = null;
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                DDD ddd = new DDD();
+                ddd.id = jSonObject.getInt("idDDD");
+                ddd.descricao = jSonObject.getString("descricao");
+                arrayDDDs.add(ddd);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
         return  arrayDDDs;
     }
 

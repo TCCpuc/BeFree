@@ -108,6 +108,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mFacebook = (Button) findViewById(R.id.btnFacebook);
+        mFacebook.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Usuarios novoUsuario = new Usuarios();
+
+                novoUsuario.idUsuario = 0;
+                novoUsuario.nomeUsuario = "Usuário Teste";
+                novoUsuario.senha = "teste";
+                novoUsuario.email = "teste@novousuario.com";
+                novoUsuario.ativo = true;
+                novoUsuario.cpf = "0000000000";
+
+                PostApiModels postAPI = new PostApiModels();
+
+                postAPI.postUsuarios(usuario);
+
+
+            }
+        });
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
