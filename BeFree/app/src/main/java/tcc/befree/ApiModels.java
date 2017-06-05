@@ -220,6 +220,29 @@ public class ApiModels implements Runnable{
     }
 
     /* ---------------------------------- MÉTODOS DE CATEGORIAS ----------------------------------- */
+    final public String[] getCategoriasVetor() {
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/SubCategoria/gettbCategorias";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            String[] arrayCategorias= new String[jSonArray.length()];
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                String descricao = jSonObject.getString("descricao");
+                arrayCategorias[i] = descricao;
+            }
+            return  arrayCategorias;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new String[0];
+        }
+    }
+
     //Retorna todas as categorias
     final public ArrayList<Categoria> getCategorias(){
 
@@ -249,6 +272,31 @@ public class ApiModels implements Runnable{
     }
 
     /* ---------------------------------- MÉTODOS DE SUBCATEGORIAS ----------------------------------- */
+
+    //Retorna todas os DDDs como vetor
+    final public String[] getSubCategoriasVetor() {
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/SubCategoria/gettbSubCategorias";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            String[] arrayCategorias= new String[jSonArray.length()];
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                String descricao = jSonObject.getString("descricao");
+                arrayCategorias[i] = descricao;
+            }
+            return arrayCategorias;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new String[0];
+        }
+    }
+
     //Retorna todas as subcategorias
     final public ArrayList<SubCategoria> getSubCategorias(){
 
@@ -278,7 +326,36 @@ public class ApiModels implements Runnable{
         jSonArray = null;
         return  arraySubCategorias;
     }
+
+
+
     /* ---------------------------------- MÉTODOS DE DDDS ----------------------------------- */
+    //Retorna todas os DDDs como vetor
+    final public String[] getDDDsVetor() {
+
+        String[] arrayDDDs= new String[jSonArray.length()];
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/DDD/gettbDDDs";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                String ddd = new String();
+                ddd = jSonObject.getString("codDDD");
+                arrayDDDs[i] = ddd;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            arrayDDDs = new String[0];
+        }
+        return arrayDDDs;
+    }
+
     //Retorna todas os DDDs
     final public ArrayList<DDD> getDDDs(){
 
@@ -296,7 +373,7 @@ public class ApiModels implements Runnable{
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 DDD ddd = new DDD();
                 ddd.id = jSonObject.getInt("idDDD");
-                ddd.descricao = jSonObject.getString("descricao");
+                ddd.descricao = jSonObject.getString("codDDD");
                 arrayDDDs.add(ddd);
             }
 
