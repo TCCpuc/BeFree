@@ -22,12 +22,14 @@ public class CreateServicoActivity extends AppCompatActivity {
 
         ApiModels conexao = new ApiModels();
 
+
         Spinner spinnerDDDs = (Spinner) findViewById(R.id.selectDDD);
         String[] vetorDDDs = conexao.getDDDsVetor();
         ArrayAdapter<CharSequence>  arrayAdapterDDD = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, vetorDDDs);
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
 
+        /*
         Spinner spinnerSubCategorias = (Spinner) findViewById(R.id.selectSubCategoria);
         String[] vetorSubCategorias = conexao.getSubCategoriasVetor();
         ArrayAdapter<CharSequence>  arrayAdapterSubCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, vetorSubCategorias);
@@ -39,5 +41,7 @@ public class CreateServicoActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence>  arrayAdapterCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, vetorCategorias);
         arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
+        */
+
     }
 }

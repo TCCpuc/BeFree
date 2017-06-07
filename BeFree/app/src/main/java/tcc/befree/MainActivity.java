@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent;
+                Intent intent = null;
                 TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
                 if (tabLayout.getSelectedTabPosition() == 0) {
                     intent = new Intent(MainActivity.this, CreateServicoActivity.class);
@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity
                     intent = new Intent(MainActivity.this, CreateBuscaActivity.class);
                 }
                 startActivity(intent);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
 
@@ -193,10 +191,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
