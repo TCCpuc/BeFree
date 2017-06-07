@@ -23,10 +23,6 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SlideActivity"
-            android:label="@string/title_activity_slide"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AnuncioBuscaActivity" />
         <activity android:name=".AnuncioServicoActivity" />
         <activity
