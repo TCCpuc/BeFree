@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity
                     intent = new Intent(MainActivity.this, CreateBuscaActivity.class);
                 }
                 startActivity(intent);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 033e302bcfcd2438cd017b1e199a2601128f01ef
             }
         });
 
