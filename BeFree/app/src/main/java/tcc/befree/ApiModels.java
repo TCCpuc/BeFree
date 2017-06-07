@@ -201,15 +201,15 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-                JSONObject jSonObject = jSonArray.getJSONObject(0);
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
 
 
-                busca.idBusca = jSonObject.getInt("idBusca");
-                busca.titulo = jSonObject.getString("titulo");
-                busca.descricao = jSonObject.getString("descricao");
-                busca.idUsuario = jSonObject.getInt("idUsuario");
-                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                busca.idStatus = jSonObject.getInt("idStatus");
+            busca.idBusca = jSonObject.getInt("idBusca");
+            busca.titulo = jSonObject.getString("titulo");
+            busca.descricao = jSonObject.getString("descricao");
+            busca.idUsuario = jSonObject.getInt("idUsuario");
+            busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
+            busca.idStatus = jSonObject.getInt("idStatus");
 
 
         } catch (JSONException e) {
