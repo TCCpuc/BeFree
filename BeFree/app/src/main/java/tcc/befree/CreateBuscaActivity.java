@@ -4,21 +4,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
-import java.util.ArrayList;
-
-import tcc.befree.models.Categoria;
-import tcc.befree.models.DDD;
-import tcc.befree.models.SubCategoria;
-
-import static tcc.befree.R.layout.activity_create_busca;
+import android.widget.Button;
+import android.view.View;
+import android.view.View.OnClickListener;
+import tcc.befree.models.Busca;
 
 public class CreateBuscaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(activity_create_busca);
+        setContentView(R.layout.activity_create_busca);
+
+        Button submit = (Button) findViewById(R.id.btnSubmitBusca);
+        submit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Busca novaBusca = new Busca();
+                PostApiModels postAPI = new PostApiModels();
+                postAPI.postBusca(novaBusca);
+            }
+        });
 
         //popula o spinner do ddd
         Spinner spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);

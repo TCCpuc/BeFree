@@ -2,16 +2,12 @@ package tcc.befree;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
-
-import tcc.befree.models.Categoria;
-import tcc.befree.models.SubCategoria;
-import tcc.befree.models.DDD ;
-import java.util.ArrayList;
-import tcc.befree.ApiModels;
-
-import java.lang.reflect.Array;
+import tcc.befree.models.Servico;
 
 public class CreateServicoActivity extends AppCompatActivity {
 
@@ -19,6 +15,16 @@ public class CreateServicoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_servico);
+
+        Button submit = (Button) findViewById(R.id.btnSubmitService);
+        submit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Servico novaServico = new Servico();
+                PostApiModels postAPI = new PostApiModels();
+                postAPI.postServico(novaServico);
+            }
+        });
 
         //popula o spinner do ddd
         Spinner spinnerDDDs = (Spinner) findViewById(R.id.create_service_spinnerDDD);

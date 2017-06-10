@@ -15,8 +15,8 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_width="368dp"
-        android:layout_height="182dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="0.89"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp">
@@ -96,7 +96,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/btnCriar"
+                android:id="@+id/btnSubmitBusca"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
