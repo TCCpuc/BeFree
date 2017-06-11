@@ -16,25 +16,28 @@ public class CreateServicoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_servico);
 
-<<<<<<< HEAD
         ApiModels conexao = new ApiModels();
 
+
+        /*
         Spinner spinnerSubCategorias = (Spinner) findViewById(R.id.selectSubCategoria);
         String[] vetorSubCategorias = conexao.getSubCategoriasVetor();
         ArrayAdapter<CharSequence>  arrayAdapterSubCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, vetorSubCategorias);
         arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
 
-        /*Spinner spinnerDDDs = (Spinner) findViewById(R.id.selectDDD);
+        Spinner spinnerDDDs = (Spinner) findViewById(R.id.selectDDD);
         String[] vetorDDDs = conexao.getDDDsVetor();
         ArrayAdapter<CharSequence>  arrayAdapterDDD = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, vetorDDDs);
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
-*/
-        /*Spinner spinnerCategorias = (Spinner) findViewById(R.id.selectCategoria);
+
+
+
+        Spinner spinnerCategorias = (Spinner) findViewById(R.id.selectCategoria);
         String[] vetorCategorias = conexao.getCategoriasVetor();
         ArrayAdapter<CharSequence>  arrayAdapterCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, vetorCategorias);
-=======
+        */
         Button submit = (Button) findViewById(R.id.btnSubmitService);
         submit.setOnClickListener(new OnClickListener() {
             @Override
@@ -60,7 +63,6 @@ public class CreateServicoActivity extends AppCompatActivity {
         //popula o spinner de categoria
         Spinner spinnerCategorias = (Spinner) findViewById(R.id.create_service_spinnerSubCategoria);
         ArrayAdapter<CharSequence>  arrayAdapterCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetor());
->>>>>>> 2784197f363c88db0aab227a22762a70a05b7e8a
         arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
     }
