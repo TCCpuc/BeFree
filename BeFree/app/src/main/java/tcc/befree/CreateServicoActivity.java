@@ -2,16 +2,12 @@ package tcc.befree;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
-
-import tcc.befree.models.Categoria;
-import tcc.befree.models.SubCategoria;
-import tcc.befree.models.DDD ;
-import java.util.ArrayList;
-import tcc.befree.ApiModels;
-
-import java.lang.reflect.Array;
+import tcc.befree.models.Servico;
 
 public class CreateServicoActivity extends AppCompatActivity {
 
@@ -20,6 +16,7 @@ public class CreateServicoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_servico);
 
+<<<<<<< HEAD
         ApiModels conexao = new ApiModels();
 
         Spinner spinnerSubCategorias = (Spinner) findViewById(R.id.selectSubCategoria);
@@ -37,9 +34,34 @@ public class CreateServicoActivity extends AppCompatActivity {
         /*Spinner spinnerCategorias = (Spinner) findViewById(R.id.selectCategoria);
         String[] vetorCategorias = conexao.getCategoriasVetor();
         ArrayAdapter<CharSequence>  arrayAdapterCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, vetorCategorias);
+=======
+        Button submit = (Button) findViewById(R.id.btnSubmitService);
+        submit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Servico novaServico = new Servico();
+                PostApiModels postAPI = new PostApiModels();
+                postAPI.postServico(novaServico);
+            }
+        });
+
+        //popula o spinner do ddd
+        Spinner spinnerDDDs = (Spinner) findViewById(R.id.create_service_spinnerDDD);
+        ArrayAdapter<CharSequence>  arrayAdapterDDD = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
+        arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        spinnerDDDs.setAdapter(arrayAdapterDDD);
+
+        //popula o spinner de subcategoria
+        Spinner spinnerSubCategorias = (Spinner) findViewById(R.id.create_service_spinnerCategoria);
+        ArrayAdapter<CharSequence>  arrayAdapterSubCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
+        arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
+
+        //popula o spinner de categoria
+        Spinner spinnerCategorias = (Spinner) findViewById(R.id.create_service_spinnerSubCategoria);
+        ArrayAdapter<CharSequence>  arrayAdapterCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetor());
+>>>>>>> 2784197f363c88db0aab227a22762a70a05b7e8a
         arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
-        */
-
     }
 }
