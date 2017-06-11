@@ -340,8 +340,6 @@ public class ApiModels implements Runnable{
         String[] arrayDDDs = null;
 
         try{
-
-
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/DDD/gettbDDDs";
 
             Thread thread = new Thread(this);
