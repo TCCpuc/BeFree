@@ -21,8 +21,9 @@ public class CreateBuscaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Busca novaBusca = new Busca();
-                PostApiModels postAPI = new PostApiModels();
-                postAPI.postBusca(novaBusca);
+                //validar se esta tudo preenchido
+                //popular
+                new PostApiModels().postBusca(novaBusca);
             }
         });
 

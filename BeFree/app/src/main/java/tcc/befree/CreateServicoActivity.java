@@ -21,8 +21,9 @@ public class CreateServicoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Servico novaServico = new Servico();
-                PostApiModels postAPI = new PostApiModels();
-                postAPI.postServico(novaServico);
+                //validar se esta tudo preenchido
+                //popular
+                new PostApiModels().postServico(novaServico);
             }
         });
 
