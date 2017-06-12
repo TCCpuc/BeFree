@@ -13,12 +13,12 @@
         tools:layout_editor_absoluteY="5dp">
 
         <TextView
-            android:id="@+id/txtNome"
+            android:id="@+id/create_busca_txtNome"
             android:layout_width="109dp"
             android:layout_height="19dp"
-            android:layout_alignLeft="@+id/txtDescricao"
+            android:layout_alignLeft="@+id/create_busca_txtDescricao"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/txtDescricao"
+            android:layout_alignStart="@+id/create_busca_txtDescricao"
             android:layout_marginTop="11dp"
             android:text="TextView"
             tools:layout_editor_absoluteX="16dp"
@@ -26,7 +26,7 @@
             tools:text="Nome do anúncio" />
 
         <TextView
-            android:id="@+id/txtDescricao"
+            android:id="@+id/create_busca_txtDescricao"
             android:layout_width="370dp"
             android:layout_height="170dp"
             android:layout_above="@+id/btnFalarComAnunciante"
@@ -43,8 +43,8 @@
             tools:layout_editor_absoluteX="76dp"
             tools:layout_editor_absoluteY="447dp"
             android:layout_alignBottom="@+id/btnFalarComAnunciante"
-            android:layout_alignRight="@+id/txtNome"
-            android:layout_alignEnd="@+id/txtNome" />
+            android:layout_alignRight="@+id/create_busca_txtNome"
+            android:layout_alignEnd="@+id/create_busca_txtNome" />
 
         <Button
             android:id="@+id/btnFalarComAnunciante"
@@ -57,8 +57,8 @@
             tools:layout_editor_absoluteX="178dp"
             tools:layout_editor_absoluteY="433dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/txtDescricao"
-            android:layout_alignEnd="@+id/txtDescricao" />
+            android:layout_alignRight="@+id/create_busca_txtDescricao"
+            android:layout_alignEnd="@+id/create_busca_txtDescricao" />
 
         <TextView
             android:id="@+id/selectCategoria"
@@ -66,9 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="87dp"
             android:text="Categoria"
-            android:layout_below="@+id/txtNome"
-            android:layout_alignLeft="@+id/txtNome"
-            android:layout_alignStart="@+id/txtNome" />
+            android:layout_below="@+id/create_busca_txtNome"
+            android:layout_alignLeft="@+id/create_busca_txtNome"
+            android:layout_alignStart="@+id/create_busca_txtNome" />
 
         <TextView
             android:id="@+id/txtSubCategoria"
