@@ -43,6 +43,7 @@ public class CreateServicoActivity extends AppCompatActivity {
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO POPULAR SPINNER SUBCATEGORIA SÓ COM AS CATEGORIAS CERTAS
 
                 Servico novaServico = new Servico();
 
@@ -78,10 +79,10 @@ public class CreateServicoActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-//                    novaServico.descricao = descricao;
-//                    novaServico.titulo = nome;
-//                    novaServico.ddd = ddd;
-//                    novaServico.idSubCategoria = subCategoria;
+                    novaServico.descricao = descricao;
+                    novaServico.titulo = nome;
+                    novaServico.ddd = new ApiModels().getDDDByCodigo(ddd).id;
+                    novaServico.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
 
                     new PostApiModels().postServico(novaServico);
                 }

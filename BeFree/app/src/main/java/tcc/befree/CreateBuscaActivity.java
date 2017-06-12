@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import tcc.befree.models.Busca;
+import tcc.befree.models.SubCategoria;
 
 public class CreateBuscaActivity extends AppCompatActivity {
 
@@ -42,6 +43,8 @@ public class CreateBuscaActivity extends AppCompatActivity {
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO POPULAR SPINNER SUBCATEGORIA SÓ COM AS CATEGORIAS CERTAS
+
                 Busca novaBusca = new Busca();
 
                 View viewNome = findViewById(R.id.create_busca_txtNome);
@@ -76,10 +79,10 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-//                    novaServico.descricao = descricao;
-//                    novaServico.titulo = nome;
-//                    novaServico.ddd = ddd;
-//                    novaServico.idSubCategoria = subCategoria;
+                    novaBusca.descricao = descricao;
+                    novaBusca.titulo = nome;
+                    novaBusca.ddd = new ApiModels().getDDDByCodigo(ddd).id;
+                    novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
 
                     new PostApiModels().postBusca(novaBusca);
                 }

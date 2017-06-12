@@ -430,4 +430,16 @@ public class ApiModels implements Runnable{
             semaforo = true;
         }
     }
+
+    public DDD getDDDByCodigo(String nome) {
+        DDD ddd = new DDD();
+        ddd.id = 1;
+        return ddd;
+    }
+
+    public SubCategoria getSubCategoriaByNome(String nome) {
+        SubCategoria subCategoria = new SubCategoria();
+        subCategoria.idCategoria = 1;
+        return subCategoria;
+    }
 }
