@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,8 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -67,17 +67,7 @@ public class MainActivity extends AppCompatActivity
 
             setupDrawerContent(navigationView);
 
-            //navigationView.setNavigationItemSelectedListener(this);
-            View header = navigationView.getHeaderView(0);
-            /*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
 
-            TextView mTextViewNomeUsuario = (TextView)header.findViewById(R.id.nome_usuario_menu);
-            TextView mTextViewEmailUsuario = (TextView)header.findViewById(R.id.email_usuario_menu);
-            String nomeUsuario = getIntent().getStringExtra("nomeUsuario");
-            String emailUsuario = getIntent().getStringExtra("emailUsuario");
-
-            mTextViewNomeUsuario.setText(nomeUsuario);
-            mTextViewEmailUsuario.setText(emailUsuario);
         }
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.container);
@@ -93,13 +83,52 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    /*private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
+    }*/
+
+    private void setupDrawerContent(NavigationView navigationView) {
+
+        //navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+            /*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+
+        TextView mTextViewNomeUsuario = (TextView)header.findViewById(R.id.nome_usuario_menu);
+        TextView mTextViewEmailUsuario = (TextView)header.findViewById(R.id.email_usuario_menu);
+        String nomeUsuario = getIntent().getStringExtra("nomeUsuario");
+        String emailUsuario = getIntent().getStringExtra("emailUsuario");
+
+        mTextViewNomeUsuario.setText(nomeUsuario);
+        mTextViewEmailUsuario.setText(emailUsuario);
+
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @SuppressWarnings("StatementWithEmptyBody")
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        // Handle navigation view item clicks here.
+                        int id = item.getItemId();
+
+                        if (id == R.id.menu_anuncios) {
+                            // ABRIR ANUNCIOS
+                        } else if (id == R.id.menu_perfil) {
+                            // ABRIR MEU PERFIL
+                        } else if (id == R.id.nav_share) {
+
+                        } else if (id == R.id.nav_send) {
+
+                        }
+
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
                         return true;
                     }
                 });
@@ -169,38 +198,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        /*noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }*/
-
+        mDrawerLayout.openDrawer(GravityCompat.START);
+        //SE O DRAWER NAO ABRIR TENTAR RETURN TRUE
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
