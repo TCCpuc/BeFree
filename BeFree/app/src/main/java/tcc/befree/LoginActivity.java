@@ -112,20 +112,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mFacebook.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Usuarios novoUsuario = new Usuarios();
-
-                novoUsuario.idUsuario = 0;
-                novoUsuario.nomeUsuario = "Usuário Teste";
-                novoUsuario.senha = "teste";
-                novoUsuario.email = "teste@novousuario.com";
-                novoUsuario.ativo = true;
-                novoUsuario.cpf = "0000000000";
-
-                PostApiModels postAPI = new PostApiModels();
-
-                postAPI.postUsuarios(usuario);
-
-
             }
         });
 
@@ -134,6 +120,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        TextView txtCriaCadastro = (TextView) findViewById(R.id.btnCriaCadastro);
+        txtCriaCadastro.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createUser = new Intent(LoginActivity.this,CreateAccountActivity.class);
+                startActivity(createUser);
             }
         });
 

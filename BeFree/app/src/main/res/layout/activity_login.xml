@@ -139,7 +139,8 @@
             android:layout_marginRight="48dp"
             android:text="Cadastre-se"
             android:textColor="#0000FF"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:clickable="true" />
 
     </RelativeLayout>
 

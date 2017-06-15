@@ -143,5 +143,14 @@ namespace BeFreeAPI.Controllers
         {
             return db.tbUsuarios.Count(e => e.idUsuario == id) > 0;
         }
+
+
+        // GET: api/Usuarios
+        public IQueryable<Usuario> CriaUsuario()
+        {
+            return db.tbUsuarios;
+        }
+
+
     }
 }

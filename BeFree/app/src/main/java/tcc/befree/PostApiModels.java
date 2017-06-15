@@ -39,6 +39,7 @@ public class PostApiModels implements Runnable{
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/PostUsuario/";
 
+        jSonObject = new JSONObject();
         try {
             jSonObject.put("idUsuario",usuario.idUsuario);
             jSonObject.put("nomeUsuario",usuario.nomeUsuario);
@@ -102,6 +103,22 @@ public class PostApiModels implements Runnable{
             wr.writeBytes(jSonObject.toString());
             wr.flush();
             wr.close();
+
+            int HttpResult =urlConnection.getResponseCode();
+            /*if(HttpResult ==HttpURLConnection.HTTP_OK){
+                BufferedReader br = new BufferedReader(new InputStreamReader(
+                        urlConnection.getInputStream(),"utf-8"));
+                line = null;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                br.close();
+
+                System.out.println("" + sb.toString());
+
+            }else{
+                System.out.println(urlConnection.getResponseMessage());
+            }*/
 
             semaforo = true;
         }catch (Exception e){
