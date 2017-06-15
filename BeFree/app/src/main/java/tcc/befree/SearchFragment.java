@@ -46,11 +46,11 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         ArrayList<Busca> searchs = new ArrayList<>();
 
         SearchAdapter adapter;
+        ApiModels api = new ApiModels();
 
 
         if(!search.equals("")){
             ArrayList<Busca> resultado = new ArrayList<>();
-            ApiModels api = new ApiModels();
             searchs = api.getBuscas();
 
             for(int i = 0; i<searchs.size();i++){
@@ -62,17 +62,17 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
         }else{
             if(id==0){
-                ApiModels api = new ApiModels();
                 searchs = api.getBuscas();
             }else{
-                Busca sc = new Busca();
-                sc.descricao = "Teste";
-                sc.titulo = "Teste";
-                sc.idBusca = 1;
-                sc.idStatus = 1;
-                sc.idUsuario = 1;
-                sc.idSubCategoria = 1;
-                searchs.add(sc);
+                searchs = api.getBuscaByUsuario(id);
+//                Busca sc = new Busca();
+//                sc.descricao = "Teste";
+//                sc.titulo = "Teste";
+//                sc.idBusca = 1;
+//                sc.idStatus = 1;
+//                sc.idUsuario = 1;
+//                sc.idSubCategoria = 1;
+//                searchs.add(sc);
             }
             adapter = new SearchAdapter(getContext(), searchs, this);
         }
