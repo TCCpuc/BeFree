@@ -31,26 +31,52 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
             id = 0;
         }
 
+        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
+        String search;
+        try {
+            search = bundle.getString("search");
+        }catch(Exception e){
+            search = "";
+        }
+
         //int id = getIntent().getIntExtra("id",0);
 
         View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
 
         ArrayList<Busca> searchs = new ArrayList<>();
 
-        if(id==0){
+        SearchAdapter adapter;
+
+
+        if(!search.equals("")){
+            ArrayList<Busca> resultado = new ArrayList<>();
             ApiModels api = new ApiModels();
             searchs = api.getBuscas();
+
+            for(int i = 0; i<searchs.size();i++){
+                if(searchs.get(i).titulo.toLowerCase().contains(search)){
+                    resultado.add(searchs.get(i));
+                }
+            }
+            adapter = new SearchAdapter(getContext(), resultado, this);
+
         }else{
-            Busca sc = new Busca();
-            sc.descricao = "Teste";
-            sc.titulo = "Teste";
-            sc.idBusca = 1;
-            sc.idStatus = 1;
-            sc.idUsuario = 1;
-            sc.idSubCategoria = 1;
-            searchs.add(sc);
+            if(id==0){
+                ApiModels api = new ApiModels();
+                searchs = api.getBuscas();
+            }else{
+                Busca sc = new Busca();
+                sc.descricao = "Teste";
+                sc.titulo = "Teste";
+                sc.idBusca = 1;
+                sc.idStatus = 1;
+                sc.idUsuario = 1;
+                sc.idSubCategoria = 1;
+                searchs.add(sc);
+            }
+            adapter = new SearchAdapter(getContext(), searchs, this);
         }
-        SearchAdapter adapter = new SearchAdapter(getContext(), searchs, this);
+
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);

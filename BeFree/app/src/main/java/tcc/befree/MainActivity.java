@@ -190,6 +190,27 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("search",searchQuery);
+                Intent intent = MainActivity.this.getIntent();
+                intent.putExtra("bundle", bundle);
+                            /*Intent i = MainActivity.this.getIntent();
+                            startActivity(i);*/
+
+
+                ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+                if (viewPager != null) {
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(mSectionsPagerAdapter);
+                }
+                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                tabLayout.setupWithViewPager(viewPager);
+
+
+
+
                //COLOCA AQUI O METODO DA BUSCA
                 return true;
             }
