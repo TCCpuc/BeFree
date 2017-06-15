@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity{
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
-        int id = getIntent().getExtras().getInt("bundle");
+        //int id = getIntent().getExtras().getInt("bundle");
         ViewPager viewPager = (ViewPager) findViewById(R.id.container);
         if (viewPager != null) {
             mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -101,13 +101,25 @@ public class MainActivity extends AppCompatActivity{
                         int id = item.getItemId();
 
                         if (id == R.id.menu_anuncios) {
+
                             id = 1;
                             Bundle bundle = new Bundle();
                             bundle.putInt("id",id);
                             Intent intent = MainActivity.this.getIntent();
                             intent.putExtra("bundle", bundle);
-                            Intent i = MainActivity.this.getIntent();
-                            startActivity(i);
+                            /*Intent i = MainActivity.this.getIntent();
+                            startActivity(i);*/
+
+
+                            ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+                            if (viewPager != null) {
+                                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                                viewPager.setAdapter(mSectionsPagerAdapter);
+                            }
+
+                            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                            tabLayout.setupWithViewPager(viewPager);
+
 
 
                         } else if (id == R.id.menu_perfil) {
