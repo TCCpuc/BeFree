@@ -64,15 +64,11 @@ public class MainActivity extends AppCompatActivity{
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-
             setupDrawerContent(navigationView);
-
-
         }
-
+        int id = getIntent().getExtras().getInt("bundle");
         ViewPager viewPager = (ViewPager) findViewById(R.id.container);
         if (viewPager != null) {
-
             mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
             viewPager.setAdapter(mSectionsPagerAdapter);
         }
@@ -81,19 +77,6 @@ public class MainActivity extends AppCompatActivity{
         tabLayout.setupWithViewPager(viewPager);
 
     }
-
-
-    /*private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
-    }*/
 
     private void setupDrawerContent(NavigationView navigationView) {
 
@@ -118,7 +101,15 @@ public class MainActivity extends AppCompatActivity{
                         int id = item.getItemId();
 
                         if (id == R.id.menu_anuncios) {
-                            // ABRIR ANUNCIOS
+                            id = 1;
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("id",id);
+                            Intent intent = MainActivity.this.getIntent();
+                            intent.putExtra("bundle", bundle);
+                            Intent i = MainActivity.this.getIntent();
+                            startActivity(i);
+
+
                         } else if (id == R.id.menu_perfil) {
                             // ABRIR MEU PERFIL
                         } else if (id == R.id.nav_share) {
@@ -201,7 +192,6 @@ public class MainActivity extends AppCompatActivity{
         if (item.getItemId() == android.R.id.home){
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
-
         //SE O DRAWER NAO ABRIR TENTAR RETURN TRUE
         return super.onOptionsItemSelected(item);
     }
@@ -214,6 +204,7 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public Fragment getItem(int position) {
+
             switch (position) {
                 case 0:
                     return new ServiceFragment();
@@ -223,6 +214,7 @@ public class MainActivity extends AppCompatActivity{
                     return new ServiceFragment();
             }
         }
+
 
         @Override
         public int getCount() {

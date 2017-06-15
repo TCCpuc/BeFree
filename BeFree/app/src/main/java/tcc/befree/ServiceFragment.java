@@ -1,8 +1,10 @@
 package tcc.befree;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +28,34 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
+        int id;
+        try {
+            id = bundle.getInt("id");
+        }catch(Exception e){
+            id = 0;
+        }
+
+        //int id = getIntent().getIntExtra("id",0);
+
         View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
 
         ArrayList<Servico> searchs = new ArrayList<>();
 
+        if(id==0){
+            ApiModels api = new ApiModels();
+            searchs = api.getServicos();
+        }else{
+            Servico sc = new Servico();
+            sc.descricao = "Teste";
+            sc.titulo = "Teste";
+            sc.idServico = 1;
+            sc.idStatus = 1;
+            sc.idUsuario = 1;
+            sc.idSubCategoria = 1;
+            searchs.add(sc);
+        }
 
-        ApiModels api = new ApiModels();
-        searchs = api.getServicos();
 
         ServiceAdapter adapter = new ServiceAdapter(getContext(), searchs, this);
 
@@ -45,9 +68,10 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
     @Override
     public void onClick(Servico servico) {
         Bundle bundle = new Bundle();
-        Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);
         int id = servico.idServico;
-        intent.putExtra("id",id);
+        bundle.putInt("id",id);
+        Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);
+        intent.putExtra("bundle", bundle);
         startActivity(intent);
     }
 

@@ -18,7 +18,11 @@ public class AnuncioServicoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
-        int id = getIntent().getIntExtra("id",0);
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        int id = bundle.getInt("id");
+
+            System.out.print("o ID eh " + id);
+
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
@@ -29,8 +33,8 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         srv = conexao.getServicosById(id);
 
         try {
-            setText("txtNome", (new Integer(srv.idServico)).toString());
-            setText("txtDescricao", (String) srv.descricao);
+            setText("create_busca_txtNome", srv.titulo);
+            setText("create_busca_txtDescricao", srv.descricao);
 
     //     (TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText(conexao.getServicosById(id).);
 //            setText("txtCidade", (String) srv.descricao);

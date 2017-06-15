@@ -32,10 +32,11 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         bsc = conexao.getBuscaByID(id);
 
         try {
-            setText("txtNome", (new Integer(bsc.idBusca)).toString());
-            setText("txtDescricao", (String) bsc.descricao);
+            setText("create_busca_txtNome", bsc.titulo);
+            setText("create_busca_txtDescricao", bsc.descricao);
 
-    //     (TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText(conexao.getBuscasById(id).);
+
+            //     (TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText(conexao.getBuscasById(id).);
 //            setText("txtCidade", (String) bsc.descricao);
 ////        ((TextView)findViewById(getResources().getIdentifier("txtCategoria", "id", getPackageName()))).setText(conexao.getBuscasById(id).);
 //            setText("txtCategoria", (String) bsc.descricao);
