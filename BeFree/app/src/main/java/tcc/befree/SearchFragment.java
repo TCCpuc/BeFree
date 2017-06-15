@@ -24,6 +24,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
                              Bundle savedInstanceState) {
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
+        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
         int id;
         try {
             id = bundle.getInt("id");
@@ -31,10 +32,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
             id = 0;
         }
 
-        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
         String search;
         try {
-            search = bundle.getString("search");
+            search = pesquisa.getString("search");
         }catch(Exception e){
             search = "";
         }

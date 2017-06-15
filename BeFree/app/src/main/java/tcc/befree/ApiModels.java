@@ -219,79 +219,7 @@ public class ApiModels implements Runnable{
         return busca;
     }
 
-//    public ArrayList<Busca> getBusca_Palavra(String val){
-//        ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
-//
-//        for(int i = 0; i<=allsearchs.size();i++){
-//            if(allsearchs.get(i).titulo.equals(val)){
-//                arrayBuscas.add(allsearchs.get(i));
-//            }
-//        }
-//
-//        try{
-//            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GetServicoByLike/?busca=" + val;
-//
-//            Thread thread = new Thread(this);
-//            thread.start();
-//            controlaThread();
-//            thread.interrupt();
-//            for (int i = 0; i < jSonArray.length();i++){
-//                JSONObject jSonObject = jSonArray.getJSONObject(i);
-//                Busca busca = new Busca();
-//
-//                busca.idBusca = jSonObject.getInt("idBusca");
-//                busca.titulo = jSonObject.getString("titulo");
-//                busca.descricao = jSonObject.getString("descricao");
-//                busca.idUsuario = jSonObject.getInt("idUsuario");
-//                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
-//                busca.idStatus = jSonObject.getInt("idStatus");
-//
-//                arrayBuscas.add(busca);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        jSonArray = null;
-//        return arrayBuscas;
-//    }
-//
-//    public ArrayList<Servico> getServico_Palavra(String val){
-//        ArrayList<Servico> arrayBuscas = new ArrayList<Servico>();
-//
-//        for(int i = 0; i<=allservices.size();i++){
-//            if(allservices.get(i).titulo.equals(val)){
-//                arrayBuscas.add(allservices.get(i));
-//            }
-//        }
 
-//        try{
-//            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GetServicoByLike/?busca=" + val;
-//
-//            Thread thread = new Thread(this);
-//            thread.start();
-//            controlaThread();
-//            thread.interrupt();
-//            for (int i = 0; i < jSonArray.length();i++){
-//                JSONObject jSonObject = jSonArray.getJSONObject(i);
-//                Servico busca = new Servico();
-//
-//                busca.idServico = jSonObject.getInt("idServico");
-//                busca.titulo = jSonObject.getString("titulo");
-//                busca.descricao = jSonObject.getString("descricao");
-//                busca.idUsuario = jSonObject.getInt("idUsuario");
-//                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
-//                busca.idStatus = jSonObject.getInt("idStatus");
-//
-//                arrayBuscas.add(busca);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        jSonArray = null;
-//        return arrayBuscas;
-//    }
 
     /* ---------------------------------- MÉTODOS DE CATEGORIAS ----------------------------------- */
     final public String[] getCategoriasVetor() {

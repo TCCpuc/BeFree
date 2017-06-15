@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity{
                 Bundle bundle = new Bundle();
                 bundle.putString("search",searchQuery);
                 Intent intent = MainActivity.this.getIntent();
-                intent.putExtra("bundle", bundle);
+                intent.putExtra("search", bundle);
                             /*Intent i = MainActivity.this.getIntent();
                             startActivity(i);*/
 

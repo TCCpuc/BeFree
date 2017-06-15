@@ -28,6 +28,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
                              Bundle savedInstanceState) {
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
+        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
         int id;
         try {
             id = bundle.getInt("id");
@@ -35,10 +36,9 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
             id = 0;
         }
 
-        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
         String search;
         try {
-            search = bundle.getString("search");
+            search = pesquisa.getString("search");
         }catch(Exception e){
             search = "";
         }
