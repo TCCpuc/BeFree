@@ -17,7 +17,7 @@
             android:id="@+id/img_usuario_menu"
             android:layout_width="97dp"
             android:layout_height="113dp"
-            app:srcCompat="@mipmap/sem_imagem"
+            app:srcCompat="@drawable/ic_menu_people"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -33,6 +33,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:layout_alignParentTop="true"
+        android:textAlignment="textEnd"
         android:layout_toRightOf="@+id/img_usuario_menu"
         android:layout_toEndOf="@+id/img_usuario_menu" />
 
