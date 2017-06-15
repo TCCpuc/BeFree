@@ -29,6 +29,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private int idUsuario = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,13 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
+        Bundle bundle = getIntent().getBundleExtra("idUsuario");
+        try {
+            idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            idUsuario = 0;
+        }
 
         setTitle("Befree");
         //Instancia menu drawer
@@ -94,6 +102,7 @@ public class MainActivity extends AppCompatActivity{
         mTextViewNomeUsuario.setText(nomeUsuario);
         mTextViewEmailUsuario.setText(emailUsuario);
 
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @SuppressWarnings("StatementWithEmptyBody")
@@ -106,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
 
                             id = 1;
                             Bundle bundle = new Bundle();
-                            bundle.putInt("id",id);
+                            bundle.putInt("id",idUsuario);
                             Intent intent = MainActivity.this.getIntent();
                             intent.putExtra("bundle", bundle);
                             /*Intent i = MainActivity.this.getIntent();
@@ -166,7 +175,7 @@ public class MainActivity extends AppCompatActivity{
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Logout")
                     .setMessage("Você tem certeza que deseja sair do Befree?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -174,7 +183,7 @@ public class MainActivity extends AppCompatActivity{
                         }
 
                     })
-                    .setNegativeButton("No", null)
+                    .setNegativeButton("Não", null)
                     .show();
 
             //super.onBackPressed();
