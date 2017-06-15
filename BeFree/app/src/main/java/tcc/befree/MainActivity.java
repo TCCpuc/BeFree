@@ -198,8 +198,10 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        mDrawerLayout.openDrawer(GravityCompat.START);
+        if (item.getItemId() == android.R.id.home){
+            mDrawerLayout.openDrawer(GravityCompat.START);
+        }
+
         //SE O DRAWER NAO ABRIR TENTAR RETURN TRUE
         return super.onOptionsItemSelected(item);
     }
