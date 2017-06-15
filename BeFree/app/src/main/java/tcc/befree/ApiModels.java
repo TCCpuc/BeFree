@@ -191,6 +191,38 @@ public class ApiModels implements Runnable{
         return arrayBuscas;
     }
 
+    public ArrayList<Busca> getBuscaByUsuario(int id){
+
+        ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GetBuscaByUsuario/?idUsuario" + id;
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Busca busca = new Busca();
+
+                busca.idBusca = jSonObject.getInt("idBusca");
+                busca.titulo = jSonObject.getString("titulo");
+                busca.descricao = jSonObject.getString("descricao");
+                busca.idUsuario = jSonObject.getInt("idUsuario");
+                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                busca.idStatus = jSonObject.getInt("idStatus");
+
+                arrayBuscas.add(busca);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return arrayBuscas;
+    }
+
     public Busca getBuscaByID(int id){
 
         Busca busca = new Busca();
