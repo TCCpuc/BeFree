@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-
+        setTitle("Befree");
         //Instancia menu drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -116,14 +116,31 @@ public class MainActivity extends AppCompatActivity{
                                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
                                 viewPager.setAdapter(mSectionsPagerAdapter);
                             }
-
+                            MainActivity.super.setTitle("Meus Anuncios");
                             TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
                             tabLayout.setupWithViewPager(viewPager);
 
-
-
                         } else if (id == R.id.menu_perfil) {
                             // ABRIR MEU PERFIL
+                        } else if (id == R.id.menu_pagina_inicial) {
+                            id = 0;
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("id",id);
+                            Intent intent = MainActivity.this.getIntent();
+                            intent.putExtra("bundle", bundle);
+                            /*Intent i = MainActivity.this.getIntent();
+                            startActivity(i);*/
+
+
+                            ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+                            if (viewPager != null) {
+                                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                                viewPager.setAdapter(mSectionsPagerAdapter);
+                            }
+                            MainActivity.super.setTitle("Befree");
+                            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                            tabLayout.setupWithViewPager(viewPager);
+
                         } else if (id == R.id.nav_share) {
 
                         } else if (id == R.id.nav_send) {
@@ -173,6 +190,27 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("search",searchQuery);
+                Intent intent = MainActivity.this.getIntent();
+                intent.putExtra("search", bundle);
+                            /*Intent i = MainActivity.this.getIntent();
+                            startActivity(i);*/
+
+
+                ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+                if (viewPager != null) {
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(mSectionsPagerAdapter);
+                }
+                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                tabLayout.setupWithViewPager(viewPager);
+
+
+
+
                //COLOCA AQUI O METODO DA BUSCA
                 return true;
             }

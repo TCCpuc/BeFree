@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import tcc.befree.models.Busca;
 import tcc.befree.models.Servico;
 
 /**
@@ -29,11 +28,19 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
                              Bundle savedInstanceState) {
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
+        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
         int id;
         try {
             id = bundle.getInt("id");
         }catch(Exception e){
             id = 0;
+        }
+
+        String search;
+        try {
+            search = pesquisa.getString("search");
+        }catch(Exception e){
+            search = "";
         }
 
         //int id = getIntent().getIntExtra("id",0);
@@ -42,22 +49,38 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
         ArrayList<Servico> searchs = new ArrayList<>();
 
-        if(id==0){
+        ServiceAdapter adapter;
+
+        if(!search.equals("")){
+            ArrayList<Servico> resultado = new ArrayList<>();
             ApiModels api = new ApiModels();
             searchs = api.getServicos();
+
+            for(int i = 0; i<searchs.size();i++){
+                if(searchs.get(i).titulo.toLowerCase().contains(search)){
+                    resultado.add(searchs.get(i));
+                }
+            }
+            adapter = new ServiceAdapter(getContext(), resultado, this);
+
         }else{
-            Servico sc = new Servico();
-            sc.descricao = "Teste";
-            sc.titulo = "Teste";
-            sc.idServico = 1;
-            sc.idStatus = 1;
-            sc.idUsuario = 1;
-            sc.idSubCategoria = 1;
-            searchs.add(sc);
+            if(id==0){
+                ApiModels api = new ApiModels();
+                searchs = api.getServicos();
+            }else{
+                Servico sc = new Servico();
+                sc.descricao = "Teste";
+                sc.titulo = "Teste";
+                sc.idServico = 1;
+                sc.idStatus = 1;
+                sc.idUsuario = 1;
+                sc.idSubCategoria = 1;
+                searchs.add(sc);
+            }
+            adapter = new ServiceAdapter(getContext(), searchs, this);
         }
 
 
-        ServiceAdapter adapter = new ServiceAdapter(getContext(), searchs, this);
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);

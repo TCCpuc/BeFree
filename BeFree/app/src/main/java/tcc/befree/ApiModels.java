@@ -219,6 +219,8 @@ public class ApiModels implements Runnable{
         return busca;
     }
 
+
+
     /* ---------------------------------- MÉTODOS DE CATEGORIAS ----------------------------------- */
     final public String[] getCategoriasVetor() {
 
