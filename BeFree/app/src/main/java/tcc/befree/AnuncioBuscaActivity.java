@@ -24,7 +24,7 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         int id = getIntent().getIntExtra("id",0);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anuncio);
+        setContentView(R.layout.newactivity_anuncio);
 
         ApiModels conexao = new ApiModels();
 
