@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="797dp">
+
+        <TextView
+            android:id="@+id/announce_Categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="2dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Categoria > Subcategoria"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/create_busca_txtNome"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/announce_Categoria"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:textSize="29dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_below="@+id/create_busca_txtNome"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@mipmap/pedreiro_perfil" />
+
+        <TextView
+            android:id="@+id/announce_Descricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/create_busca_txtDescricao"
+            android:layout_alignStart="@+id/create_busca_txtDescricao"
+            android:layout_below="@+id/imageView"
+            android:layout_marginTop="16dp"
+            android:text="Descrição"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/create_busca_txtDescricao"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/announce_Descricao"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/border"
+            android:text="Texto......"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/announce_Denunciar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Denunciar"
+            android:layout_below="@+id/create_busca_txtDescricao"
+            android:layout_alignRight="@+id/announce_Descricao"
+            android:layout_alignEnd="@+id/announce_Descricao"
+            android:layout_marginTop="17dp"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/announce_Editar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/announce_Denunciar"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible"
+            android:text="Editar" />
+
+        <Button
+            android:id="@+id/announce_Contato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/announce_Editar"
+            android:layout_alignBottom="@+id/announce_Editar"
+            android:layout_alignEnd="@+id/create_busca_txtDescricao"
+            android:layout_alignRight="@+id/create_busca_txtDescricao"
+            android:text="Contato" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

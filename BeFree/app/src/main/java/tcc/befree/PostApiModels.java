@@ -25,11 +25,53 @@ public class PostApiModels implements Runnable{
     private String urlAPI = "";
 
     public boolean postServico(Servico servico){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servicos/PostServico/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("idUsuario",servico.idUsuario);
+            jSonObject.put("ddd",servico.ddd);
+            jSonObject.put("descricao",servico.descricao);
+            jSonObject.put("idStatus",servico.idStatus);
+            jSonObject.put("idSubCategoria",servico.idSubCategoria);
+            jSonObject.put("titulo",servico.titulo);
+            jSonObject.put("idBusca",servico.idServico);
+
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+        }
 
         return true;
     }
 
     public boolean postBusca(Busca busca){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Buscas/PostBusca/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("idUsuario",busca.idUsuario);
+            jSonObject.put("ddd",busca.ddd);
+            jSonObject.put("descricao",busca.descricao);
+            jSonObject.put("idStatus",busca.idStatus);
+            jSonObject.put("idSubCategoria",busca.idSubCategoria);
+            jSonObject.put("titulo",busca.titulo);
+            jSonObject.put("idBusca",busca.idBusca);
+
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+        }
 
         return true;
     }

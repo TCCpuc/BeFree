@@ -51,9 +51,11 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
         ServiceAdapter adapter;
 
+        ApiModels api = new ApiModels();
+
         if(!search.equals("")){
             ArrayList<Servico> resultado = new ArrayList<>();
-            ApiModels api = new ApiModels();
+
             searchs = api.getServicos();
 
             for(int i = 0; i<searchs.size();i++){
@@ -65,17 +67,19 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
         }else{
             if(id==0){
-                ApiModels api = new ApiModels();
                 searchs = api.getServicos();
             }else{
-                Servico sc = new Servico();
-                sc.descricao = "Teste";
-                sc.titulo = "Teste";
-                sc.idServico = 1;
-                sc.idStatus = 1;
-                sc.idUsuario = 1;
-                sc.idSubCategoria = 1;
-                searchs.add(sc);
+
+                searchs = api.getServicosByUsuario(id);
+
+//                Servico sc = new Servico();
+//                sc.descricao = "Teste";
+//                sc.titulo = "Teste";
+//                sc.idServico = 1;
+//                sc.idStatus = 1;
+//                sc.idUsuario = 1;
+//                sc.idSubCategoria = 1;
+//                searchs.add(sc);
             }
             adapter = new ServiceAdapter(getContext(), searchs, this);
         }

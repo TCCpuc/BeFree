@@ -25,7 +25,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
 
         
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anuncio);
+        setContentView(R.layout.newactivity_anuncio);
 
         ApiModels conexao = new ApiModels();
 

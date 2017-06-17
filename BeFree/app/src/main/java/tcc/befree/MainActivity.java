@@ -1,5 +1,6 @@
 package tcc.befree;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SearchView;
 import android.view.View;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private int idUsuario = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,13 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
+        Bundle bundle = getIntent().getBundleExtra("idUsuario");
+        try {
+            idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            idUsuario = 0;
+        }
 
         setTitle("Befree");
         //Instancia menu drawer
@@ -92,6 +102,7 @@ public class MainActivity extends AppCompatActivity{
         mTextViewNomeUsuario.setText(nomeUsuario);
         mTextViewEmailUsuario.setText(emailUsuario);
 
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @SuppressWarnings("StatementWithEmptyBody")
@@ -104,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
 
                             id = 1;
                             Bundle bundle = new Bundle();
-                            bundle.putInt("id",id);
+                            bundle.putInt("id",idUsuario);
                             Intent intent = MainActivity.this.getIntent();
                             intent.putExtra("bundle", bundle);
                             /*Intent i = MainActivity.this.getIntent();
@@ -160,7 +171,22 @@ public class MainActivity extends AppCompatActivity{
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Logout")
+                    .setMessage("Você tem certeza que deseja sair do Befree?")
+                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
+
+            //super.onBackPressed();
         }
     }
 
@@ -283,4 +309,5 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }
     }
+
 }
