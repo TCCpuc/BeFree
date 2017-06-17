@@ -49,4 +49,10 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
     }
+
+    protected String validaCampos(){
+
+
+
+    }
 }
