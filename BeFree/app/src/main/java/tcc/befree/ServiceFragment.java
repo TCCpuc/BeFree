@@ -69,17 +69,8 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
             if(id==0){
                 searchs = api.getServicos();
             }else{
-
                 searchs = api.getServicosByUsuario(id);
 
-//                Servico sc = new Servico();
-//                sc.descricao = "Teste";
-//                sc.titulo = "Teste";
-//                sc.idServico = 1;
-//                sc.idStatus = 1;
-//                sc.idUsuario = 1;
-//                sc.idSubCategoria = 1;
-//                searchs.add(sc);
             }
             adapter = new ServiceAdapter(getContext(), searchs, this);
         }

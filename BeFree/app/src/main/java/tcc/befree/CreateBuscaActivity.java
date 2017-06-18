@@ -95,7 +95,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 else {
                     novaBusca.descricao = descricao;
                     novaBusca.titulo = nome;
-                    novaBusca.ddd = new ApiModels().getDDDByCodigo(ddd).id;
+                    novaBusca.idDDD = new ApiModels().getDDDByCodigo(ddd).id;
                     novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
 
                     new PostApiModels().postBusca(novaBusca);

@@ -29,6 +29,12 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
+                    android:layout_height="20px">
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="61dp">
 
                     <AutoCompleteTextView
@@ -42,6 +48,22 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+                <EditText
+                    android:id="@+id/create_service_txtDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_weight="112.92"
+                    android:hint="Descrição"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textMultiLine"
+                    android:maxLines="10" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20px">
+
+                </android.support.design.widget.TextInputLayout>
+
                 <Spinner
                     android:id="@+id/create_service_spinnerCategoria"
                     android:layout_width="match_parent"
@@ -49,8 +71,15 @@
                     android:layout_weight="1" />
 
                 <android.support.design.widget.TextInputLayout
+                    android:layout_width="400dp"
+                    android:layout_height="2px"
+                    android:background="#A9A9A9">
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="20px" >
+                    android:layout_height="20px">
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -59,6 +88,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_weight="1" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="400dp"
+                    android:layout_height="2px"
+                    android:background="#A9A9A9">
+
+                </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -71,19 +107,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp" />
 
-                <EditText
-                    android:id="@+id/create_service_txtDescricao"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:hint="Descrição"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="400dp"
+                    android:layout_height="2px"
+                    android:background="#A9A9A9">
+
+                </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="20px">
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20px">
 
                 </android.support.design.widget.TextInputLayout>
 

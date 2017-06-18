@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import tcc.befree.models.Servico;
@@ -44,7 +46,7 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.img_anuncio);
-        imageView.setImageResource(R.mipmap.pedreiro_perfil);
+        Picasso.with(getContext()).load(servico.imagemServico).into(imageView);
 
         title.setText(servico.titulo);
         description.setText(servico.descricao);

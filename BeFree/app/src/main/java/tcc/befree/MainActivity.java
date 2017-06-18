@@ -24,7 +24,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
@@ -96,8 +99,11 @@ public class MainActivity extends AppCompatActivity{
 
         TextView mTextViewNomeUsuario = (TextView)header.findViewById(R.id.nome_usuario_menu);
         TextView mTextViewEmailUsuario = (TextView)header.findViewById(R.id.email_usuario_menu);
+        ImageView mImagePerfil = (ImageView) header.findViewById(R.id.img_usuario_menu);
+
         String nomeUsuario = getIntent().getStringExtra("nomeUsuario");
         String emailUsuario = getIntent().getStringExtra("emailUsuario");
+        Picasso.with(this).load(getIntent().getStringExtra("imagemPerfil")).into(mImagePerfil);
 
         mTextViewNomeUsuario.setText(nomeUsuario);
         mTextViewEmailUsuario.setText(emailUsuario);

@@ -53,6 +53,7 @@ public class ApiModels implements Runnable{
                 usuario.email = jSonObject.getString("email");
                 usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
                 usuario.senha = jSonObject.getString("senha");
+                usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
                 arrayUsuarios.add(usuario);
             }
 
@@ -81,7 +82,7 @@ public class ApiModels implements Runnable{
             usuario.email = jSonObject.getString("email");
             usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
             usuario.senha = jSonObject.getString("senha");
-
+            usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
         }catch (Exception er){
             er.printStackTrace();
         }
@@ -114,6 +115,8 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
+                servico.imagemServico = jSonObject.getString("imagemServico");
+                servico.idDDD = jSonObject.getInt("idDDD");
 
                 arrayServicos.add(servico);
             }
@@ -147,6 +150,8 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
+                servico.imagemServico = jSonObject.getString("imagemServico");
+                servico.idDDD = jSonObject.getInt("idDDD");
 
             }
 
@@ -170,16 +175,18 @@ public class ApiModels implements Runnable{
             thread.interrupt();
             for (int i = 0; i < jSonArray.length();i++){
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Servico busca = new Servico();
+                Servico servico = new Servico();
 
-                busca.idServico = jSonObject.getInt("idServico");
-                busca.titulo = jSonObject.getString("titulo");
-                busca.descricao = jSonObject.getString("descricao");
-                busca.idUsuario = jSonObject.getInt("idUsuario");
-                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                busca.idStatus = jSonObject.getInt("idStatus");
+                servico.idServico = jSonObject.getInt("idServico");
+                servico.titulo = jSonObject.getString("titulo");
+                servico.descricao = jSonObject.getString("descricao");
+                servico.idUsuario = jSonObject.getInt("idUsuario");
+                servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                servico.idStatus = jSonObject.getInt("idStatus");
+                servico.imagemServico = jSonObject.getString("imagemServico");
+                servico.idDDD = jSonObject.getInt("idDDD");
 
-                arrayServicos.add(busca);
+                arrayServicos.add(servico);
             }
 
         } catch (JSONException e) {
@@ -212,7 +219,8 @@ public class ApiModels implements Runnable{
                 busca.idUsuario = jSonObject.getInt("idUsuario");
                 busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 busca.idStatus = jSonObject.getInt("idStatus");
-
+                busca.imagemBusca = jSonObject.getString("imagemBusca");
+                busca.idDDD = jSonObject.getInt("idDDD");
                 arrayBuscas.add(busca);
             }
 
@@ -244,7 +252,8 @@ public class ApiModels implements Runnable{
                 busca.idUsuario = jSonObject.getInt("idUsuario");
                 busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 busca.idStatus = jSonObject.getInt("idStatus");
-
+                busca.imagemBusca = jSonObject.getString("imagemBusca");
+                busca.idDDD = jSonObject.getInt("idDDD");
                 arrayBuscas.add(busca);
             }
 
@@ -274,7 +283,8 @@ public class ApiModels implements Runnable{
             busca.idUsuario = jSonObject.getInt("idUsuario");
             busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
             busca.idStatus = jSonObject.getInt("idStatus");
-
+            busca.imagemBusca = jSonObject.getString("imagemBusca");
+            busca.idDDD = jSonObject.getInt("idDDD");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -453,7 +463,8 @@ public class ApiModels implements Runnable{
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 DDD ddd = new DDD();
                 ddd.id = jSonObject.getInt("idDDD");
-                ddd.descricao = jSonObject.getString("codDDD");
+                ddd.codDDD = jSonObject.getString("codDDD");
+                ddd.descricao = jSonObject.getString("descricao");
                 vetorDDDs[i] = ddd;
             }
         } catch (JSONException e) {
@@ -480,7 +491,8 @@ public class ApiModels implements Runnable{
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 DDD ddd = new DDD();
                 ddd.id = jSonObject.getInt("idDDD");
-                ddd.descricao = jSonObject.getString("codDDD");
+                ddd.codDDD = jSonObject.getString("codDDD");
+                ddd.descricao = jSonObject.getString("descricao");
                 arrayDDDs.add(ddd);
             }
 

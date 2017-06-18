@@ -48,5 +48,8 @@ namespace BeFreeAPI.Models
 
         [StringLength(3)]
         public string ddd { get; set; }
+
+        [StringLength(500)]
+        public string imagemPerfil { get; set; }
     }
 }

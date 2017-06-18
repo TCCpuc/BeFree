@@ -6,10 +6,11 @@ package tcc.befree.models;
 
 public class DDD {
     public int id;
+    public String codDDD;
     public String descricao;
 
     @Override
     public String toString(){
-        return descricao;
+        return codDDD + " - " + descricao;
     }
 }

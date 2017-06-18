@@ -31,4 +31,5 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     compile 'com.github.jalasoft:HttpClient:1.0.5'
     testCompile 'junit:junit:4.12'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

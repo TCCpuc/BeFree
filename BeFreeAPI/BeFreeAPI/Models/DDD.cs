@@ -14,5 +14,7 @@ namespace BeFreeAPI.Models
 
         [StringLength(3)]
         public string codDDD { get; set; }
+
+        public string descricao { get; set; }
     }
 }

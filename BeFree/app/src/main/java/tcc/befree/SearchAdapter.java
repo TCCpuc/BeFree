@@ -1,11 +1,15 @@
 package tcc.befree;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,10 +45,12 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
         }
 
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
+        ImageView imgBusca = (ImageView) convertView.findViewById(R.id.img_anuncio);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
 
         title.setText(busca.titulo);
         description.setText(busca.descricao);
+        Picasso.with(getContext()).load(busca.imagemBusca).into(imgBusca);
 
         return convertView;
 

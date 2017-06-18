@@ -22,4 +22,5 @@ public class Usuarios {
     public String senha ;
     public String email ;
     public String ddd ;
+    public String imagemPerfil;
 }

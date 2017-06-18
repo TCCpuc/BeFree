@@ -22,5 +22,9 @@ namespace BeFreeAPI.Models
         public int idSubCategoria { get; set; }
 
         public int? idStatus { get; set; }
+
+        public string imagemBusca { get; set; }
+
+        public int idDDD { get; set; }
     }
 }

@@ -28,6 +28,11 @@
             android:orientation="vertical"
             android:weightSum="1">
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="20px">
+
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -43,11 +48,27 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <EditText
+                android:id="@+id/create_busca_txtDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:hint="Descrição"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textMultiLine"
+                android:maxLines="10" />
+
             <Spinner
                 android:id="@+id/create_busca_spinnerCategoria"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="400dp"
+                android:layout_height="2px"
+                android:background="#A9A9A9">
+
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -61,6 +82,13 @@
                 android:layout_height="40dp" />
 
             <android.support.design.widget.TextInputLayout
+                android:layout_width="400dp"
+                android:layout_height="2px"
+                android:background="#A9A9A9">
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="20px">
 
@@ -72,20 +100,18 @@
                 android:layout_height="40dp" />
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="400dp"
+                android:layout_height="2px"
+                android:background="#A9A9A9">
 
             </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/create_busca_txtDescricao"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:hint="Descrição"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:layout_height="20px">
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

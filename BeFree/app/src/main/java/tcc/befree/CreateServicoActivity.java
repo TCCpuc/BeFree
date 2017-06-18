@@ -40,7 +40,7 @@ public class CreateServicoActivity extends AppCompatActivity {
         spinnerDDDs.setAdapter(arrayAdapterDDD);
 
         //popula o spinner de categoria
-        spinnerCategorias = (Spinner) findViewById(R.id.create_service_spinnerSubCategoria);
+        spinnerCategorias = (Spinner) findViewById(R.id.create_service_spinnerCategoria);
         ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
         arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
@@ -99,7 +99,7 @@ public class CreateServicoActivity extends AppCompatActivity {
                 else {
                     novaServico.descricao = descricao;
                     novaServico.titulo = nome;
-                    novaServico.ddd = ((DDD)spinnerDDDs.getSelectedItem()).id;
+                    novaServico.idDDD = ((DDD)spinnerDDDs.getSelectedItem()).id;
                     novaServico.idSubCategoria = idSubCategoria;
 
                     new PostApiModels().postServico(novaServico);
@@ -111,7 +111,7 @@ public class CreateServicoActivity extends AppCompatActivity {
     protected void  preencheSubCategoria(int idCategoria){
 
         //popula o spinner de subcategoria
-        spinnerSubCategorias = (Spinner) findViewById(R.id.create_service_spinnerCategoria);
+        spinnerSubCategorias = (Spinner) findViewById(R.id.create_service_spinnerSubCategoria);
         ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoria(idCategoria));
         arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
