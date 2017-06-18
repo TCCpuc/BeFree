@@ -5,18 +5,11 @@ package tcc.befree.models;
  */
 
 public class Servico {
-    //public string nome;
-    //public string categoria ;
-    //public string subcategoria ;
-    //public string cidade ;
-    //public string bairro ;
-    //public int id_servico;
-    //public long cpf;
     public int idServico;
-    public int ddd;
     public String titulo;
     public String descricao;
     public int idUsuario;
     public int idSubCategoria;
     public int idStatus;
+    public int ddd;
 }

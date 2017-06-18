@@ -8,4 +8,9 @@ public class SubCategoria {
     public int idSubCategoria;
     public int idCategoria;
     public String descricao;
+
+    @Override
+    public String toString(){
+        return this.descricao;
+    }
 }

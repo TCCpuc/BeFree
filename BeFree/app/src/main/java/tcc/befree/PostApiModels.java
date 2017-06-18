@@ -30,13 +30,13 @@ public class PostApiModels implements Runnable{
 
         jSonObject = new JSONObject();
         try {
-            jSonObject.put("idUsuario",servico.idUsuario);
-            jSonObject.put("ddd",servico.ddd);
-            jSonObject.put("descricao",servico.descricao);
-            jSonObject.put("idStatus",servico.idStatus);
-            jSonObject.put("idSubCategoria",servico.idSubCategoria);
+            jSonObject.put("idServico",servico.idServico);
             jSonObject.put("titulo",servico.titulo);
-            jSonObject.put("idBusca",servico.idServico);
+            jSonObject.put("descricao",servico.descricao);
+            jSonObject.put("idUsuario",servico.idUsuario);
+            jSonObject.put("idSubCategoria",servico.idSubCategoria);
+            jSonObject.put("idStatus",servico.idStatus);
+            //jSonObject.put("ddd",servico.ddd);
 
             thread.start();
             controlaThread();
@@ -56,13 +56,13 @@ public class PostApiModels implements Runnable{
 
         jSonObject = new JSONObject();
         try {
-            jSonObject.put("idUsuario",busca.idUsuario);
-            jSonObject.put("ddd",busca.ddd);
-            jSonObject.put("descricao",busca.descricao);
-            jSonObject.put("idStatus",busca.idStatus);
-            jSonObject.put("idSubCategoria",busca.idSubCategoria);
-            jSonObject.put("titulo",busca.titulo);
             jSonObject.put("idBusca",busca.idBusca);
+            jSonObject.put("titulo",busca.titulo);
+            jSonObject.put("descricao",busca.descricao);
+            jSonObject.put("idUsuario",busca.idUsuario);
+            jSonObject.put("idSubCategoria",busca.idSubCategoria);
+            jSonObject.put("idStatus",busca.idStatus);
+            //jSonObject.put("ddd",busca.ddd);
 
             thread.start();
             controlaThread();

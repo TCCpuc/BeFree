@@ -29,53 +29,47 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="61dp">
 
                     <AutoCompleteTextView
                         android:id="@+id/create_service_txtNome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nome do anúncio"
+                        android:hint="Titulo do anúncio"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true" />
 
-                    <Spinner
-                        android:id="@+id/create_service_spinnerCategoria"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
                 </android.support.design.widget.TextInputLayout>
+
+                <Spinner
+                    android:id="@+id/create_service_spinnerCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="20px" >
 
                 </android.support.design.widget.TextInputLayout>
 
+                <Spinner
+                    android:id="@+id/create_service_spinnerSubCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1" />
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Spinner
-                        android:id="@+id/create_service_spinnerSubCategoria"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                    android:layout_height="20px">
 
                 </android.support.design.widget.TextInputLayout>
 
                 <Spinner
                     android:id="@+id/create_service_spinnerDDD"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="40dp" />
 
                 <EditText
                     android:id="@+id/create_service_txtDescricao"

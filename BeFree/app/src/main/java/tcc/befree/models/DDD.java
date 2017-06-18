@@ -7,4 +7,9 @@ package tcc.befree.models;
 public class DDD {
     public int id;
     public String descricao;
+
+    @Override
+    public String toString(){
+        return descricao;
+    }
 }

@@ -88,7 +88,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         Bundle bundle = new Bundle();
         int id = busca.idBusca;
         bundle.putInt("id",id);
-        Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);
+        Intent intent = new Intent(getActivity(), AnuncioBuscaActivity.class);
         intent.putExtra("bundle", bundle);
         startActivity(intent);
     }

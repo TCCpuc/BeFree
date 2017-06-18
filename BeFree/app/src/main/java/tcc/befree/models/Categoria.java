@@ -7,4 +7,10 @@ package tcc.befree.models;
 public class Categoria {
     public int idCategoria;
     public String descricao;
+
+    @Override
+    public String toString(){
+
+        return descricao;
+    }
 }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -11,9 +12,14 @@ import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import tcc.befree.models.Busca;
+import tcc.befree.models.Categoria;
 import tcc.befree.models.SubCategoria;
 
 public class CreateBuscaActivity extends AppCompatActivity {
+
+    private Spinner spinnerDDDs;
+    private Spinner spinnerCategorias;
+    private Spinner spinnerSubCategorias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,22 +27,30 @@ public class CreateBuscaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_busca);
 
         //popula o spinner do ddd
-        final Spinner spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
-        ArrayAdapter<CharSequence>  arrayAdapterDDD = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
+        spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
+        ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
 
-        //popula o spinner de subcategoria
-        final Spinner spinnerSubCategorias = (Spinner) findViewById(R.id.create_busca_spinnerCategoria);
-        ArrayAdapter<CharSequence>  arrayAdapterSubCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
-        arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-        spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
-
         //popula o spinner de categoria
-        final Spinner spinnerCategorias = (Spinner) findViewById(R.id.create_busca_spinnerSubCategoria);
-        ArrayAdapter<CharSequence>  arrayAdapterCategoria = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetor());
-        arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        spinnerCategorias = (Spinner) findViewById(R.id.create_busca_spinnerCategoria);
+        ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
+        arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
+        spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Auto-generated method stub
+                int idCategoria = ((Categoria)parent.getItemAtPosition(position)).idCategoria;
+                preencheSubCategoria(idCategoria);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
 
         //Botão Submit
         Button submit = (Button) findViewById(R.id.create_busca_BtnSubmitBusca);
@@ -89,4 +103,14 @@ public class CreateBuscaActivity extends AppCompatActivity {
             }
         });
     }
+
+    protected void preencheSubCategoria(int idCategoria){
+
+        //popula o spinner de subcategoria
+        spinnerSubCategorias = (Spinner) findViewById(R.id.create_busca_spinnerSubCategoria);
+        ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoria(idCategoria));
+        arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
+    }
+
 }

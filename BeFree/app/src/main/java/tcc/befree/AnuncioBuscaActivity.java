@@ -34,14 +34,6 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         try {
             setText("create_busca_txtNome", bsc.titulo);
             setText("create_busca_txtDescricao", bsc.descricao);
-
-
-            //     (TextView)findViewById(getResources().getIdentifier("txtCidade", "id", getPackageName()))).setText(conexao.getBuscasById(id).);
-//            setText("txtCidade", (String) bsc.descricao);
-////        ((TextView)findViewById(getResources().getIdentifier("txtCategoria", "id", getPackageName()))).setText(conexao.getBuscasById(id).);
-//            setText("txtCategoria", (String) bsc.descricao);
-////        ((TextView)findViewById(getResources().getIdentifier("txtSubCategoria", "id", getPackageName()))).setText(conexao.getBuscasById(id).);
-//            setText("txtSubCategoria", (String) bsc.descricao);
         }catch (Exception e){
             String erro = e.getMessage();
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();
