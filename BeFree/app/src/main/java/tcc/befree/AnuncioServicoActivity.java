@@ -45,10 +45,10 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         try {
 
             srv = conexao.getServicosById(id);
-            subCategoria = conexao.getSubCategoriasByID(srv.idSubCategoria);
-            categoria = conexao.getCategoriaByID(subCategoria.idCategoria);
+            //subCategoria = conexao.getSubCategoriasByID(srv.idSubCategoria);
+            //categoria = conexao.getCategoriaByID(subCategoria.idCategoria);
 
-            setText("newactivity_Categoria",categoria.descricao + " > " + subCategoria.descricao);
+            //setText("newactivity_Categoria",categoria.descricao + " - " + subCategoria.descricao);
             setText("newactivity_txtNome", srv.titulo);
             setText("newactivity_txtDescricao", srv.descricao);
             Picasso.with(this).load(srv.imagemServico).into(imgAnuncio);
