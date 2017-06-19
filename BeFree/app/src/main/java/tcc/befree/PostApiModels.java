@@ -26,7 +26,7 @@ public class PostApiModels implements Runnable{
 
     public boolean postServico(Servico servico){
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servicos/PostServico/";
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/PostServico/";
 
         jSonObject = new JSONObject();
         try {
@@ -53,7 +53,7 @@ public class PostApiModels implements Runnable{
 
     public boolean postBusca(Busca busca){
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Buscas/PostBusca/";
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/PostBusca/";
 
         jSonObject = new JSONObject();
         try {
