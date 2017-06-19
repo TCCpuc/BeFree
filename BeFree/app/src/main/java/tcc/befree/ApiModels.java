@@ -296,6 +296,7 @@ public class ApiModels implements Runnable{
 
 
     /* ---------------------------------- MÉTODOS DE CATEGORIAS ----------------------------------- */
+
     final public Categoria[] getCategoriasVetor() {
 
         Categoria[] vetorCategorias= null;
@@ -339,7 +340,7 @@ public class ApiModels implements Runnable{
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Categoria categoria = new Categoria();
                 categoria.idCategoria = jSonObject.getInt("idCategoria");
-                categoria.descricao = jSonObject.getString("desricao");
+                categoria.descricao = jSonObject.getString("descricao");
                 arrayCategorias.add(categoria);
             }
 
@@ -349,6 +350,30 @@ public class ApiModels implements Runnable{
 
         jSonArray = null;
         return  arrayCategorias;
+    }
+
+    //Retorna Categoria por ID
+    final public Categoria getCategoriaByID(int idCategoria){
+
+        Categoria categoria = new Categoria();
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Categoria/GetCategoria/" + idCategoria;
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            categoria.idCategoria = jSonObject.getInt("idCategoria");
+            categoria.descricao = jSonObject.getString("descricao");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return categoria;
     }
 
     /* ---------------------------------- MÉTODOS DE SUBCATEGORIAS ----------------------------------- */
@@ -442,7 +467,31 @@ public class ApiModels implements Runnable{
         return  arraySubCategorias;
     }
 
+    //Retorna todas as subcategorias
+    final public SubCategoria getSubCategoriasByID(int idSubCategoria){
 
+        SubCategoria subCategoria = new SubCategoria();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/SubCategoria/GetSubCategoria/" + idSubCategoria;
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            subCategoria.idCategoria = jSonObject.getInt("idCategoria");
+            subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
+            subCategoria.descricao = jSonObject.getString("descricao");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return  subCategoria;
+    }
 
     /* ---------------------------------- MÉTODOS DE DDDS ----------------------------------- */
     //Retorna todas os DDDs como vetor
@@ -544,6 +593,10 @@ public class ApiModels implements Runnable{
             semaforo = true;
         }
     }
+
+
+
+    /* ------------------------------- UTILS -------------------------------------------------- */
 
     public DDD getDDDByCodigo(String nome) {
         DDD ddd = new DDD();
