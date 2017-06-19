@@ -19,7 +19,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@mipmap/pedreiro_perfil"/>
+            android:src="@mipmap/pedreiro_perfil"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/item_service_title"
@@ -32,17 +35,21 @@
             android:layout_toEndOf="@+id/img_anuncio"
             android:layout_toRightOf="@+id/img_anuncio"
             android:textSize="14sp"
+            android:textStyle="bold|italic"
             tools:text="Pedreiro" />
 
         <TextView
             android:id="@+id/item_service_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="500dp"
+            android:layout_height="40dp"
             android:layout_gravity="left"
             android:ellipsize="end"
             android:textSize="14sp"
             tools:text="Preciso de pedreiro!"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/img_anuncio"
             android:layout_alignLeft="@+id/item_service_title"
             android:layout_alignStart="@+id/item_service_title" />
 
