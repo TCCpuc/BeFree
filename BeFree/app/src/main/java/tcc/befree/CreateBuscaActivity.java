@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 import tcc.befree.models.Busca;
 import tcc.befree.models.Categoria;
 import tcc.befree.models.SubCategoria;
@@ -99,6 +101,10 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
 
                     new PostApiModels().postBusca(novaBusca);
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Busca criada com sucesso!", Toast.LENGTH_LONG);
+                    toast.show();
+                    CreateBuscaActivity.super.onBackPressed();
                 }
             }
         });
