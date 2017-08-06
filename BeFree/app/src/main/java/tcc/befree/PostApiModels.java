@@ -121,11 +121,11 @@ public class PostApiModels implements Runnable{
                 break;
         }
     }
+    //Teste GIT
 
     @Override
     public void run() {
         try {
-
             String type = "application/json";
 
             semaforo = false;
