@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tcc.befree.UserPerfil">
+    tools:context="tcc.befree.telas.perfil.UserPerfil">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

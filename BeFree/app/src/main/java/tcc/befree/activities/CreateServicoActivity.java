@@ -1,43 +1,50 @@
-package tcc.befree;
+package tcc.befree.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
-import tcc.befree.models.Busca;
+import tcc.befree.api.ApiModels;
+import tcc.befree.api.PostApiModels;
+import tcc.befree.R;
 import tcc.befree.models.Categoria;
+import tcc.befree.models.DDD;
+import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 
-public class CreateBuscaActivity extends AppCompatActivity {
+public class CreateServicoActivity extends AppCompatActivity {
 
-    private Spinner spinnerDDDs;
-    private Spinner spinnerCategorias;
-    private Spinner spinnerSubCategorias;
+    protected Spinner spinnerDDDs;
+    protected Spinner spinnerCategorias;
+    protected Spinner spinnerSubCategorias;
+    protected View viewNome;
+    protected EditText editNome;
+    protected View viewDescricao;
+    protected EditText editDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_busca);
+        setContentView(R.layout.activity_create_servico);
 
         //popula o spinner do ddd
-        spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
+        spinnerDDDs = (Spinner) findViewById(R.id.create_service_spinnerDDD);
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
 
         //popula o spinner de categoria
-        spinnerCategorias = (Spinner) findViewById(R.id.create_busca_spinnerCategoria);
+        spinnerCategorias = (Spinner) findViewById(R.id.create_service_spinnerCategoria);
         ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
-        arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
         spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -55,35 +62,32 @@ public class CreateBuscaActivity extends AppCompatActivity {
         });
 
         //Botão Submit
-        Button submit = (Button) findViewById(R.id.create_busca_BtnSubmitBusca);
+        Button submit = (Button) findViewById(R.id.create_service_btnSubmitService);
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO POPULAR SPINNER SUBCATEGORIA SÓ COM AS CATEGORIAS CERTAS
 
-                Busca novaBusca = new Busca();
+                viewNome = findViewById(R.id.create_service_txtNome);
+                editNome = (EditText) viewNome;
+                viewDescricao = findViewById(R.id.create_service_txtDescricao);
+                editDescricao = (EditText) viewDescricao;
 
-                View viewNome = findViewById(R.id.create_busca_txtNome);
-                EditText editNome = (EditText) viewNome;
+                Servico novaServico = new Servico();
                 String nome = editNome.getText().toString();
-
-                View viewDescricao = findViewById(R.id.create_busca_txtDescricao);
-                EditText editDescricao = (EditText) viewDescricao;
                 String descricao = editDescricao.getText().toString();
 
                 String ddd = spinnerDDDs.getSelectedItem().toString();
-
-                String subCategoria = spinnerSubCategorias.getSelectedItem().toString();
-
+                String subCategoria =  spinnerSubCategorias.getSelectedItem().toString();
+                int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
                 String categoria = spinnerCategorias.getSelectedItem().toString();
 
                 if(ddd ==null
-                        || "".equals(subCategoria)
-                        || "".equals(categoria)
-                        || "".equals(nome)
-                        || "".equals(descricao))
+                    || "".equals(subCategoria)
+                    || "".equals(categoria)
+                    || "".equals(nome)
+                    || "".equals(descricao))
                 {
-                    AlertDialog alertDialog = new AlertDialog.Builder(CreateBuscaActivity.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(CreateServicoActivity.this).create();
                     alertDialog.setTitle("Todos os campos são obrigatórios");
                     alertDialog.setMessage("Por favor, preencha todos os campos");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -95,28 +99,24 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-                    novaBusca.descricao = descricao;
-                    novaBusca.titulo = nome;
-                    novaBusca.idDDD = new ApiModels().getDDDByCodigo(ddd).id;
-                    novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
+                    novaServico.descricao = descricao;
+                    novaServico.titulo = nome;
+                    novaServico.idDDD = ((DDD)spinnerDDDs.getSelectedItem()).id;
+                    novaServico.idSubCategoria = idSubCategoria;
 
-                    new PostApiModels().postBusca(novaBusca);
-
-                    Toast toast = Toast.makeText(getApplicationContext(), "Busca criada com sucesso!", Toast.LENGTH_LONG);
-                    toast.show();
-                    CreateBuscaActivity.super.onBackPressed();
+                    new PostApiModels().postServico(novaServico);
                 }
             }
         });
     }
 
-    protected void preencheSubCategoria(int idCategoria){
+    protected void  preencheSubCategoria(int idCategoria){
 
         //popula o spinner de subcategoria
-        spinnerSubCategorias = (Spinner) findViewById(R.id.create_busca_spinnerSubCategoria);
+        spinnerSubCategorias = (Spinner) findViewById(R.id.create_service_spinnerSubCategoria);
         ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoria(idCategoria));
         arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
-    }
 
+    }
 }

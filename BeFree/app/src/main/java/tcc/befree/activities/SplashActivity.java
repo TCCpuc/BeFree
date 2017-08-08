@@ -1,11 +1,12 @@
-package tcc.befree;
+package tcc.befree.activities;
 
 import android.content.Intent;
-import android.icu.text.RuleBasedCollator;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
+
+import tcc.befree.R;
 
 public class SplashActivity extends AppCompatActivity {
 

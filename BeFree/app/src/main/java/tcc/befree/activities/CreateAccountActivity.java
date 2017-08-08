@@ -1,6 +1,5 @@
-package tcc.befree;
+package tcc.befree.activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import tcc.befree.api.PostApiModels;
+import tcc.befree.R;
 import tcc.befree.models.Usuarios;
 
 public class CreateAccountActivity extends AppCompatActivity {

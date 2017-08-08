@@ -17,16 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AnuncioBuscaActivity" />
-        <activity android:name=".AnuncioServicoActivity" />
+        <activity android:name=".activities.AnuncioBuscaActivity" />
+        <activity android:name=".activities.AnuncioServicoActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,11 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".CreateBuscaActivity"></activity>
-        <activity android:name=".CreateServicoActivity" />
+        <activity android:name=".activities.CreateAccountActivity" />
+        <activity android:name=".activities.CreateBuscaActivity"></activity>
+        <activity android:name=".activities.CreateServicoActivity" />
         <activity
-            android:name=".UserPerfil"
+            android:name=".telas.perfil.UserPerfil"
             android:label="@string/title_activity_user_perfil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

@@ -1,27 +1,25 @@
-package tcc.befree;
+package tcc.befree.telas.listaDeBuscas;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import tcc.befree.models.Servico;
+import tcc.befree.R;
+import tcc.befree.activities.AnuncioBuscaActivity;
+import tcc.befree.api.ApiModels;
+import tcc.befree.models.Busca;
 
 /**
  * Created by guilherme.leme on 5/24/17.
  */
-public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickListener {
+
+public class SearchFragment extends Fragment implements SearchAdapter.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,50 +45,45 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
         View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
 
-        ArrayList<Servico> searchs = new ArrayList<>();
+        ArrayList<Busca> searchs = new ArrayList<>();
 
-        ServiceAdapter adapter;
-
+        SearchAdapter adapter;
         ApiModels api = new ApiModels();
 
-        if(!search.equals("")){
-            ArrayList<Servico> resultado = new ArrayList<>();
 
-            searchs = api.getServicos();
+        if(!search.equals("")){
+            ArrayList<Busca> resultado = new ArrayList<>();
+            searchs = api.getBuscas();
 
             for(int i = 0; i<searchs.size();i++){
                 if(searchs.get(i).titulo.toLowerCase().contains(search)){
                     resultado.add(searchs.get(i));
                 }
             }
-            adapter = new ServiceAdapter(getContext(), resultado, this);
+            adapter = new SearchAdapter(getContext(), resultado, this);
 
         }else{
             if(id==0){
-                searchs = api.getServicos();
+                searchs = api.getBuscas();
             }else{
-                searchs = api.getServicosByUsuario(id);
-
+                searchs = api.getBuscaByUsuario(id);
             }
-            adapter = new ServiceAdapter(getContext(), searchs, this);
+            adapter = new SearchAdapter(getContext(), searchs, this);
         }
-
 
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);
-
         return rootView;
     }
 
     @Override
-    public void onClick(Servico servico) {
+    public void onClick(Busca busca) {
         Bundle bundle = new Bundle();
-        int id = servico.idServico;
+        int id = busca.idBusca;
         bundle.putInt("id",id);
-        Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);
+        Intent intent = new Intent(getActivity(), AnuncioBuscaActivity.class);
         intent.putExtra("bundle", bundle);
         startActivity(intent);
     }
-
 }

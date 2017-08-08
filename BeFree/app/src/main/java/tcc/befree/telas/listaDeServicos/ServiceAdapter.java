@@ -1,7 +1,6 @@
-package tcc.befree;
+package tcc.befree.telas.listaDeServicos;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +12,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import tcc.befree.models.Busca;
+import tcc.befree.R;
+import tcc.befree.models.Servico;
 
 /**
  * Created by guilherme.leme on 5/24/17.
  */
 
-public class SearchAdapter extends ArrayAdapter<Busca> {
+public class ServiceAdapter extends ArrayAdapter<Servico> {
 
     private OnClickListener onClickListener;
 
-    public SearchAdapter(Context context, ArrayList<Busca> values, OnClickListener onClickListener) {
+    public ServiceAdapter(Context context, ArrayList<Servico> values, OnClickListener onClickListener) {
         super(context, 0, values);
         this.onClickListener = onClickListener;
     }
@@ -31,7 +31,7 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final Busca busca = getItem(position);
+        final Servico servico = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_service, parent, false);
@@ -39,26 +39,27 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickListener.onClick(busca);
+                    onClickListener.onClick(servico);
                 }
             });
         }
 
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
-        ImageView imgBusca = (ImageView) convertView.findViewById(R.id.img_anuncio);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.img_anuncio);
+        Picasso.with(getContext()).load(servico.imagemServico).into(imageView);
 
-        title.setText(busca.titulo);
-        description.setText(busca.descricao);
-        Picasso.with(getContext()).load(busca.imagemBusca).into(imgBusca);
+        title.setText(servico.titulo);
+        description.setText(servico.descricao);
 
         return convertView;
 
     }
 
     interface OnClickListener {
-        public void onClick(Busca busca);
+        public void onClick(Servico servico);
     }
-
-
 }
+
+
+
