@@ -35,9 +35,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".CreateBuscaActivity">
-        </activity>
-        <activity android:name=".CreateServicoActivity"></activity>
+        <activity android:name=".CreateBuscaActivity"></activity>
+        <activity android:name=".CreateServicoActivity" />
+        <activity
+            android:name=".UserPerfil"
+            android:label="@string/title_activity_user_perfil"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

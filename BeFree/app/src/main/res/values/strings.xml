@@ -60,4 +60,5 @@
         <item>7</item>
         <item>7</item>
     </string-array>
+    <string name="title_activity_user_perfil">activity_user_perfil</string>
 </resources>

@@ -139,6 +139,12 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_perfil) {
                             // ABRIR MEU PERFIL
+                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+
+                            startActivity(intent);
+
+
+
                         } else if (id == R.id.menu_pagina_inicial) {
                             id = 0;
                             Bundle bundle = new Bundle();
