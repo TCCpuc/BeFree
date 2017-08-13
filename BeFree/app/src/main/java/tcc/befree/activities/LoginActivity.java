@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    private EditText Password;
     private View mProgressView;
     private View mLoginFormView;
 
@@ -79,8 +79,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        Password = (EditText) findViewById(R.id.password);
+        Password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -172,19 +172,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Reset errors.
         mEmailView.setError(null);
-        mPasswordView.setError(null);
+        Password.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String password = Password.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+            Password.setError(getString(R.string.error_invalid_password));
+            focusView = Password;
             cancel = true;
         }
 
@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
             if (usuarioValida.senha == null) {
-                mPasswordView.setError("Senha inválida");
+                Password.setError("Senha inválida");
                 return false;
             }
             if (!(usuarioValida.email.toString().equals(email.toString()))) {
@@ -246,7 +246,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
             if (!(usuarioValida.senha.toString().equals(senha.toString()))) {
-                mPasswordView.setError("Senha inválida");
+                Password.setError("Senha inválida");
                 return false;
             }
         } else {
