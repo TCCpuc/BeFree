@@ -12,6 +12,14 @@
     android:background="#1B7BDA"
     tools:context="tcc.befree.activities.NewLoginActivity">
 
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/header_icon"
         android:layout_width="@dimen/image_header_dimen"
@@ -83,6 +91,39 @@
                 android:layout_marginTop="@dimen/login_button_margin"
                 android:text="@string/log_in"
                 android:textColor="@color/dark_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/btnFacebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="43dp"
+                    android:layout_marginStart="43dp"
+                    android:background="@color/colorPrimary"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/facebook_logo"
+                    android:layout_alignTop="@+id/btnGmail"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageButton
+                    android:id="@+id/btnGmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="39dp"
+                    android:layout_marginRight="39dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/colorPrimary"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/google_logo"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -91,28 +132,27 @@
         android:id="@+id/lblPergunta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:text="Não possui cadastro?"
+        android:layout_marginBottom="13dp"
+        android:text="Novo por aqui?"
         android:textSize="18dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginEnd="27dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp" />
+        android:layout_toLeftOf="@+id/btnCriaCadastro"
+        android:layout_toStartOf="@+id/btnCriaCadastro" />
 
     <TextView
         android:id="@+id/btnCriaCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/lblPergunta"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="46dp"
+        android:clickable="true"
         android:text="Cadastre-se"
         android:textColor="#0000FF"
-        android:textSize="20dp"
-        android:clickable="true"
-        android:layout_alignBaseline="@+id/lblPergunta"
-        android:layout_alignBottom="@+id/lblPergunta"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textSize="20dp" />
 
 </RelativeLayout>
