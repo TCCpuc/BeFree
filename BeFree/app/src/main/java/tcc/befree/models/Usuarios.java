@@ -23,4 +23,7 @@ public class Usuarios {
     public String email ;
     public String ddd ;
     public String imagemPerfil;
+
+
+
 }

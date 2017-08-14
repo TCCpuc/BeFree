@@ -1,13 +1,21 @@
 package tcc.befree.activities;
 
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import tcc.befree.api.PostApiModels;
 import tcc.befree.R;
@@ -52,6 +60,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                     novoUsuario.email = edtEmail.getText().toString();
                     novoUsuario.senha = edtSenha.getText().toString();
 
+
+                    novoUsuario.imagemPerfil = getImagem();
                     if( apiPost.postUsuarios(novoUsuario)) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Usuário criado com sucesso!", Toast.LENGTH_LONG);
                         toast.show();
@@ -61,6 +71,24 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String getImagem() {
+        byte[] bytes, buffer = new byte[8192];
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            InputStream inputStream = getResources().openRawResource(+ R.drawable.teste);
+            //ONDE EU PAREI: COMO PEGAR O CAMINHO CERTO
+
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                output.write(buffer, 0, bytesRead);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bytes = output.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     protected boolean validaCampos(String nomeUsuario, String cpf, String email, String senha, String confirmaSenha){
