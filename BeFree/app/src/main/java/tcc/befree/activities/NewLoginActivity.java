@@ -26,6 +26,8 @@ public class NewLoginActivity extends AppCompatActivity {
 
     private TextInputEditText Email = null;
     private TextInputEditText Password = null;
+
+    private View mProgressView;
     
 
     @Override
@@ -40,18 +42,23 @@ public class NewLoginActivity extends AppCompatActivity {
         RelativeLayout with EditTexts and Button is animated with a default fade in.
          */
 
+        //mProgressView.setVisibility(View.GONE);
+
         overridePendingTransition(0,0);
-        View relativeLayout=findViewById(R.id.login_container);
+        View relativeLayout=findViewById(R.id.newLogin_container);
         Animation animation=AnimationUtils.loadAnimation(this,android.R.anim.fade_in);
         relativeLayout.startAnimation(animation);
 
         Email = (TextInputEditText) findViewById(R.id.username_edit_text);
         Password = (TextInputEditText) findViewById(R.id.password_edit_text);
+        mProgressView = findViewById(R.id.circle_login_progress);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.requestFocus();
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mProgressView.setVisibility(View.VISIBLE);
                 attemptLogin();
             }
         });
@@ -123,6 +130,8 @@ public class NewLoginActivity extends AppCompatActivity {
                 intent.putExtra("idUsuario", bundle);
 
                 startActivity(intent);
+                finish();
+
             }
         }
 
@@ -132,22 +141,27 @@ public class NewLoginActivity extends AppCompatActivity {
 
         if (usuarioValida != null) {
             if (usuarioValida.email == null) {
+                mProgressView.setVisibility(View.GONE);
                 Email.setError("Email inválido");
                 return false;
             }
             if (usuarioValida.senha == null) {
+                mProgressView.setVisibility(View.GONE);
                 Password.setError("Senha inválida");
                 return false;
             }
             if (!(usuarioValida.email.toString().equals(email.toString()))) {
+                mProgressView.setVisibility(View.GONE);
                 Email.setError("Email inválido");
                 return false;
             }
             if (!(usuarioValida.senha.toString().equals(senha.toString()))) {
+                mProgressView.setVisibility(View.GONE);
                 Password.setError("Senha inválida");
                 return false;
             }
         } else {
+            mProgressView.setVisibility(View.GONE);
             Email.setError("Email inválido");
             return false;
         }
