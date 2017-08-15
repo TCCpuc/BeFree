@@ -100,7 +100,8 @@ public class PostApiModels implements Runnable{
             jSonObject.put("senha",usuario.senha);
             jSonObject.put("email",usuario.email);
             jSonObject.put("ddd",usuario.ddd);
-            jSonObject.put("imagemPerfil",usuario.imagemPerfil);
+            //jSonObject.put("imagemPerfil",usuario.imagemPerfil);
+            //ONDE EU PAREI - https://stackoverflow.com/questions/6527664/how-do-you-upload-a-file-to-an-ftp-server
 
             thread.start();
             controlaThread();
@@ -130,8 +131,6 @@ public class PostApiModels implements Runnable{
 
             semaforo = false;
             HttpURLConnection urlConnection = null;
-            char[] buffer = new char[1024];
-            String jsonString = new String();
             StringBuilder sb = new StringBuilder();
             String line;
             URL url = new URL(urlAPI);

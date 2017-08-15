@@ -78,7 +78,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         try {
             InputStream inputStream = getResources().openRawResource(+ R.drawable.teste);
-            //ONDE EU PAREI: COMO PEGAR O CAMINHO CERTO
 
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
