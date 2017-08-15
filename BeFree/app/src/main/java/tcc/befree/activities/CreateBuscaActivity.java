@@ -121,4 +121,9 @@ public class CreateBuscaActivity extends AppCompatActivity {
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

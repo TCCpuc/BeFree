@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import tcc.befree.R;
 import tcc.befree.models.Busca;
+import tcc.befree.models.CircleImageView;
 
 /**
  * Created by guilherme.leme on 5/24/17.
@@ -45,7 +46,7 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
         }
 
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
-        ImageView imgBusca = (ImageView) convertView.findViewById(R.id.img_anuncio);
+        CircleImageView imgBusca = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
 
         title.setText(busca.titulo);

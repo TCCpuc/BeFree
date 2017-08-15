@@ -149,4 +149,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         //TODO: Replace this with your own logic
         return email.contains("@");
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -61,4 +61,8 @@ public class AnuncioServicoActivity extends AppCompatActivity {
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

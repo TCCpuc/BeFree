@@ -1,5 +1,9 @@
 package tcc.befree.activities;
 
+import android.content.DialogInterface;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -57,5 +61,10 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

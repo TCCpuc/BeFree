@@ -119,4 +119,9 @@ public class CreateServicoActivity extends AppCompatActivity {
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
