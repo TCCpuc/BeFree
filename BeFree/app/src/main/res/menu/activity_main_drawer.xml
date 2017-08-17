@@ -14,6 +14,18 @@
             android:id="@+id/menu_anuncios"
             android:icon="@drawable/ic_briefcase"
             android:title="Meus anúncios" />
+        <item
+            android:id="@+id/menu_calendario"
+            android:icon="@drawable/ic_event"
+            android:title="Minha agenda" />
+        <item
+            android:id="@+id/menu_chat"
+            android:icon="@drawable/ic_forum"
+            android:title="Chat" />
+        <item
+            android:id="@+id/menu_historico"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Historico" />
 
     </group>
 

@@ -35,6 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.AnuncioBuscaActivity" />
         <activity android:name=".activities.AnuncioServicoActivity" />
+        <activity android:name=".activities.GenderActivity" />
         <!--
         <activity
             android:name=".activities.SplashActivity"

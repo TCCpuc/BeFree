@@ -16,7 +16,7 @@
             android:layout_centerHorizontal="true" />
 
         <Button
-            android:id="@+id/calendarioVt"
+            android:id="@+id/calendario_Voltar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="51dp"
@@ -28,12 +28,12 @@
             android:layout_alignStart="@+id/calendarView" />
 
         <Button
-            android:id="@+id/calendarioAg"
+            android:id="@+id/calendario_Agendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/calendarView"
             android:layout_alignRight="@+id/calendarView"
-            android:layout_alignTop="@+id/calendarioVt"
+            android:layout_alignTop="@+id/calendario_Voltar"
             android:layout_marginEnd="49dp"
             android:layout_marginRight="49dp"
             android:text="Agendar" />

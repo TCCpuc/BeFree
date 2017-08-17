@@ -146,7 +146,23 @@ public class MainActivity extends AppCompatActivity{
 
                             startActivity(intent);
 
+                        } else if (id == R.id.menu_calendario) {
+                            // ABRIR Agenda
+                            Intent intent = new Intent(MainActivity.this, GenderActivity.class);
 
+                            startActivity(intent);
+
+                        } else if (id == R.id.menu_chat) {
+                            // ABRIR CHAT
+                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+
+                            startActivity(intent);
+
+                        } else if (id == R.id.menu_historico) {
+                            // ABRIR HISTORICO
+                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+
+                            startActivity(intent);
 
                         } else if (id == R.id.menu_pagina_inicial) {
                             id = 0;
