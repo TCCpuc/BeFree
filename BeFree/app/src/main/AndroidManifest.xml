@@ -55,6 +55,8 @@
             android:name=".telas.perfil.UserPerfil"
             android:label="@string/title_activity_user_perfil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#1B7BDA"
+    android:background="#FFFFFF"
     tools:context="tcc.befree.activities.LoginActivity">
 
     <ImageView
@@ -88,6 +88,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/login_facebook_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="14dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <!--
                 <ImageButton
                     android:id="@+id/btnFacebook"
                     android:layout_width="wrap_content"
@@ -115,6 +125,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
+                -->
                 <ProgressBar
                     android:id="@+id/circle_login_progress"
                     style="?android:attr/progressBarStyleLarge"
@@ -124,6 +135,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:visibility="gone" />
+
+
             </RelativeLayout>
 
         </LinearLayout>
