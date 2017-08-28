@@ -8,11 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-
 import tcc.befree.api.ApiModels;
 import tcc.befree.R;
 import tcc.befree.models.Busca;
@@ -20,7 +15,6 @@ import tcc.befree.models.Busca;
 public class AnuncioBuscaActivity extends AppCompatActivity {
 
     protected ImageView imgAnuncio;
-
 
     private void setText(String campo, String valor){
         int busca = getResources().getIdentifier(campo, "id", getPackageName());
@@ -58,12 +52,14 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
 
             //Picasso.with(this).load(BitmapFactory.decodeByteArray(Base64.decode(bsc.imagemBusca, Base64.DEFAULT), 0, bsc.imagemBusca.length())).into(imgAnuncio);
 
-
         }catch (Exception e){
             String erro = e.getMessage();
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

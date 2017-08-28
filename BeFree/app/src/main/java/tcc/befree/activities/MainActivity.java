@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
+import tcc.befree.models.CircleImageView;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
 import tcc.befree.telas.perfil.UserPerfil;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity{
 
         TextView mTextViewNomeUsuario = (TextView)header.findViewById(R.id.nome_usuario_menu);
         TextView mTextViewEmailUsuario = (TextView)header.findViewById(R.id.email_usuario_menu);
-        ImageView mImagePerfil = (ImageView) header.findViewById(R.id.img_usuario_menu);
+        CircleImageView mImagePerfil = (CircleImageView) header.findViewById(R.id.img_usuario_menu);
 
         String nomeUsuario = getIntent().getStringExtra("nomeUsuario");
         String emailUsuario = getIntent().getStringExtra("emailUsuario");
@@ -145,7 +146,23 @@ public class MainActivity extends AppCompatActivity{
 
                             startActivity(intent);
 
+                        } else if (id == R.id.menu_calendario) {
+                            // ABRIR Agenda
+                            Intent intent = new Intent(MainActivity.this, GenderActivity.class);
 
+                            startActivity(intent);
+
+                        } else if (id == R.id.menu_chat) {
+                            // ABRIR CHAT
+                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+
+                            startActivity(intent);
+
+                        } else if (id == R.id.menu_historico) {
+                            // ABRIR HISTORICO
+                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+
+                            startActivity(intent);
 
                         } else if (id == R.id.menu_pagina_inicial) {
                             id = 0;

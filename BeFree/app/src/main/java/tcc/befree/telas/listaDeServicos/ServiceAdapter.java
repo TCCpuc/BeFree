@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import tcc.befree.R;
+import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Servico;
 
 /**
@@ -47,7 +48,7 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
 
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.img_anuncio);
+        CircleImageView imageView = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
         Picasso.with(getContext()).load(servico.imagemServico).into(imageView);
 
         title.setText(servico.titulo);

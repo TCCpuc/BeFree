@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Seja Bem Vindo ao Befree"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/newactivity_txtDescricao"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newactivity_Descricao"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="11dp"
+        android:background="@drawable/border"
+        android:text="Somos um app diferenciado onde damos ao nosso cliente não só a oportunidade de encontrar um serviço fácil e rápido perto de você, como também entregamos a você a oportunidade de encontrar o SEU EMPREGADO, que trabalhe de acordo com seus termos e seus horários. Além disso também temos uma agenda onde empregador e empregado poderão se organizar cada um com seu prazo, e um chat para diminuir a distancia entre vocês, Aproveite!! "
+        android:textAlignment="center"
+        android:textColor="@color/dark_gray"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continuar"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary" />
+
+</LinearLayout>

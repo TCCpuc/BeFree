@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.NewLoginActivity"
+            android:name=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".activities.SplashScreen">
@@ -35,6 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.AnuncioBuscaActivity" />
         <activity android:name=".activities.AnuncioServicoActivity" />
+        <activity android:name=".activities.GenderActivity" />
         <!--
         <activity
             android:name=".activities.SplashActivity"
@@ -54,6 +55,8 @@
             android:name=".telas.perfil.UserPerfil"
             android:label="@string/title_activity_user_perfil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>
