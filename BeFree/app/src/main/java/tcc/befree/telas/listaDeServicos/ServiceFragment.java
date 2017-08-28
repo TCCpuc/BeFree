@@ -25,7 +25,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
                              Bundle savedInstanceState) {
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
-        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
+        Bundle pesquisa = getActivity().getIntent().getBundleExtra("service");
         int id;
         try {
             id = bundle.getInt("id");
@@ -35,7 +35,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
         String search;
         try {
-            search = pesquisa.getString("search");
+            search = pesquisa.getString("service");
         }catch(Exception e){
             search = "";
         }
@@ -71,8 +71,6 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
             }
             adapter = new ServiceAdapter(getContext(), searchs, this);
         }
-
-
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);

@@ -35,14 +35,15 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_service, parent, false);
-
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickListener.onClick(servico);
-                }
-            });
         }
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(servico);
+            }
+        });
+
 
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);

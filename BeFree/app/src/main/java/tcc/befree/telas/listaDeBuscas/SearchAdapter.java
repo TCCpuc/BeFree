@@ -35,14 +35,15 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_service, parent, false);
-
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickListener.onClick(busca);
-                }
-            });
         }
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(busca);
+            }
+        });
+
 
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
         ImageView imgBusca = (ImageView) convertView.findViewById(R.id.img_anuncio);

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -12,6 +13,9 @@ import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 import tcc.befree.api.ApiModels;
 import tcc.befree.api.PostApiModels;
@@ -101,7 +105,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     novaBusca.titulo = nome;
                     novaBusca.idDDD = new ApiModels().getDDDByCodigo(ddd).id;
                     novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
-
+                    novaBusca.imagemBusca = getImagem();
                     new PostApiModels().postBusca(novaBusca);
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Busca criada com sucesso!", Toast.LENGTH_LONG);
@@ -110,6 +114,23 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String getImagem() {
+        byte[] bytes, buffer = new byte[8192];
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            InputStream inputStream = getResources().openRawResource(+ R.drawable.teste);
+
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                output.write(buffer, 0, bytesRead);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bytes = output.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     protected void preencheSubCategoria(int idCategoria){

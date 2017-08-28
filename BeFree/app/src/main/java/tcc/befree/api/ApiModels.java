@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 
 import tcc.befree.models.*;
+import tcc.befree.utils.Utils;
 
 /**
  * Created by Guilherme Domingues on 5/20/2017.
@@ -53,7 +54,7 @@ public class ApiModels implements Runnable{
                 usuario.email = jSonObject.getString("email");
                 usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
                 usuario.senha = jSonObject.getString("senha");
-                usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
+                usuario.imagemPerfil = Utils.descriptografarBase64(jSonObject.getString("imagemPerfil"));
                 arrayUsuarios.add(usuario);
             }
 
@@ -82,7 +83,7 @@ public class ApiModels implements Runnable{
             usuario.email = jSonObject.getString("email");
             usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
             usuario.senha = jSonObject.getString("senha");
-            usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
+            usuario.imagemPerfil = Utils.descriptografarBase64(jSonObject.getString("imagemPerfil"));
         }catch (Exception er){
             er.printStackTrace();
         }
@@ -115,7 +116,7 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = jSonObject.getString("imagemServico");
+                servico.imagemServico = Utils.descriptografarBase64(jSonObject.getString("imagemServico"));
                 servico.idDDD = jSonObject.getInt("idDDD");
 
                 arrayServicos.add(servico);
@@ -150,7 +151,7 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = jSonObject.getString("imagemServico");
+                servico.imagemServico = Utils.descriptografarBase64(jSonObject.getString("imagemServico"));
                 servico.idDDD = jSonObject.getInt("idDDD");
 
             }
@@ -183,7 +184,7 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = jSonObject.getString("imagemServico");
+                servico.imagemServico = Utils.descriptografarBase64(jSonObject.getString("imagemServico"));
                 servico.idDDD = jSonObject.getInt("idDDD");
 
                 arrayServicos.add(servico);
@@ -219,7 +220,7 @@ public class ApiModels implements Runnable{
                 busca.idUsuario = jSonObject.getInt("idUsuario");
                 busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 busca.idStatus = jSonObject.getInt("idStatus");
-                busca.imagemBusca = jSonObject.getString("imagemBusca");
+                busca.imagemBusca = Utils.descriptografarBase64(jSonObject.getString("imagemBusca"));
                 busca.idDDD = jSonObject.getInt("idDDD");
                 arrayBuscas.add(busca);
             }
@@ -252,7 +253,7 @@ public class ApiModels implements Runnable{
                 busca.idUsuario = jSonObject.getInt("idUsuario");
                 busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 busca.idStatus = jSonObject.getInt("idStatus");
-                busca.imagemBusca = jSonObject.getString("imagemBusca");
+                busca.imagemBusca = Utils.descriptografarBase64(jSonObject.getString("imagemBusca"));
                 busca.idDDD = jSonObject.getInt("idDDD");
                 arrayBuscas.add(busca);
             }
@@ -283,7 +284,7 @@ public class ApiModels implements Runnable{
             busca.idUsuario = jSonObject.getInt("idUsuario");
             busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
             busca.idStatus = jSonObject.getInt("idStatus");
-            busca.imagemBusca = jSonObject.getString("imagemBusca");
+            busca.imagemBusca = Utils.descriptografarBase64(jSonObject.getString("imagemBusca"));
             busca.idDDD = jSonObject.getInt("idDDD");
 
         } catch (JSONException e) {

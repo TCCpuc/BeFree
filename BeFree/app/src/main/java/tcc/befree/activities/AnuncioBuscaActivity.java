@@ -1,12 +1,17 @@
 package tcc.befree.activities;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 import tcc.befree.api.ApiModels;
 import tcc.befree.R;
@@ -48,14 +53,17 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
             //setText("newactivity_Categoria",categoria.descricao + " - " + subCategoria.descricao);
             setText("newactivity_txtNome", bsc.titulo);
             setText("newactivity_txtDescricao", bsc.descricao);
-            Picasso.with(this).load(bsc.imagemBusca).into(imgAnuncio);
+
+            imgAnuncio.setImageBitmap(BitmapFactory.decodeByteArray(Base64.decode(bsc.imagemBusca, Base64.DEFAULT), 0, bsc.imagemBusca.length()));
+
+            //Picasso.with(this).load(BitmapFactory.decodeByteArray(Base64.decode(bsc.imagemBusca, Base64.DEFAULT), 0, bsc.imagemBusca.length())).into(imgAnuncio);
 
 
         }catch (Exception e){
             String erro = e.getMessage();
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();
         }
-
-
     }
+
+
 }
