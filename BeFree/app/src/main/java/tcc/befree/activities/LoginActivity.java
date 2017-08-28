@@ -17,6 +17,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText Password = null;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private ProfileTracker profileTracker;
     private AccessTokenTracker accessTokenTracker;
     private AccessToken accessToken;
     private View mProgressView;
@@ -49,12 +52,29 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+
+            }
+        };
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+
+            }
+        };
+
+        accessTokenTracker.startTracking();
+        profileTracker.startTracking();
+
         loginButton = (LoginButton) findViewById(R.id.login_facebook_button);
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
 
                 //txtStatus.setText("Login Sucess \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
             }
@@ -69,16 +89,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-
-
-            }
-        };
-
-
 
         // If the access token is available already assign it.
         accessToken = AccessToken.getCurrentAccessToken();
