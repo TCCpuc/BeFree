@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import tcc.befree.models.*;
+import tcc.befree.utils.Utils;
 
 /**
  * Created by Guilherme Domingues on 5/23/2017.
@@ -36,7 +37,7 @@ public class PostApiModels implements Runnable{
             jSonObject.put("idUsuario",servico.idUsuario);
             jSonObject.put("idSubCategoria",servico.idSubCategoria);
             jSonObject.put("idStatus",servico.idStatus);
-            jSonObject.put("imagemServico",servico.imagemServico);
+            jSonObject.put("imagemServico",Utils.criptografarBase64(servico.imagemServico));
             jSonObject.put("idDDD",servico.idDDD);
 
             thread.start();
@@ -51,7 +52,7 @@ public class PostApiModels implements Runnable{
         return true;
     }
 
-    public boolean postBusca(Busca busca){
+    public boolean  postBusca(Busca busca){
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/PostBusca/";
 
@@ -63,7 +64,7 @@ public class PostApiModels implements Runnable{
             jSonObject.put("idUsuario",busca.idUsuario);
             jSonObject.put("idSubCategoria",busca.idSubCategoria);
             jSonObject.put("idStatus",busca.idStatus);
-            jSonObject.put("imagemBusca",busca.imagemBusca);
+            jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
             jSonObject.put("idDDD",busca.idDDD);
 
             thread.start();
@@ -100,8 +101,7 @@ public class PostApiModels implements Runnable{
             jSonObject.put("senha",usuario.senha);
             jSonObject.put("email",usuario.email);
             jSonObject.put("ddd",usuario.ddd);
-            //jSonObject.put("imagemPerfil",usuario.imagemPerfil);
-            //ONDE EU PAREI - https://stackoverflow.com/questions/6527664/how-do-you-upload-a-file-to-an-ftp-server
+            jSonObject.put("imagemPerfil", Utils.criptografarBase64(Utils.criptografarBase64(usuario.imagemPerfil)));
 
             thread.start();
             controlaThread();
