@@ -9,13 +9,15 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BeFreeAPI.Models;
+using BeFreeAPI.Utils;
+using System.Drawing;
 
 namespace BeFreeAPI.Controllers
 {
     public class ServicoController : ApiController
     {
         private BeFreeContext db = new BeFreeContext();
-
+        private Function function = new Function();
         // GET: api/Servico
         public IQueryable<Servico> GettbServicoes()
         {
@@ -126,6 +128,12 @@ namespace BeFreeAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            Image image = function.Base64ToImage(servico.imagemServico);
+            string nomeImage = function.SetImageName("servicos/" + servico.titulo.ToString().Replace(" ", "_") + "_" + servico.descricao.ToString().Replace(" ", "_"));
+            bool UploadOk = function.UploadFile(image, nomeImage);
+
+            servico.imagemServico = nomeImage;
 
             db.tbServicoes.Add(servico);
 
