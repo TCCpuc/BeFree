@@ -16,11 +16,9 @@
         android:roundIcon="@mipmap/befree_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
@@ -49,18 +46,21 @@
         -->
 
         <activity android:name=".activities.CreateAccountActivity" />
-        <activity android:name=".activities.CreateBuscaActivity"></activity>
+        <activity android:name=".activities.CreateBuscaActivity" />
         <activity android:name=".activities.CreateServicoActivity" />
         <activity
             android:name=".telas.perfil.UserPerfil"
             android:label="@string/title_activity_user_perfil"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name=".activities.ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
-
-
-
-
