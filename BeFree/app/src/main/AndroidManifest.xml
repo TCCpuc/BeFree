@@ -60,7 +60,16 @@
         <activity
             android:name=".activities.ChatActivity"
             android:label="@string/title_activity_chat"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.MessagesActivity"
+            android:label="@string/title_activity_messages"
+            android:parentActivityName=".activities.ChatActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="tcc.befree.activities.ChatActivity" />
+        </activity>
     </application>
 
 </manifest>
