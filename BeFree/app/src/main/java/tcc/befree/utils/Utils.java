@@ -11,7 +11,7 @@ public class Utils {
     }
 
 
-    public static String descriptografarBase64(String stringCriptografada){
-        return stringCriptografada.replace("-","+").replace("_","/").replace("*","=");
-    }
+//    public static String descriptografarBase64(String stringCriptografada){
+//        return stringCriptografada.replace("-","+").replace("_","/").replace("*","=");
+//    }
 }

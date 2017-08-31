@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import tcc.befree.api.ApiModels;
 import tcc.befree.R;
 import tcc.befree.models.Busca;
@@ -48,9 +50,9 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
             setText("newactivity_txtNome", bsc.titulo);
             setText("newactivity_txtDescricao", bsc.descricao);
 
-            imgAnuncio.setImageBitmap(BitmapFactory.decodeByteArray(Base64.decode(bsc.imagemBusca, Base64.DEFAULT), 0, bsc.imagemBusca.length()));
+            //imgAnuncio.setImageBitmap(BitmapFactory.decodeByteArray(Base64.decode(bsc.imagemBusca, Base64.DEFAULT), 0, bsc.imagemBusca.length()));
 
-            //Picasso.with(this).load(BitmapFactory.decodeByteArray(Base64.decode(bsc.imagemBusca, Base64.DEFAULT), 0, bsc.imagemBusca.length())).into(imgAnuncio);
+            Picasso.with(this).load(bsc.imagemBusca).into(imgAnuncio);
 
         }catch (Exception e){
             String erro = e.getMessage();
