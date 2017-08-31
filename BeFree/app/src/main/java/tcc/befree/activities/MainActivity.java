@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_chat) {
                             // ABRIR CHAT
-                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+                            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
 
                             startActivity(intent);
 

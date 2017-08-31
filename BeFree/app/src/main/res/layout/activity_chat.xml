@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tcc.befree.activities.ChatActivity">
+
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:background="@color/colorPrimary"
+        android:id="@+id/cabecalho" android:orientation="horizontal"
+        android:padding="20dip">
+        <TextView android:textColor="#FFFFFF" android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" android:layout_width="fill_parent"
+            android:gravity="center_horizontal" android:id="@+id/chat_title"
+            android:text="Chat" />
+    </LinearLayout>
+
+        <fragment
+            class="tcc.befree.telas.listaDeChat.ChatFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragmentNews"
+            android:layout_below="@+id/cabecalho"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+

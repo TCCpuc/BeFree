@@ -83,6 +83,12 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
 
+                Usuarios usuarioFacebook = new Usuarios();
+
+                usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + currentProfile.getLastName();
+                usuarioFacebook.cpf = " ";
+                usuarioFacebook.email = currentProfile.getId();
+                usuarioFacebook.senha = " ";
             }
         };
 

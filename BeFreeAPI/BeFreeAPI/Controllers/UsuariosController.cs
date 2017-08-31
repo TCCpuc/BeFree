@@ -9,12 +9,16 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BeFreeAPI.Models;
+using BeFreeAPI.Utils;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace BeFreeAPI.Controllers
 {
     public class UsuariosController : ApiController
     {
         private BeFreeContext db = new BeFreeContext();
+        private Function function = new Function();
 
         // GET: api/Usuarios
         public IQueryable<Usuario> GettbUsuarios()
@@ -92,6 +96,12 @@ namespace BeFreeAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            Image image = function.Base64ToImage(usuario.imagemPerfil);
+            string nomeImage = function.SetImageName("usuarios/" + usuario.nomeUsuario.ToString().Replace(" ","_"));
+            bool UploadOk = function.UploadFile(image, nomeImage);
+
+            usuario.imagemPerfil = nomeImage;
 
             db.tbUsuarios.Add(usuario);
 
