@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using BeFreeAPI.Models;
 using System.Drawing;
 using BeFreeAPI.Utils;
+using System.Configuration;
 
 namespace BeFreeAPI.Controllers
 {
@@ -29,7 +30,7 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Busca))]
         public IHttpActionResult GetBusca(int id)
         {
-            IQueryable<Busca> busca = db.tbBuscas.Where(b => b.idBusca ==id);
+            IQueryable<Busca> busca = db.tbBuscas.Where(b => b.idBusca == id);
             if (busca == null)
             {
                 return NotFound();
@@ -128,11 +129,7 @@ namespace BeFreeAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            Image image = function.Base64ToImage(busca.imagemBusca);
-            string nomeImage = function.SetImageName("buscas/" + busca.titulo.ToString().Replace(" ", "_") + "_" + busca.descricao.ToString().Replace(" ", "_"));
-            bool UploadOk = function.UploadFile(image, nomeImage);
-
-            busca.imagemBusca = nomeImage;
+            busca.imagemBusca = this.SetImagem(busca);
 
             db.tbBuscas.Add(busca);
 
@@ -183,6 +180,26 @@ namespace BeFreeAPI.Controllers
         private bool BuscaExists(int id)
         {
             return db.tbBuscas.Count(e => e.idBusca == id) > 0;
+        }
+
+        private string SetImagem(Busca busca) {
+
+            Random random = new Random();
+
+            string nomeImage = "buscas/" + busca.titulo.ToString().Replace(" ", "_") + "_" + busca.descricao.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpeg";
+
+            Image image = function.Base64ToImage(busca.imagemBusca);
+            if (image != null)
+            {                
+                if (function.UploadFile(image, nomeImage))
+                    nomeImage = function.SetCaminhoRetorno(nomeImage);
+                else
+                    nomeImage = ConfigurationManager.AppSettings["imagesPathSemImagem"].ToString(); /** Recebe a imagem padrão (SEM IMAGEM) **/
+            }
+            else
+                nomeImage = ConfigurationManager.AppSettings["imagesPathSemImagem"].ToString(); /** Recebe a imagem padrão (SEM IMAGEM) **/
+
+            return nomeImage;
         }
     }
 }

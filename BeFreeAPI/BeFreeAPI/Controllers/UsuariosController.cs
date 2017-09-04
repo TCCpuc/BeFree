@@ -12,6 +12,7 @@ using BeFreeAPI.Models;
 using BeFreeAPI.Utils;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Configuration;
 
 namespace BeFreeAPI.Controllers
 {
@@ -97,11 +98,7 @@ namespace BeFreeAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            Image image = function.Base64ToImage(usuario.imagemPerfil);
-            string nomeImage = function.SetImageName("usuarios/" + usuario.nomeUsuario.ToString().Replace(" ","_"));
-            bool UploadOk = function.UploadFile(image, nomeImage);
-
-            usuario.imagemPerfil = nomeImage;
+            usuario.imagemPerfil = this.SetImagem(usuario);
 
             db.tbUsuarios.Add(usuario);
 
@@ -159,6 +156,27 @@ namespace BeFreeAPI.Controllers
         public IQueryable<Usuario> CriaUsuario()
         {
             return db.tbUsuarios;
+        }
+
+        private string SetImagem(Usuario usuario)
+        {
+
+            Random random = new Random();
+
+            string nomeImage = "usuarios/" + usuario.nomeUsuario.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpg";
+
+            Image image = function.Base64ToImage(usuario.imagemPerfil);
+            if (image != null)
+            {
+                if (function.UploadFile(image, nomeImage))
+                    nomeImage = function.SetCaminhoRetorno(nomeImage);
+                else
+                    nomeImage = ConfigurationManager.AppSettings["imagesPathSemImagem"].ToString(); /** Recebe a imagem padrão (SEM IMAGEM) **/
+            }
+            else
+                nomeImage = ConfigurationManager.AppSettings["imagesPathSemImagem"].ToString(); /** Recebe a imagem padrão (SEM IMAGEM) **/
+
+            return nomeImage;
         }
 
 

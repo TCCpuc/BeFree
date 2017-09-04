@@ -2,6 +2,7 @@ package tcc.befree.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        accessTokenTracker = new AccessTokenTracker() {
+        /*accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
@@ -89,11 +90,13 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
                 usuarioFacebook.cpf = " ";
                 usuarioFacebook.email = currentProfile.getId();
                 usuarioFacebook.senha = " ";
+                Uri uriImageFacebook = currentProfile.getProfilePictureUri(100,100);
+                usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
             }
-        };
+        };*/
 
-        accessTokenTracker.startTracking();
-        profileTracker.startTracking();
+        /*accessTokenTracker.startTracking();
+        profileTracker.startTracking();*/
 
         loginButton = (LoginButton) findViewById(R.id.login_facebook_button);
         callbackManager = CallbackManager.Factory.create();
@@ -116,7 +119,7 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
         });
 
         // If the access token is available already assign it.
-        accessToken = AccessToken.getCurrentAccessToken();
+        //accessToken = AccessToken.getCurrentAccessToken();
 
         overridePendingTransition(0,0);
         View relativeLayout=findViewById(R.id.newLogin_container);

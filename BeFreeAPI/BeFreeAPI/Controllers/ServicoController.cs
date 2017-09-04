@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using BeFreeAPI.Models;
 using BeFreeAPI.Utils;
 using System.Drawing;
+using System.Configuration;
 
 namespace BeFreeAPI.Controllers
 {
@@ -129,11 +130,7 @@ namespace BeFreeAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            Image image = function.Base64ToImage(servico.imagemServico);
-            string nomeImage = function.SetImageName("servicos/" + servico.titulo.ToString().Replace(" ", "_") + "_" + servico.descricao.ToString().Replace(" ", "_"));
-            bool UploadOk = function.UploadFile(image, nomeImage);
-
-            servico.imagemServico = nomeImage;
+            servico.imagemServico = this.SetImagem(servico);
 
             db.tbServicoes.Add(servico);
 
@@ -184,6 +181,27 @@ namespace BeFreeAPI.Controllers
         private bool ServicoExists(int id)
         {
             return db.tbServicoes.Count(e => e.idServico == id) > 0;
+        }
+
+        private string SetImagem(Servico servico)
+        {
+
+            Random random = new Random();
+
+            string nomeImage = "servicos/" + servico.titulo.ToString().Replace(" ", "_") + "_" + servico.descricao.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpeg";
+
+            Image image = function.Base64ToImage(servico.imagemServico);
+            if (image != null)
+            {
+                if (function.UploadFile(image, nomeImage))
+                    nomeImage = function.SetCaminhoRetorno(nomeImage);
+                else
+                    nomeImage = ConfigurationManager.AppSettings["imagesPathSemImagem"].ToString(); /** Recebe a imagem padrão (SEM IMAGEM) **/
+            }
+            else
+                nomeImage = ConfigurationManager.AppSettings["imagesPathSemImagem"].ToString(); /** Recebe a imagem padrão (SEM IMAGEM) **/
+
+            return nomeImage;
         }
     }
 }

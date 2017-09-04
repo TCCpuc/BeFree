@@ -101,7 +101,8 @@ public class PostApiModels implements Runnable{
             jSonObject.put("senha",usuario.senha);
             jSonObject.put("email",usuario.email);
             jSonObject.put("ddd",usuario.ddd);
-            jSonObject.put("imagemPerfil", Utils.criptografarBase64(Utils.criptografarBase64(usuario.imagemPerfil)));
+            //jSonObject.put("imagemPerfil", Utils.criptografarBase64(Utils.criptografarBase64(usuario.imagemPerfil)));
+            jSonObject.put("imagemPerfil", usuario.imagemPerfil);
 
             thread.start();
             controlaThread();
@@ -138,8 +139,8 @@ public class PostApiModels implements Runnable{
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", type);
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(25000 /* milliseconds */);
+            urlConnection.setConnectTimeout(30000 /* milliseconds */);
             urlConnection.setDoOutput(true);
             urlConnection.connect();
 
