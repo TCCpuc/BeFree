@@ -58,17 +58,17 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".activities.ChatActivity"
+            android:name=".activities.ListChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.MessagesActivity"
+            android:name=".activities.ChatActivity"
             android:label="@string/title_activity_messages"
-            android:parentActivityName=".activities.ChatActivity"
+            android:parentActivityName=".activities.ListChatActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="tcc.befree.activities.ChatActivity" />
+                android:value="tcc.befree.activities.ListChatActivity" />
         </activity>
     </application>
 

@@ -45,3 +45,13 @@ public class Chat {
         this.dateTime = dateTime;
     }
 }
+/*
+
+public class Chat {
+    public int id;
+    public int usuario_1;
+    public int usuario_2;
+    public int ultima_mensagem;
+}
+
+*/

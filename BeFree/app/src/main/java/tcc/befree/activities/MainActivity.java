@@ -21,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -154,7 +153,7 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_chat) {
                             // ABRIR CHAT
-                            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                            Intent intent = new Intent(MainActivity.this, ListChatActivity.class);
 
                             startActivity(intent);
 

@@ -1,6 +1,5 @@
 package tcc.befree.telas.listaDeChat;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,26 +11,24 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tcc.befree.R;
-import tcc.befree.activities.AnuncioBuscaActivity;
 import tcc.befree.activities.ChatActivity;
-import tcc.befree.activities.MainActivity;
-import tcc.befree.activities.MessagesActivity;
-import tcc.befree.models.Busca;
+import tcc.befree.api.ApiModels;
 import tcc.befree.models.Chat;
 
 /**
  * Created by guilherme.leme on 8/29/17.
  */
 
-public class ChatFragment extends Fragment {
+public class ListChatFragment extends Fragment {
 
-    private List<String> newList;
+    private List<Chat> chatList;
 
-    public ChatFragment() {
+    private int idUsuario;
+
+    public ListChatFragment() {
     }
 
     @Override
@@ -39,9 +36,17 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        newList = new ArrayList<>();
-        for (int i = 0; i < 20; i++)
-            newList.add("Item " + i);
+        Bundle bundle = getActivity().getIntent().getBundleExtra("idUsuario");
+        try {
+            idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            idUsuario = 0;
+        }
+
+        ApiModels api = new ApiModels();
+
+
+        chatList = api.getChatsDoUsuario(idUsuario);
 
         ListView listView = (ListView) view.findViewById(R.id.list);
 
@@ -49,8 +54,9 @@ public class ChatFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(getContext(), MessagesActivity.class);
+                Intent intent = new Intent(getContext(), ChatActivity.class);
                 //based on item add info to intent
+                //MANDA O BUNDLE COM O ID DO USUARIO2, E O ID DO CHAT
                 startActivity(intent);
             }
         });
@@ -62,12 +68,15 @@ public class ChatFragment extends Fragment {
     private class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return newList.size();
+            if(chatList == null){
+                return 1;
+            }
+            return chatList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return newList.get(position);
+            return chatList.get(position);
         }
 
         @Override
@@ -80,7 +89,7 @@ public class ChatFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = getActivity().getLayoutInflater().inflate(R.layout.item_service, null);
             TextView textView = (TextView) view.findViewById(R.id.item_service_title);
-            textView.setText(newList.get(position));
+            textView.setText("GET NOME DO USUARIO");
             return view;
         }
     }
