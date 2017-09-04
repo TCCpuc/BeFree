@@ -66,4 +66,5 @@
     <string name="title_activity_user_perfil">activity_user_perfil</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_messages">MessagesActivity</string>
+    <string name="title_activity_create_account_presentation">CreateAccountPresentation</string>
 </resources>
