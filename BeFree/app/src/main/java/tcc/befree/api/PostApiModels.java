@@ -52,6 +52,19 @@ public class PostApiModels implements Runnable{
         return true;
     }
 
+    //CRIAR CHAT E MENSAGEM--------------------------------
+
+    public boolean postChat(Chat chat){
+        return true;
+    }
+
+    public boolean postMensagem(Mensagem mensagem){
+        return true;
+    }
+
+    //-----------------------------------------------------
+
+
     public boolean  postBusca(Busca busca){
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/PostBusca/";

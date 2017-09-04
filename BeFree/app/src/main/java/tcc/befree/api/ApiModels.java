@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import tcc.befree.models.*;
@@ -54,7 +55,7 @@ public class ApiModels implements Runnable{
                 usuario.email = jSonObject.getString("email");
                 usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
                 usuario.senha = jSonObject.getString("senha");
-                usuario.imagemPerfil = Utils.descriptografarBase64(jSonObject.getString("imagemPerfil"));
+                usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
                 arrayUsuarios.add(usuario);
             }
 
@@ -83,7 +84,7 @@ public class ApiModels implements Runnable{
             usuario.email = jSonObject.getString("email");
             usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
             usuario.senha = jSonObject.getString("senha");
-            usuario.imagemPerfil = Utils.descriptografarBase64(jSonObject.getString("imagemPerfil"));
+            usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
         }catch (Exception er){
             er.printStackTrace();
         }
@@ -116,7 +117,7 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = Utils.descriptografarBase64(jSonObject.getString("imagemServico"));
+                servico.imagemServico = jSonObject.getString("imagemServico");
                 servico.idDDD = jSonObject.getInt("idDDD");
 
                 arrayServicos.add(servico);
@@ -151,7 +152,7 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = Utils.descriptografarBase64(jSonObject.getString("imagemServico"));
+                servico.imagemServico = jSonObject.getString("imagemServico");
                 servico.idDDD = jSonObject.getInt("idDDD");
 
             }
@@ -184,7 +185,7 @@ public class ApiModels implements Runnable{
                 servico.idUsuario = jSonObject.getInt("idUsuario");
                 servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = Utils.descriptografarBase64(jSonObject.getString("imagemServico"));
+                servico.imagemServico = jSonObject.getString("imagemServico");
                 servico.idDDD = jSonObject.getInt("idDDD");
 
                 arrayServicos.add(servico);
@@ -220,7 +221,7 @@ public class ApiModels implements Runnable{
                 busca.idUsuario = jSonObject.getInt("idUsuario");
                 busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 busca.idStatus = jSonObject.getInt("idStatus");
-                busca.imagemBusca = Utils.descriptografarBase64(jSonObject.getString("imagemBusca"));
+                busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
                 arrayBuscas.add(busca);
             }
@@ -253,7 +254,7 @@ public class ApiModels implements Runnable{
                 busca.idUsuario = jSonObject.getInt("idUsuario");
                 busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
                 busca.idStatus = jSonObject.getInt("idStatus");
-                busca.imagemBusca = Utils.descriptografarBase64(jSonObject.getString("imagemBusca"));
+                busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
                 arrayBuscas.add(busca);
             }
@@ -284,7 +285,7 @@ public class ApiModels implements Runnable{
             busca.idUsuario = jSonObject.getInt("idUsuario");
             busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
             busca.idStatus = jSonObject.getInt("idStatus");
-            busca.imagemBusca = Utils.descriptografarBase64(jSonObject.getString("imagemBusca"));
+            busca.imagemBusca = jSonObject.getString("imagemBusca");
             busca.idDDD = jSonObject.getInt("idDDD");
 
         } catch (JSONException e) {
@@ -595,7 +596,49 @@ public class ApiModels implements Runnable{
         }
     }
 
+    //------------------CHAT----------------
 
+    public boolean getChatJaExisteEntreOsUsuarios(int usuario1, int usuario2){
+        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/ChatExiste
+        //SQL = SELECT ID FROM CHAT WHERE (USUARIO_2 = {usuario_1} AND USUARIO_1 = {usuario_2}) OR (USUARIO_1 = {usuario_1} AND USUARIO_2 = {usuario_2})
+        return true;
+    }
+
+    public List<Mensagem> getMensagensDoChat(int idDoChat){
+        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetMensagensDoChat/
+        //SQL = SELECT * FROM MENSAGEM WHERE CHAT = {idDoChat} ORDER BY DATA
+        return null;
+    }
+
+    public List<Chat> getChatsDoUsuario(int idDousuario){
+        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/
+        //SQL = SELECT C.ID FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {idDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
+        return null;
+    }
+
+    private boolean getUsuarioEUsuario1DoChat(int idDoChat, int idDoUsuarioAtual){
+        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/getUsuario1DoChat/
+        //SQL = SELECT USUARIO_1 FROM CHAT WHERE ID = {idDoChat}
+        return idDoUsuarioAtual == 1;
+    }
+
+    public String getImagemMiniaturaDoChat(int idDoChat, int idDoUsuarioAtual){
+        if (getUsuarioEUsuario1DoChat(idDoChat, idDoUsuarioAtual)){
+            //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario2/
+            //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_2 FROM CHAT WHERE ID = {CHAT.ID})
+        }
+ 	    else{
+            //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario1/
+            //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_1 FROM CHAT WHERE ID = {CHAT.ID})
+        }
+        return "";
+    }
+
+    public String getTextoMiniaturaDoChat(int idDoChat){
+        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetTextoMiniaturaDoChat/
+        //SQL = SELECT M.MENSAGEM FROM MENSAGEM M, CHAT C WHERE C.ID = {idDoChat} AND C.ULTIMA_MENSAGEM = M.ID
+        return "";
+    }
 
     /* ------------------------------- UTILS -------------------------------------------------- */
 
