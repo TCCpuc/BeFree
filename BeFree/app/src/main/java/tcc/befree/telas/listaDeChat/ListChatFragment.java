@@ -11,12 +11,16 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import tcc.befree.R;
-import tcc.befree.activities.ChatActivity;
+import tcc.befree.activities.ListChatActivity;
+import tcc.befree.activities.MensagemActivity;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.Chat;
+import tcc.befree.models.CircleImageView;
 
 /**
  * Created by guilherme.leme on 8/29/17.
@@ -27,6 +31,9 @@ public class ListChatFragment extends Fragment {
     private List<Chat> chatList;
 
     private int idUsuario;
+
+    ApiModels api = new ApiModels();
+
 
     public ListChatFragment() {
     }
@@ -43,8 +50,6 @@ public class ListChatFragment extends Fragment {
             idUsuario = 0;
         }
 
-        ApiModels api = new ApiModels();
-
 
         chatList = api.getChatsDoUsuario(idUsuario);
 
@@ -53,8 +58,23 @@ public class ListChatFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundleChat = new Bundle();
+                Chat chatSelecionado = chatList.get(position);
 
-                Intent intent = new Intent(getContext(), ChatActivity.class);
+                bundleChat.putInt("idChat", chatSelecionado.getId());
+                if(api.getUsuarioEUsuario1DoChat(chatSelecionado.getId(), idUsuario)) {
+                    bundleChat.putInt("idUsuarioOrigem", idUsuario);
+                    bundleChat.putInt("idUsuarioDestino", chatSelecionado.getUsuario_2());
+                }
+                else{
+                    bundleChat.putInt("idUsuarioOrigem", idUsuario);
+                    bundleChat.putInt("idUsuarioDestino", chatSelecionado.getUsuario_1());
+                }
+
+                Intent intent = getActivity().getIntent();
+                intent.putExtra("bundleChat", bundleChat);
+
+                intent = new Intent(getContext(), MensagemActivity.class);
                 //based on item add info to intent
                 //MANDA O BUNDLE COM O ID DO USUARIO2, E O ID DO CHAT
                 startActivity(intent);
@@ -90,6 +110,12 @@ public class ListChatFragment extends Fragment {
             View view = getActivity().getLayoutInflater().inflate(R.layout.item_service, null);
             TextView textView = (TextView) view.findViewById(R.id.item_service_title);
             textView.setText("GET NOME DO USUARIO");
+
+            CircleImageView mImagePerfil = (CircleImageView) view.findViewById(R.id.img_anuncio);
+
+            Picasso.with(getContext()).load(api.getImagemMiniaturaDoChat(chatList.get(position).getId(),idUsuario)).into(mImagePerfil);
+
+
             return view;
         }
     }

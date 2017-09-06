@@ -1,6 +1,7 @@
 package tcc.befree.activities;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,18 +12,23 @@ import android.widget.RelativeLayout;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import tcc.befree.R;
-import tcc.befree.telas.listaDeChat.ChatAdapter;
+import tcc.befree.api.ApiModels;
+import tcc.befree.models.Mensagem;
+import tcc.befree.telas.Conversa.MensagemAdapter;
 import tcc.befree.models.Chat;
 
-public class ChatActivity extends AppCompatActivity {
+public class MensagemActivity extends AppCompatActivity {
 
     private EditText messageET;
     private ListView messagesContainer;
     private ImageButton sendBtn;
-    private ChatAdapter adapter;
-    private ArrayList<Chat> chatHistory;
+    private MensagemAdapter adapter;
+    private List<Mensagem> chatHistory;
+    private int idUsuarioOrigem;
+    private int idChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
         sendBtn = (ImageButton) findViewById(R.id.chatSendButton);
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
-        loadDummyHistory();
+        loadHistory();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,20 +53,38 @@ public class ChatActivity extends AppCompatActivity {
                     return;
                 }
 
-                Chat chatMessage = new Chat();
-                chatMessage.setId(122);//dummy
-                chatMessage.setMessage(messageText);
-                chatMessage.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-                chatMessage.setMe(true);
+
+
+
+
+
+                Mensagem newMessage = new Mensagem();
+                //newMessage.setId(122);//dummy
+                newMessage.setMensagem(messageText);
+                //newMessage.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+                //newMessage.setMe(true);
+
+                Bundle bundle = getIntent().getBundleExtra("budleChat");
+                try {
+                    idUsuarioOrigem = bundle.getInt("idUsuarioOrigem");
+                    newMessage.setUsuario_origem(idUsuarioOrigem);
+                    newMessage.setUsuario_destino(bundle.getInt("idUsuarioDestino"));
+                    idChat = bundle.getInt("idChat");
+                    newMessage.setChat(idChat);
+
+                }catch(Exception e){
+                    System.err.print("deu erro no bundle chat");
+                }
+
 
                 messageET.setText("");
 
-                displayMessage(chatMessage);
+                displayMessage(newMessage);
             }
         });
     }
 
-    public void displayMessage(Chat message) {
+    public void displayMessage(Mensagem message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
         scroll();
@@ -70,6 +94,20 @@ public class ChatActivity extends AppCompatActivity {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
+    private void loadHistory() {
+
+        chatHistory = (new ApiModels()).getMensagensDoChat(idChat);
+
+        adapter = new MensagemAdapter(MensagemActivity.this, new ArrayList<Mensagem>());
+        messagesContainer.setAdapter(adapter);
+
+        for (int i = 0; i < chatHistory.size(); i++) {
+            Mensagem message = chatHistory.get(i);
+            displayMessage(message);
+        }
+    }
+
+    /*
     private void loadDummyHistory() {
 
         chatHistory = new ArrayList<Chat>();
@@ -87,7 +125,7 @@ public class ChatActivity extends AppCompatActivity {
         msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
         chatHistory.add(msg1);
 
-        adapter = new ChatAdapter(ChatActivity.this, new ArrayList<Chat>());
+        adapter = new MensagemAdapter(MensagemActivity.this, new ArrayList<Chat>());
         messagesContainer.setAdapter(adapter);
 
         for (int i = 0; i < chatHistory.size(); i++) {
@@ -95,4 +133,5 @@ public class ChatActivity extends AppCompatActivity {
             displayMessage(message);
         }
     }
+    */
 }
