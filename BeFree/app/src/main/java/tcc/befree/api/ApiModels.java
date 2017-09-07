@@ -661,7 +661,7 @@ public class ApiModels implements Runnable{
     public String getTextoMiniaturaDoChat(int idDoChat){
         //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetTextoMiniaturaDoChat/
         //SQL = SELECT M.MENSAGEM FROM MENSAGEM M, CHAT C WHERE C.ID = {idDoChat} AND C.ULTIMA_MENSAGEM = M.ID
-        return "";
+        return "GET ULTIMA MSG";
     }
 
     /* ------------------------------- UTILS -------------------------------------------------- */
@@ -676,5 +676,10 @@ public class ApiModels implements Runnable{
         SubCategoria subCategoria = new SubCategoria();
         subCategoria.idCategoria = 1;
         return subCategoria;
+    }
+
+    public String getNomeMiniaturaDoChat(int i, int i1) {
+
+        return "GET USERNAME";
     }
 }
