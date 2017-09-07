@@ -607,16 +607,40 @@ public class ApiModels implements Runnable{
     public List<Mensagem> getMensagensDoChat(int idDoChat){
         //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetMensagensDoChat/
         //SQL = SELECT * FROM MENSAGEM WHERE CHAT = {idDoChat} ORDER BY DATA
-        return null;
+        List<Mensagem> l = new ArrayList<Mensagem>();
+        Mensagem c = new Mensagem();
+        c.setId(1);
+        c.setChat(1);
+        //c.setMe(true);
+        c.setMensagem("oi");
+        c.setUsuario_origem(2033);
+        c.setUsuario_destino(1017);
+        l.add(c);
+        c = new Mensagem();
+        c.setId(2);
+        c.setChat(1);
+        //c.setMe(false);
+        c.setMensagem("oi tb");
+        c.setUsuario_origem(1017);
+        c.setUsuario_destino(2033);
+        l.add(c);
+        return l;
     }
 
     public List<Chat> getChatsDoUsuario(int idDousuario){
         //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/
         //SQL = SELECT C.ID FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {idDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
-        return null;
+        List<Chat> l = new ArrayList<Chat>();
+        Chat c = new Chat();
+        c.setId(1);
+        c.setUltima_mensagem(1);
+        c.setUsuario_1(1017);
+        c.setUsuario_2(2033);
+        l.add(c);
+        return l;
     }
 
-    private boolean getUsuarioEUsuario1DoChat(int idDoChat, int idDoUsuarioAtual){
+    public boolean getUsuarioEUsuario1DoChat(int idDoChat, int idDoUsuarioAtual){
         //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/getUsuario1DoChat/
         //SQL = SELECT USUARIO_1 FROM CHAT WHERE ID = {idDoChat}
         return idDoUsuarioAtual == 1;
@@ -631,7 +655,7 @@ public class ApiModels implements Runnable{
             //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario1/
             //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_1 FROM CHAT WHERE ID = {CHAT.ID})
         }
-        return "";
+        return "https://pbs.twimg.com/profile_images/2552140292/6umzaqwv0mj922yihwpq_400x400.jpeg";
     }
 
     public String getTextoMiniaturaDoChat(int idDoChat){

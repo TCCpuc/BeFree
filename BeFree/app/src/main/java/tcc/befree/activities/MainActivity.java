@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity{
 
                         if (id == R.id.menu_anuncios) {
 
-                            id = 1;
                             Bundle bundle = new Bundle();
                             bundle.putInt("id",idUsuario);
                             Intent intent = MainActivity.this.getIntent();
@@ -153,7 +152,12 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_chat) {
                             // ABRIR CHAT
+
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("idUsuario",idUsuario);
                             Intent intent = new Intent(MainActivity.this, ListChatActivity.class);
+                            intent.putExtra("bundle", bundle);
+
 
                             startActivity(intent);
 
