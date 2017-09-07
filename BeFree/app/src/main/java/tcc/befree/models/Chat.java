@@ -9,6 +9,7 @@ public class Chat {
     private int usuario_1;
     private int usuario_2;
     private int ultima_mensagem;
+    private String ultima_mensagem_texto;
     //private boolean isMe;
     //private String message;
     //private Long userId;
@@ -72,6 +73,14 @@ public class Chat {
 
     public void setUltima_mensagem(int ultima_mensagem) {
         this.ultima_mensagem = ultima_mensagem;
+    }
+
+    public void setUltima_mensagem_texto(String ultima_mensagem_texto) {
+        this.ultima_mensagem_texto = ultima_mensagem_texto;
+    }
+
+    public String getUltima_mensagem_texto() {
+        return ultima_mensagem_texto;
     }
 }
 /*

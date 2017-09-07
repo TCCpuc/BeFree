@@ -599,69 +599,165 @@ public class ApiModels implements Runnable{
     //------------------CHAT----------------
 
     public boolean getChatJaExisteEntreOsUsuarios(int usuario1, int usuario2){
-        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/ChatExiste
-        //SQL = SELECT ID FROM CHAT WHERE (USUARIO_2 = {usuario_1} AND USUARIO_1 = {usuario_2}) OR (USUARIO_1 = {usuario_1} AND USUARIO_2 = {usuario_2})
-        return true;
+        boolean existe = false;
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/ChatExiste/" + usuario1 + "/" + usuario2;
+            //SQL = SELECT COUNT(*) AS contagem FROM CHAT WHERE (USUARIO_2 = {usuario_1} AND USUARIO_1 = {usuario_2}) OR (USUARIO_1 = {usuario_1} AND USUARIO_2 = {usuario_2})
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            existe = jSonObject.getInt("contagem") != 0;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return existe;
     }
 
     public List<Mensagem> getMensagensDoChat(int idDoChat){
-        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetMensagensDoChat/
-        //SQL = SELECT * FROM MENSAGEM WHERE CHAT = {idDoChat} ORDER BY DATA
-        List<Mensagem> l = new ArrayList<Mensagem>();
-        Mensagem c = new Mensagem();
-        c.setId(1);
-        c.setChat(1);
-        //c.setMe(true);
-        c.setMensagem("oi");
-        c.setUsuario_origem(2033);
-        c.setUsuario_destino(1017);
-        l.add(c);
-        c = new Mensagem();
-        c.setId(2);
-        c.setChat(1);
-        //c.setMe(false);
-        c.setMensagem("oi tb");
-        c.setUsuario_origem(1017);
-        c.setUsuario_destino(2033);
-        l.add(c);
-        return l;
+//--------------
+//      MOCK:
+//
+//        List<Mensagem> l = new ArrayList<Mensagem>();
+//        Mensagem c = new Mensagem();
+//        c.setId(1);
+//        c.setChat(1);
+//        //c.setMe(true);
+//        c.setMensagem("oi");
+//        c.setUsuario_origem(2033);
+//        c.setUsuario_destino(1017);
+//        l.add(c);
+//        c = new Mensagem();
+//        c.setId(2);
+//        c.setChat(1);
+//        //c.setMe(false);
+//        c.setMensagem("oi tb");
+//        c.setUsuario_origem(1017);
+//        c.setUsuario_destino(2033);
+//        l.add(c);
+//        return l;
+//--------------
+        ArrayList<Mensagem> arrayMensagens= new ArrayList<Mensagem>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetMensagensDoChat/" + idDoChat;
+            //SQL = SELECT * FROM MENSAGEM WHERE CHAT = {idDoChat} ORDER BY DATA
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Mensagem mensagem = new Mensagem();
+                mensagem.setId(jSonObject.getInt("id"));
+                mensagem.setChat(jSonObject.getInt("chat"));
+                mensagem.setUsuario_origem(jSonObject.getInt("Usuario_origem"));
+                mensagem.setUsuario_destino(jSonObject.getInt("Usuario_destino"));
+                mensagem.setMensagem(jSonObject.getString("mensagem"));
+                arrayMensagens.add(mensagem);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return  arrayMensagens;
     }
 
     public List<Chat> getChatsDoUsuario(int idDousuario){
-        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/
-        //SQL = SELECT C.ID FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {idDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
-        List<Chat> l = new ArrayList<Chat>();
-        Chat c = new Chat();
-        c.setId(1);
-        c.setUltima_mensagem(1);
-        c.setUsuario_1(1017);
-        c.setUsuario_2(2033);
-        l.add(c);
-        return l;
+//--------------
+//      MOCK:
+//
+//        List<Chat> l = new ArrayList<Chat>();
+//        Chat c = new Chat();
+//        c.setId(1);
+//        c.setUltima_mensagem(1);
+//        c.setUsuario_1(1017);
+//        c.setUsuario_2(2033);
+//        l.add(c);
+//        return l;
+//--------------
+        ArrayList<Chat> chats = new ArrayList<Chat>();
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/" + idDousuario;
+            //SQL = SSELECT C.*, M.MENSAGEM FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {IidDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Chat chat = new Chat();
+                chat.setId(jSonObject.getInt("id"));
+                chat.setUsuario_1(jSonObject.getInt("usuario_1"));
+                chat.setUsuario_2(jSonObject.getInt("usuario_2"));
+                chat.setUltima_mensagem(jSonObject.getInt("Ultima_mensagem"));
+                chat.setUltima_mensagem_texto(jSonObject.getString("mensagem"));
+                chats.add(chat);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return  chats;
     }
 
     public boolean getUsuarioEUsuario1DoChat(int idDoChat, int idDoUsuarioAtual){
-        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/getUsuario1DoChat/
-        //SQL = SELECT USUARIO_1 FROM CHAT WHERE ID = {idDoChat}
-        return idDoUsuarioAtual == 1;
+
+        ArrayList<Chat> arrayChats= new ArrayList<Chat>();
+        int id = 0;
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/getUsuario1DoChat/" + idDoChat;
+            //SQL = SELECT USUARIO_1 FROM CHAT WHERE ID = {idDoChat}
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            Chat chat = new Chat();
+            id = jSonObject.getInt("usuario_1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return idDoUsuarioAtual == id;
     }
 
     public String getImagemMiniaturaDoChat(int idDoChat, int idDoUsuarioAtual){
-        if (getUsuarioEUsuario1DoChat(idDoChat, idDoUsuarioAtual)){
-            //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario2/
-            //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_2 FROM CHAT WHERE ID = {CHAT.ID})
+//--------------
+//      MOCK:
+//
+//        return "https://pbs.twimg.com/profile_images/2552140292/6umzaqwv0mj922yihwpq_400x400.jpeg";
+//--------------
+        String imagem = "";
+        try{
+            if (getUsuarioEUsuario1DoChat(idDoChat, idDoUsuarioAtual)){
+                urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario2/" + idDoChat;
+                //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_2 FROM CHAT WHERE ID = {CHAT.ID})
+            }
+            else{
+                urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario1/" + idDoChat;
+                //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_1 FROM CHAT WHERE ID = {CHAT.ID})
+            }
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            imagem = jSonObject.getString("IMAGEMPERFIL");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
- 	    else{
-            //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario1/
-            //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_1 FROM CHAT WHERE ID = {CHAT.ID})
-        }
-        return "https://pbs.twimg.com/profile_images/2552140292/6umzaqwv0mj922yihwpq_400x400.jpeg";
-    }
-
-    public String getTextoMiniaturaDoChat(int idDoChat){
-        //URL = https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetTextoMiniaturaDoChat/
-        //SQL = SELECT M.MENSAGEM FROM MENSAGEM M, CHAT C WHERE C.ID = {idDoChat} AND C.ULTIMA_MENSAGEM = M.ID
-        return "";
+        jSonArray = null;
+        return imagem;
     }
 
     /* ------------------------------- UTILS -------------------------------------------------- */
