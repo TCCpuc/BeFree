@@ -75,7 +75,7 @@ public class MensagemAdapter extends BaseAdapter {
  */
 
         //to simulate whether it me or other sender
-        setAlignment(holder, true);
+        setAlignment(holder, chatMessages.get(position).isMe());
         holder.txtMessage.setText(chatMessage.getMensagem());
         holder.txtInfo.setText(chatMessage.getData().toString());
 

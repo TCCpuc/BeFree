@@ -1,5 +1,6 @@
 package tcc.befree.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -29,21 +30,36 @@ public class MensagemActivity extends AppCompatActivity {
     private List<Mensagem> chatHistory;
     private int idUsuarioOrigem;
     private int idChat;
+    private int isMe;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-        initControls();
-    }
 
-    private void initControls() {
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
         messageET = (EditText) findViewById(R.id.messageEdit);
         sendBtn = (ImageButton) findViewById(R.id.chatSendButton);
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+        Intent intent = this.getIntent();
+        bundle = intent.getBundleExtra("bundleChat");
+
+        idUsuarioOrigem = bundle.getInt("idUsuarioOrigem");
         loadHistory();
+
+        initControls();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+    private void initControls() {
+
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,25 +69,19 @@ public class MensagemActivity extends AppCompatActivity {
                     return;
                 }
 
-
-
-
-
-
                 Mensagem newMessage = new Mensagem();
                 //newMessage.setId(122);//dummy
                 newMessage.setMensagem(messageText);
                 //newMessage.setDate(DateFormat.getDateTimeInstance().format(new Date()));
                 //newMessage.setMe(true);
 
-                Bundle bundle = getIntent().getBundleExtra("budleChat");
+
                 try {
-                    idUsuarioOrigem = bundle.getInt("idUsuarioOrigem");
+                    isMe = bundle.getInt("isMe");
                     newMessage.setUsuario_origem(idUsuarioOrigem);
                     newMessage.setUsuario_destino(bundle.getInt("idUsuarioDestino"));
                     idChat = bundle.getInt("idChat");
                     newMessage.setChat(idChat);
-
                 }catch(Exception e){
                     System.err.print("deu erro no bundle chat");
                 }
@@ -102,7 +112,14 @@ public class MensagemActivity extends AppCompatActivity {
         messagesContainer.setAdapter(adapter);
 
         for (int i = 0; i < chatHistory.size(); i++) {
+
             Mensagem message = chatHistory.get(i);
+
+            if(idUsuarioOrigem != message.getUsuario_origem()){
+                message.setMe(false);
+            }else
+                message.setMe(true);
+
             displayMessage(message);
         }
     }

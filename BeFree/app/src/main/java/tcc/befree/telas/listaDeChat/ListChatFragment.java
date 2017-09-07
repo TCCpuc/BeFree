@@ -43,7 +43,7 @@ public class ListChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("idUsuario");
+        Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
         try {
             idUsuario = bundle.getInt("idUsuario");
         }catch(Exception e){
@@ -64,17 +64,18 @@ public class ListChatFragment extends Fragment {
                 bundleChat.putInt("idChat", chatSelecionado.getId());
                 if(api.getUsuarioEUsuario1DoChat(chatSelecionado.getId(), idUsuario)) {
                     bundleChat.putInt("idUsuarioOrigem", idUsuario);
+                    bundleChat.putInt("isMe", 1);
                     bundleChat.putInt("idUsuarioDestino", chatSelecionado.getUsuario_2());
                 }
                 else{
                     bundleChat.putInt("idUsuarioOrigem", idUsuario);
+                    bundleChat.putInt("isMe", 2);
                     bundleChat.putInt("idUsuarioDestino", chatSelecionado.getUsuario_1());
                 }
 
-                Intent intent = getActivity().getIntent();
+                Intent intent = new Intent(getActivity(), MensagemActivity.class);
                 intent.putExtra("bundleChat", bundleChat);
 
-                intent = new Intent(getContext(), MensagemActivity.class);
                 //based on item add info to intent
                 //MANDA O BUNDLE COM O ID DO USUARIO2, E O ID DO CHAT
                 startActivity(intent);

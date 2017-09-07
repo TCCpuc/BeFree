@@ -13,6 +13,7 @@ public class Mensagem {
     private int usuario_destino;
     private Date data = new Date(new java.util.Date().getTime());
     private String mensagem;
+    private boolean isMe;
 
 
     public int getId() {
@@ -63,5 +64,11 @@ public class Mensagem {
         this.mensagem = mensagem;
     }
 
+    public boolean isMe() {
+        return isMe;
+    }
 
+    public void setMe(boolean me) {
+        isMe = me;
+    }
 }

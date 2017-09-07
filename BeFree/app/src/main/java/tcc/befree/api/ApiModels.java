@@ -611,16 +611,18 @@ public class ApiModels implements Runnable{
         Mensagem c = new Mensagem();
         c.setId(1);
         c.setChat(1);
+        //c.setMe(true);
         c.setMensagem("oi");
-        c.setUsuario_origem(1);
-        c.setUsuario_destino(2);
+        c.setUsuario_origem(2033);
+        c.setUsuario_destino(1017);
         l.add(c);
         c = new Mensagem();
         c.setId(2);
         c.setChat(1);
+        //c.setMe(false);
         c.setMensagem("oi tb");
-        c.setUsuario_origem(2);
-        c.setUsuario_destino(1);
+        c.setUsuario_origem(1017);
+        c.setUsuario_destino(2033);
         l.add(c);
         return l;
     }
@@ -632,8 +634,8 @@ public class ApiModels implements Runnable{
         Chat c = new Chat();
         c.setId(1);
         c.setUltima_mensagem(1);
-        c.setUsuario_1(1);
-        c.setUsuario_2(2);
+        c.setUsuario_1(1017);
+        c.setUsuario_2(2033);
         l.add(c);
         return l;
     }
