@@ -109,8 +109,10 @@ public class ListChatFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = getActivity().getLayoutInflater().inflate(R.layout.item_service, null);
-            TextView textView = (TextView) view.findViewById(R.id.item_service_title);
-            textView.setText("GET NOME DO USUARIO");
+            TextView username = (TextView) view.findViewById(R.id.item_service_title);
+            TextView description = (TextView) view.findViewById(R.id.item_service_description);
+            username.setText(api.getNomeMiniaturaDoChat(1,1)); //ENVIAR O ID DO CHAT E DO USUARIO ATUAL
+            description.setText(chatList.get(position).getUltima_mensagem_texto()); //ENVIAR O ID DO USUARIO
 
             CircleImageView mImagePerfil = (CircleImageView) view.findViewById(R.id.img_anuncio);
 

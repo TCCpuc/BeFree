@@ -14,6 +14,7 @@ import android.widget.TextView;
 import tcc.befree.R;
 import tcc.befree.models.Mensagem;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -77,7 +78,8 @@ public class MensagemAdapter extends BaseAdapter {
         //to simulate whether it me or other sender
         setAlignment(holder, chatMessages.get(position).isMe());
         holder.txtMessage.setText(chatMessage.getMensagem());
-        holder.txtInfo.setText(chatMessage.getData().toString());
+        String data = chatMessage.formatedData();
+        holder.txtInfo.setText(data);
 
         return convertView;
     }
@@ -91,7 +93,7 @@ public class MensagemAdapter extends BaseAdapter {
     }
 
     private void setAlignment(ViewHolder holder, boolean isMe) {
-        if (!isMe) {
+        if (isMe) {
             holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
 
             LinearLayout.LayoutParams layoutParams =

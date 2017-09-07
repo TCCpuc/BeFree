@@ -773,4 +773,9 @@ public class ApiModels implements Runnable{
         subCategoria.idCategoria = 1;
         return subCategoria;
     }
+
+    public String getNomeMiniaturaDoChat(int i, int i1) {
+
+        return "GET USERNAME";
+    }
 }

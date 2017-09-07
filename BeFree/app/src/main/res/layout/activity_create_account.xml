@@ -39,6 +39,7 @@
         android:textColor="@color/dark_gray"
         android:visibility="visible"
         android:textSize="23sp"
+        android:editable="false"
         android:layout_above="@+id/create_account_continue"
         android:layout_centerHorizontal="true" />
 

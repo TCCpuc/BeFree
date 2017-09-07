@@ -29,7 +29,6 @@ import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
-import tcc.befree.telas.perfil.UserPerfil;
 
 public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_perfil) {
                             // ABRIR MEU PERFIL
-                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+                            Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
 
                             startActivity(intent);
 
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_historico) {
                             // ABRIR HISTORICO
-                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+                            Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
 
                             startActivity(intent);
 
