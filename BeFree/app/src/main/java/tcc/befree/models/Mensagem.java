@@ -1,6 +1,8 @@
 package tcc.befree.models;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by gabro on 28/08/2017.
@@ -50,6 +52,12 @@ public class Mensagem {
 
     public Date getData() {
         return data;
+    }
+
+    public String formatedData() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return format.format(data);
+
     }
 
     public void setData(Date data) {
