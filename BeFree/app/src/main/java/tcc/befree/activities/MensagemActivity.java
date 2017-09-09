@@ -17,6 +17,7 @@ import java.util.List;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
+import tcc.befree.api.PostApiModels;
 import tcc.befree.models.Mensagem;
 import tcc.befree.telas.Conversa.MensagemAdapter;
 import tcc.befree.models.Chat;
@@ -86,7 +87,7 @@ public class MensagemActivity extends AppCompatActivity {
                     System.err.print("deu erro no bundle chat");
                 }
 
-
+                (new PostApiModels()).postMensagem(newMessage);
                 messageET.setText("");
 
                 displayMessage(newMessage);

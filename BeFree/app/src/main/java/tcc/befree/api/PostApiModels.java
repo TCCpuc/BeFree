@@ -55,10 +55,49 @@ public class PostApiModels implements Runnable{
     //CRIAR CHAT E MENSAGEM--------------------------------
 
     public boolean postChat(Chat chat){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/PostChat/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("Id",chat.getId());
+            jSonObject.put("Usuario_1",chat.getUsuario_1());
+            jSonObject.put("getUsuario_2",chat.getUsuario_2());
+
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+        }
+
         return true;
     }
 
     public boolean postMensagem(Mensagem mensagem){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Mensagem/PostMensagem/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("id",mensagem.getId());
+            jSonObject.put("chat",mensagem.getChat());
+            jSonObject.put("data",mensagem.getData());
+            jSonObject.put("mensagem",mensagem.getMensagem());
+            jSonObject.put("Usuario_origem",mensagem.getUsuario_origem());
+            jSonObject.put("Usuario_destino",mensagem.getUsuario_destino());
+
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+        }
+
         return true;
     }
 
