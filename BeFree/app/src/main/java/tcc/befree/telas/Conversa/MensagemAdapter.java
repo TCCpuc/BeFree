@@ -1,4 +1,4 @@
-package tcc.befree.telas.listaDeChat;
+package tcc.befree.telas.Conversa;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,20 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import tcc.befree.R;
-import tcc.befree.models.Chat;
+import tcc.befree.models.Mensagem;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
  * Created by guilherme.leme on 8/29/17.
  */
 
-public class ChatAdapter extends BaseAdapter {
+public class MensagemAdapter extends BaseAdapter {
 
-    private final List<Chat> chatMessages;
+    private final List<Mensagem> chatMessages;
     private Activity context;
 
-    public ChatAdapter(Activity context, List<Chat> chatMessages) {
+    public MensagemAdapter(Activity context, List<Mensagem> chatMessages) {
         this.context = context;
         this.chatMessages = chatMessages;
     }
@@ -40,7 +41,7 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     @Override
-    public Chat getItem(int position) {
+    public Mensagem getItem(int position) {
         if (chatMessages != null) {
             return chatMessages.get(position);
         } else {
@@ -56,7 +57,7 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        Chat chatMessage = getItem(position);
+        Mensagem chatMessage = getItem(position);
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
@@ -66,26 +67,33 @@ public class ChatAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+/*
         boolean myMsg = chatMessage.getIsme() ;//Just a dummy check
         //to simulate whether it me or other sender
         setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getMessage());
         holder.txtInfo.setText(chatMessage.getDate());
+ */
+
+        //to simulate whether it me or other sender
+        setAlignment(holder, chatMessages.get(position).isMe());
+        holder.txtMessage.setText(chatMessage.getMensagem());
+        String data = chatMessage.formatedData();
+        holder.txtInfo.setText(data);
 
         return convertView;
     }
 
-    public void add(Chat message) {
+    public void add(Mensagem message) {
         chatMessages.add(message);
     }
 
-    public void add(List<Chat> messages) {
+    public void add(List<Mensagem> messages) {
         chatMessages.addAll(messages);
     }
 
     private void setAlignment(ViewHolder holder, boolean isMe) {
-        if (!isMe) {
+        if (isMe) {
             holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
 
             LinearLayout.LayoutParams layoutParams =

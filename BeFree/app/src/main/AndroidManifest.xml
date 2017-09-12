@@ -49,7 +49,7 @@
         <activity android:name=".activities.CreateBuscaActivity" />
         <activity android:name=".activities.CreateServicoActivity" />
         <activity
-            android:name=".telas.perfil.UserPerfil"
+            android:name=".activities.UserPerfilActivity"
             android:label="@string/title_activity_user_perfil"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -58,17 +58,17 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".activities.ChatActivity"
+            android:name=".activities.ListChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.MessagesActivity"
+            android:name=".activities.MensagemActivity"
             android:label="@string/title_activity_messages"
-            android:parentActivityName=".activities.ChatActivity"
+            android:parentActivityName=".activities.ListChatActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="tcc.befree.activities.ChatActivity" />
+                android:value="tcc.befree.activities.ListChatActivity" />
         </activity>
     </application>
 

@@ -9,7 +9,7 @@ import android.view.View;
 
 import tcc.befree.R;
 
-public class ChatActivity extends AppCompatActivity {
+public class ListChatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

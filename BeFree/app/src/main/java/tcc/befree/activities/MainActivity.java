@@ -21,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -30,7 +29,6 @@ import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
-import tcc.befree.telas.perfil.UserPerfil;
 
 public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
@@ -122,7 +120,6 @@ public class MainActivity extends AppCompatActivity{
 
                         if (id == R.id.menu_anuncios) {
 
-                            id = 1;
                             Bundle bundle = new Bundle();
                             bundle.putInt("id",idUsuario);
                             Intent intent = MainActivity.this.getIntent();
@@ -142,7 +139,7 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_perfil) {
                             // ABRIR MEU PERFIL
-                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+                            Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
 
                             startActivity(intent);
 
@@ -154,13 +151,18 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_chat) {
                             // ABRIR CHAT
-                            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("idUsuario",idUsuario);
+                            Intent intent = new Intent(MainActivity.this, ListChatActivity.class);
+                            intent.putExtra("bundle", bundle);
+
 
                             startActivity(intent);
 
                         } else if (id == R.id.menu_historico) {
                             // ABRIR HISTORICO
-                            Intent intent = new Intent(MainActivity.this, UserPerfil.class);
+                            Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
 
                             startActivity(intent);
 
