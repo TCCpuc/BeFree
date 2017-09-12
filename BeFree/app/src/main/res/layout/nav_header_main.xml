@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/side_nav_bar"
@@ -13,54 +14,46 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:weightSum="1">
 
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
         <tcc.befree.models.CircleImageView
             android:id="@+id/img_usuario_menu"
-            android:layout_width="97dp"
-            android:layout_height="113dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_menu_people"
-            app:civ_border_width="0dp"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             app:civ_border_color="@color/dark_gray"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="30dp" />
-
-    <!--
-        <ImageView
-            android:id="@+id/img_usuario_menu"
-            android:layout_width="97dp"
-            android:layout_height="113dp"
+            app:civ_border_width="0dp"
             app:srcCompat="@drawable/ic_menu_people"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="-2dp"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/nome_usuario_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_above="@+id/email_usuario_menu"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/email_usuario_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="30dp" />
-     -->
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/nome_usuario_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_alignParentTop="true"
-        android:textAlignment="textEnd"
-        android:layout_toRightOf="@+id/img_usuario_menu"
-        android:layout_toEndOf="@+id/img_usuario_menu" />
 
-    <TextView
-        android:id="@+id/email_usuario_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text=""
-        android:layout_marginTop="69dp"
-        android:layout_below="@+id/nome_usuario_menu"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

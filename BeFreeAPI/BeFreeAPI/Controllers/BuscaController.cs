@@ -73,12 +73,6 @@ namespace BeFreeAPI.Controllers
                          "FROM tbBusca AS B " +  // +, tbSubCategoria SC, tbCategoria AS C " +
                          "WHERE B.titulo LIKE '%" + busca + "%'" +
                          "   OR B.descricao LIKE '%" + busca + "%' ";
-            /*
-            "   OR SC.descricao LIKE '%" + busca + "%' " +
-            "   OR C.descricao LIKE '%" + busca + "%') " +
-            "  AND SC.idSubcategoria = S.idSubCategoria " +
-            "  AND C.idCategoria = SC.idCategoria";
-            */
 
             var buscar = db.tbBuscas.SqlQuery(str);
 
