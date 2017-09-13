@@ -117,7 +117,7 @@ namespace BeFreeAPI.Controllers
             return db.tbChats.Count(e => e.ID == id) > 0;
         }
 
-        // GET: api/Busca/5
+        // GET: api/Chat/5
         [ResponseType(typeof(Chat))]
         public IHttpActionResult ChatExiste(int usuarioUm, int usuarioDois)
         {
@@ -131,7 +131,7 @@ namespace BeFreeAPI.Controllers
             return Ok(buscar);
         }
 
-        // GET: api/Busca/5
+        // GET: api/Chat/5
         [ResponseType(typeof(Chat))]
         public IHttpActionResult GetChatsDoUsuario(int usuario)
         {

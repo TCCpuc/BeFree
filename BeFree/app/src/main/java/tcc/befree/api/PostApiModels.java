@@ -55,6 +55,7 @@ public class PostApiModels implements Runnable{
     //CRIAR CHAT E MENSAGEM--------------------------------
 
     public boolean postChat(Chat chat){
+        //Testar
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/PostChat/";
 
@@ -78,6 +79,7 @@ public class PostApiModels implements Runnable{
 
     public boolean postMensagem(Mensagem mensagem){
         Thread thread = new Thread(this);
+        //Testar
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Mensagem/PostMensagem/";
 
         jSonObject = new JSONObject();

@@ -600,6 +600,7 @@ public class ApiModels implements Runnable{
     public boolean getChatJaExisteEntreOsUsuarios(int usuario1, int usuario2){
         boolean existe = false;
         try{
+            //NOK - Como passar dois parâmetros?
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/ChatExiste/" + usuario1 + "/" + usuario2;
             //SQL = SELECT COUNT(*) AS contagem FROM CHAT WHERE (USUARIO_2 = {usuario_1} AND USUARIO_1 = {usuario_2}) OR (USUARIO_1 = {usuario_1} AND USUARIO_2 = {usuario_2})
 
@@ -642,7 +643,8 @@ public class ApiModels implements Runnable{
         ArrayList<Mensagem> arrayMensagens= new ArrayList<Mensagem>();
 
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetMensagensDoChat/" + idDoChat;
+            //OK
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Mensagem/GetMensagensDoChat/" + idDoChat;
             //SQL = SELECT * FROM MENSAGEM WHERE CHAT = {idDoChat} ORDER BY DATA
             Thread thread = new Thread(this);
             thread.start();
@@ -683,6 +685,7 @@ public class ApiModels implements Runnable{
 //--------------
         ArrayList<Chat> chats = new ArrayList<Chat>();
         try{
+            //NOK - O nome está correto
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/" + idDousuario;
             //SQL = SSELECT C.*, M.MENSAGEM FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {IidDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
             Thread thread = new Thread(this);
@@ -714,6 +717,7 @@ public class ApiModels implements Runnable{
         ArrayList<Chat> arrayChats= new ArrayList<Chat>();
         int id = 0;
         try{
+            //OK
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/gettbChat/" + idDoChat;
             //SQL = SELECT USUARIO_1 FROM CHAT WHERE ID = {idDoChat}
             Thread thread = new Thread(this);
@@ -738,7 +742,8 @@ public class ApiModels implements Runnable{
 //--------------
         String imagem = "";
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuario/GetUsuario/" + idUsuario;
+            //OK
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/GetUsuario/" + idUsuario;
             //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_2 FROM CHAT WHERE ID = {CHAT.ID})
             Thread thread = new Thread(this);
             thread.start();
