@@ -23,6 +23,7 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 
@@ -64,21 +65,30 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
     private AccessTokenTracker accessTokenTracker;
     private AccessToken accessToken;
     private View mProgressView;
+
+    private GoogleApiClient googleApiClient;
     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        /*accessTokenTracker = new AccessTokenTracker() {
+        accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
 
             }
         };
+
+        /*googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOO)*/
+
+
 
         profileTracker = new ProfileTracker() {
             @Override
@@ -90,10 +100,10 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
                 usuarioFacebook.cpf = " ";
                 usuarioFacebook.email = currentProfile.getId();
                 usuarioFacebook.senha = " ";
-                Uri uriImageFacebook = currentProfile.getProfilePictureUri(100,100);
+                Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
                 usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
             }
-        };*/
+        };
 
         /*accessTokenTracker.startTracking();
         profileTracker.startTracking();*/

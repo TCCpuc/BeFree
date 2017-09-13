@@ -35,4 +35,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.facebook.android:facebook-android-sdk:4.25.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.gms:google-services:3.1.0'
 }
+apply plugin: 'com.google.gms.google-services'

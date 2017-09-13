@@ -19,6 +19,8 @@ namespace BeFreeAPI.Models
         public virtual DbSet<Categoria> tbCategorias { get; set; }
         public virtual DbSet<Servico> tbServicoes { get; set; }
         public virtual DbSet<SubCategoria> tbSubCategorias { get; set; }
+        public virtual DbSet<Chat> tbChats { get; set; }
+        public virtual DbSet<Mensagem> tbMensagems { get; set; }
 
         public System.Data.Entity.DbSet<BeFreeAPI.Models.DDD> tbDDDs { get; set; }
 

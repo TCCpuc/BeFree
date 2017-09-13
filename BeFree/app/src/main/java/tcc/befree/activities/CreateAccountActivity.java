@@ -1,6 +1,12 @@
 package tcc.befree.activities;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.provider.SyncStateContract;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,9 +32,11 @@ import tcc.befree.api.PostApiModels;
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Usuarios;
+import tcc.befree.utils.Utils;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
+    private static final int SELECT_FILE1 = 100;
     private TextView presentation;
     private AutoCompleteTextView edtNome;
     private AutoCompleteTextView edtCpf;
@@ -40,6 +50,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     private ProgressBar loading;
     private Button continuar;
     private int passo;
+
+    // 05/09 - Guilherme Domingues
+    private Bitmap bitmapUsuarioPerfil;
 
 
     @Override
@@ -115,9 +128,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                     novoUsuario.cpf = edtCpf.getText().toString();
                     novoUsuario.email = edtEmail.getText().toString();
                     novoUsuario.senha = edtSenha.getText().toString();
+                    novoUsuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
 
-                    //+ with -, / with _, and = with *.
-                    novoUsuario.imagemPerfil = getImagem();
                     if( apiPost.postUsuarios(novoUsuario)) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Usuário criado com sucesso!", Toast.LENGTH_LONG);
                         toast.show();
@@ -134,23 +146,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    private String getImagem() {
-        byte[] bytes, buffer = new byte[8192];
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        try {
-            InputStream inputStream = getResources().openRawResource(+ R.drawable.teste);
-
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                output.write(buffer, 0, bytesRead);
+        insertPhoto.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openGallery(SELECT_FILE1);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        bytes = output.toByteArray();
-        return Base64.encodeToString(bytes, Base64.DEFAULT);
+        });
     }
 
     protected boolean validaCampo(String var){
@@ -191,8 +193,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         return ret;
     }
 
-
-
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() >= 4;
@@ -201,6 +201,33 @@ public class CreateAccountActivity extends AppCompatActivity {
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
+    }
+
+    public void openGallery(int req_code) {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select file to upload "), req_code);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == SELECT_FILE1 ) {
+            Uri selectedImageUri = data.getData();
+
+            try {
+                bitmapUsuarioPerfil = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                Picasso.with(this.getApplicationContext()).load(selectedImageUri).into(photo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 
     @Override
