@@ -33,7 +33,6 @@ public class ApiModels implements Runnable{
     private boolean semaforo;
     private String urlAPI = "";
 
-
     /* ---------------------------------- MÉTODOS DE USUÁRIOS ----------------------------------- */
     //Retorna todos os Usuários
     final public ArrayList<Usuarios> getUsuarios(){
@@ -697,7 +696,7 @@ public class ApiModels implements Runnable{
                 chat.setId(jSonObject.getInt("id"));
                 chat.setUsuario_1(jSonObject.getInt("usuario_1"));
                 chat.setUsuario_2(jSonObject.getInt("usuario_2"));
-                chat.setUltima_mensagem(jSonObject.getInt("Ultima_mensagem"));
+                chat.setUltima_mensagem(jSonObject.getInt("ultima_mensagem"));
                 chat.setUltima_mensagem_texto(jSonObject.getString("mensagem"));
                 chats.add(chat);
             }
@@ -715,7 +714,7 @@ public class ApiModels implements Runnable{
         ArrayList<Chat> arrayChats= new ArrayList<Chat>();
         int id = 0;
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/getUsuario1DoChat/" + idDoChat;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/gettbChat/" + idDoChat;
             //SQL = SELECT USUARIO_1 FROM CHAT WHERE ID = {idDoChat}
             Thread thread = new Thread(this);
             thread.start();
@@ -731,7 +730,7 @@ public class ApiModels implements Runnable{
         return idDoUsuarioAtual == id;
     }
 
-    public String getImagemMiniaturaDoChat(int idDoChat, int idDoUsuarioAtual){
+    public String getImagemMiniaturaDoUsuario(int idUsuario){
 //--------------
 //      MOCK:
 //
@@ -739,20 +738,14 @@ public class ApiModels implements Runnable{
 //--------------
         String imagem = "";
         try{
-            if (getUsuarioEUsuario1DoChat(idDoChat, idDoUsuarioAtual)){
-                urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario2/" + idDoChat;
-                //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_2 FROM CHAT WHERE ID = {CHAT.ID})
-            }
-            else{
-                urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetImagemMiniaturaDoChatDoUsuario1/" + idDoChat;
-                //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_1 FROM CHAT WHERE ID = {CHAT.ID})
-            }
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuario/GetUsuario/" + idUsuario;
+            //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_2 FROM CHAT WHERE ID = {CHAT.ID})
             Thread thread = new Thread(this);
             thread.start();
             controlaThread();
             thread.interrupt();
             JSONObject jSonObject = jSonArray.getJSONObject(0);
-            imagem = jSonObject.getString("IMAGEMPERFIL");
+            imagem = jSonObject.getString("imagemPerfil");
         } catch (JSONException e) {
             e.printStackTrace();
         }
