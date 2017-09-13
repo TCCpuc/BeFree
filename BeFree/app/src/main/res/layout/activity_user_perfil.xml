@@ -30,35 +30,42 @@
             android:id="@+id/user_perfil_photo"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="77dp"
             android:src="@drawable/ic_plus"
             android:visibility="visible"
             app:civ_border_color="@color/dark_gray"
-            app:civ_border_width="1dp" />
+            app:civ_border_width="1dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/user_perfil_edit_data"
+            style="@style/com_facebook_loginview_silver_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Editar Dados"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginBottom="20dp"
+            android:layout_alignBottom="@+id/user_perfil_photo"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/user_perfil_photo"
-            android:text="Editar Dados"
-            android:textColor="@color/colorPrimaryDark" />
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp" />
 
         <Button
             android:id="@+id/user_perfil_edit_password"
+            style="@style/com_facebook_loginview_silver_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Editar Senha"
             android:textColor="@color/colorPrimaryDark"
             android:layout_alignBaseline="@+id/user_perfil_edit_data"
             android:layout_alignBottom="@+id/user_perfil_edit_data"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_toRightOf="@+id/user_perfil_photo"
+            android:layout_toEndOf="@+id/user_perfil_photo"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp" />
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView2"
@@ -72,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingTop="24dp">
+                android:paddingTop="6dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -91,9 +98,9 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <TextView
-                            android:layout_below="@+id/user_perfil_username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/user_perfil_username"
                             android:editable="false"
                             android:text="Admin" />
 
@@ -395,6 +402,17 @@
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Segure para editar a foto"
+            android:textAlignment="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/user_perfil_photo"
+            android:layout_alignStart="@+id/user_perfil_photo"
+            android:layout_marginTop="59dp" />
 
 
     </RelativeLayout>
