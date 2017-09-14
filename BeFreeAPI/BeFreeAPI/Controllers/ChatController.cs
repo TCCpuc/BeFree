@@ -119,6 +119,8 @@ namespace BeFreeAPI.Controllers
 
         // GET: api/Chat/5
         [ResponseType(typeof(Chat))]
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.HttpGet]
         public IHttpActionResult ChatExiste(int usuarioUm, int usuarioDois)
         {
             String str = "SELECT * " +

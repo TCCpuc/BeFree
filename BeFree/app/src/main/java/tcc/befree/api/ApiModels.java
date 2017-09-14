@@ -601,7 +601,7 @@ public class ApiModels implements Runnable{
         boolean existe = false;
         try{
             //NOK - Como passar dois parâmetros?
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/ChatExiste/" + usuario1 + "/" + usuario2;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/ChatExiste/?usuarioum=" + usuario1 + "&usuariodois=" + usuario2;
             //SQL = SELECT COUNT(*) AS contagem FROM CHAT WHERE (USUARIO_2 = {usuario_1} AND USUARIO_1 = {usuario_2}) OR (USUARIO_1 = {usuario_1} AND USUARIO_2 = {usuario_2})
 
             Thread thread = new Thread(this);
