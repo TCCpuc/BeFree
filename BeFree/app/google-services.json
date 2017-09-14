@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "309254585978",
+    "firebase_url": "https://befree-7f012.firebaseio.com",
+    "project_id": "befree-7f012",
+    "storage_bucket": "befree-7f012.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309254585978:android:0f16ab217697386b",
+        "android_client_info": {
+          "package_name": "tcc.befree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309254585978-eqbrgcn66ee5hh2364u8m71uc5vas280.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tcc.befree",
+            "certificate_hash": "e7cd9701a235c2311339da020cb066153d8c557e"
+          }
+        },
+        {
+          "client_id": "309254585978-nrkbe8oufk8t1vd6t0e5mph4npkn2m4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVQWXPCJD67w9I6HKlKd1vwLBItvT3sUI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309254585978-nrkbe8oufk8t1vd6t0e5mph4npkn2m4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
