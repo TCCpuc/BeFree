@@ -84,7 +84,7 @@ public class PostApiModels implements Runnable{
 
         jSonObject = new JSONObject();
         try {
-            jSonObject.put("id",mensagem.getId());
+            //jSonObject.put("id",mensagem.getId());
             jSonObject.put("chat",mensagem.getChat());
             jSonObject.put("data",mensagem.getData());
             jSonObject.put("mensagem",mensagem.getMensagem());

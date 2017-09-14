@@ -143,8 +143,17 @@ namespace BeFreeAPI.Controllers
 
             var buscar = db.tbChats.SqlQuery(str);
 
+            if (buscar != null)
+            {
+                String strTexto = "SELECT * " +
+                                 "FROM tbmensagem AS C " +
+                                 "WHERE C.id = " + buscar.First().ULTIMA_MENSAGEM;
+
+                var buscarMensagem = db.tbMensagems.SqlQuery(strTexto);
+                buscar.First().ULTIMA_MENSAGEM_TEXTO = buscarMensagem.First().MENSAGEM.ToString();
+            }
+
             return Ok(buscar);
         }
-
     }
 }

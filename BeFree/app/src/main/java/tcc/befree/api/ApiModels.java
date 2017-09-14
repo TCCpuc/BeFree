@@ -600,7 +600,7 @@ public class ApiModels implements Runnable{
     public boolean getChatJaExisteEntreOsUsuarios(int usuario1, int usuario2){
         boolean existe = false;
         try{
-            //NOK - Como passar dois parâmetros?
+            //OK
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/ChatExiste/?usuarioum=" + usuario1 + "&usuariodois=" + usuario2;
             //SQL = SELECT COUNT(*) AS contagem FROM CHAT WHERE (USUARIO_2 = {usuario_1} AND USUARIO_1 = {usuario_2}) OR (USUARIO_1 = {usuario_1} AND USUARIO_2 = {usuario_2})
 
@@ -654,11 +654,11 @@ public class ApiModels implements Runnable{
             for (int i = 0; i < jSonArray.length();i++){
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Mensagem mensagem = new Mensagem();
-                mensagem.setId(jSonObject.getInt("id"));
-                mensagem.setChat(jSonObject.getInt("chat"));
-                mensagem.setUsuario_origem(jSonObject.getInt("Usuario_origem"));
-                mensagem.setUsuario_destino(jSonObject.getInt("Usuario_destino"));
-                mensagem.setMensagem(jSonObject.getString("mensagem"));
+                mensagem.setId(jSonObject.getInt("ID"));
+                mensagem.setChat(jSonObject.getInt("CHAT"));
+                mensagem.setUsuario_origem(jSonObject.getInt("USUARIO_ORIGEM"));
+                mensagem.setUsuario_destino(jSonObject.getInt("USUARIO_DESTINO"));
+                mensagem.setMensagem(jSonObject.getString("MENSAGEM"));
                 arrayMensagens.add(mensagem);
             }
 
@@ -674,42 +674,42 @@ public class ApiModels implements Runnable{
 //--------------
 //      MOCK:
 //
-//        List<Chat> l = new ArrayList<Chat>();
-//        Chat c = new Chat();
-//        c.setId(1);
-//        c.setUltima_mensagem(1);
-//        c.setUsuario_1(1017);
-//        c.setUsuario_2(2033);
-//        l.add(c);
-//        return l;
+        List<Chat> l = new ArrayList<Chat>();
+        Chat c = new Chat();
+        c.setId(1);
+        c.setUltima_mensagem(1);
+        c.setUsuario_1(2032);
+        c.setUsuario_2(2034);
+        l.add(c);
+        return l;
 //--------------
-        ArrayList<Chat> chats = new ArrayList<Chat>();
-        try{
-            //NOK - O nome está correto
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/" + idDousuario;
-            //SQL = SSELECT C.*, M.MENSAGEM FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {IidDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Chat chat = new Chat();
-                chat.setId(jSonObject.getInt("id"));
-                chat.setUsuario_1(jSonObject.getInt("usuario_1"));
-                chat.setUsuario_2(jSonObject.getInt("usuario_2"));
-                chat.setUltima_mensagem(jSonObject.getInt("ultima_mensagem"));
-                chat.setUltima_mensagem_texto(jSonObject.getString("mensagem"));
-                chats.add(chat);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        jSonArray = null;
-        return  chats;
+//        ArrayList<Chat> chats = new ArrayList<Chat>();
+//        try{
+//            //NOK - O nome está correto
+//            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/" + idDousuario;
+//            //SQL = SSELECT C.*, M.MENSAGEM FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {IidDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
+//            Thread thread = new Thread(this);
+//            thread.start();
+//            controlaThread();
+//            thread.interrupt();
+//
+//            for (int i = 0; i < jSonArray.length();i++){
+//                JSONObject jSonObject = jSonArray.getJSONObject(i);
+//                Chat chat = new Chat();
+//                chat.setId(jSonObject.getInt("id"));
+//                chat.setUsuario_1(jSonObject.getInt("usuario_1"));
+//                chat.setUsuario_2(jSonObject.getInt("usuario_2"));
+//                chat.setUltima_mensagem(jSonObject.getInt("ultima_mensagem"));
+//                chat.setUltima_mensagem_texto(jSonObject.getString("mensagem"));
+//                chats.add(chat);
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        jSonArray = null;
+//        return  chats;
     }
 
     public boolean getUsuarioEUsuario1DoChat(int idDoChat, int idDoUsuarioAtual){
@@ -726,7 +726,7 @@ public class ApiModels implements Runnable{
             thread.interrupt();
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             Chat chat = new Chat();
-            id = jSonObject.getInt("usuario_1");
+            id = jSonObject.getInt("USUARIO_1");
         } catch (JSONException e) {
             e.printStackTrace();
         }

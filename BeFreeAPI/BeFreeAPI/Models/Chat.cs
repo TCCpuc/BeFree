@@ -17,5 +17,7 @@ namespace BeFreeAPI.Models
         public int USUARIO_2 { get; set; }
 
         public int? ULTIMA_MENSAGEM { get; set; }
+
+        public string ULTIMA_MENSAGEM_TEXTO { get; set; }
     }
 }

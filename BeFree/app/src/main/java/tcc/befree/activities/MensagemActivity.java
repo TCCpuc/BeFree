@@ -32,6 +32,7 @@ public class MensagemActivity extends AppCompatActivity {
     private int idUsuarioOrigem;
     private int idChat;
     private int isMe;
+    private int idUsuarioDestino;
     private Bundle bundle;
 
     @Override
@@ -48,6 +49,9 @@ public class MensagemActivity extends AppCompatActivity {
         bundle = intent.getBundleExtra("bundleChat");
 
         idUsuarioOrigem = bundle.getInt("idUsuarioOrigem");
+        idChat = bundle.getInt("idChat");
+        isMe = bundle.getInt("isMe");
+        idUsuarioDestino = bundle.getInt("idUsuarioDestino");
         loadHistory();
 
         initControls();
@@ -78,10 +82,9 @@ public class MensagemActivity extends AppCompatActivity {
 
 
                 try {
-                    isMe = bundle.getInt("isMe");
                     newMessage.setUsuario_origem(idUsuarioOrigem);
-                    newMessage.setUsuario_destino(bundle.getInt("idUsuarioDestino"));
-                    idChat = bundle.getInt("idChat");
+                    newMessage.setUsuario_destino(idUsuarioDestino);
+
                     newMessage.setChat(idChat);
                 }catch(Exception e){
                     System.err.print("deu erro no bundle chat");
