@@ -93,8 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="14dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_below="@+id/login_forgot_password"
                     android:layout_centerHorizontal="true" />
 
                 <!--
@@ -135,6 +134,15 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/login_forgot_password"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Esqueceu a senha?" />
 
 
             </RelativeLayout>

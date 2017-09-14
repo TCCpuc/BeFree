@@ -2,6 +2,8 @@ package tcc.befree.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.Usuarios;
+import tcc.befree.telas.Dialog.ForgotPasswordDialog;
 
 /**
  * A login screen that offers login via email/password.
@@ -60,6 +63,7 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
     private TextInputEditText Email = null;
     private TextInputEditText Password = null;
     private LoginButton loginButton;
+    private Button forgotPassword;
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
     private AccessTokenTracker accessTokenTracker;
@@ -70,7 +74,7 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
     
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -107,6 +111,16 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
 
         /*accessTokenTracker.startTracking();
         profileTracker.startTracking();*/
+
+        forgotPassword = (Button) findViewById(R.id.login_forgot_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForgotPasswordDialog dialog = new ForgotPasswordDialog(LoginActivity.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
 
         loginButton = (LoginButton) findViewById(R.id.login_facebook_button);
         callbackManager = CallbackManager.Factory.create();
