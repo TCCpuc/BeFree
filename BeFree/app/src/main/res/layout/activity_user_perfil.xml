@@ -31,12 +31,11 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_gravity="center"
-            android:layout_marginTop="77dp"
             android:src="@drawable/ic_plus"
             android:visibility="visible"
             app:civ_border_color="@color/dark_gray"
             app:civ_border_width="1dp"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true" />
 
         <Button

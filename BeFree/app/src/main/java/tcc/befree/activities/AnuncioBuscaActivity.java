@@ -1,9 +1,9 @@
 package tcc.befree.activities;
 
-import android.graphics.BitmapFactory;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +17,7 @@ import tcc.befree.models.Busca;
 public class AnuncioBuscaActivity extends AppCompatActivity {
 
     protected ImageView imgAnuncio;
+    private FloatingActionButton contato;
 
     private void setText(String campo, String valor){
         int busca = getResources().getIdentifier(campo, "id", getPackageName());
@@ -29,13 +30,17 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getBundleExtra("bundle");
         int id = bundle.getInt("id");
-
         System.out.print("o ID eh " + id);
+        contato = (FloatingActionButton) findViewById(R.id.anuncio_contato);
+        contato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newactivity_anuncio);
+        setContentView(R.layout.activity_anuncio);
 
         ApiModels conexao = new ApiModels();
         imgAnuncio = (ImageView) findViewById(R.id.newactivity_img_anuncio);

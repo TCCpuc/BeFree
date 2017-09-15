@@ -1,7 +1,9 @@
 package tcc.befree.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import tcc.befree.models.SubCategoria;
 public class AnuncioServicoActivity extends AppCompatActivity {
 
     protected ImageView imgAnuncio;
+    private FloatingActionButton contato;
 
     private void setText(String campo, String valor){
         int Servico = getResources().getIdentifier(campo, "id", getPackageName());
@@ -32,14 +35,18 @@ public class AnuncioServicoActivity extends AppCompatActivity {
 
             System.out.print("o ID eh " + id);
 
-        
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newactivity_anuncio);
+        setContentView(R.layout.activity_anuncio);
         imgAnuncio = (ImageView) findViewById(R.id.newactivity_img_anuncio);
+        contato = (FloatingActionButton) findViewById(R.id.anuncio_contato);
+        contato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
         ApiModels conexao = new ApiModels();
-
         Servico srv = new Servico();
         Categoria categoria = new Categoria();
         SubCategoria subCategoria = new SubCategoria();
