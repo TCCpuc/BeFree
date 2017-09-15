@@ -93,7 +93,7 @@ public class MensagemAdapter extends BaseAdapter {
     }
 
     private void setAlignment(ViewHolder holder, boolean isMe) {
-        if (isMe) {
+        if (!isMe) {
             holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
 
             LinearLayout.LayoutParams layoutParams =
