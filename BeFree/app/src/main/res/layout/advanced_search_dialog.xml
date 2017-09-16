@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/curve_shap"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/advanced_search_dialog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="Busca Avançada"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/advanced_search_dialog_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_margin="10dp"
+        android:text="Categoria"
+        android:textColor="@android:color/white"
+        android:textSize="13dp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/advanced_search_dialog_categoria_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/advanced_search_dialog_categoria_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/curve_shap"
+            android:layout_gravity="left" />
+
+        <Spinner
+            android:id="@+id/advanced_search_dialog_categoria_spinner"
+            android:layout_gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/advanced_search_dialog_sub_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_margin="10dp"
+        android:text="Sub - Categoria"
+        android:textColor="@android:color/white"
+        android:textSize="13dp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/advanced_search_dialog_sub_categoria_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/advanced_search_dialog_sub_categoria_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/curve_shap"
+            android:layout_gravity="left" />
+
+        <Spinner
+            android:id="@+id/advanced_search_dialog_sub_categoria_spinner"
+            android:layout_gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/advanced_search_dialog_ddd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_margin="10dp"
+        android:text="Regiao (DDD)"
+        android:textColor="@android:color/white"
+        android:textSize="13dp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/advanced_search_dialog_ddd_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/advanced_search_dialog_ddd_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/curve_shap"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left" />
+
+        <Spinner
+            android:id="@+id/advanced_search_dialog_ddd_spinner"
+            android:layout_gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/advanced_search_dialog_button_ok"
+        android:layout_gravity="center"
+        android:background="@drawable/curve_shap"
+        android:layout_width="100dp"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:text="OK" />
+
+</LinearLayout>
