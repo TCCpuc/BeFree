@@ -31,6 +31,10 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getBundleExtra("bundle");
         int id = bundle.getInt("id");
         System.out.print("o ID eh " + id);
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_anuncio);
+
         contato = (FloatingActionButton) findViewById(R.id.anuncio_contato);
         contato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,9 +42,6 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
 
             }
         });
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anuncio);
 
         ApiModels conexao = new ApiModels();
         imgAnuncio = (ImageView) findViewById(R.id.newactivity_img_anuncio);

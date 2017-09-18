@@ -57,13 +57,13 @@ public class PostApiModels implements Runnable{
     public boolean postChat(Chat chat){
         //Testar
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/PostChat/";
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/PosttbChat/";
 
         jSonObject = new JSONObject();
         try {
-            jSonObject.put("Id",chat.getId());
-            jSonObject.put("Usuario_1",chat.getUsuario_1());
-            jSonObject.put("getUsuario_2",chat.getUsuario_2());
+            jSonObject.put("ID",chat.getId());
+            jSonObject.put("USUARIO_1",chat.getUsuario_1());
+            jSonObject.put("USUARIO_2",chat.getUsuario_2());
 
             thread.start();
             controlaThread();
@@ -85,11 +85,11 @@ public class PostApiModels implements Runnable{
         jSonObject = new JSONObject();
         try {
             //jSonObject.put("id",mensagem.getId());
-            jSonObject.put("chat",mensagem.getChat());
-            jSonObject.put("data",mensagem.getData());
-            jSonObject.put("mensagem",mensagem.getMensagem());
-            jSonObject.put("Usuario_origem",mensagem.getUsuario_origem());
-            jSonObject.put("Usuario_destino",mensagem.getUsuario_destino());
+            jSonObject.put("CHAT",mensagem.getChat());
+            jSonObject.put("DATA",mensagem.getData());
+            jSonObject.put("MENSAGEM",mensagem.getMensagem());
+            jSonObject.put("USUARIO_ORIGEM",mensagem.getUsuario_origem());
+            jSonObject.put("USUARIO_DESTINO",mensagem.getUsuario_destino());
 
             thread.start();
             controlaThread();

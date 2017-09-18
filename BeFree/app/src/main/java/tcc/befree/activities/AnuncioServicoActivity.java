@@ -1,5 +1,6 @@
 package tcc.befree.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +11,14 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tcc.befree.api.ApiModels;
 import tcc.befree.R;
+import tcc.befree.api.PostApiModels;
 import tcc.befree.models.Categoria;
+import tcc.befree.models.Chat;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 
@@ -30,11 +36,10 @@ public class AnuncioServicoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
-        Bundle bundle = getIntent().getBundleExtra("bundle");
-        int id = bundle.getInt("id");
-
-            System.out.print("o ID eh " + id);
-
+        Bundle bundle = getIntent().getBundleExtra("idUsuario");
+        bundle = getIntent().getBundleExtra("bundle");
+        final int id = bundle.getInt("id");
+        final int idUsuarioAtual = bundle.getInt("idUsuario");//bundle.getInt("idUsuario");//NÃO ESTÁ PEGANDO
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
         imgAnuncio = (ImageView) findViewById(R.id.newactivity_img_anuncio);
@@ -42,10 +47,35 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         contato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ApiModels api = new ApiModels();
+                int idAnunciante = api.getServicosById(id).idUsuario;
+                Chat chat = new Chat();
+                if (api.getChatJaExisteEntreOsUsuarios(idAnunciante,idUsuarioAtual)){
+                    chat = api.getChatDosUsuarios(idAnunciante,idUsuarioAtual);
+                }
+                else{
+                    PostApiModels postApi = new PostApiModels();
+                    chat.setUsuario_1(idUsuarioAtual);
+                    chat.setUsuario_2(idAnunciante);
+                    postApi.postChat(chat);
+                }
+                Bundle bundleChat = new Bundle();
+                bundleChat.putInt("idChat", chat.getId());
+                if(api.getUsuarioEUsuario1DoChat(chat.getId(), idUsuarioAtual)) {
+                    bundleChat.putInt("idUsuarioOrigem", idUsuarioAtual);
+                    bundleChat.putInt("isMe", 1);
+                    bundleChat.putInt("idUsuarioDestino", chat.getUsuario_2());
+                }
+                else{
+                    bundleChat.putInt("idUsuarioOrigem", idUsuarioAtual);
+                    bundleChat.putInt("isMe", 2);
+                    bundleChat.putInt("idUsuarioDestino", chat.getUsuario_1());
+                }
+                Intent intent = new Intent(AnuncioServicoActivity.this,MensagemActivity.class);
+                intent.putExtra("bundleChat", bundleChat);
+                startActivity(intent);
             }
         });
-
         ApiModels conexao = new ApiModels();
         Servico srv = new Servico();
         Categoria categoria = new Categoria();

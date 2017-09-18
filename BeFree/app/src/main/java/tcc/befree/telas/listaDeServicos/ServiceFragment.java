@@ -20,19 +20,25 @@ import tcc.befree.models.Servico;
  */
 public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickListener {
 
+    int idUsuario;
+    int id;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
-        Bundle pesquisa = getActivity().getIntent().getBundleExtra("service");
-        int id;
+        Intent intent = getActivity().getIntent();
+        Bundle bundle = intent.getBundleExtra("idUsuario");
+        Bundle pesquisa = intent.getBundleExtra("service");
         try {
             id = bundle.getInt("id");
         }catch(Exception e){
             id = 0;
         }
-
+        try {
+            idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            idUsuario = 0;
+        }
         String search;
         try {
             search = pesquisa.getString("service");
@@ -83,9 +89,9 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
         Bundle bundle = new Bundle();
         int id = servico.idServico;
         bundle.putInt("id",id);
+        bundle.putInt("idUsuario",idUsuario);
         Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);
         intent.putExtra("bundle", bundle);
         startActivity(intent);
     }
-
 }

@@ -705,6 +705,16 @@ public class ApiModels implements Runnable{
         return  arrayMensagens;
     }
 
+    public Chat getChatDosUsuarios(int usuario1, int usuario2){
+        List<Chat> chats = getChatsDoUsuario(usuario1);
+        for (Chat c:
+                chats) {
+            if (c.getUsuario_2() == usuario2 || c.getUsuario_1() == usuario2)
+                return c;
+        }
+        return null;
+    }
+
     public List<Chat> getChatsDoUsuario(int idDousuario){
 //--------------
 //      MOCK:

@@ -21,17 +21,26 @@ import tcc.befree.models.Busca;
 
 public class SearchFragment extends Fragment implements SearchAdapter.OnClickListener {
 
+    int idUsuario;
+    int id;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
-        Bundle pesquisa = getActivity().getIntent().getBundleExtra("search");
-        int id;
+
+        Intent intent = getActivity().getIntent();
+        Bundle bundle = intent.getBundleExtra("idUsuario");
+        Bundle pesquisa = intent.getBundleExtra("search");
+
         try {
             id = bundle.getInt("id");
         }catch(Exception e){
             id = 0;
+        }
+        try {
+            idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            idUsuario = 0;
         }
 
         String search;
@@ -41,15 +50,10 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
             search = "";
         }
 
-        //int id = getIntent().getIntExtra("id",0);
-
         View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
-
         ArrayList<Busca> searchs = new ArrayList<>();
-
         SearchAdapter adapter;
         ApiModels api = new ApiModels();
-
 
         if(!search.equals("")){
             ArrayList<Busca> resultado = new ArrayList<>();
@@ -82,6 +86,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         Bundle bundle = new Bundle();
         int id = busca.idBusca;
         bundle.putInt("id",id);
+        bundle.putInt("idUsuario",idUsuario);
         Intent intent = new Intent(getActivity(), AnuncioBuscaActivity.class);
         intent.putExtra("bundle", bundle);
         startActivity(intent);
