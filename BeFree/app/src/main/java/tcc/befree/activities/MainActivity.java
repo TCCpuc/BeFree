@@ -2,6 +2,8 @@ package tcc.befree.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -21,12 +23,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
+import tcc.befree.telas.Dialog.AdvancedSearchDialog;
+import tcc.befree.telas.Dialog.ForgotPasswordDialog;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
 
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private int idUsuario = 0;
+    private Button search_advanced_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,16 @@ public class MainActivity extends AppCompatActivity{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        search_advanced_button = (Button) findViewById(R.id.search_advanced_button);
+        search_advanced_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AdvancedSearchDialog dialog = new AdvancedSearchDialog(MainActivity.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
 
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu_default);
@@ -229,12 +245,21 @@ public class MainActivity extends AppCompatActivity{
 
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
+
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         //*** setOnQueryTextFocusChangeListener ***
+
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+
+                if(hasFocus){
+                    search_advanced_button.setVisibility(View.VISIBLE);
+                }else {
+                    search_advanced_button.setVisibility(View.GONE);
+                }
 
             }
         });
