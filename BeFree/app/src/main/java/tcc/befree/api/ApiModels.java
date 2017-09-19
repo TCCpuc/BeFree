@@ -719,42 +719,48 @@ public class ApiModels implements Runnable{
 //--------------
 //      MOCK:
 //
-        List<Chat> l = new ArrayList<Chat>();
-        Chat c = new Chat();
-        c.setId(1);
-        c.setUltima_mensagem(1);
-        c.setUsuario_1(2032);
-        c.setUsuario_2(2034);
-        l.add(c);
-        return l;
+//        List<Chat> l = new ArrayList<Chat>();
+//        Chat c = new Chat();
+//        c.setId(1);
+//        c.setUltima_mensagem(1);
+//        c.setUsuario_1(2032);
+//        c.setUsuario_2(2034);
+//        l.add(c);
+//        return l;
 //--------------
-//        ArrayList<Chat> chats = new ArrayList<Chat>();
-//        try{
-//            //NOK - O nome está correto
-//            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsDoUsuario/" + idDousuario;
-//            //SQL = SSELECT C.*, M.MENSAGEM FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {IidDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
-//            Thread thread = new Thread(this);
-//            thread.start();
-//            controlaThread();
-//            thread.interrupt();
-//
-//            for (int i = 0; i < jSonArray.length();i++){
-//                JSONObject jSonObject = jSonArray.getJSONObject(i);
-//                Chat chat = new Chat();
-//                chat.setId(jSonObject.getInt("id"));
-//                chat.setUsuario_1(jSonObject.getInt("usuario_1"));
-//                chat.setUsuario_2(jSonObject.getInt("usuario_2"));
-//                chat.setUltima_mensagem(jSonObject.getInt("ultima_mensagem"));
-//                chat.setUltima_mensagem_texto(jSonObject.getString("mensagem"));
-//                chats.add(chat);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        jSonArray = null;
-//        return  chats;
+        ArrayList<Chat> chats = new ArrayList<Chat>();
+        try{
+            //NOK - O nome está correto
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatInfo/?usuario=" + idDousuario;
+            //SQL = SSELECT C.*, M.MENSAGEM FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {IidDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Chat chat = new Chat();
+                chat.setId(jSonObject.getInt("ID"));
+                chat.setUsuario_1(jSonObject.getInt("USUARIO_1"));
+                chat.setUsuario_2(jSonObject.getInt("USUARIO_2"));
+                chat.setUltima_mensagem_texto(jSonObject.getString("MENSAGEM"));
+                if (jSonObject.getInt("USUARIO_1") == idDousuario) {
+                    chat.setImagem_outro_usuario(jSonObject.getString("imagemUsuario2"));
+                    chat.setNome_outro_usuario(jSonObject.getString("nomeUsuario2"));
+                } else {
+                    chat.setImagem_outro_usuario(jSonObject.getString("imagemUsuario1"));
+                    chat.setNome_outro_usuario(jSonObject.getString("nomeUsuario1"));
+                }
+                chats.add(chat);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return  chats;
     }
 
     public boolean getUsuarioEUsuario1DoChat(int idDoChat, int idDoUsuarioAtual){
@@ -825,5 +831,79 @@ public class ApiModels implements Runnable{
     public String getNomeMiniaturaDoChat(int i, int i1) {
 
         return "GET USERNAME";
+    }
+
+    public ArrayList<Busca> getBuscasExcetoDoUsuario(int idUsuario) {
+
+        ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GettbBuscas";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            for (int i = 0; i < jSonArray.length();i++){
+                if (jSonArray == null)
+                    thread.sleep(500);
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Busca busca = new Busca();
+
+                if (jSonObject.getInt("idUsuario") != idUsuario) {
+                    busca.idBusca = jSonObject.getInt("idBusca");
+                    busca.titulo = jSonObject.getString("titulo");
+                    busca.descricao = jSonObject.getString("descricao");
+                    busca.idUsuario = jSonObject.getInt("idUsuario");
+                    busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                    busca.idStatus = jSonObject.getInt("idStatus");
+                    busca.imagemBusca = jSonObject.getString("imagemBusca");
+                    busca.idDDD = jSonObject.getInt("idDDD");
+                    arrayBuscas.add(busca);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return arrayBuscas;
+    }
+
+    public ArrayList<Servico> getServicosExcetoDoUsuario(int idUsuario) {
+        ArrayList<Servico> arrayServicos = new ArrayList<Servico>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GettbServicoes";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                if (jSonArray == null)
+                    thread.sleep(500);
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Servico servico = new Servico();
+
+                if (jSonObject.getInt("idUsuario") != idUsuario) {
+                    servico.idServico = jSonObject.getInt("idServico");
+                    servico.titulo = jSonObject.getString("titulo");
+                    servico.descricao = jSonObject.getString("descricao");
+                    servico.idUsuario = jSonObject.getInt("idUsuario");
+                    servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                    servico.idStatus = jSonObject.getInt("idStatus");
+                    servico.imagemServico = jSonObject.getString("imagemServico");
+                    servico.idDDD = jSonObject.getInt("idDDD");
+
+                    arrayServicos.add(servico);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return arrayServicos;
     }
 }

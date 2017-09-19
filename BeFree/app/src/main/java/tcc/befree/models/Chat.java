@@ -9,6 +9,8 @@ public class Chat {
     private int usuario_1;
     private int usuario_2;
     private int ultima_mensagem;
+    private String nome_outro_usuario;
+    private String imagem_outro_usuario;
     private String ultima_mensagem_texto;
     //private boolean isMe;
     //private String message;
@@ -81,6 +83,22 @@ public class Chat {
 
     public String getUltima_mensagem_texto() {
         return ultima_mensagem_texto;
+    }
+
+    public String getNome_outro_usuario() {
+        return nome_outro_usuario;
+    }
+
+    public void setNome_outro_usuario(String nome_outro_usuario_) {
+        this.nome_outro_usuario = nome_outro_usuario;
+    }
+
+    public String getImagem_outro_usuario() {
+        return imagem_outro_usuario;
+    }
+
+    public void setImagem_outro_usuario(String imagem_outro_usuario_) {
+        this.imagem_outro_usuario = imagem_outro_usuario;
     }
 }
 /*

@@ -39,7 +39,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getBundleExtra("idUsuario");
         bundle = getIntent().getBundleExtra("bundle");
         final int id = bundle.getInt("id");
-        final int idUsuarioAtual = bundle.getInt("idUsuario");//bundle.getInt("idUsuario");//NÃO ESTÁ PEGANDO
+        final int idUsuarioAtual = bundle.getInt("idUsuario");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
         imgAnuncio = (ImageView) findViewById(R.id.newactivity_img_anuncio);
