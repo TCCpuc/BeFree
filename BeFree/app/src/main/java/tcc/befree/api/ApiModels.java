@@ -68,6 +68,34 @@ public class ApiModels implements Runnable{
         return  arrayUsuarios;
     }
 
+    final public Usuarios getUsuarioById(int id){
+
+        Usuarios usuario = new Usuarios();
+
+        try{
+            urlAPI = ("https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/GetUsuario/" + id);
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            if (jSonArray == null)
+                thread.sleep(500);
+                JSONObject jSonObject = jSonArray.getJSONObject(0);
+                usuario.idUsuario = jSonObject.getInt("idUsuario");
+                usuario.email = jSonObject.getString("email");
+                usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
+                usuario.senha = jSonObject.getString("senha");
+                usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return usuario;
+    }
+
     //Retorna usuário pelo email
     public Usuarios getUsuariosByEmail(String email){
 

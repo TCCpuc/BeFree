@@ -83,10 +83,12 @@ public class ForgotPasswordDialog extends Dialog implements
                         passwordText2.setVisibility(View.VISIBLE);
                         passwordText.requestFocus();
                         count ++;
-                    }else
+                    }else {
                         dialogMessage.setText("");
                         textMessage.setText("Codigo invalido, digite novamente");
                         dialogMessage.requestFocus();
+                    }
+
                 }else if (count == 2){
                     if(passwordText.getText().length() == 0){
                         passwordText.setText("");
