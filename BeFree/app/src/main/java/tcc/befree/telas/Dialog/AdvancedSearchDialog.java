@@ -85,7 +85,6 @@ public class AdvancedSearchDialog extends Dialog implements
     }
 
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked

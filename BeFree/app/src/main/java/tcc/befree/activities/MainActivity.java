@@ -371,8 +371,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
+        //CheckBox do Busca Avançada
         dialog.onCheckboxClicked(view);
     }
-
 }
