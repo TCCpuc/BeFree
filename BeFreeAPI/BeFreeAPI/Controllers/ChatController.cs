@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using BeFreeAPI.Models;
 using BeFreeAPI.Utils;
+using System.Data.SqlClient;
 
 namespace BeFreeAPI.Controllers
 {
@@ -82,8 +83,13 @@ namespace BeFreeAPI.Controllers
             }
 
             db.tbChats.Add(tbChat);
-            db.SaveChanges();
-
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception err) {
+                String erro = err.Message;
+            }
             return CreatedAtRoute("DefaultApi", new { id = tbChat.ID }, tbChat);
         }
 
@@ -143,15 +149,18 @@ namespace BeFreeAPI.Controllers
 
             var buscar = db.tbChats.SqlQuery(str);
 
-            if (buscar != null)
-            {
-                String strTexto = "SELECT * " +
-                                 "FROM tbmensagem AS C " +
-                                 "WHERE C.id = " + buscar.First().ULTIMA_MENSAGEM;
+            return Ok(buscar);
+        }
 
-                var buscarMensagem = db.tbMensagems.SqlQuery(strTexto);
-                buscar.First().ULTIMA_MENSAGEM_TEXTO = buscarMensagem.First().MENSAGEM.ToString();
-            }
+        [ResponseType(typeof(VwChatUsuarios))]
+        public IHttpActionResult GetChatsInfo(int usuario)
+        {
+
+            String str = "SELECT * " +
+                         "FROM vw_chat_usuario AS CU " +
+                         "WHERE CU.USUARIO_1 = " + usuario + " OR CU.USUARIO_2 = " + usuario;
+
+            var buscar = db.Database.SqlQuery<VwChatUsuarios>(str);
 
             return Ok(buscar);
         }
