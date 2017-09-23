@@ -9,10 +9,11 @@
     android:weightSum="1">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:layout_weight="0.15">
+        android:layout_height="70dp"
+        android:layout_weight="0.15"
+        android:orientation="horizontal">
 
         <tcc.befree.models.CircleImageView
             android:id="@+id/img_anuncio"
@@ -20,40 +21,107 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:src="@mipmap/pedreiro_perfil"
-            app:civ_border_width="0dp"
-            app:civ_border_color="@color/dark_gray" />
+            app:civ_border_color="@color/dark_gray"
+            app:civ_border_width="0dp" />
+        <LinearLayout
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/item_service_title"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="left"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                tools:text="Pedreiro" />
 
-        <TextView
-            android:id="@+id/item_service_title"
+            <TextView
+                android:id="@+id/item_service_description"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="left"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                tools:text="Preciso de pedreiro!" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="left"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/img_anuncio"
-            android:layout_toRightOf="@+id/img_anuncio"
-            android:textSize="14sp"
-            android:textStyle="bold|italic"
-            tools:text="Pedreiro" />
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/service_star_1"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    app:srcCompat="@drawable/ic_star_black_18dp" />
 
-        <TextView
-            android:id="@+id/item_service_description"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="left"
-            android:layout_marginRight="60dp"
-            android:ellipsize="end"
-            android:textSize="14sp"
-            tools:text="Preciso de pedreiro!"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/img_anuncio"
-            android:layout_alignLeft="@+id/item_service_title"
-            android:layout_alignStart="@+id/item_service_title" />
+                <ImageView
+                    android:id="@+id/service_star_2"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    app:srcCompat="@drawable/ic_star_black_18dp" />
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/service_star_3"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    app:srcCompat="@drawable/ic_star_half_black_18dp" />
+
+                <ImageView
+                    android:id="@+id/service_star_4"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    app:srcCompat="@drawable/ic_star_border_black_18dp" />
+
+                <ImageView
+                    android:id="@+id/service_star_5"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    app:srcCompat="@drawable/ic_star_border_black_18dp" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Evaluation Rate"
+                android:textSize="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/item_service_evaluation_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.15"
+                android:textAlignment="center"
+                android:ems="10"
+                android:layout_marginTop="5dp"
+                android:textSize="25dp"
+                android:text="5,5"
+                android:inputType="numberDecimal" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
