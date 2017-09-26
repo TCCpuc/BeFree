@@ -934,4 +934,78 @@ public class ApiModels implements Runnable{
         jSonArray = null;
         return arrayServicos;
     }
+
+    public ArrayList<Busca> getBuscasApenasUsuario(int idUsuario) {
+
+        ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GettbBuscas";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            for (int i = 0; i < jSonArray.length();i++){
+                if (jSonArray == null)
+                    thread.sleep(500);
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Busca busca = new Busca();
+
+                if (jSonObject.getInt("idUsuario") == idUsuario) {
+                    busca.idBusca = jSonObject.getInt("idBusca");
+                    busca.titulo = jSonObject.getString("titulo");
+                    busca.descricao = jSonObject.getString("descricao");
+                    busca.idUsuario = jSonObject.getInt("idUsuario");
+                    busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                    busca.idStatus = jSonObject.getInt("idStatus");
+                    busca.imagemBusca = jSonObject.getString("imagemBusca");
+                    busca.idDDD = jSonObject.getInt("idDDD");
+                    arrayBuscas.add(busca);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return arrayBuscas;
+    }
+
+    public ArrayList<Servico> getServicosApenasDoUsuario(int idUsuario) {
+        ArrayList<Servico> arrayServicos = new ArrayList<Servico>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GettbServicoes";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+            for (int i = 0; i < jSonArray.length();i++){
+                if (jSonArray == null)
+                    thread.sleep(500);
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Servico servico = new Servico();
+
+                if (jSonObject.getInt("idUsuario") == idUsuario) {
+                    servico.idServico = jSonObject.getInt("idServico");
+                    servico.titulo = jSonObject.getString("titulo");
+                    servico.descricao = jSonObject.getString("descricao");
+                    servico.idUsuario = jSonObject.getInt("idUsuario");
+                    servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                    servico.idStatus = jSonObject.getInt("idStatus");
+                    servico.imagemServico = jSonObject.getString("imagemServico");
+                    servico.idDDD = jSonObject.getInt("idDDD");
+
+                    arrayServicos.add(servico);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return arrayServicos;
+    }
 }
