@@ -64,6 +64,7 @@ public class PostApiModels implements Runnable{
             jSonObject.put("ID",chat.getId());
             jSonObject.put("USUARIO_1",chat.getUsuario_1());
             jSonObject.put("USUARIO_2",chat.getUsuario_2());
+            jSonObject.put("ULTIMA_MENSAGEM",chat.getUltima_mensagem());
 
             thread.start();
             controlaThread();

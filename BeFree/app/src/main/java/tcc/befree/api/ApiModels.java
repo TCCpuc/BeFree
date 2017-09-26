@@ -641,8 +641,7 @@ public class ApiModels implements Runnable{
             thread.interrupt();
             if (jSonArray == null)
                 thread.sleep(500);
-            JSONObject jSonObject = jSonArray.getJSONObject(0);
-            existe = jSonObject.getInt("contagem") != 0;
+            existe = jSonArray.length() != 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -731,13 +730,14 @@ public class ApiModels implements Runnable{
         ArrayList<Chat> chats = new ArrayList<Chat>();
         try{
             //NOK - O nome está correto
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatInfo/?usuario=" + idDousuario;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/GetChatsInfo/?usuario=" + idDousuario;
             //SQL = SSELECT C.*, M.MENSAGEM FROM CHAT C, MENSAGEM M WHERE (C.USUARIO_1 = {idDousuario} OR C.USUARIO_2 = {IidDousuario}) AND M.ID = C.ULTIMA_MENSAGEM ORDER BY M.DATA
             Thread thread = new Thread(this);
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Chat chat = new Chat();
@@ -755,7 +755,7 @@ public class ApiModels implements Runnable{
                 chats.add(chat);
             }
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
