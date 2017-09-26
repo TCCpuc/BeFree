@@ -72,7 +72,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
             if(id==0){
                 searchs = api.getServicosExcetoDoUsuario(idUsuario);
             }else{
-                searchs = api.getServicosByUsuario(id);
+                searchs = api.getServicosApenasDoUsuario(id);
             }
             adapter = new ServiceAdapter(getContext(), searchs, this);
         }

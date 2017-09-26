@@ -935,7 +935,7 @@ public class ApiModels implements Runnable{
         return arrayServicos;
     }
 
-    public ArrayList<Busca> getBuscasApenasUsuario(int idUsuario) {
+    public ArrayList<Busca> getBuscasApenasDoUsuario(int idUsuario) {
 
         ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
 
