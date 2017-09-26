@@ -8,6 +8,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import tcc.befree.R;
 
 /**
@@ -53,37 +57,58 @@ public class ForgotPasswordDialog extends Dialog implements
             case R.id.dialog_btn_send:
                 if(count == 0){
                     //VERIFICAR NO BANCO SE EMAIL EXISTE
-                    if(dialogMessage.getText().toString() != ""){
+                    if(dialogMessage.getText().length() == 0) {
+                        textMessage.setText("Campo vazio, por favor digite um email");
+                        dialogMessage.setText("");
+                        dialogMessage.requestFocus();
+                    }else if(!validaEmail(dialogMessage.getText().toString())){
+                        textMessage.setText("Email invalido, por favor digite um email");
+                        dialogMessage.setText("");
+                        dialogMessage.requestFocus();
+                    }else{
                         textMessage.setText("Digite o codigo enviado para seu email");
                         dialogMessage.setText("");
                         dialogMessage.setHint("QF94fg");
+                        dialogMessage.requestFocus();
                         count ++;
-                    }else
-                        dialogMessage.setText("");
-                        textMessage.setText("Email nao encontrado, digite novamente");
+                    }
                 }else if(count == 1){
                     //VERIFICAR NO BANCO SE CODIGO É CORRETO
-                    if(dialogMessage.getText().toString() != ""){
+                    if(dialogMessage.getText().length() != 0){
                         textMessage.setText("Digite uma nova senha");
                         dialogMessage.setText("");
                         dialogMessage.setVisibility(View.GONE);
                         backButton.setVisibility(View.GONE);
                         passwordText.setVisibility(View.VISIBLE);
                         passwordText2.setVisibility(View.VISIBLE);
+                        passwordText.requestFocus();
                         count ++;
-                    }else
+                    }else {
                         dialogMessage.setText("");
                         textMessage.setText("Codigo invalido, digite novamente");
+                        dialogMessage.requestFocus();
+                    }
+
                 }else if (count == 2){
-                    if (passwordText.getText() == passwordText2.getText()){
-                        textMessage.setText("Senha alterada com sucesso");
-                        passwordText.setVisibility(View.GONE);
-                        passwordText2.setVisibility(View.GONE);
-                        count = 0;
-                    }else
+                    if(passwordText.getText().length() == 0){
+                        passwordText.setText("");
+                        passwordText2.setText("");
+                        textMessage.setText("Por Favor digite uma senha");
+                        passwordText.requestFocus();
+                    }
+                    else if(!passwordText.getText().toString().equals(passwordText2.getText().toString())){
                         passwordText.setText("");
                         passwordText2.setText("");
                         textMessage.setText("Senhas diferentes, tente novamente");
+                        passwordText.requestFocus();
+                    }else{
+                        textMessage.setText("Senha alterada com sucesso");
+                        passwordText.setVisibility(View.GONE);
+                        passwordText2.setVisibility(View.GONE);
+                        count ++;
+                    }
+                }else if (count == 3){
+                    dismiss();
                 }else
                     textMessage.setText("ERRO");
                 break;
@@ -95,6 +120,17 @@ public class ForgotPasswordDialog extends Dialog implements
                 break;
         }
         //dismiss();
+    }
+    public boolean validaEmail(Object objeto) {
+        String digitado = (String) objeto;
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(digitado);
+        boolean matchFound = m.matches();
+
+        if (!matchFound) {
+            return false;
+        }else
+            return true;
     }
 
 

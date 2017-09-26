@@ -24,6 +24,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -31,7 +33,6 @@ import com.squareup.picasso.Picasso;
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.telas.Dialog.AdvancedSearchDialog;
-import tcc.befree.telas.Dialog.ForgotPasswordDialog;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
 
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity{
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private int idUsuario = 0;
     private Button search_advanced_button;
+    private AdvancedSearchDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity{
         search_advanced_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AdvancedSearchDialog dialog = new AdvancedSearchDialog(MainActivity.this);
+                dialog = new AdvancedSearchDialog(MainActivity.this);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -368,4 +370,8 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public void onCheckboxClicked(View view) {
+        //CheckBox do Busca Avançada
+        dialog.onCheckboxClicked(view);
+    }
 }

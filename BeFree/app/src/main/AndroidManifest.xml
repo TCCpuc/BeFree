@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +30,8 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activities.AnuncioBuscaActivity" />
         <activity android:name=".activities.AnuncioServicoActivity" />
         <activity android:name=".activities.GenderActivity" />
@@ -51,7 +53,8 @@
         <activity
             android:name=".activities.UserPerfilActivity"
             android:label="@string/title_activity_user_perfil"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -60,12 +63,14 @@
         <activity
             android:name=".activities.ListChatActivity"
             android:label="@string/title_activity_chat"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.MensagemActivity"
             android:label="@string/title_activity_messages"
             android:parentActivityName=".activities.ListChatActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="tcc.befree.activities.ListChatActivity" />

@@ -29,8 +29,10 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:visibility="gone"
-            android:text="Busca Avançada"/>
+            android:background="@color/colorPrimary"
+            android:text="Busca Avançada"
+            android:textSize="18dp"
+            android:visibility="gone" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"

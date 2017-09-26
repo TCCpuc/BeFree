@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -22,9 +23,9 @@ public class AdvancedSearchDialog extends Dialog implements
 
     private Activity c;
     private RadioGroup categoria;
-    private RadioButton r_categoria;
-    private RadioButton r_sub_categoria;
-    private RadioButton r_ddd;
+    private CheckBox r_categoria;
+    private CheckBox r_sub_categoria;
+    private CheckBox r_ddd;
     private Spinner s_categoria;
     private Spinner s_sub_categoria;
     private Spinner s_ddd;
@@ -42,14 +43,20 @@ public class AdvancedSearchDialog extends Dialog implements
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.advanced_search_dialog);
-        categoria = (RadioGroup) findViewById(R.id.advanced_search_dialog_categoria_group);
-        //r_categoria = (RadioButton) findViewById(R.id.advanced_search_dialog_categoria_radio_button);
-        r_sub_categoria = (RadioButton) findViewById(R.id.advanced_search_dialog_sub_categoria_radio_button);
-        r_ddd = (RadioButton) findViewById(R.id.advanced_search_dialog_ddd_radio_button);
+        r_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_categoria_radio_button);
+        r_sub_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_sub_categoria_radio_button);
+        r_ddd = (CheckBox) findViewById(R.id.advanced_search_dialog_ddd_radio_button);
         s_categoria = (Spinner) findViewById(R.id.advanced_search_dialog_categoria_spinner);
         s_sub_categoria = (Spinner) findViewById(R.id.advanced_search_dialog_sub_categoria_spinner);
         s_ddd = (Spinner) findViewById(R.id.advanced_search_dialog_ddd_spinner);
         send = (Button) findViewById(R.id.advanced_search_dialog_button_ok);
+        //s_categoria.getSelectedView().setEnabled(false);
+        s_categoria.setEnabled(false);
+        s_categoria.setClickable(false);
+        s_sub_categoria.setEnabled(false);
+        s_categoria.setClickable(false);
+        s_ddd.setEnabled(false);
+        s_ddd.setClickable(false);
         Populate();
         send.setOnClickListener(this);
 
@@ -75,5 +82,53 @@ public class AdvancedSearchDialog extends Dialog implements
         s_categoria.setAdapter(arrayCategoria);
         s_sub_categoria.setAdapter(arraySubCategoria);
         s_ddd.setAdapter(arrayDDD);
+    }
+
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.advanced_search_dialog_categoria_radio_button:
+                if (checked) {
+                    s_categoria.setEnabled(true);
+                    s_categoria.setClickable(true);
+                }
+                //s_categoria.getSelectedView().setEnabled(true);
+                // Put some meat on the sandwich
+                else {
+                    // Remove the meat
+                    // s_categoria.getSelectedView().setEnabled(false);
+                    s_categoria.setEnabled(false);
+                    s_categoria.setClickable(false);
+                    break;
+                }
+            case R.id.advanced_search_dialog_sub_categoria_radio_button:
+                if (checked)
+                {
+                    s_sub_categoria.setEnabled(true);
+                    s_sub_categoria.setClickable(true);
+                }
+                // Cheese me
+                else
+                {
+                    s_sub_categoria.setEnabled(false);
+                    s_sub_categoria.setClickable(false);
+                    break;
+                }
+            case R.id.advanced_search_dialog_ddd_radio_button:
+                if (checked)
+                {
+                    s_ddd.setEnabled(true);
+                    s_ddd.setClickable(true);
+                }
+                // Cheese me
+                else
+                {
+                    s_ddd.setEnabled(false);
+                    s_ddd.setClickable(false);
+                    break;
+                }
+        }
     }
 }

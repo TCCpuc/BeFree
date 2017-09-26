@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +36,7 @@ public class MensagemActivity extends AppCompatActivity {
     private int isMe;
     private int idUsuarioDestino;
     private Bundle bundle;
+    private TextView userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MensagemActivity extends AppCompatActivity {
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
         messageET = (EditText) findViewById(R.id.messageEdit);
         sendBtn = (ImageButton) findViewById(R.id.chatSendButton);
+        userName = (TextView) findViewById(R.id.messages_username);
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         Intent intent = this.getIntent();
@@ -52,8 +56,8 @@ public class MensagemActivity extends AppCompatActivity {
         idChat = bundle.getInt("idChat");
         isMe = bundle.getInt("isMe");
         idUsuarioDestino = bundle.getInt("idUsuarioDestino");
+        userName.setText(new ApiModels().getUsuarioById(idUsuarioDestino).nomeUsuario);
         loadHistory();
-
         initControls();
     }
 
