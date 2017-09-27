@@ -232,10 +232,8 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
 
                 startActivity(intent);
                 finish();
-
             }
         }
-
     }
 
     public boolean validaUsuario(Usuarios usuarioValida, String email, String senha) {

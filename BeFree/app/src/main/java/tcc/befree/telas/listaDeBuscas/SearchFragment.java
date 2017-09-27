@@ -68,9 +68,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
         }else{
             if(id==0){
-                searchs = api.getBuscas();
+                searchs = api.getBuscasExcetoDoUsuario(idUsuario);
             }else{
-                searchs = api.getBuscaByUsuario(id);
+                searchs = api.getBuscasApenasDoUsuario(id);
             }
             adapter = new SearchAdapter(getContext(), searchs, this);
         }
