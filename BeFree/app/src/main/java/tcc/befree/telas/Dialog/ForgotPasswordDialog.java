@@ -40,7 +40,7 @@ public class ForgotPasswordDialog extends Dialog implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.forgot_password_dialog);
+        setContentView(R.layout.dialog_forgot_password);
         sendButton = (Button) findViewById(R.id.dialog_btn_send);
         backButton = (Button) findViewById(R.id.dialog_btn_back);
         textMessage = (TextView) findViewById(R.id.dialog_text);

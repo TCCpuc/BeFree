@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import tcc.befree.api.PostApiModels;
 import tcc.befree.R;
@@ -108,15 +110,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                     }
                 }else if (passo == 3){
                     if (validaCampo(edtCpf.getText().toString())){
-                        if(validaCampo(edtEmail.getText().toString())){
-                            if(validaEmail(edtEmail.getText().toString())){
-                                edtCpf.setVisibility(View.GONE);
-                                edtEmail.setVisibility(View.GONE);
-                                message.setVisibility(View.GONE);
-                                passo = 4;
-                                photo.setVisibility(View.VISIBLE);
-                                insertPhoto.setVisibility(View.VISIBLE);
-                            }
+                        if(validaEmail(edtEmail.getText().toString())){
+                            edtCpf.setVisibility(View.GONE);
+                            edtEmail.setVisibility(View.GONE);
+                            message.setVisibility(View.GONE);
+                            passo = 4;
+                            photo.setVisibility(View.VISIBLE);
+                            insertPhoto.setVisibility(View.VISIBLE);
                         }
                     }
                 }else if (passo == 4){
@@ -168,15 +168,15 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     protected boolean validaEmail(String email){
 
-        boolean ret = true;
+        String digitado = email;
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(digitado);
+        boolean matchFound = m.matches();
 
-            if(!isEmailValid(email))
-            {
-                edtEmail.setError("E-mail inválido!");
-                ret = false;
-            }
-
-        return ret;
+        if (!matchFound) {
+            return false;
+        }else
+            return true;
     }
 
     protected boolean validaSenha(String senha, String confirmaSenha){
@@ -212,22 +212,22 @@ public class CreateAccountActivity extends AppCompatActivity {
                 "Select file to upload "), req_code);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == SELECT_FILE1 ) {
-            Uri selectedImageUri = data.getData();
+            if (resultCode == RESULT_OK && requestCode == SELECT_FILE1 ) {
+                Uri selectedImageUri = data.getData();
 
-            try {
-                bitmapUsuarioPerfil = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                Picasso.with(this.getApplicationContext()).load(selectedImageUri).into(photo);
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    bitmapUsuarioPerfil = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    Picasso.with(this.getApplicationContext()).load(selectedImageUri).into(photo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
             }
-
-
-        }
     }
 
     @Override

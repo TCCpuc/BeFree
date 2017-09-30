@@ -1,5 +1,7 @@
 package tcc.befree.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
+import tcc.befree.telas.Dialog.InsertImageDialog;
 
 public class UserPerfilActivity extends AppCompatActivity {
 
@@ -66,6 +69,15 @@ public class UserPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        photo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                InsertImageDialog image = new InsertImageDialog(UserPerfilActivity.this, 1);
+                image.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                image.show();
             }
         });
 

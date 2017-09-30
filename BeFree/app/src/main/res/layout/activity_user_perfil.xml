@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:textAlignment="center"
             android:title="Minha Conta"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -37,7 +38,7 @@
             app:civ_border_width="1dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="56dp" />
+            android:layout_marginTop="66dp" />
 
         <Button
             android:id="@+id/user_perfil_edit_data"
@@ -402,19 +403,6 @@
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Segure para editar a foto"
-            android:textAlignment="center"
-            android:textColor="?attr/editTextColor"
-            android:textStyle="bold"
-            android:layout_above="@+id/user_perfil_edit_data"
-            android:layout_alignLeft="@+id/user_perfil_photo"
-            android:layout_alignStart="@+id/user_perfil_photo" />
-
 
     </RelativeLayout>
 
