@@ -54,6 +54,8 @@ public class UserPerfilActivity extends AppCompatActivity {
         nascimento = (TextView) findViewById(R.id.user_perfil_nascimento);
         ddd = (TextView) findViewById(R.id.user_perfil_ddd);
 
+        setTitle("[NOME DO USUARIO]");
+
         edit_dados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

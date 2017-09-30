@@ -6,128 +6,188 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="tcc.befree.activities.CreateBuscaActivity"
     android:weightSum="1">
 
-    <ScrollView
-        android:id="@+id/create_busca_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.89"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:background="@color/colorPrimary"
+        android:id="@+id/cabecalho" android:orientation="horizontal"
+        android:padding="20dip">
+
+        <TextView
+            android:id="@+id/chat_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:text="CRIAR BUSCA"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/create_busca_unounce_photo"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:src="@drawable/ic_photo"
+        android:visibility="visible"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 
         <LinearLayout
-            android:id="@+id/create_account_form"
+            style="@style/Widget.CardContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <EditText
+                android:id="@+id/create_busca_titulo"
                 android:layout_width="match_parent"
-                android:layout_height="20px">
+                android:layout_height="wrap_content"
+                android:hint="Titulo da busca"
+                android:background="@drawable/border_white"
+                android:textAlignment="center"
+                android:inputType="text"
+                android:maxLines="1"
+                android:layout_marginBottom="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="61dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/create_busca_txtNome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Titulo da busca"
-                    android:inputType="text"
-                    android:maxLines="1" />
-
-            </android.support.design.widget.TextInputLayout>
 
             <EditText
                 android:id="@+id/create_busca_txtDescricao"
                 android:layout_width="match_parent"
-                android:layout_height="59dp"
+                android:layout_height="110dp"
                 android:hint="Descrição"
+                android:textSize="15dp"
+                android:gravity="top"
+                android:background="@drawable/border"
+                android:textAlignment="inherit"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textMultiLine"
-                android:maxLines="10" />
-
-            <Spinner
-                android:id="@+id/create_busca_spinnerCategoria"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="400dp"
-                android:layout_height="2px"
-                android:background="#A9A9A9">
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="20px">
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Spinner
-                android:id="@+id/create_busca_spinnerSubCategoria"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="400dp"
-                android:layout_height="2px"
-                android:background="#A9A9A9">
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="20px">
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Spinner
-                android:id="@+id/create_busca_spinnerDDD"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="400dp"
-                android:layout_height="2px"
-                android:background="#A9A9A9">
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="20px">
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/create_busca_BtnSubmitBusca"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Anunciar"
-                android:textStyle="bold" />
+                android:padding="5dp"
+                android:maxLines="10"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
         </LinearLayout>
-    </ScrollView>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_white"
+                android:text="Selecione a Categoria"
+                android:textColor="#00284d"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.15"
+                    android:background="@drawable/border">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow_drop_down" />
+
+                    <Spinner
+                        android:id="@+id/create_busca_spinnerCategoria"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="right"
+                        android:layout_weight="0.15"
+                        android:background="@android:color/transparent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.15"
+                    android:background="@drawable/border">
+
+                    <Spinner
+                        android:id="@+id/create_busca_spinnerSubCategoria"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="right"
+                        android:layout_weight="0.15"
+                        android:background="@android:color/transparent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow_drop_down" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_white"
+                android:text="DDD"
+                android:textColor="#00284d"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border">
+
+                <Spinner
+                    android:id="@+id/create_busca_spinnerDDD"
+                    android:layout_width="100dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right"
+                    android:layout_weight="0.15" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    <Button
+        android:id="@+id/create_busca_BtnSubmitBusca"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Anunciar"
+        android:textStyle="bold" />
+
 </LinearLayout>

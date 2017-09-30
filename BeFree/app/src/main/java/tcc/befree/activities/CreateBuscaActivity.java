@@ -69,7 +69,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
 
                 Busca novaBusca = new Busca();
 
-                View viewNome = findViewById(R.id.create_busca_txtNome);
+                View viewNome = findViewById(R.id.create_busca_titulo);
                 EditText editNome = (EditText) viewNome;
                 String nome = editNome.getText().toString();
 

@@ -36,13 +36,13 @@ public class CreateServicoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_servico);
 
         //popula o spinner do ddd
-        spinnerDDDs = (Spinner) findViewById(R.id.create_service_spinnerDDD);
+        spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
 
         //popula o spinner de categoria
-        spinnerCategorias = (Spinner) findViewById(R.id.create_service_spinnerCategoria);
+        spinnerCategorias = (Spinner) findViewById(R.id.create_servico_spinnerCategoria);
         ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
         arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
@@ -62,14 +62,14 @@ public class CreateServicoActivity extends AppCompatActivity {
         });
 
         //Botão Submit
-        Button submit = (Button) findViewById(R.id.create_service_btnSubmitService);
+        Button submit = (Button) findViewById(R.id.create_servico_BtnSubmitServico);
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                viewNome = findViewById(R.id.create_service_txtNome);
+                viewNome = findViewById(R.id.create_servico_titulo);
                 editNome = (EditText) viewNome;
-                viewDescricao = findViewById(R.id.create_service_txtDescricao);
+                viewDescricao = findViewById(R.id.create_servico_txtDescricao);
                 editDescricao = (EditText) viewDescricao;
 
                 Servico novaServico = new Servico();
@@ -113,7 +113,7 @@ public class CreateServicoActivity extends AppCompatActivity {
     protected void  preencheSubCategoria(int idCategoria){
 
         //popula o spinner de subcategoria
-        spinnerSubCategorias = (Spinner) findViewById(R.id.create_service_spinnerSubCategoria);
+        spinnerSubCategorias = (Spinner) findViewById(R.id.create_servico_spinnerSubCategoria);
         ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoria(idCategoria));
         arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);

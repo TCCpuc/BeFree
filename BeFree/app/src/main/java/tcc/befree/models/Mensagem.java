@@ -55,7 +55,7 @@ public class Mensagem {
     }
 
     public String formatedData() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return format.format(data);
 
     }
