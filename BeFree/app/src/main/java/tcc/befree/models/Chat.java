@@ -82,6 +82,8 @@ public class Chat {
     }
 
     public String getUltima_mensagem_texto() {
+        if (ultima_mensagem_texto == "null" || ultima_mensagem_texto == null)
+            return "";
         return ultima_mensagem_texto;
     }
 

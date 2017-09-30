@@ -52,6 +52,7 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
                     chat.setUsuario_1(idUsuarioAtual);
                     chat.setUsuario_2(idAnunciante);
                     postApi.postChat(chat);
+                    chat = api.getChatDosUsuarios(idUsuarioAtual, idAnunciante);
                 }
                 Bundle bundleChat = new Bundle();
                 bundleChat.putInt("idChat", chat.getId());
