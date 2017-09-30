@@ -89,16 +89,16 @@ public class Chat {
         return nome_outro_usuario;
     }
 
-    public void setNome_outro_usuario(String nome_outro_usuario_) {
-        this.nome_outro_usuario = nome_outro_usuario;
+    public void setNome_outro_usuario(String nome) {
+        this.nome_outro_usuario = nome;
     }
 
     public String getImagem_outro_usuario() {
         return imagem_outro_usuario;
     }
 
-    public void setImagem_outro_usuario(String imagem_outro_usuario_) {
-        this.imagem_outro_usuario = imagem_outro_usuario;
+    public void setImagem_outro_usuario(String imagem) {
+        this.imagem_outro_usuario = imagem;
     }
 }
 /*

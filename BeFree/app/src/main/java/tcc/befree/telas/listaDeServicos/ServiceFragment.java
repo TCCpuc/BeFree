@@ -27,15 +27,14 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
                              Bundle savedInstanceState) {
 
         Intent intent = getActivity().getIntent();
-        Bundle bundle = intent.getBundleExtra("idUsuario");
         Bundle pesquisa = intent.getBundleExtra("service");
         try {
-            id = bundle.getInt("id");
+            id = intent.getBundleExtra("bundle").getInt("id");
         }catch(Exception e){
             id = 0;
         }
         try {
-            idUsuario = bundle.getInt("idUsuario");
+            idUsuario = intent.getBundleExtra("idUsuario").getInt("idUsuario");
         }catch(Exception e){
             idUsuario = 0;
         }

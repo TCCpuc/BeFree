@@ -108,19 +108,17 @@ public class ListChatFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getActivity().getLayoutInflater().inflate(R.layout.item_chat, null);
-            TextView username = (TextView) view.findViewById(R.id.item_service_title);
-            TextView description = (TextView) view.findViewById(R.id.item_service_description);
-            username.setText(api.getNomeMiniaturaDoChat(1,1)); //ENVIAR O ID DO CHAT E DO USUARIO ATUAL
             Chat chat = chatList.get(position);
-            description.setText(chat.getUltima_mensagem_texto()); //ENVIAR O ID DO USUARIO
+            View view = getActivity().getLayoutInflater().inflate(R.layout.item_chat, null);
+
+            TextView description = (TextView) view.findViewById(R.id.item_service_description);
+            description.setText(chat.getUltima_mensagem_texto());
+
+            TextView username = (TextView) view.findViewById(R.id.item_service_title);
+            username.setText(chat.getNome_outro_usuario());
 
             CircleImageView mImagePerfil = (CircleImageView) view.findViewById(R.id.img_anuncio);
-
-            if (idUsuario == chat.getUsuario_1())
-                Picasso.with(getContext()).load(api.getImagemMiniaturaDoUsuario(chat.getUsuario_2())).into(mImagePerfil);
-            else
-                Picasso.with(getContext()).load(api.getImagemMiniaturaDoUsuario(chat.getUsuario_1())).into(mImagePerfil);
+            Picasso.with(getContext()).load(chat.getImagem_outro_usuario()).into(mImagePerfil);
 
             return view;
         }
