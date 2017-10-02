@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.read_external_storage" />
 
     <!-- <uses-permission android:name="android.permission.INTERNET"/> -->
     <application
@@ -32,9 +34,9 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activities.AnuncioBuscaActivity" />
-        <activity android:name=".activities.AnuncioServicoActivity" />
-        <activity android:name=".activities.GenderActivity" />
+        <activity android:name=".activities.AnuncioBuscaActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activities.AnuncioServicoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.GenderActivity" android:screenOrientation="portrait"/>
         <!--
         <activity
             android:name=".activities.SplashActivity"
@@ -47,9 +49,9 @@
         </activity>
         -->
 
-        <activity android:name=".activities.CreateAccountActivity" />
-        <activity android:name=".activities.CreateBuscaActivity" />
-        <activity android:name=".activities.CreateServicoActivity" />
+        <activity android:name=".activities.CreateAccountActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.CreateBuscaActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.CreateServicoActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.UserPerfilActivity"
             android:label="@string/title_activity_user_perfil"
