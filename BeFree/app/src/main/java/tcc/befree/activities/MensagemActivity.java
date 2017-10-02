@@ -89,6 +89,7 @@ public class MensagemActivity extends AppCompatActivity {
                     newMessage.setUsuario_origem(idUsuarioOrigem);
                     newMessage.setUsuario_destino(idUsuarioDestino);
                     newMessage.setMe(true);
+                    //newMessage.setData(new java.sql.Date(new java.util.Date().getTime()));
                     newMessage.setChat(idChat);
                 }catch(Exception e){
                     System.err.print("deu erro no bundle chat");
