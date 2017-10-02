@@ -8,7 +8,6 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -42,7 +41,7 @@ public class AdvancedSearchDialog extends Dialog implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.advanced_search_dialog);
+        setContentView(R.layout.dialog_advanced_search);
         r_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_categoria_radio_button);
         r_sub_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_sub_categoria_radio_button);
         r_ddd = (CheckBox) findViewById(R.id.advanced_search_dialog_ddd_radio_button);
