@@ -13,7 +13,7 @@ public class Mensagem {
     private int chat;
     private int usuario_origem;
     private int usuario_destino;
-    private Date data = new Date(new java.util.Date().getTime());
+    private String data;
     private String mensagem;
     private boolean isMe;
 
@@ -50,17 +50,16 @@ public class Mensagem {
         this.usuario_destino = usuario_destino;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public String formatedData() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return format.format(data);
+//    public String formatedData() {
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//        return format.format(data);
+//    }
 
-    }
-
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 

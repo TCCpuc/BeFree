@@ -64,7 +64,6 @@ public class PostApiModels implements Runnable{
             jSonObject.put("ID",chat.getId());
             jSonObject.put("USUARIO_1",chat.getUsuario_1());
             jSonObject.put("USUARIO_2",chat.getUsuario_2());
-            jSonObject.put("ULTIMA_MENSAGEM",chat.getUltima_mensagem());
 
             thread.start();
             controlaThread();
@@ -87,7 +86,6 @@ public class PostApiModels implements Runnable{
         try {
             //jSonObject.put("id",mensagem.getId());
             jSonObject.put("CHAT",mensagem.getChat());
-            jSonObject.put("DATA",mensagem.getData());
             jSonObject.put("MENSAGEM",mensagem.getMensagem());
             jSonObject.put("USUARIO_ORIGEM",mensagem.getUsuario_origem());
             jSonObject.put("USUARIO_DESTINO",mensagem.getUsuario_destino());

@@ -1,17 +1,14 @@
 package tcc.befree.activities;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.provider.SyncStateContract;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -22,16 +19,14 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import tcc.befree.api.PostApiModels;
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Usuarios;
+import tcc.befree.telas.Dialog.InsertImageDialog;
 import tcc.befree.utils.Utils;
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -108,15 +103,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                     }
                 }else if (passo == 3){
                     if (validaCampo(edtCpf.getText().toString())){
-                        if(validaCampo(edtEmail.getText().toString())){
-                            if(validaEmail(edtEmail.getText().toString())){
-                                edtCpf.setVisibility(View.GONE);
-                                edtEmail.setVisibility(View.GONE);
-                                message.setVisibility(View.GONE);
-                                passo = 4;
-                                photo.setVisibility(View.VISIBLE);
-                                insertPhoto.setVisibility(View.VISIBLE);
-                            }
+                        if(validaEmail(edtEmail.getText().toString())){
+                            edtCpf.setVisibility(View.GONE);
+                            edtEmail.setVisibility(View.GONE);
+                            message.setVisibility(View.GONE);
+                            passo = 4;
+                            photo.setVisibility(View.VISIBLE);
+                            insertPhoto.setVisibility(View.VISIBLE);
                         }
                     }
                 }else if (passo == 4){
@@ -147,10 +140,15 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
         });
 
-        insertPhoto.setOnClickListener(new View.OnClickListener(){
+        photo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openGallery(SELECT_FILE1);
+
+                InsertImageDialog dialog = new InsertImageDialog(CreateAccountActivity.this, 1);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                //openGallery(SELECT_FILE1);
             }
         });
     }
@@ -168,15 +166,15 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     protected boolean validaEmail(String email){
 
-        boolean ret = true;
+        String digitado = email;
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(digitado);
+        boolean matchFound = m.matches();
 
-            if(!isEmailValid(email))
-            {
-                edtEmail.setError("E-mail inválido!");
-                ret = false;
-            }
-
-        return ret;
+        if (!matchFound) {
+            return false;
+        }else
+            return true;
     }
 
     protected boolean validaSenha(String senha, String confirmaSenha){
@@ -196,11 +194,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() >= 4;
-    }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
     }
 
     public void openGallery(int req_code) {
@@ -225,8 +218,6 @@ public class CreateAccountActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 

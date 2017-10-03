@@ -718,6 +718,7 @@ public class ApiModels implements Runnable{
                 Mensagem mensagem = new Mensagem();
                 mensagem.setId(jSonObject.getInt("ID"));
                 mensagem.setChat(jSonObject.getInt("CHAT"));
+                mensagem.setData(jSonObject.getString("DATA"));
                 mensagem.setUsuario_origem(jSonObject.getInt("USUARIO_ORIGEM"));
                 mensagem.setUsuario_destino(jSonObject.getInt("USUARIO_DESTINO"));
                 mensagem.setMensagem(jSonObject.getString("MENSAGEM"));
