@@ -163,7 +163,7 @@ namespace BeFreeAPI.Controllers
 
             Random random = new Random();
 
-            string nomeImage = "usuarios/" + usuario.nomeUsuario.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpg";
+            string nomeImage =  "usuarios\\" + usuario.nomeUsuario.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpg";
 
             Image image = function.Base64ToImage(usuario.imagemPerfil);
             if (image != null)
@@ -179,6 +179,21 @@ namespace BeFreeAPI.Controllers
             return nomeImage;
         }
 
+
+        private IHttpActionResult RecuperarSenha(string email)
+        {
+
+            try {
+
+                //String codSegur = RandomString(5);
+            }
+            catch (Exception err) {
+
+                return NotFound();
+            }
+
+            return Ok();
+        }
 
     }
 }

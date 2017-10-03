@@ -14,8 +14,8 @@ namespace BeFreeAPI.Utils
     public class Function
     {
         public Image Base64ToImage(string base64String)
-        {            
-            base64String.Replace("-", "+").Replace("_", "/").Replace("*", "=");
+        {
+            //base64String.Replace("-", "+").Replace("_", "/").Replace("*", "=");
             try
             {
                 // Convert base 64 string to byte[]
@@ -28,7 +28,8 @@ namespace BeFreeAPI.Utils
 
                 }
             }
-            catch (Exception err) {
+            catch (Exception err)
+            {
 
                 return null;
             }
@@ -36,10 +37,10 @@ namespace BeFreeAPI.Utils
 
         public string SetImageName(string nomeImage)
         {
-            return nomeImage ;
+            return nomeImage;
         }
 
-        public string SetCaminhoRetorno (string nomeImage)
+        public string SetCaminhoRetorno(string nomeImage)
         {
             Random random = new Random();
             return ConfigurationManager.AppSettings["imagesPathDownload"].ToString() + nomeImage;
@@ -50,8 +51,8 @@ namespace BeFreeAPI.Utils
         {
             try
             {
-                string path = ConfigurationManager.AppSettings["imagesPathUpload"].ToString();
-                img.Save(path + target);
+                string path = ConfigurationManager.AppSettings["imagesPathUpload"].ToString() + target;
+                img.Save(path,ImageFormat.Jpeg);
                 return true;
             }
             catch (Exception err)
@@ -59,5 +60,6 @@ namespace BeFreeAPI.Utils
                 return false;
             }
         }
+
     }
 }
