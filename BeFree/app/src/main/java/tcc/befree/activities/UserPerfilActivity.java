@@ -83,7 +83,7 @@ public class UserPerfilActivity extends AppCompatActivity {
         photo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                InsertImageDialog image = new InsertImageDialog(UserPerfilActivity.this, 1);
+                InsertImageDialog image = new InsertImageDialog(UserPerfilActivity.this);
                 image.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 image.show();
             }

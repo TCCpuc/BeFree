@@ -27,7 +27,7 @@ public class InsertImageDialog extends Dialog{
     private CircleImageView imagem;
     private Button ok;
 
-    public InsertImageDialog(Activity a, int context) {
+    public InsertImageDialog(Activity a) {
         //SE CONTEXT = 1 (INSERT IMAGEM USUARIO)
         //SE CONTEXT = 2 (INSERT IMAGEM BUSCA)
         //SE CONTEXT = 3 (INSERT IMAGEM SERVICO)

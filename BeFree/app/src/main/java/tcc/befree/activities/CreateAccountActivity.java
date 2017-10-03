@@ -144,7 +144,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                InsertImageDialog dialog = new InsertImageDialog(CreateAccountActivity.this, 1);
+                InsertImageDialog dialog = new InsertImageDialog(CreateAccountActivity.this);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 

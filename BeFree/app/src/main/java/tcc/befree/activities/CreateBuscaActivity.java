@@ -2,17 +2,26 @@ package tcc.befree.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -22,12 +31,17 @@ import tcc.befree.api.PostApiModels;
 import tcc.befree.R;
 import tcc.befree.models.Busca;
 import tcc.befree.models.Categoria;
+import tcc.befree.models.CircleImageView;
+import tcc.befree.telas.Dialog.InsertImageDialog;
 
 public class CreateBuscaActivity extends AppCompatActivity {
 
     private Spinner spinnerDDDs;
     private Spinner spinnerCategorias;
     private Spinner spinnerSubCategorias;
+    private ImageView photo;
+    private static final int SELECT_FILE1 = 100;
+    private Bitmap bitmapUsuarioPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +50,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
 
         //popula o spinner do ddd
         spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
+        photo = (ImageView) findViewById(R.id.create_busca_unounce_photo);
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
@@ -114,6 +129,32 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 }
             }
         });
+        photo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                InsertImageDialog image = new InsertImageDialog(CreateBuscaActivity.this);
+                image.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                image.show();
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == SELECT_FILE1 ) {
+            Uri selectedImageUri = data.getData();
+
+            try {
+                bitmapUsuarioPerfil = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                Picasso.with(this.getApplicationContext()).load(selectedImageUri).into(photo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private String getImagem() {
