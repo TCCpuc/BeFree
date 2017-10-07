@@ -277,13 +277,17 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
+            //Busca simples
+
                 for (Busca b : searchFragment.results) {
-                    b.mostrar = b.titulo.toLowerCase().contains(searchQuery.toLowerCase());
+                    //Busca por titulo e descrição
+                    b.mostrar = b.titulo.toLowerCase().contains(searchQuery.toLowerCase()) || b.descricao.toLowerCase().contains(searchQuery.toLowerCase());
                 }
                 searchFragment.setRealizouBusca(true);
 
                 for (Servico s : serviceFragment.results) {
-                    s.mostrar = s.titulo.toLowerCase().contains(searchQuery.toLowerCase());
+                    //Busca por titulo e descrição
+                    s.mostrar = s.titulo.toLowerCase().contains(searchQuery.toLowerCase()) || s.descricao.toLowerCase().contains(searchQuery.toLowerCase());
                 }
                 serviceFragment.setRealizouBusca(true);
 
