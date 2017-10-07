@@ -55,12 +55,15 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
     @NonNull
     public void getLista() {
+        boolean meusAnuncios = false;
         SearchAdapter adapter;ApiModels api = new ApiModels();
         if (!this.realizouBusca) {
             if (id == 0) {
                 results = api.getBuscasExcetoDoUsuario(idUsuario);
+                meusAnuncios = false;
             } else {
                 results = api.getBuscasApenasDoUsuario(id);
+                meusAnuncios = true;
             }
         }
         this.realizouBusca = false;
@@ -68,7 +71,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         for (Busca s : results)
             if (s.mostrar)
                 valuesComMostrarTrue.add(s);
-        adapter = new SearchAdapter(getContext(), valuesComMostrarTrue, this);
+        if (id != 0)
+            meusAnuncios = true;
+        adapter = new SearchAdapter(getContext(), valuesComMostrarTrue, this, meusAnuncios);
         this.adapter = adapter;
         this.rootView = this.inflater.inflate(R.layout.fragment_slide, this.container, false);
         ListView ls = (ListView) rootView.findViewById(R.id.list);

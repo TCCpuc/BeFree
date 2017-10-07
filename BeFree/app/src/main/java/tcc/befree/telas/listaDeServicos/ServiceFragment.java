@@ -55,12 +55,15 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
     @NonNull
     public void getLista() {
+        boolean meusAnuncios = false;
         ServiceAdapter adapter;ApiModels api = new ApiModels();
         if (!this.realizouBusca) {
             if (id == 0) {
                 results = api.getServicosExcetoDoUsuario(idUsuario);
+                meusAnuncios = false;
             } else {
                 results = api.getServicosApenasDoUsuario(id);
+                meusAnuncios = true;
             }
         }
         this.realizouBusca = false;
@@ -68,7 +71,9 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
         for (Servico s : results)
             if (s.mostrar)
                 valuesComMostrarTrue.add(s);
-        adapter = new ServiceAdapter(getContext(), valuesComMostrarTrue, this);
+        if (id != 0)
+            meusAnuncios = true;
+        adapter = new ServiceAdapter(getContext(), valuesComMostrarTrue, this, meusAnuncios);
         this.adapter = adapter;
         this.rootView = this.inflater.inflate(R.layout.fragment_slide, this.container, false);
         ListView ls = (ListView) rootView.findViewById(R.id.list);

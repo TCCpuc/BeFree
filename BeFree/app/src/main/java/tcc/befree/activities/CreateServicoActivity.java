@@ -50,6 +50,7 @@ public class CreateServicoActivity extends AppCompatActivity {
 
         //popula o spinner do ddd
         spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
+        photo = (ImageView) findViewById(R.id.create_servico_unounce_photo);
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
