@@ -78,7 +78,11 @@ public class MensagemAdapter extends BaseAdapter {
         //to simulate whether it me or other sender
         setAlignment(holder, chatMessages.get(position).isMe());
         holder.txtMessage.setText(chatMessage.getMensagem());
-        String data = chatMessage.getData();
+        String data;
+        if (chatMessage.getData() != null)
+            data = chatMessage.getData().replace('T',' ').replace('-','/').substring(0,16);
+        else
+            data = chatMessage.getData();
         holder.txtInfo.setText(data);
 
         return convertView;
