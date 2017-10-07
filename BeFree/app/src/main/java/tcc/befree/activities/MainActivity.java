@@ -32,6 +32,8 @@ import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
+import tcc.befree.models.Busca;
+import tcc.befree.models.Servico;
 import tcc.befree.telas.Dialog.AdvancedSearchDialog;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
@@ -40,14 +42,20 @@ public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private int idUsuario = 0;
+    private int ultimaPosicao = 0;
     private Button search_advanced_button;
     private AdvancedSearchDialog dialog;
+    private ServiceFragment serviceFragment = new ServiceFragment();
+    private SearchFragment searchFragment = new SearchFragment();
+    private ViewPager viewPager;
+    private int abaAtual = 0;
+    private int currentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        viewPager = (ViewPager) findViewById(R.id.container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -99,14 +107,7 @@ public class MainActivity extends AppCompatActivity{
             setupDrawerContent(navigationView);
         }
         //int id = getIntent().getExtras().getInt("bundle");
-        ViewPager viewPager = (ViewPager) findViewById(R.id.container);
-        if (viewPager != null) {
-            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-            viewPager.setAdapter(mSectionsPagerAdapter);
-        }
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        refreshLista();
 
     }
 
@@ -276,25 +277,17 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("search",searchQuery);
-                Intent intent = getIntent();
-                intent.putExtra("search", bundle);
-
-
-                Intent i = MainActivity.this.getIntent();
-                startActivity(i);
-
-                ViewPager viewPager = (ViewPager) findViewById(R.id.container);
-                if (viewPager != null) {
-                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-                    viewPager.setAdapter(mSectionsPagerAdapter);
+                for (Busca b : searchFragment.results) {
+                    b.mostrar = b.titulo.toLowerCase().contains(searchQuery.toLowerCase());
                 }
+                searchFragment.setRealizouBusca(true);
 
-                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-                tabLayout.setupWithViewPager(viewPager);
+                for (Servico s : serviceFragment.results) {
+                    s.mostrar = s.titulo.toLowerCase().contains(searchQuery.toLowerCase());
+                }
+                serviceFragment.setRealizouBusca(true);
 
+                refreshLista();
                 return true;
             }
         });
@@ -320,6 +313,18 @@ public class MainActivity extends AppCompatActivity{
         //return true;
     }
 
+    private void refreshLista() {
+        abaAtual = viewPager.getCurrentItem();
+        viewPager = (ViewPager) findViewById(R.id.container);
+        if (viewPager != null) {
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+            viewPager.setAdapter(mSectionsPagerAdapter);
+        }
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(abaAtual);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home){
@@ -327,6 +332,24 @@ public class MainActivity extends AppCompatActivity{
         }
         //SE O DRAWER NAO ABRIR TENTAR RETURN TRUE
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Get the current view position from the ViewPager by
+     * extending SimpleOnPageChangeListener class and adding your method
+     */
+    public class DetailOnPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
+
+        private int currentPage;
+
+        @Override
+        public void onPageSelected(int position) {
+            currentPage = position;
+        }
+
+        public final int getCurrentPage() {
+            return currentPage;
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -337,17 +360,13 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public Fragment getItem(int position) {
-
-            switch (position) {
-                case 0:
-                    return new ServiceFragment();
-                case 1:
-                    return new SearchFragment();
-                default:
-                    return new ServiceFragment();
+            if(position==1) {
+                return searchFragment;
+            }
+            else {
+                return serviceFragment;
             }
         }
-
 
         @Override
         public int getCount() {

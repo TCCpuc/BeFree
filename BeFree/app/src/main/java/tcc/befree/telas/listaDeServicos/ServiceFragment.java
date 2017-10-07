@@ -2,6 +2,7 @@ package tcc.befree.telas.listaDeServicos;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,20 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
     int idUsuario;
     int id;
+    private ViewGroup container;
+    private LayoutInflater inflater;
+    private View rootView;
+    private boolean realizouBusca = false;
+    public void setRealizouBusca(boolean realizouBusca) {
+        this.realizouBusca = realizouBusca;
+    }
+    private ServiceAdapter adapter;
+    public ArrayList<Servico> results = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        this.container = container;
+        this.inflater = inflater;
         Intent intent = getActivity().getIntent();
         Bundle pesquisa = intent.getBundleExtra("service");
         try {
@@ -38,48 +49,30 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
         }catch(Exception e){
             idUsuario = 0;
         }
-        String search;
-        try {
-            search = pesquisa.getString("service");
-        }catch(Exception e){
-            search = "";
-        }
+        getLista();
+        return this.rootView ;
+    }
 
-        //int id = getIntent().getIntExtra("id",0);
-
-        View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
-
-        ArrayList<Servico> searchs = new ArrayList<>();
-
-        ServiceAdapter adapter;
-
-        ApiModels api = new ApiModels();
-
-        if(!search.equals("")){
-            ArrayList<Servico> resultado = new ArrayList<>();
-
-            searchs = api.getServicos();
-
-            for(int i = 0; i<searchs.size();i++){
-                if(searchs.get(i).titulo.toLowerCase().contains(search)){
-                    resultado.add(searchs.get(i));
-                }
+    @NonNull
+    public void getLista() {
+        ServiceAdapter adapter;ApiModels api = new ApiModels();
+        if (!this.realizouBusca) {
+            if (id == 0) {
+                results = api.getServicosExcetoDoUsuario(idUsuario);
+            } else {
+                results = api.getServicosApenasDoUsuario(id);
             }
-            adapter = new ServiceAdapter(getContext(), resultado, this);
-
-        }else{
-            if(id==0){
-                searchs = api.getServicosExcetoDoUsuario(idUsuario);
-            }else{
-                searchs = api.getServicosApenasDoUsuario(id);
-            }
-            adapter = new ServiceAdapter(getContext(), searchs, this);
         }
-
+        this.realizouBusca = false;
+        ArrayList<Servico> valuesComMostrarTrue = new ArrayList<Servico>();
+        for (Servico s : results)
+            if (s.mostrar)
+                valuesComMostrarTrue.add(s);
+        adapter = new ServiceAdapter(getContext(), valuesComMostrarTrue, this);
+        this.adapter = adapter;
+        this.rootView = this.inflater.inflate(R.layout.fragment_slide, this.container, false);
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);
-
-        return rootView;
     }
 
     @Override

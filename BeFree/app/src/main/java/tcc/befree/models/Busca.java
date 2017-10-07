@@ -13,5 +13,6 @@ public class Busca {
     public int idStatus;
     public String imagemBusca;
     public int idDDD;
+    public boolean mostrar = true;
 
 }

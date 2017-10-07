@@ -13,4 +13,5 @@ public class Servico {
     public int idStatus;
     public String imagemServico;
     public int idDDD;
+    public boolean mostrar = true;
 }

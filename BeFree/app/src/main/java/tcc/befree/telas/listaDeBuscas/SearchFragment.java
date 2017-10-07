@@ -2,6 +2,7 @@ package tcc.befree.telas.listaDeBuscas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,19 +19,26 @@ import tcc.befree.models.Busca;
 /**
  * Created by guilherme.leme on 5/24/17.
  */
-
 public class SearchFragment extends Fragment implements SearchAdapter.OnClickListener {
 
     int idUsuario;
     int id;
+    private ViewGroup container;
+    private LayoutInflater inflater;
+    private View rootView;
+    private boolean realizouBusca = false;
+    public void setRealizouBusca(boolean realizouBusca) {
+        this.realizouBusca = realizouBusca;
+    }
+    private SearchAdapter adapter;
+    public ArrayList<Busca> results = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
+        this.container = container;
+        this.inflater = inflater;
         Intent intent = getActivity().getIntent();
         Bundle pesquisa = intent.getBundleExtra("search");
-
         try {
             id = intent.getBundleExtra("bundle").getInt("id");
         }catch(Exception e){
@@ -41,43 +49,30 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
         }catch(Exception e){
             idUsuario = 0;
         }
+        getLista();
+        return this.rootView ;
+    }
 
-        String search;
-        try {
-            search = pesquisa.getString("search");
-        }catch(Exception e){
-            search = "";
-        }
-
-        View rootView = inflater.inflate(R.layout.fragment_slide, container, false);
-        ArrayList<Busca> searchs = new ArrayList<>();
-        SearchAdapter adapter;
-        ApiModels api = new ApiModels();
-
-        if(!search.equals("")){
-            ArrayList<Busca> resultado = new ArrayList<>();
-            searchs = api.getBuscas();
-
-            for(int i = 0; i<searchs.size();i++){
-                if(searchs.get(i).titulo.toLowerCase().contains(search)){
-                    resultado.add(searchs.get(i));
-                }
+    @NonNull
+    public void getLista() {
+        SearchAdapter adapter;ApiModels api = new ApiModels();
+        if (!this.realizouBusca) {
+            if (id == 0) {
+                results = api.getBuscasExcetoDoUsuario(idUsuario);
+            } else {
+                results = api.getBuscasApenasDoUsuario(id);
             }
-            adapter = new SearchAdapter(getContext(), resultado, this);
-
-        }else{
-            if(id==0){
-                searchs = api.getBuscasExcetoDoUsuario(idUsuario);
-            }else{
-                searchs = api.getBuscasApenasDoUsuario(id);
-            }
-            adapter = new SearchAdapter(getContext(), searchs, this);
         }
-
-
+        this.realizouBusca = false;
+        ArrayList<Busca> valuesComMostrarTrue = new ArrayList<Busca>();
+        for (Busca s : results)
+            if (s.mostrar)
+                valuesComMostrarTrue.add(s);
+        adapter = new SearchAdapter(getContext(), valuesComMostrarTrue, this);
+        this.adapter = adapter;
+        this.rootView = this.inflater.inflate(R.layout.fragment_slide, this.container, false);
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);
-        return rootView;
     }
 
     @Override
