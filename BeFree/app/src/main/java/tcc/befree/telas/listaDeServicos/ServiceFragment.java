@@ -3,9 +3,12 @@ package tcc.befree.telas.listaDeServicos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         Intent intent = getActivity().getIntent();
         Bundle pesquisa = intent.getBundleExtra("service");
@@ -65,20 +69,21 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
                     resultado.add(searchs.get(i));
                 }
             }
-            adapter = new ServiceAdapter(getContext(), resultado, this);
+            adapter = new ServiceAdapter(getContext(), resultado, this, false);
 
         }else{
             if(id==0){
                 searchs = api.getServicosExcetoDoUsuario(idUsuario);
+                adapter = new ServiceAdapter(getContext(), searchs, this, false);
             }else{
                 searchs = api.getServicosApenasDoUsuario(id);
+                adapter = new ServiceAdapter(getContext(), searchs, this, true);
             }
-            adapter = new ServiceAdapter(getContext(), searchs, this);
+
         }
 
         ListView ls = (ListView) rootView.findViewById(R.id.list);
         ls.setAdapter(adapter);
-
         return rootView;
     }
 

@@ -51,9 +51,39 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/item_service_edit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp">
+
+            <ImageButton
+                android:id="@+id/item_service_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_white"
+                android:src="@android:drawable/ic_menu_manage"
+                android:layout_marginLeft="10dp"/>
+
+            <ImageButton
+                android:id="@+id/item_service_delete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_white"
+                android:src="@android:drawable/ic_notification_clear_all"
+                android:layout_marginLeft="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_service_default_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="visible"
             android:layout_marginTop="2dp">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -118,7 +148,6 @@
                 android:text="5,5"
                 android:inputType="numberDecimal" />
 
-
         </LinearLayout>
 
     </LinearLayout>
@@ -128,6 +157,4 @@
         android:layout_height="1dp"
         android:layout_marginTop="6dp"
         android:background="#c2c2c2" />
-
-
 </LinearLayout>

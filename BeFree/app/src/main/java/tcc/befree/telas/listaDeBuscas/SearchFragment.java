@@ -23,6 +23,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
     int idUsuario;
     int id;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,15 +64,18 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
                     resultado.add(searchs.get(i));
                 }
             }
-            adapter = new SearchAdapter(getContext(), resultado, this);
+            adapter = new SearchAdapter(getContext(), resultado, this, false);
 
         }else{
             if(id==0){
                 searchs = api.getBuscasExcetoDoUsuario(idUsuario);
+                adapter = new SearchAdapter(getContext(), searchs, this, false);
+
             }else{
                 searchs = api.getBuscasApenasDoUsuario(id);
+                adapter = new SearchAdapter(getContext(), searchs, this, true);
+
             }
-            adapter = new SearchAdapter(getContext(), searchs, this);
         }
 
 

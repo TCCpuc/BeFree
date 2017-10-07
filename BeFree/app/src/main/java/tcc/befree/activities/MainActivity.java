@@ -145,7 +145,6 @@ public class MainActivity extends AppCompatActivity{
                             /*Intent i = MainActivity.this.getIntent();
                             startActivity(i);*/
 
-
                             ViewPager viewPager = (ViewPager) findViewById(R.id.container);
                             if (viewPager != null) {
                                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
