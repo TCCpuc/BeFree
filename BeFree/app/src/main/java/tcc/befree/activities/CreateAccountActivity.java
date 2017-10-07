@@ -1,17 +1,14 @@
 package tcc.befree.activities;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.provider.SyncStateContract;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -22,11 +19,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +26,7 @@ import tcc.befree.api.PostApiModels;
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Usuarios;
+import tcc.befree.telas.Dialog.InsertImageDialog;
 import tcc.befree.utils.Utils;
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -147,10 +140,15 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
         });
 
-        insertPhoto.setOnClickListener(new View.OnClickListener(){
+        photo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openGallery(SELECT_FILE1);
+
+                InsertImageDialog dialog = new InsertImageDialog(CreateAccountActivity.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                //openGallery(SELECT_FILE1);
             }
         });
     }
@@ -198,11 +196,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         return password.length() >= 4;
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
     public void openGallery(int req_code) {
 
         Intent intent = new Intent();
@@ -212,22 +205,20 @@ public class CreateAccountActivity extends AppCompatActivity {
                 "Select file to upload "), req_code);
     }
 
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            if (resultCode == RESULT_OK && requestCode == SELECT_FILE1 ) {
-                Uri selectedImageUri = data.getData();
+        if (resultCode == RESULT_OK && requestCode == SELECT_FILE1 ) {
+            Uri selectedImageUri = data.getData();
 
-                try {
-                    bitmapUsuarioPerfil = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                    Picasso.with(this.getApplicationContext()).load(selectedImageUri).into(photo);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
+            try {
+                bitmapUsuarioPerfil = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                Picasso.with(this.getApplicationContext()).load(selectedImageUri).into(photo);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
     }
 
     @Override

@@ -87,6 +87,8 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Mensagem))]
         public IHttpActionResult PostMensagem(Mensagem mensagem)
         {
+
+            mensagem.DATA = null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

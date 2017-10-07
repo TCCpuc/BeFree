@@ -24,6 +24,7 @@ public class ForgotPasswordDialog extends Dialog implements
     private Activity c;
     private Button sendButton;
     private Button backButton;
+    private Button code;
     private TextView textMessage;
     private EditText dialogMessage;
     private EditText passwordText;
@@ -43,11 +44,13 @@ public class ForgotPasswordDialog extends Dialog implements
         setContentView(R.layout.dialog_forgot_password);
         sendButton = (Button) findViewById(R.id.dialog_btn_send);
         backButton = (Button) findViewById(R.id.dialog_btn_back);
+        code = (Button) findViewById(R.id.dialog_btn_codigo);
         textMessage = (TextView) findViewById(R.id.dialog_text);
         dialogMessage = (EditText) findViewById(R.id.dialog_message);
         passwordText = (EditText) findViewById(R.id.dialog_password);
         passwordText2 = (EditText) findViewById(R.id.dialog_password2);
         sendButton.setOnClickListener(this);
+        code.setOnClickListener(this);
         backButton.setOnClickListener(this);
     }
 
@@ -108,9 +111,17 @@ public class ForgotPasswordDialog extends Dialog implements
                         count ++;
                     }
                 }else if (count == 3){
-                    dismiss();
+                    this.dismiss();
                 }else
                     textMessage.setText("ERRO");
+                break;
+            case R.id.dialog_btn_codigo:
+                textMessage.setText("Digite o codigo enviado para seu email");
+                dialogMessage.setText("");
+                dialogMessage.setHint("QF94fg");
+                dialogMessage.requestFocus();
+                code.setVisibility(View.GONE);
+                count ++;
                 break;
             case R.id.dialog_btn_back:
                 c.finish();

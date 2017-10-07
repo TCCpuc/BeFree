@@ -45,16 +45,7 @@
             android:background="@drawable/curve_shap"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginRight="20dp"
             android:text="OK" />
-
-        <Button
-            android:id="@+id/dialog_insert_image_voltar"
-            android:layout_gravity="right"
-            android:background="@drawable/curve_shap"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:text="VOLTAR"/>
 
 
     </LinearLayout>

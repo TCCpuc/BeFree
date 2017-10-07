@@ -18,7 +18,7 @@ namespace BeFreeAPI.Models
 
         public int USUARIO_DESTINO { get; set; }
 
-        public DateTime DATA { get; set; }
+        public DateTime? DATA { get; set; }
 
         public string MENSAGEM { get; set; }
 
