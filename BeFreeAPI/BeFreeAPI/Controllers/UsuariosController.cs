@@ -56,6 +56,7 @@ namespace BeFreeAPI.Controllers
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
+        [HttpPost]
         public IHttpActionResult PutUsuario(int id, Usuario usuario)
         {
             if (!ModelState.IsValid)
@@ -179,13 +180,14 @@ namespace BeFreeAPI.Controllers
             return nomeImage;
         }
 
-
-        private IHttpActionResult RecuperarSenha(string email)
+        [HttpGet]
+        public IHttpActionResult RecuperarSenha(String email)
         {
 
             try {
+                string bodyEmail = function.GenerateRandomString();
+                bool emailOK = function.EnviaEmail(email, "Recuperação de Senha Befree", bodyEmail);
 
-                //String codSegur = RandomString(5);
             }
             catch (Exception err) {
 
