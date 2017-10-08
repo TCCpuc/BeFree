@@ -73,12 +73,20 @@ public class MainActivity extends AppCompatActivity{
         ab.setHomeAsUpIndicator(R.drawable.ic_menu_default);
         ab.setDisplayHomeAsUpEnabled(true);
 
+        Bundle bundle = getIntent().getBundleExtra("idUsuario");
+        try {
+            idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            idUsuario = 0;
+        }
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = null;
+                Bundle bundle = new Bundle();
                 TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
                 if (tabLayout.getSelectedTabPosition() == 0) {
                     intent = new Intent(MainActivity.this, CreateServicoActivity.class);
@@ -86,16 +94,12 @@ public class MainActivity extends AppCompatActivity{
                 else{
                     intent = new Intent(MainActivity.this, CreateBuscaActivity.class);
                 }
+                bundle.putInt("idUsuario",idUsuario);
+                intent.putExtra("idUsuario", bundle);
                 startActivity(intent);
             }
         });
 
-        Bundle bundle = getIntent().getBundleExtra("idUsuario");
-        try {
-            idUsuario = bundle.getInt("idUsuario");
-        }catch(Exception e){
-            idUsuario = 0;
-        }
 
         setTitle("Befree");
         //Instancia menu drawer

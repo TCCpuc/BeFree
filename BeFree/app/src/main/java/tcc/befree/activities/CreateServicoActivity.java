@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,6 +30,7 @@ import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.utils.Utils;
 
 public class CreateServicoActivity extends AppCompatActivity {
 
@@ -42,11 +44,19 @@ public class CreateServicoActivity extends AppCompatActivity {
     private ImageView photo;
     private static final int SELECT_FILE1 = 100;
     private Bitmap bitmapUsuarioPerfil;
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_servico);
+
+        Bundle bundle = getIntent().getBundleExtra("idUsuario");
+        try {
+            this.idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            this.idUsuario = 0;
+        }
 
         //popula o spinner do ddd
         spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
@@ -117,8 +127,14 @@ public class CreateServicoActivity extends AppCompatActivity {
                     novaServico.titulo = nome;
                     novaServico.idDDD = ((DDD)spinnerDDDs.getSelectedItem()).id;
                     novaServico.idSubCategoria = idSubCategoria;
+                    novaServico.idUsuario = idUsuario;
+                    novaServico.imagemServico = Utils.convert(bitmapUsuarioPerfil);
 
                     new PostApiModels().postServico(novaServico);
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Servico criado com sucesso!", Toast.LENGTH_LONG);
+                    toast.show();
+                    CreateServicoActivity.super.onBackPressed();
                 }
             }
         });
