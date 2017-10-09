@@ -33,6 +33,7 @@ import tcc.befree.models.Busca;
 import tcc.befree.models.Categoria;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.utils.Utils;
 
 public class CreateBuscaActivity extends AppCompatActivity {
 
@@ -42,11 +43,20 @@ public class CreateBuscaActivity extends AppCompatActivity {
     private ImageView photo;
     private static final int SELECT_FILE1 = 100;
     private Bitmap bitmapUsuarioPerfil;
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_busca);
+
+
+        Bundle bundle = getIntent().getBundleExtra("idUsuario");
+        try {
+            this.idUsuario = bundle.getInt("idUsuario");
+        }catch(Exception e){
+            this.idUsuario = 0;
+        }
 
         //popula o spinner do ddd
         spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
@@ -121,6 +131,9 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     novaBusca.idDDD = new ApiModels().getDDDByCodigo(ddd).id;
                     novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
                     novaBusca.imagemBusca = getImagem();
+                    novaBusca.idUsuario = idUsuario;
+                    novaBusca.imagemBusca = Utils.convert(bitmapUsuarioPerfil);
+
                     new PostApiModels().postBusca(novaBusca);
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Busca criada com sucesso!", Toast.LENGTH_LONG);
