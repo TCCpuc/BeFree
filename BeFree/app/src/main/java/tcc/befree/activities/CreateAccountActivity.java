@@ -121,7 +121,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                     novoUsuario.cpf = edtCpf.getText().toString();
                     novoUsuario.email = edtEmail.getText().toString();
                     novoUsuario.senha = edtSenha.getText().toString();
-                    novoUsuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                    try {
+                        novoUsuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                    }catch(Exception e){
+                        novoUsuario.imagemPerfil = "";
+                    }
 
                     if( apiPost.postUsuarios(novoUsuario)) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Usuário criado com sucesso!", Toast.LENGTH_LONG);

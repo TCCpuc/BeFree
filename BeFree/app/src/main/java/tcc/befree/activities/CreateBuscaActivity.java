@@ -132,7 +132,11 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
                     novaBusca.imagemBusca = getImagem();
                     novaBusca.idUsuario = idUsuario;
-                    novaBusca.imagemBusca = Utils.convert(bitmapUsuarioPerfil);
+                    try {
+                        novaBusca.imagemBusca = Utils.convert(bitmapUsuarioPerfil);
+                    }catch(Exception e){
+                        novaBusca.imagemBusca = "";
+                    }
 
                     new PostApiModels().postBusca(novaBusca);
 
