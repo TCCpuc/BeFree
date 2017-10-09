@@ -69,6 +69,10 @@ namespace BeFreeAPI.Controllers
                 return BadRequest();
             }
 
+            if (!usuario.imagemPerfil.Contains("http")) {
+                usuario.imagemPerfil = this.SetImagem(usuario);
+            }
+
             db.Entry(usuario).State = EntityState.Modified;
 
             try

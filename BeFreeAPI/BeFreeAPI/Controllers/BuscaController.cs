@@ -81,6 +81,7 @@ namespace BeFreeAPI.Controllers
 
         // PUT: api/Busca/5
         [ResponseType(typeof(void))]
+        [HttpPost]
         public IHttpActionResult PutBusca(int id, Busca busca)
         {
             if (!ModelState.IsValid)
@@ -91,6 +92,11 @@ namespace BeFreeAPI.Controllers
             if (id != busca.idBusca)
             {
                 return BadRequest();
+            }
+
+            if (!busca.imagemBusca.Contains("http"))
+            {
+                busca.imagemBusca = this.SetImagem(busca);
             }
 
             db.Entry(busca).State = EntityState.Modified;
@@ -180,7 +186,7 @@ namespace BeFreeAPI.Controllers
 
             Random random = new Random();
 
-            string nomeImage = "buscas/" + busca.titulo.ToString().Replace(" ", "_") + "_" + busca.descricao.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpeg";
+            string nomeImage = "buscas\\" + busca.titulo.ToString().Replace(" ", "_") + "_" + busca.descricao.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpeg";
 
             Image image = function.Base64ToImage(busca.imagemBusca);
             if (image != null)
