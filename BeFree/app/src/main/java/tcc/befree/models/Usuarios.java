@@ -9,21 +9,23 @@ import java.util.Date;
 public class Usuarios {
     public int idUsuario ;
     public String nomeUsuario;
-    public String cpf ;
+    public int cpf ;
     public int idCidade ;
     public int idEstado ;
     public String bairro ;
     public String logradouro;
-    public String numero ;
-    public String cep ;
+    public int numero ;
+    public int cep ;
     public Date dataNascimento;
     public Date dataCadastro;
     public boolean ativo;
     public String senha ;
     public String email ;
-    public String ddd ;
+    public int ddd ;
     public String imagemPerfil;
 
-
-
+    @Override
+    public String toString() {
+        return idUsuario + "%" + nomeUsuario + "%" + cpf + "%" + idCidade + "%" + idEstado + "%" + bairro + "%" + logradouro + "%" + numero + "%" + cep + "%" + email + "%" + ddd + "%" + imagemPerfil;
+    }
 }

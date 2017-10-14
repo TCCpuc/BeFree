@@ -17,13 +17,20 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:textAlignment="center"
-            android:title="Minha Conta"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toolbar Title"
+            android:layout_gravity="center"
+            android:id="@+id/user_perfil_title" />
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -75,7 +82,6 @@
             android:id="@+id/nestedScrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/user_perfil_edit_data"
             android:layout_marginTop="2dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -110,16 +116,18 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_username"
+                            android:id="@+id/user_perfil_username"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
                             android:inputType="text"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="Admin"
                             android:maxLines="1"
-                            android:clickable="false"
-                            android:cursorVisible="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"/>
 
@@ -131,6 +139,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                         </LinearLayout>
 
@@ -164,12 +173,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_email"
+                            android:id="@+id/user_perfil_email"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textEmailAddress"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="admin@gmail.com"
                             android:maxLines="1"
                             android:clickable="false"
@@ -185,6 +198,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -219,12 +233,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_cpf"
+                            android:id="@+id/user_perfil_cpf"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="23467887645"
                             android:maxLines="1"
                             android:clickable="false"
@@ -240,6 +258,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -264,7 +283,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="CIDADE"
+                            android:text="Cidade"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <LinearLayout
@@ -274,12 +293,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_cidade"
+                            android:id="@+id/user_perfil_cidade"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textPersonName"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="Campinas"
                             android:maxLines="1"
                             android:clickable="false"
@@ -295,6 +318,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -319,7 +343,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="ESTADO"
+                            android:text="Estado"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <LinearLayout
@@ -329,12 +353,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_estado"
+                            android:id="@+id/user_perfil_estado"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textShortMessage"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="SP"
                             android:maxLines="1"
                             android:clickable="false"
@@ -350,6 +378,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -375,7 +404,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="BAIRRO"
+                            android:text="Bairro"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <LinearLayout
@@ -385,12 +414,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_bairro"
+                            android:id="@+id/user_perfil_bairro"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textShortMessage"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="Vila Brandina"
                             android:maxLines="1"
                             android:clickable="false"
@@ -406,6 +439,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -430,7 +464,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="LOGRADOURO"
+                            android:text="Logradouro"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <LinearLayout
@@ -440,12 +474,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_logradouro"
+                            android:id="@+id/user_perfil_logradouro"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textShortMessage"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="Rua Santa Bela"
                             android:maxLines="1"
                             android:clickable="false"
@@ -461,6 +499,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -485,7 +524,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="NUMERO"
+                            android:text="Numero"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <LinearLayout
@@ -495,12 +534,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_numero"
+                            android:id="@+id/user_perfil_numero"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="1765"
                             android:maxLines="1"
                             android:clickable="false"
@@ -516,6 +559,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -550,12 +594,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_cep"
+                            android:id="@+id/user_perfil_cep"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="13087-000"
                             android:maxLines="1"
                             android:clickable="false"
@@ -571,6 +619,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -595,7 +644,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="DATA NASCIMENTO"
+                            android:text="Data Nascimento"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <LinearLayout
@@ -605,12 +654,16 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_nascimento"
+                            android:id="@+id/user_perfil_nascimento"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="date"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="13/09/1991"
                             android:maxLines="1"
                             android:clickable="false"
@@ -626,6 +679,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 
@@ -660,12 +714,17 @@
                         android:gravity="center">
 
                         <EditText
-                            android:layout_below="@+id/user_perfil_ddd"
+                            android:id="@+id/user_perfil_ddd"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:inputType="none"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
                             android:hint="19"
                             android:maxLines="1"
                             android:clickable="false"
@@ -681,6 +740,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_gravity="right"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:src="@android:drawable/ic_menu_manage"/>
                     </LinearLayout>
 

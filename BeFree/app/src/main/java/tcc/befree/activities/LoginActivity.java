@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
                 Usuarios usuarioFacebook = new Usuarios();
 
                 usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + currentProfile.getLastName();
-                usuarioFacebook.cpf = " ";
+                usuarioFacebook.cpf = 0;
                 usuarioFacebook.email = currentProfile.getId();
                 usuarioFacebook.senha = " ";
                 Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
@@ -222,9 +222,13 @@ public class LoginActivity extends AppCompatActivity /*implements LoaderCallback
             }
             else {
                 Intent intent = new Intent(this, MainActivity.class);
+                /*
                 intent.putExtra("nomeUsuario",usuario.nomeUsuario);
                 intent.putExtra("emailUsuario",usuario.email);
                 intent.putExtra("imagemPerfil",usuario.imagemPerfil);
+                */
+
+                intent.putExtra("arrayUsuario", usuario.toString());
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("idUsuario",usuario.idUsuario);

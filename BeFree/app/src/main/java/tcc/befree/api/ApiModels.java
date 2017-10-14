@@ -112,8 +112,24 @@ public class ApiModels implements Runnable{
                 thread.sleep(500);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             usuario.idUsuario = jSonObject.getInt("idUsuario");
-            usuario.email = jSonObject.getString("email");
             usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
+            usuario.cpf = jSonObject.getInt("cpf");
+            usuario.idCidade = jSonObject.getInt("idCidade");
+            usuario.idEstado = jSonObject.getInt("idEstado");
+            if(jSonObject.getString("bairro") != "null"){
+                usuario.bairro = jSonObject.getString("bairro");
+            }
+            if(jSonObject.getString("logradouro") != "null"){
+                usuario.logradouro = jSonObject.getString("logradouro");
+            }
+            if(jSonObject.getString("numero") != "null"){
+                usuario.numero = jSonObject.getInt("numero");
+            }
+            if(jSonObject.getString("cep") != "null"){
+                usuario.cep = jSonObject.getInt("cep");
+            }
+            usuario.ativo = jSonObject.getBoolean("ativo");
+            usuario.email = jSonObject.getString("email");
             usuario.senha = jSonObject.getString("senha");
             usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
         }catch (Exception er){

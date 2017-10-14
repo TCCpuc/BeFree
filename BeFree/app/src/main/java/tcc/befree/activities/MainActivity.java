@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import tcc.befree.R;
@@ -40,6 +41,7 @@ import tcc.befree.models.Busca;
 import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
+import tcc.befree.models.Usuarios;
 import tcc.befree.telas.Dialog.AdvancedSearchDialog;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
@@ -47,7 +49,7 @@ import tcc.befree.telas.listaDeServicos.ServiceFragment;
 public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private int idUsuario = 0;
+    //private int idUsuario = 0;
     private int ultimaPosicao = 0;
     private Button search_advanced_button;
     private AdvancedSearchDialog dialog;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity{
     private int idSubCategoriaBuscaAvancada = 0;
     private String buscaSimples = "";
     private ApiModels api = new ApiModels();
+    private Usuarios usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,12 +129,36 @@ public class MainActivity extends AppCompatActivity{
         ab.setHomeAsUpIndicator(R.drawable.ic_menu_default);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        Bundle bundle = getIntent().getBundleExtra("idUsuario");
+        Intent it = this.getIntent();
+        Bundle teste = it.getExtras();
+        String x [] = teste.getString("arrayUsuario").split("%");
+        usuario = new Usuarios();
+        usuario.idUsuario = Integer.parseInt(x[0]);
+        usuario.nomeUsuario = x[1];
+        usuario.cpf = Integer.parseInt(x[2]);
+        usuario.idCidade = Integer.parseInt(x[3]);
+        usuario.idEstado = Integer.parseInt(x[4]);
+        usuario.bairro = x[5];
+        usuario.logradouro = x[6];
+        usuario.numero = Integer.parseInt(x[7]);
+        usuario.cep = Integer.parseInt(x[8]);
+        usuario.email = x[9];
+        usuario.ddd = Integer.parseInt(x[10]);
+        usuario.imagemPerfil = x[11];
+        //usuario.dataNascimento = Date.parse(x[10]);
+        //usuario.dataCadastro = x[11].toDate;
+
+
+
+
+
+        /*Bundle bundle = getIntent().getBundleExtra("idUsuario");
         try {
             idUsuario = bundle.getInt("idUsuario");
         }catch(Exception e){
             idUsuario = 0;
         }
+        */
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -147,7 +174,7 @@ public class MainActivity extends AppCompatActivity{
                 else{
                     intent = new Intent(MainActivity.this, CreateBuscaActivity.class);
                 }
-                bundle.putInt("idUsuario",idUsuario);
+                bundle.putInt("idUsuario",usuario.idUsuario);
                 intent.putExtra("idUsuario", bundle);
                 startActivity(intent);
             }
@@ -178,9 +205,9 @@ public class MainActivity extends AppCompatActivity{
         TextView mTextViewEmailUsuario = (TextView)header.findViewById(R.id.email_usuario_menu);
         CircleImageView mImagePerfil = (CircleImageView) header.findViewById(R.id.img_usuario_menu);
 
-        String nomeUsuario = getIntent().getStringExtra("nomeUsuario");
-        String emailUsuario = getIntent().getStringExtra("emailUsuario");
-        Picasso.with(this).load(getIntent().getStringExtra("imagemPerfil")).into(mImagePerfil);
+        String nomeUsuario = usuario.nomeUsuario;
+        String emailUsuario = usuario.email;
+        Picasso.with(this).load(usuario.imagemPerfil).into(mImagePerfil);
 
         mTextViewNomeUsuario.setText(nomeUsuario);
         mTextViewEmailUsuario.setText(emailUsuario);
@@ -197,7 +224,7 @@ public class MainActivity extends AppCompatActivity{
                         if (id == R.id.menu_anuncios) {
 
                             Bundle bundle = new Bundle();
-                            bundle.putInt("id",idUsuario);
+                            bundle.putInt("id",usuario.idUsuario);
                             Intent intent = MainActivity.this.getIntent();
                             intent.putExtra("bundle", bundle);
                             /*Intent i = MainActivity.this.getIntent();
@@ -228,7 +255,7 @@ public class MainActivity extends AppCompatActivity{
                             // ABRIR CHAT
 
                             Bundle bundle = new Bundle();
-                            bundle.putInt("idUsuario",idUsuario);
+                            bundle.putInt("idUsuario",usuario.idUsuario);
                             Intent intent = new Intent(MainActivity.this, ListChatActivity.class);
                             intent.putExtra("bundle", bundle);
 
