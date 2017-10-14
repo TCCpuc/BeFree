@@ -30,10 +30,16 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import tcc.befree.R;
+import tcc.befree.api.ApiModels;
+import tcc.befree.models.Categoria;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Busca;
+import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
+import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.AdvancedSearchDialog;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
@@ -50,6 +56,14 @@ public class MainActivity extends AppCompatActivity{
     private ViewPager viewPager;
     private int abaAtual = 0;
     private int currentPage;
+    private String categoriaBuscaAvancada = "Todos";
+    private int idcategoriaBuscaAvancada = 0;
+    private String dddBuscaAvancada = "Todos";
+    private int idDDDBuscaAvancada = 0;
+    private String subcategoriaBuscaAvancada = "Todos";
+    private int idSubCategoriaBuscaAvancada = 0;
+    private String buscaSimples = "";
+    private ApiModels api = new ApiModels();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +79,35 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 dialog = new AdvancedSearchDialog(MainActivity.this);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
                 dialog.show();
+                Button saveButton = (Button)dialog.findViewById(R.id.advanced_search_dialog_button_ok);
+                saveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        categoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_categoria_spinner)).getSelectedItem().toString();
+                        subcategoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_sub_categoria_spinner)).getSelectedItem().toString();
+                        dddBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_ddd_spinner)).getSelectedItem().toString();
+
+                        ArrayList<DDD> ddds = api.getDDDs();
+                        for (DDD ddd: ddds) {
+                            if (dddBuscaAvancada.contains(ddd.descricao)) {
+                                idDDDBuscaAvancada = ddd.id;
+                                break;
+                            }
+                        }
+
+                        ArrayList<SubCategoria> subCategorias = api.getSubCategorias();
+                        for (SubCategoria s: subCategorias) {
+                            if (s.descricao.equals(subcategoriaBuscaAvancada)) {
+                                idSubCategoriaBuscaAvancada = s.idSubCategoria;
+                                break;
+                            }
+                        }
+                        dialog.dismiss();
+                        busca();
+                    }
+                });
             }
         });
 
@@ -281,20 +323,8 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onQueryTextChange(String searchQuery) {
             //Busca simples
-
-                for (Busca b : searchFragment.results) {
-                    //Busca por titulo e descrição
-                    b.mostrar = b.titulo.toLowerCase().contains(searchQuery.toLowerCase()) || b.descricao.toLowerCase().contains(searchQuery.toLowerCase());
-                }
-                searchFragment.setRealizouBusca(true);
-
-                for (Servico s : serviceFragment.results) {
-                    //Busca por titulo e descrição
-                    s.mostrar = s.titulo.toLowerCase().contains(searchQuery.toLowerCase()) || s.descricao.toLowerCase().contains(searchQuery.toLowerCase());
-                }
-                serviceFragment.setRealizouBusca(true);
-
-                refreshLista();
+                buscaSimples = searchQuery;
+                busca();
                 return true;
             }
         });
@@ -318,6 +348,65 @@ public class MainActivity extends AppCompatActivity{
 
         //getMenuInflater().inflate(R.menu.main, menu);
         //return true;
+    }
+
+    private void busca() {
+        ApiModels api = new ApiModels();
+        for (Busca b : searchFragment.results) {
+            //Busca por titulo e descrição
+            b.mostrar = b.titulo.toLowerCase().contains(buscaSimples.toLowerCase())
+                    || b.descricao.toLowerCase().contains(buscaSimples.toLowerCase());
+
+            if (!"Todos".equals(categoriaBuscaAvancada) && b.mostrar){
+                //TODO - Busca avançada por categoria
+//                ArrayList<Categoria> categorias = api.getCategorias();
+//                int idCategoria = 0;
+//                for (Categoria c: categorias) {
+//                    if (c.descricao.equals(categoriaBuscaAvancada)) {
+//                        idCategoria = c.idCategoria;
+//                        break;
+//                    }
+//                }
+//                SubCategoria[] subCategorias = api.getSubCategoriasVetorByIdCategoria(idCategoria);
+//                boolean subcategoriaExiste = false;
+//                for (int i = 0; i< subCategorias.length; i++)
+//                    if (subCategorias[i].idSubCategoria == b.idSubCategoria){
+//                        subcategoriaExiste = true;
+//                        break;
+//                    }
+//                b.mostrar = b.mostrar && subcategoriaExiste;
+            }
+
+            if (!"Todos".equals(dddBuscaAvancada)){
+                b.mostrar = b.mostrar && b.idDDD == idDDDBuscaAvancada;
+            }
+
+            if (!"Todos".equals(subcategoriaBuscaAvancada)){
+                b.mostrar = b.mostrar && b.idSubCategoria == idSubCategoriaBuscaAvancada;
+            }
+        }
+        searchFragment.setRealizouBusca(true);
+
+        for (Servico s : serviceFragment.results) {
+            //Busca por titulo e descrição
+            s.mostrar = s.titulo.toLowerCase().contains(buscaSimples.toLowerCase()) || s.descricao.toLowerCase().contains(buscaSimples.toLowerCase());
+
+            if (!"Todos".equals(categoriaBuscaAvancada) && s.mostrar){
+                //TODO - Busca avançada por categoria
+                //s.mostrar = s.mostrar && SUBCATEGORIASDACATEGORIA(idcategoriaBuscaAvancada).Contains(s.idSubcategoria)
+            }
+
+            if (!"Todos".equals(dddBuscaAvancada)){
+                s.mostrar = s.mostrar && s.idDDD == idDDDBuscaAvancada;
+            }
+
+            if (!"Todos".equals(subcategoriaBuscaAvancada)){
+                s.mostrar = s.mostrar && s.idSubCategoria == idSubCategoriaBuscaAvancada;
+            }
+        }
+        serviceFragment.setRealizouBusca(true);
+
+        refreshLista();
     }
 
     private void refreshLista() {
@@ -395,6 +484,6 @@ public class MainActivity extends AppCompatActivity{
 
     public void onCheckboxClicked(View view) {
         //CheckBox do Busca Avançada
-        dialog.onCheckboxClicked(view);
+        //dialog.onCheckboxClicked(view);
     }
 }

@@ -46,7 +46,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -136,7 +137,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -174,7 +176,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -209,6 +212,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -247,6 +252,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -282,6 +289,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -319,8 +328,6 @@ public class ApiModels implements Runnable{
             if (jSonArray == null)
                 thread.sleep(500);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
-
-
             busca.idBusca = jSonObject.getInt("idBusca");
             busca.titulo = jSonObject.getString("titulo");
             busca.descricao = jSonObject.getString("descricao");
@@ -353,7 +360,8 @@ public class ApiModels implements Runnable{
             controlaThread();
             thread.interrupt();
             vetorCategorias= new Categoria[jSonArray.length()];
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -362,6 +370,39 @@ public class ApiModels implements Runnable{
                 categoria.idCategoria = jSonObject.getInt("idCategoria");
                 categoria.descricao = jSonObject.getString("descricao");
                 vetorCategorias[i] = categoria;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return vetorCategorias;
+    }
+
+    final public ArrayList<Categoria> getCategoriasVetorComValorDefault() {
+
+        ArrayList<Categoria> vetorCategorias = new ArrayList<Categoria>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Categoria/gettbCategorias";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            Categoria categoria1 = new Categoria();
+            categoria1.descricao = "Todos";
+            categoria1.idCategoria= 0;
+            vetorCategorias.add(categoria1);
+            if (jSonArray == null)
+                thread.sleep(500);
+            for (int i = 0; i < jSonArray.length();i++){
+                if (jSonArray == null)
+                    thread.sleep(500);
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Categoria categoria = new Categoria();
+                categoria.idCategoria = jSonObject.getInt("idCategoria");
+                categoria.descricao = jSonObject.getString("descricao");
+                vetorCategorias.add(categoria);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -381,7 +422,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -428,7 +470,42 @@ public class ApiModels implements Runnable{
     /* ---------------------------------- MÉTODOS DE SUBCATEGORIAS ----------------------------------- */
 
 
-    //Retorna todas os DDDs como vetor
+    //Retorna todas as subcategorias como vetor
+    final public ArrayList<SubCategoria> getSubCategoriasVetorByIdCategoriaComValorDefault(int idCategoria) {
+        ArrayList<SubCategoria> vetorSubCategorias = new ArrayList<SubCategoria>();
+
+        try{
+            SubCategoria subCategoria1 = new SubCategoria();
+            subCategoria1.descricao = "Todos";
+            vetorSubCategorias.add(subCategoria1);
+            if(idCategoria != 0) {
+                urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/SubCategoria/GetSubCategoriaByCategoria/?idCategoria=" + idCategoria;
+
+                Thread thread = new Thread(this);
+                thread.start();
+                controlaThread();
+                thread.interrupt();
+                if (jSonArray == null)
+                    thread.sleep(500);
+                for (int i = 0; i < jSonArray.length(); i++) {
+                    if (jSonArray == null)
+                        thread.sleep(500);
+                    JSONObject jSonObject = jSonArray.getJSONObject(i);
+                    SubCategoria subCategoria = new SubCategoria();
+                    subCategoria.idCategoria = jSonObject.getInt("idCategoria");
+                    subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
+                    subCategoria.descricao = jSonObject.getString("descricao");
+                    vetorSubCategorias.add(subCategoria);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return vetorSubCategorias;
+    }
+
+    //Retorna todas as subcategorias como vetor
     final public SubCategoria[] getSubCategoriasVetorByIdCategoria(int idCategoria) {
 
         SubCategoria[] vetorSubCategorias= null;
@@ -441,10 +518,11 @@ public class ApiModels implements Runnable{
             controlaThread();
             thread.interrupt();
             vetorSubCategorias = new SubCategoria[jSonArray.length()];
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
-                    thread.sleep(500);
+                    thread.sleep(1000);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 SubCategoria subCategoria = new SubCategoria();
                 subCategoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -472,7 +550,8 @@ public class ApiModels implements Runnable{
             controlaThread();
             thread.interrupt();
             vetorSubCategorias = new SubCategoria[jSonArray.length()];
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -502,10 +581,11 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(1000);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
-                    thread.sleep(500);
+                    thread.sleep(1000);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 SubCategoria subCategoria = new SubCategoria();
                 subCategoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -563,7 +643,8 @@ public class ApiModels implements Runnable{
             controlaThread();
             thread.interrupt();
             vetorDDDs= new DDD[jSonArray.length()];
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -573,6 +654,38 @@ public class ApiModels implements Runnable{
                 ddd.codDDD = jSonObject.getString("codDDD");
                 ddd.descricao = jSonObject.getString("descricao");
                 vetorDDDs[i] = ddd;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return vetorDDDs;
+    }
+
+    final public ArrayList<DDD> getDDDsVetorComValorDefault() {
+        ArrayList<DDD> vetorDDDs = new ArrayList<DDD>();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/DDD/gettbDDDs";
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            DDD ddd1 = new DDD();
+            ddd1.descricao = "Todos";
+            vetorDDDs.add(ddd1);
+            if (jSonArray == null)
+                thread.sleep(500);
+            for (int i = 0; i < jSonArray.length();i++){
+                if (jSonArray == null)
+                    thread.sleep(500);
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                DDD ddd = new DDD();
+                ddd.id = jSonObject.getInt("idDDD");
+                ddd.codDDD = jSonObject.getString("codDDD");
+                ddd.descricao = jSonObject.getString("descricao");
+                vetorDDDs.add(ddd);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -593,10 +706,11 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(1000);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
-                    thread.sleep(500);
+                    thread.sleep(1000);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 DDD ddd = new DDD();
                 ddd.id = jSonObject.getInt("idDDD");
@@ -710,7 +824,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -768,6 +883,8 @@ public class ApiModels implements Runnable{
             if (jSonArray == null)
                 thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
+                if (jSonArray == null)
+                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Chat chat = new Chat();
                 chat.setId(jSonObject.getInt("ID"));
@@ -873,6 +990,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -909,7 +1028,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -947,6 +1067,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
@@ -983,7 +1105,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
+            if (jSonArray == null)
+                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
                 if (jSonArray == null)
                     thread.sleep(500);
