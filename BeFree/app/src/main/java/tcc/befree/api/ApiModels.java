@@ -1132,4 +1132,13 @@ public class ApiModels implements Runnable{
         jSonArray = null;
         return arrayServicos;
     }
+
+    public ArrayList<Integer> getSubCategoriasDaCategoria(int idcategoriaBuscaAvancada) {
+        ArrayList<Integer> result = new ArrayList<>();
+        for (SubCategoria c : getSubCategorias()) {
+            if (c.idCategoria == idcategoriaBuscaAvancada)
+                result.add(c.idCategoria);
+        };
+        return result;
+    }
 }

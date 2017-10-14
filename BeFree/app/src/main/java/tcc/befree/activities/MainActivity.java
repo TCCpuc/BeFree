@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity{
     private int currentPage;
     private String categoriaBuscaAvancada = "Todos";
     private int idcategoriaBuscaAvancada = 0;
+    ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
     private String dddBuscaAvancada = "Todos";
     private int idDDDBuscaAvancada = 0;
     private String subcategoriaBuscaAvancada = "Todos";
@@ -88,6 +89,16 @@ public class MainActivity extends AppCompatActivity{
                         categoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_categoria_spinner)).getSelectedItem().toString();
                         subcategoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_sub_categoria_spinner)).getSelectedItem().toString();
                         dddBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_ddd_spinner)).getSelectedItem().toString();
+
+                        ArrayList<Categoria> categorias = api.getCategorias();
+                        for (Categoria c: categorias) {
+                            if (c.descricao.equals(categoriaBuscaAvancada)) {
+                                idcategoriaBuscaAvancada = c.idCategoria;
+                                break;
+                            }
+                        }
+
+                        subCategoriasDaCategoria = api.getSubCategoriasDaCategoria(idcategoriaBuscaAvancada);
 
                         ArrayList<DDD> ddds = api.getDDDs();
                         for (DDD ddd: ddds) {
@@ -358,7 +369,7 @@ public class MainActivity extends AppCompatActivity{
                     || b.descricao.toLowerCase().contains(buscaSimples.toLowerCase());
 
             if (!"Todos".equals(categoriaBuscaAvancada) && b.mostrar){
-                //TODO - Busca avançada por categoria
+                b.mostrar = b.mostrar && subCategoriasDaCategoria.contains(b.idSubCategoria);
 //                ArrayList<Categoria> categorias = api.getCategorias();
 //                int idCategoria = 0;
 //                for (Categoria c: categorias) {
@@ -392,8 +403,7 @@ public class MainActivity extends AppCompatActivity{
             s.mostrar = s.titulo.toLowerCase().contains(buscaSimples.toLowerCase()) || s.descricao.toLowerCase().contains(buscaSimples.toLowerCase());
 
             if (!"Todos".equals(categoriaBuscaAvancada) && s.mostrar){
-                //TODO - Busca avançada por categoria
-                //s.mostrar = s.mostrar && SUBCATEGORIASDACATEGORIA(idcategoriaBuscaAvancada).Contains(s.idSubcategoria)
+                s.mostrar = s.mostrar && subCategoriasDaCategoria.contains(s.idSubCategoria);
             }
 
             if (!"Todos".equals(dddBuscaAvancada)){
