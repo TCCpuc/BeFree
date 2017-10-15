@@ -6,39 +6,41 @@
     android:layout_height="match_parent"
     tools:context="tcc.befree.activities.UserPerfilActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:textAlignment="center"
-            android:title="Minha Conta"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toolbar Title"
+            android:layout_gravity="center"
+            android:id="@+id/user_perfil_title" />
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <tcc.befree.models.CircleImageView
-            android:id="@+id/user_perfil_photo"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_plus"
-            android:visibility="visible"
-            app:civ_border_color="@color/dark_gray"
-            app:civ_border_width="1dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="66dp" />
+        android:layout_height="155dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/user_perfil_edit_data"
@@ -46,13 +48,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Editar Dados"
+            android:maxLines="1"
             android:textColor="@color/colorPrimaryDark"
-            android:layout_marginBottom="20dp"
-            android:layout_alignBottom="@+id/user_perfil_photo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp" />
+            android:gravity="center"
+            android:layout_marginLeft="6dp"/>
+
+        <tcc.befree.models.CircleImageView
+            android:id="@+id/user_perfil_photo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_plus"
+            android:gravity="top"
+            android:visibility="visible"
+            android:layout_margin="10dp"
+            app:civ_border_color="@color/dark_gray"
+            app:civ_border_width="1dp"/>
 
         <Button
             android:id="@+id/user_perfil_edit_password"
@@ -60,20 +71,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Editar Senha"
+            android:maxLines="1"
             android:textColor="@color/colorPrimaryDark"
-            android:layout_alignBaseline="@+id/user_perfil_edit_data"
-            android:layout_alignBottom="@+id/user_perfil_edit_data"
-            android:layout_toRightOf="@+id/user_perfil_photo"
-            android:layout_toEndOf="@+id/user_perfil_photo"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp" />
+            android:gravity="center"
+            android:layout_marginRight="6dp"/>
+
+        </LinearLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/user_perfil_edit_data"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -85,25 +94,54 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_margin="@dimen/card_margin">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="Nome de Usuario"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/user_perfil_username"
-                            android:editable="false"
-                            android:text="Admin" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_username"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="text"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="Admin"
+                            android:maxLines="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_username_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -112,6 +150,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -119,20 +158,49 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Email"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="admin@gmail.com" />
+                        <EditText
+                            android:id="@+id/user_perfil_email"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textEmailAddress"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="admin@gmail.com"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_email_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -141,6 +209,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -148,7 +217,8 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -156,12 +226,41 @@
                             android:text="CPF"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_cpf"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="23467887645" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_cpf"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="23467887645"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_cpf_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -170,6 +269,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -177,20 +277,50 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="CIDADE"
+                            android:text="Cidade"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_cidade"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="Campinas" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_cidade"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textPersonName"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="Campinas"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_cidade_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -199,6 +329,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -206,20 +337,50 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="ESTADO"
+                            android:text="Estado"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_estado"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="SP" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_estado"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textShortMessage"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="SP"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_estado_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -229,6 +390,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -236,20 +398,50 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="BAIRRO"
+                            android:text="Bairro"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_bairro"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="Aparecida" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_bairro"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textShortMessage"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="Vila Brandina"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_bairro_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -258,6 +450,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -265,20 +458,50 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="LOGRADOURO"
+                            android:text="Logradouro"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_logradouro"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="Aparecida" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_logradouro"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="textShortMessage"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="Rua Santa Bela"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_logradouro_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -287,6 +510,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -294,20 +518,50 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="NUMERO"
+                            android:text="Numero"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_numero"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="Aparecida" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_numero"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="1765"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_numero_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -316,6 +570,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -323,7 +578,8 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -331,12 +587,41 @@
                             android:text="CEP"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_cep"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="Aparecida" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_cep"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="13087-000"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_cep_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -345,6 +630,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -352,20 +638,50 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="DATA NASCIMENTO"
+                            android:text="Data Nascimento"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_nascimento"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="Aparecida" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_nascimento"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="date"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="13/09/1991"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_nascimento_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -374,6 +690,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -381,7 +698,8 @@
                     <LinearLayout
                         style="@style/Widget.CardContent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -389,12 +707,42 @@
                             android:text="DDD"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                        <TextView
-                            android:layout_below="@+id/user_perfil_ddd"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:editable="false"
-                            android:text="Aparecida" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <EditText
+                            android:id="@+id/user_perfil_ddd"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:ellipsize="start"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:hint="19"
+                            android:maxLines="1"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"/>
+
+                        <ImageButton
+                            android:id="@+id/user_perfil_ddd_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:visibility="gone"
+                            android:src="@android:drawable/ic_menu_manage"/>
+                    </LinearLayout>
 
                     </LinearLayout>
 
@@ -404,7 +752,7 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

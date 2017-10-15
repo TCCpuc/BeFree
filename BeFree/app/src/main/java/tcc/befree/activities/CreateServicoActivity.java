@@ -128,10 +128,12 @@ public class CreateServicoActivity extends AppCompatActivity {
                     novaServico.idDDD = ((DDD)spinnerDDDs.getSelectedItem()).id;
                     novaServico.idSubCategoria = idSubCategoria;
                     novaServico.idUsuario = idUsuario;
-                    novaServico.imagemServico = Utils.convert(bitmapUsuarioPerfil);
-
+                    try {
+                        novaServico.imagemServico = Utils.convert(bitmapUsuarioPerfil);
+                    }catch(Exception e){
+                        novaServico.imagemServico = "";
+                    }
                     new PostApiModels().postServico(novaServico);
-
                     Toast toast = Toast.makeText(getApplicationContext(), "Servico criado com sucesso!", Toast.LENGTH_LONG);
                     toast.show();
                     CreateServicoActivity.super.onBackPressed();

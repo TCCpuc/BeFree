@@ -8,9 +8,10 @@ public class DDD {
     public int id;
     public String codDDD;
     public String descricao;
-
     @Override
     public String toString(){
-        return codDDD + " - " + descricao;
+        if (descricao!="Todos")
+            return codDDD + " - " + descricao;
+        return descricao;
+        }
     }
-}
