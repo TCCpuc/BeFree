@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity{
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent it = this.getIntent();
-        Bundle teste = it.getExtras();
-        String x [] = teste.getString("arrayUsuario").split("%");
+        Bundle loginActivityIntent = it.getExtras();
+        String x [] = loginActivityIntent.getString("arrayUsuario").split("%");
         usuario = new Usuarios();
         usuario.idUsuario = Integer.parseInt(x[0]);
         usuario.nomeUsuario = x[1];
@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity{
         usuario.email = x[9];
         usuario.ddd = Integer.parseInt(x[10]);
         usuario.imagemPerfil = x[11];
+        usuario.senha = x[12];
         //usuario.dataNascimento = Date.parse(x[10]);
         //usuario.dataCadastro = x[11].toDate;
 
@@ -242,6 +243,8 @@ public class MainActivity extends AppCompatActivity{
                         } else if (id == R.id.menu_perfil) {
                             // ABRIR MEU PERFIL
                             Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
+
+                            intent.putExtra("arrayUsuario", usuario.toString());
 
                             startActivity(intent);
 

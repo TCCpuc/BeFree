@@ -26,6 +26,6 @@ public class Usuarios {
 
     @Override
     public String toString() {
-        return idUsuario + "%" + nomeUsuario + "%" + cpf + "%" + idCidade + "%" + idEstado + "%" + bairro + "%" + logradouro + "%" + numero + "%" + cep + "%" + email + "%" + ddd + "%" + imagemPerfil;
+        return idUsuario + "%" + nomeUsuario + "%" + cpf + "%" + idCidade + "%" + idEstado + "%" + bairro + "%" + logradouro + "%" + numero + "%" + cep + "%" + email + "%" + ddd + "%" + imagemPerfil + "%" + senha;
     }
 }
