@@ -1,0 +1,14 @@
+/* your styles go here */
+
+nav.side-navbar {
+  height: 800px;
+  background: #fff;
+  min-width: 250px;
+  max-width: 250px;
+  color: #686a76;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  /*==== Sidebar Header ====*/
+  /*==== Sidebar Menu ====*/
+  /*==== Shrinked Sidebar ====*/
+}
