@@ -71,10 +71,13 @@ public class EditUserPassword extends Dialog {
                         menssagem.setText("Senha incorreta");
                 }else {
                     if(password.getText().toString().equals(password2.getText().toString())){
-                        //ATUALIZA NO BANCO
-                        Toast ntoast = Toast.makeText(c,"Senha alterada com sucesso!!", Toast.LENGTH_SHORT);
-                        ntoast.show();
-                        dismiss();
+                        if(password.getText().length()<5) menssagem.setText("Senha muito curta");
+                        else {
+                            //ATUALIZA NO BANCO
+                            Toast ntoast = Toast.makeText(c,"Senha alterada com sucesso!!", Toast.LENGTH_SHORT);
+                            ntoast.show();
+                            dismiss();
+                        }
                     }else
                         menssagem.setText("Senha diferente");
                 }
