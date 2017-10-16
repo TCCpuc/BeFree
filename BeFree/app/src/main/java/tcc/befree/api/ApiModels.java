@@ -113,7 +113,7 @@ public class ApiModels implements Runnable{
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             usuario.idUsuario = jSonObject.getInt("idUsuario");
             usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
-            usuario.cpf = jSonObject.getInt("cpf");
+            usuario.cpf = jSonObject.getString("cpf");
             usuario.idCidade = jSonObject.getInt("idCidade");
             usuario.idEstado = jSonObject.getInt("idEstado");
             if(jSonObject.getString("bairro") != "null"){

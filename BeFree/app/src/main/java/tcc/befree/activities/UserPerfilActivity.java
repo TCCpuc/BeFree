@@ -80,7 +80,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         usuario = new Usuarios();
         usuario.idUsuario = Integer.parseInt(x[0]);
         usuario.nomeUsuario = x[1];
-        usuario.cpf = Integer.parseInt(x[2]);
+        usuario.cpf = x[2];
         usuario.idCidade = Integer.parseInt(x[3]);
         usuario.idEstado = Integer.parseInt(x[4]);
         usuario.bairro = x[5];

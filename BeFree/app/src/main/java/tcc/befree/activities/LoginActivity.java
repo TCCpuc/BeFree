@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                 Usuarios usuarioFacebook = new Usuarios();
 
                 usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + currentProfile.getLastName();
-                usuarioFacebook.cpf = 0;
+                usuarioFacebook.cpf = "";
                 usuarioFacebook.email = currentProfile.getId();
                 usuarioFacebook.senha = " ";
                 Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);

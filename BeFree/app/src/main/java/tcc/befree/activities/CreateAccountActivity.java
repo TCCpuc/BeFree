@@ -124,7 +124,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     Usuarios novoUsuario = new Usuarios();
 
                     novoUsuario.nomeUsuario = edtNome.getText().toString();
-                    novoUsuario.cpf = Integer.parseInt(edtCpf.getText().toString());
+                    novoUsuario.cpf = edtCpf.getText().toString();
                     novoUsuario.email = edtEmail.getText().toString();
                     novoUsuario.senha = edtSenha.getText().toString();
                     try {
