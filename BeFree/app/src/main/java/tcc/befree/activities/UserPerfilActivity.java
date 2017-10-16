@@ -28,6 +28,8 @@ import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
+import tcc.befree.models.Usuarios;
+import tcc.befree.telas.Dialog.EditUserPassword;
 import tcc.befree.telas.Dialog.InsertImageDialog;
 
 public class UserPerfilActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,25 +45,26 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
     private ImageButton emailButton;
     private EditText cpf;
     private ImageButton cpfButton;
-    private EditText cidade;
-    private ImageButton cidadeButton;
-    private EditText estado;
-    private ImageButton estadoButton;
-    private EditText bairro;
-    private ImageButton bairroButton;
-    private EditText logradouro;
-    private ImageButton logradouroButton;
-    private EditText numero;
-    private ImageButton numeroButton;
-    private EditText cep;
-    private ImageButton cepButton;
-    private EditText nascimento;
-    private ImageButton nascimentoButton;
+    //private EditText cidade;
+    //private ImageButton cidadeButton;
+    //private EditText estado;
+    //private ImageButton estadoButton;
+    //private EditText bairro;
+    //private ImageButton bairroButton;
+    //private EditText logradouro;
+    //private ImageButton logradouroButton;
+    //private EditText numero;
+    //private ImageButton numeroButton;
+    //private EditText cep;
+    //private ImageButton cepButton;
+    //private EditText nascimento;
+    //private ImageButton nascimentoButton;
     private EditText ddd;
     private ImageButton dddButton;
     private TextView titulo;
     private static final int SELECT_FILE1 = 100;
     private Bitmap bitmapUsuarioPerfil;
+    private Usuarios usuario;
 
 
     @Override
@@ -69,35 +72,66 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_perfil);
 
+        //Recebendo Atributos do Usuario
+        usuario = new Usuarios();
+        Intent it = this.getIntent();
+        Bundle mainActivityIntent = it.getExtras();
+        String x [] = mainActivityIntent.getString("arrayUsuario").split("%");
+        usuario = new Usuarios();
+        usuario.idUsuario = Integer.parseInt(x[0]);
+        usuario.nomeUsuario = x[1];
+        usuario.cpf = Integer.parseInt(x[2]);
+        usuario.idCidade = Integer.parseInt(x[3]);
+        usuario.idEstado = Integer.parseInt(x[4]);
+        usuario.bairro = x[5];
+        usuario.logradouro = x[6];
+        usuario.numero = Integer.parseInt(x[7]);
+        usuario.cep = Integer.parseInt(x[8]);
+        usuario.email = x[9];
+        usuario.ddd = Integer.parseInt(x[10]);
+        usuario.imagemPerfil = x[11];
+        usuario.senha = x[12];
+        //------------------------------
+
         photo = (CircleImageView)findViewById(R.id.user_perfil_photo);
+        Picasso.with(this).load(usuario.imagemPerfil).into(photo);
         edit_dados = (Button) findViewById(R.id.user_perfil_edit_data);
         edit_dados_val = false;
         edit_password = (Button) findViewById(R.id.user_perfil_edit_password);
         username = (EditText) findViewById(R.id.user_perfil_username);
+        username.setText(usuario.nomeUsuario);
         usernameButton = (ImageButton) findViewById(R.id.user_perfil_username_button);
         email = (EditText) findViewById(R.id.user_perfil_email);
+        email.setText(usuario.email);
         emailButton = (ImageButton) findViewById(R.id.user_perfil_email_button);
         cpf = (EditText) findViewById(R.id.user_perfil_cpf);
+        cpf.setText("" + usuario.cpf);
         cpfButton = (ImageButton) findViewById(R.id.user_perfil_cpf_button);
-        cidade = (EditText) findViewById(R.id.user_perfil_cidade);
+        /*cidade = (EditText) findViewById(R.id.user_perfil_cidade);
+        cidade.setText("" + usuario.idCidade);
         cidadeButton = (ImageButton) findViewById(R.id.user_perfil_cidade_button);
         estado = (EditText) findViewById(R.id.user_perfil_estado);
+        estado.setText("" + usuario.idEstado);
         estadoButton = (ImageButton) findViewById(R.id.user_perfil_estado_button);
         bairro = (EditText) findViewById(R.id.user_perfil_bairro);
+        bairro.setText(usuario.bairro);
         bairroButton = (ImageButton) findViewById(R.id.user_perfil_bairro_button);
         logradouro = (EditText) findViewById(R.id.user_perfil_logradouro);
+        logradouro.setText(usuario.logradouro);
         logradouroButton = (ImageButton) findViewById(R.id.user_perfil_logradouro_button);
         numero = (EditText) findViewById(R.id.user_perfil_numero);
+        numero.setText("" + usuario.numero);
         numeroButton = (ImageButton) findViewById(R.id.user_perfil_numero_button);
         cep = (EditText) findViewById(R.id.user_perfil_cep);
+        cep.setText("" + usuario.cep);
         cepButton = (ImageButton) findViewById(R.id.user_perfil_cep_button);
         nascimento = (EditText) findViewById(R.id.user_perfil_nascimento);
-        nascimentoButton = (ImageButton) findViewById(R.id.user_perfil_nascimento_button);
+        nascimentoButton = (ImageButton) findViewById(R.id.user_perfil_nascimento_button);*/
         ddd = (EditText) findViewById(R.id.user_perfil_ddd);
+        ddd.setText("" + usuario.ddd);
         dddButton = (ImageButton) findViewById(R.id.user_perfil_ddd_button);
         titulo = (TextView) findViewById(R.id.user_perfil_title);
-
-        titulo.setText("[NOME DO USUARIO]");
+        titulo.setText(usuario.nomeUsuario);
 
         edit_dados.setOnClickListener(this);
         photo.setOnClickListener(this);
@@ -105,13 +139,13 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         usernameButton.setOnClickListener(this);
         emailButton.setOnClickListener(this);
         cpfButton.setOnClickListener(this);
-        cidadeButton.setOnClickListener(this);
+        /*cidadeButton.setOnClickListener(this);
         estadoButton.setOnClickListener(this);
         bairroButton.setOnClickListener(this);
         logradouroButton.setOnClickListener(this);
         numeroButton.setOnClickListener(this);
-        cepButton.setOnClickListener(this);
-        nascimentoButton.setOnClickListener(this);
+        cepButton.setOnClickListener(this);*/
+        //nascimentoButton.setOnClickListener(this);
         dddButton.setOnClickListener(this);
 
 
@@ -126,29 +160,39 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                 if(edit_dados_val) {
                     edit_dados.setText("Editar Dados");
                     usernameButton.setVisibility(View.GONE);
+                    username.setBackgroundColor(Color.WHITE);
                     emailButton.setVisibility(View.GONE);
+                    email.setBackgroundColor(Color.WHITE);
                     cpfButton.setVisibility(View.GONE);
-                    cidadeButton.setVisibility(View.GONE);
+                    cpf.setBackgroundColor(Color.WHITE);
+                    /*cidadeButton.setVisibility(View.GONE);
+                    cidade.setBackgroundColor(Color.WHITE);
                     estadoButton.setVisibility(View.GONE);
+                    estado.setBackgroundColor(Color.WHITE);
                     bairroButton.setVisibility(View.GONE);
+                    bairro.setBackgroundColor(Color.WHITE);
                     logradouroButton.setVisibility(View.GONE);
+                    logradouro.setBackgroundColor(Color.WHITE);
                     numeroButton.setVisibility(View.GONE);
+                    numero.setBackgroundColor(Color.WHITE);
                     cepButton.setVisibility(View.GONE);
-                    nascimentoButton.setVisibility(View.GONE);
+                    cep.setBackgroundColor(Color.WHITE);*/
+                    //nascimentoButton.setVisibility(View.GONE);
                     dddButton.setVisibility(View.GONE);
+                    ddd.setBackgroundColor(Color.WHITE);
                     edit_dados_val = false;
                 }else {
                     edit_dados.setText("Confirmar");
                     usernameButton.setVisibility(View.VISIBLE);
                     emailButton.setVisibility(View.VISIBLE);
                     cpfButton.setVisibility(View.VISIBLE);
-                    cidadeButton.setVisibility(View.VISIBLE);
+                    /*cidadeButton.setVisibility(View.VISIBLE);
                     estadoButton.setVisibility(View.VISIBLE);
                     bairroButton.setVisibility(View.VISIBLE);
                     logradouroButton.setVisibility(View.VISIBLE);
                     numeroButton.setVisibility(View.VISIBLE);
-                    cepButton.setVisibility(View.VISIBLE);
-                    nascimentoButton.setVisibility(View.VISIBLE);
+                    cepButton.setVisibility(View.VISIBLE);*/
+                    //nascimentoButton.setVisibility(View.VISIBLE);
                     dddButton.setVisibility(View.VISIBLE);
                     edit_dados_val = true;
                 }
@@ -158,29 +202,34 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                 image.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 image.show();
                 break;
-            case R.id.user_perfil_bairro_button:
+            /*case R.id.user_perfil_bairro_button:
                 bairro.setFocusableInTouchMode(true);
                 bairro.setFocusable(true);
                 imm.showSoftInput(bairro, InputMethodManager.SHOW_IMPLICIT);
                 bairro.setBackgroundColor(Color.RED);
                 bairro.requestFocus();
+                break;*/
             case R.id.user_perfil_username_button:
-                toast.show();
+                username.setFocusableInTouchMode(true);
+                username.setFocusable(true);
+                imm.showSoftInput(username, InputMethodManager.SHOW_IMPLICIT);
+                username.setBackgroundColor(Color.RED);
+                username.requestFocus();
                 break;
-            case R.id.user_perfil_cep_button:
+            /*ase R.id.user_perfil_cep_button:
                 cep.setFocusableInTouchMode(true);
                 cep.setFocusable(true);
                 imm.showSoftInput(cep, InputMethodManager.SHOW_IMPLICIT);
                 cep.setBackgroundColor(Color.RED);
                 cep.requestFocus();
-                break;
-            case R.id.user_perfil_cidade_button:
+                break;*/
+            /*case R.id.user_perfil_cidade_button:
                 cidade.setFocusableInTouchMode(true);
                 cidade.setFocusable(true);
                 imm.showSoftInput(cidade, InputMethodManager.SHOW_IMPLICIT);
                 cidade.setBackgroundColor(Color.RED);
                 cidade.requestFocus();
-                break;
+                break;*/
             case R.id.user_perfil_cpf_button:
                 toast.show();
                 break;
@@ -194,7 +243,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
             case R.id.user_perfil_email_button:
                 toast.show();
                 break;
-            case R.id.user_perfil_estado_button:
+            /*case R.id.user_perfil_estado_button:
                 estado.setFocusableInTouchMode(true);
                 estado.setFocusable(true);
                 imm.showSoftInput(estado, InputMethodManager.SHOW_IMPLICIT);
@@ -214,6 +263,11 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                 imm.showSoftInput(nascimento, InputMethodManager.SHOW_IMPLICIT);
                 nascimento.setBackgroundColor(Color.RED);
                 nascimento.requestFocus();
+                break;*/
+            case R.id.user_perfil_edit_password:
+                EditUserPassword dialog = new EditUserPassword(this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
                 break;
             default:
                 break;
