@@ -291,8 +291,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center">
-
-                        <EditText
+                        <Spinner
+                            android:id="@+id/user_perfil_ddd"
+                            android:layout_gravity="right"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_horizontal"/>
+                        <!--EditText
                             android:id="@+id/user_perfil_ddd"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
@@ -309,7 +317,7 @@
                             android:clickable="false"
                             android:cursorVisible="false"
                             android:focusable="false"
-                            android:focusableInTouchMode="false"/>
+                            android:focusableInTouchMode="false"/-->
 
                         <ImageButton
                             android:id="@+id/user_perfil_ddd_button"
