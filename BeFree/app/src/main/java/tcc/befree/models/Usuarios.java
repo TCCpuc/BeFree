@@ -9,7 +9,7 @@ import java.util.Date;
 public class Usuarios {
     public int idUsuario ;
     public String nomeUsuario;
-    public int cpf ;
+    public String cpf ;
     public int idCidade ;
     public int idEstado ;
     public String bairro ;

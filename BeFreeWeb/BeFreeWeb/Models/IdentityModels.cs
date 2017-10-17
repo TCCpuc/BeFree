@@ -29,5 +29,7 @@ namespace BeFreeWeb.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<BeFreeWeb.Models.Usuario> Usuarios { get; set; }
     }
 }
