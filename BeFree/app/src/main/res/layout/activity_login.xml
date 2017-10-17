@@ -16,17 +16,18 @@
         android:id="@+id/header_icon"
         android:layout_width="@dimen/image_header_dimen"
         android:layout_height="@dimen/image_header_dimen"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/image_header_top_margin"
-        android:src="@mipmap/befree_logo_icone" />
+        android:src="@mipmap/befree_logo_icone"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:id="@+id/newLogin_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/header_icon">
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +36,10 @@
             android:paddingLeft="@dimen/login_layout_padding"
             android:paddingRight="@dimen/login_layout_padding"
             android:paddingTop="@dimen/login_layout_padding_top"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -48,9 +52,9 @@
                     android:id="@+id/username_edit_text"
                     style="@style/RegistrationEditTextStyle"
                     android:layout_gravity="center_horizontal"
-                    android:nextFocusDown="@+id/password_edit_text"
                     android:hint="Username"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress"
+                    android:nextFocusDown="@+id/password_edit_text" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -111,39 +115,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_below="@+id/circle_login_progress"
+                    android:layout_above="@+id/sign_in_button"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="13dp" />
+                    android:layout_marginBottom="16dp" />
 
-                <!--
-                <ImageButton
-                    android:id="@+id/btnFacebook"
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/sign_in_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="43dp"
-                    android:layout_marginStart="43dp"
-                    android:background="@color/colorPrimary"
-                    android:tint="@color/white"
-                    app:srcCompat="@drawable/facebook_logo"
-                    android:layout_alignTop="@+id/btnGmail"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_centerVertical="true"
+                    android:layout_alignLeft="@+id/login_facebook_button"
+                    android:layout_alignStart="@+id/login_facebook_button"
+                    android:layout_alignRight="@+id/login_facebook_button"
+                    android:layout_alignEnd="@+id/login_facebook_button" />
 
-                <ImageButton
-                    android:id="@+id/btnGmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="39dp"
-                    android:layout_marginRight="39dp"
-                    android:layout_marginTop="25dp"
-                    android:background="@color/colorPrimary"
-                    android:tint="@color/white"
-                    app:srcCompat="@drawable/google_logo"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-                -->
                 <ProgressBar
                     android:id="@+id/circle_login_progress"
                     style="?android:attr/progressBarStyleLarge"
