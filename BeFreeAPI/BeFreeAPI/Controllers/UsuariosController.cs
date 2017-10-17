@@ -185,6 +185,29 @@ namespace BeFreeAPI.Controllers
         }
 
         [HttpGet]
+        public IHttpActionResult ValidarCodigo(String codigo)
+        {
+
+            IQueryable <Usuario> usuario = null;
+
+            try
+            {
+
+                usuario = db.tbUsuarios.Where(u => u.codigoSeguranca == codigo);
+                if (usuario == null)
+                    return NotFound();
+
+            }
+            catch (Exception err)
+            {
+
+                return NotFound();
+            }
+
+            return Ok(usuario);
+        }
+
+        [HttpGet]
         public IHttpActionResult RecuperarSenha(String email)
         {
 
