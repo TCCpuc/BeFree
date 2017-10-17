@@ -1,7 +1,5 @@
 package tcc.befree.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -18,25 +16,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
-import tcc.befree.api.PostApiModels;
+import tcc.befree.models.Busca;
 import tcc.befree.models.Categoria;
-import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
-import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
-import tcc.befree.utils.Utils;
 
 /**
- * Created by guilherme.leme on 10/16/17.
+ * Created by guilherme.leme on 10/17/17.
  */
 
-public class EditServicoActivity extends AppCompatActivity {
+public class EditBuscaActivity extends AppCompatActivity {
 
     protected Spinner spinnerDDDs;
     protected Spinner spinnerCategorias;
@@ -50,28 +44,28 @@ public class EditServicoActivity extends AppCompatActivity {
     private ImageView photo;
     private static final int SELECT_FILE1 = 100;
     private Bitmap bitmapUsuarioPerfil;
-    private int idServico;
-    private Servico servico;
+    private int idBusca;
+    private Busca busca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_servico);
+        setContentView(R.layout.activity_create_busca);
 
         Intent it = this.getIntent();
         Bundle loginActivityIntent = it.getExtras();
-        idServico = loginActivityIntent.getInt("idServico");
+        idBusca = loginActivityIntent.getInt("idBusca");
         ApiModels api = new ApiModels();
-        servico = api.getServicosById(idServico);
+        busca = api.getBuscaByID(idBusca);
 
-        spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
-        photo = (ImageView) findViewById(R.id.create_servico_unounce_photo);
-        viewNome = findViewById(R.id.create_servico_titulo);
-        viewDescricao = findViewById(R.id.create_servico_txtDescricao);
-        submit = (Button) findViewById(R.id.create_servico_BtnSubmitServico);
-        spinnerCategorias = (Spinner) findViewById(R.id.create_servico_spinnerCategoria);
-        spinnerSubCategorias = (Spinner) findViewById(R.id.create_servico_spinnerSubCategoria);
-        title = (TextView) findViewById(R.id.create_servico_title);
+        spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
+        photo = (ImageView) findViewById(R.id.create_busca_unounce_photo);
+        viewNome = findViewById(R.id.create_busca_titulo);
+        viewDescricao = findViewById(R.id.create_busca_txtDescricao);
+        submit = (Button) findViewById(R.id.create_busca_BtnSubmitBusca);
+        spinnerCategorias = (Spinner) findViewById(R.id.create_busca_spinnerCategoria);
+        spinnerSubCategorias = (Spinner) findViewById(R.id.create_busca_spinnerSubCategoria);
+        title = (TextView) findViewById(R.id.create_busca_title);
 
 
         //popula o spinner do ddd
@@ -88,11 +82,11 @@ public class EditServicoActivity extends AppCompatActivity {
 
         //popula restante
 
-        Picasso.with(this).load(servico.imagemServico).into(photo);
-        ((EditText) viewNome).setText(servico.titulo);
-        ((EditText) viewDescricao).setText(servico.descricao);
-        submit.setText("Editar Anuncio");
-        title.setText(servico.titulo);
+        Picasso.with(this).load(busca.imagemBusca).into(photo);
+        ((EditText) viewNome).setText(busca.titulo);
+        ((EditText) viewDescricao).setText(busca.descricao);
+        submit.setText("Editar Busca");
+        title.setText(busca.titulo);
 
 
 
@@ -172,7 +166,7 @@ public class EditServicoActivity extends AppCompatActivity {
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InsertImageDialog image = new InsertImageDialog(EditServicoActivity.this);
+                InsertImageDialog image = new InsertImageDialog(EditBuscaActivity.this);
                 image.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 image.show();
             }
