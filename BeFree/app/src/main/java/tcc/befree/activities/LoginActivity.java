@@ -288,9 +288,9 @@ public class LoginActivity extends AppCompatActivity {
         return password.length() >= 4;
     }
 
-    private void signIn() {
+    /*private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+    }*/
 
 }

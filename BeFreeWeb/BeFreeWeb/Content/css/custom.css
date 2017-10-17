@@ -1,10 +1,11 @@
 /* your styles go here */
 
 nav.side-navbar {
-  height: 800px;
+  height: initial;
   background: #fff;
   min-width: 250px;
   max-width: 250px;
+  min-height: 800px;
   color: #686a76;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   z-index: 999;
