@@ -52,6 +52,11 @@ namespace BeFreeWeb.Controllers
             return View();
         }
 
+        public ActionResult Adverts()
+        {
+            return View();
+        }
+
         // GET: Emitente/Details/5
         public async Task<ActionResult> EfetuarLogin(Usuario usuario)
         {
