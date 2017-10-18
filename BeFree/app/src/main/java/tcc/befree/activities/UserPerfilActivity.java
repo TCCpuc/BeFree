@@ -290,10 +290,15 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
         if (edit_dados.getText().equals("Editar Dados")) {
-            usuario.nomeUsuario = username.getText().toString();
-            usuario.ddd = ddd.getSelectedItemPosition() + 13;
-            usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
-            new PutApiModels().putUsuarios(usuario);
+            try {
+                usuario.nomeUsuario = username.getText().toString();
+                usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                new PutApiModels().putUsuarios(usuario);
+            }
+            catch (Exception E){
+                
+            }
         }
     }
 
