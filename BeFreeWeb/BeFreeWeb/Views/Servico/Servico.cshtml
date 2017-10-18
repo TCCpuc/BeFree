@@ -49,13 +49,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="card" style="width:auto; height:auto;">
-                                    <div class="card-close">
-                                        <div class="dropdown">
-                                            <button type="button" id="closeCard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                                            <div aria-labelledby="closeCard" class="dropdown-menu has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
-                                        </div>
-                                    </div>
+                                <div class="card" style="width:800px; height:auto;">
                                     <div class="card-header d-flex align-items-center">
                                         <h3 class="h4">Serviços</h3>
                                     </div>
@@ -69,12 +63,6 @@
                                                     </th>
                                                     <th>
                                                         @Html.DisplayNameFor(model => model.descricao)
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => model.idSubCategoria)
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayNameFor(model => model.idStatus)
                                                     </th>
                                                     <th>
                                                         @Html.DisplayNameFor(model => model.idDDD)
@@ -94,18 +82,11 @@
                                                                 @Html.DisplayFor(modelItem => item.descricao)
                                                             </td>
                                                             <td>
-                                                                @Html.DisplayFor(modelItem => item.idSubCategoria)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.idStatus)
-                                                            </td>
-                                                            <td>
                                                                 @Html.DisplayFor(modelItem => item.idDDD)
                                                             </td>
                                                             <td>
-                                                                @Html.ActionLink("Edit", "Edit", new { id = item.idServico }) |
-                                                                @Html.ActionLink("Details", "Details", new { id = item.idServico }) |
-                                                                @Html.ActionLink("Delete", "Delete", new { id = item.idServico })
+                                                                @Html.ActionLink("Edit", "EditServico", new { id = item.idServico }) |
+                                                                @Html.ActionLink("Delete", "DeleteServico", new { id = item.idServico })
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -120,12 +101,5 @@
             </div>
         </div>
     </div>
-    <!-- Javascript files-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.cookie.js"> </script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/front.js"></script>
 </body>
 </html>

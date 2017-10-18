@@ -1,0 +1,114 @@
+﻿@model BeFreeWeb.Models.Servico
+@{
+    ViewBag.Title = "EditServico";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<html>
+<head>
+</head>
+<body>
+    <div class="page charts-page">
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center">
+                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                    <div class="title">
+                        <h1 class="h4">Mark Stephen</h1>
+                        <p>Web Designer</p>
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+                <ul class="list-unstyled">
+                    <li class="active"> <a href="~/Home/Index"><i class="icon-home"></i>Home</a></li>
+                    <li>
+                        <a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Controle </a>
+                        <ul id="dashvariants" class="collapse list-unstyled">
+                            <li><a href="~/Home/Users">Usuários</a></li>
+                            <li><a href="~/Servico/Servico">Serviços</a></li>
+                            <li><a href="~/Log/Log">Alterações no Banco</a></li>
+                            <li><a href="~/Denuncia/Denuncia">Denuncias</a></li>
+                        </ul>
+                    </li>
+            </nav>
+            <div class="content-inner">
+                <!-- Page Header-->
+                <header class="page-header">
+                    <div class="container-fluid">
+                        <h2 class="no-margin-bottom">Serviços</h2>
+                    </div>
+                </header>
+                <!-- Breadcrumb-->
+                <ul class="breadcrumb">
+                    <div class="container-fluid">
+                        <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Serviços</li>
+                    </div>
+                </ul>
+                <section class="tables">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card" style="width:800px; height:auto;">
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">Serviços</h3>
+                                    </div>
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">All form elements</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="form-horizontal">
+
+                                            <div class="line"> </div>
+                                            <div class="row">
+                                                <label class="col-sm-3 form-control-label">Editar</label>
+                                                <div class="col-sm-9">
+
+
+                                                    <div class="form-group-material">
+                                                        <input id="register-username" type="text" name="registerUsername" required class="input-material">
+                                                        <label for="register-username" class="label-material">
+                                                            @Html.LabelFor(model => model.titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        </label>
+                                                            @Html.EditorFor(model => model.titulo, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
+                                                    </div>
+
+
+                                                    <div class="form-group-material">
+                                                        <input id="register-email" type="email" name="registerEmail" required class="input-material">
+                                                        <label for="register-email" class="label-material">Email Address      </label>
+                                                    </div>
+                                                    <div class="form-group-material">
+                                                        <input id="register-passowrd" type="password" name="registerPassword" required class="input-material">
+                                                        <label for="register-passowrd" class="label-material">password        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="line"></div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 offset-sm-3">
+                                                    <button type="submit" class="btn btn-secondary">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
+}

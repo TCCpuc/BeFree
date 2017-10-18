@@ -18,7 +18,7 @@ namespace BeFreeWeb.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Servico
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public async System.Threading.Tasks.Task<ActionResult> Servico()
         {
             List<Servico> model = new List<Servico>();
             if (Session["IsAuthenticated"].ToString() == "true")
@@ -44,12 +44,6 @@ namespace BeFreeWeb.Controllers
             else
                 return RedirectToAction("Login");
         }
-
-        public ActionResult Servico()
-        {
-            return View();
-        }
-
 
         // GET: Servico/Details/5
         public ActionResult Details(int? id)
@@ -90,7 +84,7 @@ namespace BeFreeWeb.Controllers
         }
 
         // GET: Servico/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditServico(int? id)
         {
             if (id == null)
             {
@@ -109,7 +103,7 @@ namespace BeFreeWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
+        public ActionResult EditServico([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
         {
             if (ModelState.IsValid)
             {
