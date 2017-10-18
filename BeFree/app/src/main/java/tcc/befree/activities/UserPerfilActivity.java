@@ -297,7 +297,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                 new PutApiModels().putUsuarios(usuario);
             }
             catch (Exception E){
-                
+
             }
         }
     }

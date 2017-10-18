@@ -13,14 +13,14 @@ using Newtonsoft.Json;
 
 namespace BeFreeWeb.Controllers
 {
-    public class ServicoController : Controller
+    public class UsuarioController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Servico
-        public async System.Threading.Tasks.Task<ActionResult> Servico()
+        public async System.Threading.Tasks.Task<ActionResult> Users()
         {
-            List<Servico> model = new List<Servico>();
+
+            List<Usuario> model = new List<Usuario>();
             if (Session["IsAuthenticated"].ToString() == "true")
             {
 
@@ -28,10 +28,10 @@ namespace BeFreeWeb.Controllers
                 {
                     try
                     {
-                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Servico/GettbServicoes/");
+                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Usuarios/GettbUsuarios/");
                         HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
                         string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                        model = JsonConvert.DeserializeObject<List<Servico>>(result);
+                        model = JsonConvert.DeserializeObject<List<Usuario>>(result);
                     }
                     catch (Exception err)
                     {
@@ -45,97 +45,104 @@ namespace BeFreeWeb.Controllers
                 return RedirectToAction("Login");
         }
 
-        // GET: Servico/Details/5
+        // GET: Usuario
+        public ActionResult Index()
+        {
+            return View(db.Usuarios.ToList());
+        }
+
+
+        // GET: Usuario/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Servico servico = db.Servicoes.Find(id);
-            if (servico == null)
+            Usuario usuario = db.Usuarios.Find(id);
+            if (usuario == null)
             {
                 return HttpNotFound();
             }
-            return View(servico);
+            return View(usuario);
         }
 
-        // GET: Servico/Create
+        // GET: Usuario/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Servico/Create
+        // POST: Usuario/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
+        public ActionResult Create([Bind(Include = "idUsuario,nomeUsuario,cpf,idCidade,idEstado,bairro,logradouro,numero,cep,dataNascimento,dataCadastro,ativo,senha,email,ddd,imagemPerfil")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                db.Servicoes.Add(servico);
+                db.Usuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(servico);
+            return View(usuario);
         }
 
-        // GET: Servico/Edit/5
-        public ActionResult EditServico(int? id)
+        // GET: Usuario/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Servico servico = db.Servicoes.Find(id);
-            if (servico == null)
+            Usuario usuario = db.Usuarios.Find(id);
+            if (usuario == null)
             {
                 return HttpNotFound();
             }
-            return View(servico);
+            return View(usuario);
         }
 
-        // POST: Servico/Edit/5
+        // POST: Usuario/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditServico([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
+        public ActionResult Edit([Bind(Include = "idUsuario,nomeUsuario,cpf,idCidade,idEstado,bairro,logradouro,numero,cep,dataNascimento,dataCadastro,ativo,senha,email,ddd,imagemPerfil")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(servico).State = EntityState.Modified;
+                db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(servico);
+            return View(usuario);
         }
 
-        // GET: Servico/Delete/5
+        // GET: Usuario/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Servico servico = db.Servicoes.Find(id);
-            if (servico == null)
+            Usuario usuario = db.Usuarios.Find(id);
+            if (usuario == null)
             {
                 return HttpNotFound();
             }
-            return View(servico);
+            return View(usuario);
         }
 
-        // POST: Servico/Delete/5
+        // POST: Usuario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Servico servico = db.Servicoes.Find(id);
-            db.Servicoes.Remove(servico);
+            Usuario usuario = db.Usuarios.Find(id);
+            db.Usuarios.Remove(usuario);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<BeFreeWeb.Models.Usuario>
+@{
+    ViewBag.Title = "Users";
+}
+<html>
+<head>
+</head>
+<body>
+    <div class="page charts-page">
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center">
+                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                    <div class="title">
+                        <h1 class="h4">Mark Stephen</h1>
+                        <p>Web Designer</p>
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+                <ul class="list-unstyled">
+                    <li class="active"> <a href="~/Home/Index"><i class="icon-home"></i>Home</a></li>
+                    <li>
+                        <a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Controle </a>
+                        <ul id="dashvariants" class="collapse list-unstyled">
+                            <li><a href="~/Home/Users">Usuários</a></li>
+                            <li><a href="~/Servico/Servico">Serviços</a></li>
+                            <li><a href="~/Log/Log">Alterações no Banco</a></li>
+                            <li><a href="~/Denuncia/Denuncia">Denuncias</a></li>
+                        </ul>
+                    </li>
+            </nav>
+            <div class="content-inner">
+                <!-- Page Header-->
+                <header class="page-header">
+                    <div class="container-fluid">
+                        <h2 class="no-margin-bottom">Usuários</h2>
+                    </div>
+                </header>
+                <!-- Breadcrumb-->
+                <ul class="breadcrumb">
+                    <div class="container-fluid">
+                        <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Usuários</li>
+                    </div>
+                </ul>
+                <section class="tables">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card" style="width:1000px; height:auto;">
+                                    <div class="card-close">
+                                        <div class="dropdown">
+                                            <button type="button" id="closeCard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                                            <div aria-labelledby="closeCard" class="dropdown-menu has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">Usuários</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-striped table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.nomeUsuario)
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.cpf)
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.email)
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.ddd)
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.dataCadastro)
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.ativo)
+                                                    </th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.nomeUsuario)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.cpf)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.email)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.ddd)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.dataCadastro)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.ativo)
+                                                        </td>
+                                                        <td>
+                                                            @Html.ActionLink("Edit", "Edit", new { id = item.idUsuario }) |
+                                                            @Html.ActionLink("Details", "Details", new { id = item.idUsuario }) |
+                                                            @Html.ActionLink("Delete", "Delete", new { id = item.idUsuario })
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

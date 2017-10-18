@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import tcc.befree.R;
 import tcc.befree.activities.CreateServicoActivity;
+import tcc.befree.activities.EditServicoActivity;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Servico;
 
@@ -79,7 +80,8 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
             @Override
             public void onClick(View v) {
                 // SUBIR UM BUNDLE COM AS INFORMAÇOES DO ANUNCIO
-                intent = new Intent(getContext(), CreateServicoActivity.class);
+                intent = new Intent(getContext(), EditServicoActivity.class);
+                intent.putExtra("idServico", servico.idServico);
                 getContext().startActivity(intent);
             }
         });

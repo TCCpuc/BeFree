@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BeFreeWeb.Models.Servico>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idUsuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idSubCategoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imagemServico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idDDD)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idUsuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idSubCategoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.imagemServico)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idDDD)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idServico }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idServico }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idServico })
+        </td>
+    </tr>
+}
+
+</table>

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import tcc.befree.R;
 import tcc.befree.activities.CreateBuscaActivity;
 import tcc.befree.activities.CreateServicoActivity;
+import tcc.befree.activities.EditBuscaActivity;
 import tcc.befree.models.Busca;
 import tcc.befree.models.CircleImageView;
 
@@ -77,7 +78,8 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
             @Override
             public void onClick(View v) {
                 // SUBIR UM BUNDLE COM AS INFORMAÇOES DO ANUNCIO
-                intent = new Intent(getContext(), CreateBuscaActivity.class);
+                intent = new Intent(getContext(), EditBuscaActivity.class);
+                intent.putExtra("idBusca", busca.idBusca);
                 getContext().startActivity(intent);
             }
         });
