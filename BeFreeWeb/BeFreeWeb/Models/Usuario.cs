@@ -9,12 +9,15 @@ namespace BeFreeWeb.Models
     public class Usuario
     {
         [Key]
+        [Display(Name = "ID")]
         public int idUsuario { get; set; }
 
         [StringLength(150)]
+        [Display(Name = "Nome")]
         public string nomeUsuario { get; set; }
 
         [StringLength(18)]
+        [Display(Name = "CPF")]
         public string cpf { get; set; }
 
         public int? idCidade { get; set; }
@@ -48,6 +51,7 @@ namespace BeFreeWeb.Models
         public string email { get; set; }
 
         [StringLength(3)]
+        [Display(Name = "DDD")]
         public string ddd { get; set; }
 
         public string imagemPerfil { get; set; }

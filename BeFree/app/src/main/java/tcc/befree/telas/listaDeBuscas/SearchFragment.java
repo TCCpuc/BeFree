@@ -21,8 +21,8 @@ import tcc.befree.models.Busca;
  */
 public class SearchFragment extends Fragment implements SearchAdapter.OnClickListener {
 
-    int idUsuario;
-    int id;
+    private int idUsuario;
+    private int id;
     private ViewGroup container;
     private LayoutInflater inflater;
     private View rootView;

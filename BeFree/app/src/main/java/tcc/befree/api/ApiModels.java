@@ -140,6 +140,30 @@ public class ApiModels implements Runnable{
         return  usuario;
     }
 
+    //Gera código de recuperação de senha
+    public boolean getCodePassword(String email){
+
+        try {
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/RecuperarSenha/?email=" + email;
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
+
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+
+        }catch (Exception er){
+            er.printStackTrace();
+        }
+
+        jSonArray = null;
+        return true;
+    }
+
+
     /* ---------------------------------- MÉTODOS DE SERVIÇO ----------------------------------- */
     //Retorna todos os Servicos
     public ArrayList<Servico> getServicos(){

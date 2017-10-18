@@ -21,8 +21,8 @@ import tcc.befree.models.Servico;
  */
 public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickListener {
 
-    int idUsuario;
-    int id;
+    private int idUsuario;
+    private int id;
     private ViewGroup container;
     private LayoutInflater inflater;
     private View rootView;
