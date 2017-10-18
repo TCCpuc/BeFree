@@ -1,24 +1,29 @@
-﻿using BeFreeWeb.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Net.Http;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BeFreeWeb.Models;
+using System.Net.Http;
+using System.Configuration;
+using Newtonsoft.Json;
 
 namespace BeFreeWeb.Controllers
 {
     public class ServicoController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: Servico
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {
+            List<Servico> model = new List<Servico>();
             if (Session["IsAuthenticated"].ToString() == "true")
             {
 
-                List<Servico> model = new List<Servico>();
                 using (HttpClient httpClient = new HttpClient())
                 {
                     try
@@ -33,18 +38,32 @@ namespace BeFreeWeb.Controllers
                         string erro = err.Message;
                     }
 
-                    return View(model);
-
                 }
+                return View(model);
             }
-
-            return RedirectToAction("Login");
+            else
+                return RedirectToAction("Login");
         }
 
-        // GET: Servico/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Servico()
         {
             return View();
+        }
+
+
+        // GET: Servico/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Servico servico = db.Servicoes.Find(id);
+            if (servico == null)
+            {
+                return HttpNotFound();
+            }
+            return View(servico);
         }
 
         // GET: Servico/Create
@@ -54,63 +73,86 @@ namespace BeFreeWeb.Controllers
         }
 
         // POST: Servico/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Servicoes.Add(servico);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(servico);
         }
 
         // GET: Servico/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Servico servico = db.Servicoes.Find(id);
+            if (servico == null)
+            {
+                return HttpNotFound();
+            }
+            return View(servico);
         }
 
         // POST: Servico/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                db.Entry(servico).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(servico);
         }
 
         // GET: Servico/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Servico servico = db.Servicoes.Find(id);
+            if (servico == null)
+            {
+                return HttpNotFound();
+            }
+            return View(servico);
         }
 
         // POST: Servico/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Servico servico = db.Servicoes.Find(id);
+            db.Servicoes.Remove(servico);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }
