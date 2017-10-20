@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import tcc.befree.R;
+import tcc.befree.activities.UserPerfilActivity;
+import tcc.befree.api.ApiModels;
+import tcc.befree.api.PutApiModels;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Usuarios;
 
@@ -31,7 +34,7 @@ public class EditUserPassword extends Dialog {
     private boolean checked;
     private Usuarios usuario;
 
-    public EditUserPassword(Activity a) {
+    public EditUserPassword(UserPerfilActivity a) {
         //SE CONTEXT = 1 (INSERT IMAGEM USUARIO)
         //SE CONTEXT = 2 (INSERT IMAGEM BUSCA)
         //SE CONTEXT = 3 (INSERT IMAGEM SERVICO)
@@ -51,12 +54,24 @@ public class EditUserPassword extends Dialog {
         menssagem = (TextView) findViewById(R.id.dialog_edit_user_password_text);
         password = (EditText) findViewById(R.id.dialog_edit_user_password_password);
         password2 = (EditText) findViewById(R.id.dialog_edit_user_password_password2);
-        checked = false;
-
-        usuario = new Usuarios();
+        checked = false;;
         Intent it = c.getIntent();
         Bundle mainActivityIntent = it.getExtras();
         final String x [] = mainActivityIntent.getString("arrayUsuario").split("%");
+        usuario = new Usuarios();
+        usuario.idUsuario = Integer.parseInt(x[0]);
+        usuario.nomeUsuario = x[1];
+        usuario.cpf = x[2];
+        usuario.idCidade = Integer.parseInt(x[3]);
+        usuario.idEstado = Integer.parseInt(x[4]);
+        usuario.bairro = x[5];
+        usuario.logradouro = x[6];
+        usuario.numero = Integer.parseInt(x[7]);
+        usuario.cep = Integer.parseInt(x[8]);
+        usuario.email = x[9];
+        usuario.ddd = Integer.parseInt(x[10]);
+        usuario.imagemPerfil = x[11];
+        usuario.senha = x[12];
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +89,8 @@ public class EditUserPassword extends Dialog {
                         if(password.getText().length()<5) menssagem.setText("Senha muito curta");
                         else {
                             //ATUALIZA NO BANCO
+                            usuario.senha = password.getText().toString();
+                            new PutApiModels().putUsuarios(usuario);
                             Toast ntoast = Toast.makeText(c,"Senha alterada com sucesso!!", Toast.LENGTH_SHORT);
                             ntoast.show();
                             dismiss();

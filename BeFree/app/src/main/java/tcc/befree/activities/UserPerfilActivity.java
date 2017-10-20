@@ -18,19 +18,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
+import tcc.befree.api.ApiModels;
+import tcc.befree.api.PostApiModels;
+import tcc.befree.api.PutApiModels;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Usuarios;
 import tcc.befree.telas.Dialog.EditUserPassword;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.utils.Utils;
 
 public class UserPerfilActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -59,7 +65,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
     //private ImageButton cepButton;
     //private EditText nascimento;
     //private ImageButton nascimentoButton;
-    private EditText ddd;
+    private Spinner ddd;
     private ImageButton dddButton;
     private TextView titulo;
     private static final int SELECT_FILE1 = 100;
@@ -91,7 +97,9 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         usuario.ddd = Integer.parseInt(x[10]);
         usuario.imagemPerfil = x[11];
         usuario.senha = x[12];
+
         //------------------------------
+
 
         photo = (CircleImageView)findViewById(R.id.user_perfil_photo);
         Picasso.with(this).load(usuario.imagemPerfil).into(photo);
@@ -127,8 +135,17 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         cepButton = (ImageButton) findViewById(R.id.user_perfil_cep_button);
         nascimento = (EditText) findViewById(R.id.user_perfil_nascimento);
         nascimentoButton = (ImageButton) findViewById(R.id.user_perfil_nascimento_button);*/
-        ddd = (EditText) findViewById(R.id.user_perfil_ddd);
-        ddd.setText("" + usuario.ddd);
+        ddd = (Spinner) findViewById(R.id.user_perfil_ddd);
+
+        ArrayAdapter<CharSequence> spinnerDDDs = ArrayAdapter.createFromResource(this,R.array.Bolas, android.R.layout.simple_spinner_dropdown_item);
+        //popula o spinner do ddd
+        ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
+        arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        ddd.setAdapter(arrayAdapterDDD);
+        ddd.setId(usuario.ddd);
+        ddd.setSelection(usuario.ddd - 12);
+
+        //ddd.setText("" + usuario.ddd);
         dddButton = (ImageButton) findViewById(R.id.user_perfil_ddd_button);
         titulo = (TextView) findViewById(R.id.user_perfil_title);
         titulo.setText(usuario.nomeUsuario);
@@ -233,13 +250,13 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
             case R.id.user_perfil_cpf_button:
                 toast.show();
                 break;
-            case R.id.user_perfil_ddd_button:
+            /*case R.id.user_perfil_ddd_button:
                 ddd.setFocusableInTouchMode(true);
                 ddd.setFocusable(true);
                 imm.showSoftInput(ddd, InputMethodManager.SHOW_IMPLICIT);
                 ddd.setBackgroundColor(Color.RED);
                 ddd.requestFocus();
-                break;
+                break;*/
             case R.id.user_perfil_email_button:
                 toast.show();
                 break;
@@ -271,6 +288,17 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                 break;
             default:
                 break;
+        }
+        if (edit_dados.getText().equals("Editar Dados")) {
+            try {
+                usuario.nomeUsuario = username.getText().toString();
+                usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                new PutApiModels().putUsuarios(usuario);
+            }
+            catch (Exception E){
+
+            }
         }
     }
 

@@ -131,6 +131,7 @@ public class ApiModels implements Runnable{
             usuario.ativo = jSonObject.getBoolean("ativo");
             usuario.email = jSonObject.getString("email");
             usuario.senha = jSonObject.getString("senha");
+            usuario.ddd = jSonObject.getInt("ddd");
             usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
         }catch (Exception er){
             er.printStackTrace();
