@@ -47,6 +47,16 @@ namespace BeFreeWeb.Controllers
             return View();
         }
 
+        public ActionResult Log()
+        {
+            return View();
+        }
+
+        public ActionResult Denuncia()
+        {
+            return View();
+        }
+
         // GET: Emitente/Details/5
         public async Task<ActionResult> EfetuarLogin(Usuario usuario)
         {
