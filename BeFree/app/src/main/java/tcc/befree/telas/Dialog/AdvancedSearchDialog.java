@@ -9,12 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-
 import tcc.befree.R;
-import tcc.befree.activities.MainActivity;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.Categoria;
 
@@ -26,10 +22,9 @@ public class AdvancedSearchDialog extends Dialog implements
         android.view.View.OnClickListener{
 
     private Activity c;
-    private RadioGroup categoria;
-    private CheckBox r_categoria;
-    private CheckBox r_sub_categoria;
-    private CheckBox r_ddd;
+    //private CheckBox r_categoria;
+    //private CheckBox r_sub_categoria;
+    //private CheckBox r_ddd;
     private Spinner s_categoria;
     private Spinner s_sub_categoria;
     private Spinner s_ddd;
@@ -47,9 +42,9 @@ public class AdvancedSearchDialog extends Dialog implements
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_advanced_search);
-        r_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_categoria_radio_button);
-        r_sub_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_sub_categoria_radio_button);
-        r_ddd = (CheckBox) findViewById(R.id.advanced_search_dialog_ddd_radio_button);
+        //r_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_categoria_radio_button);
+        //r_sub_categoria = (CheckBox) findViewById(R.id.advanced_search_dialog_sub_categoria_radio_button);
+        //r_ddd = (CheckBox) findViewById(R.id.advanced_search_dialog_ddd_radio_button);
         s_categoria = (Spinner) findViewById(R.id.advanced_search_dialog_categoria_spinner);
         s_sub_categoria = (Spinner) findViewById(R.id.advanced_search_dialog_sub_categoria_spinner);
         s_ddd = (Spinner) findViewById(R.id.advanced_search_dialog_ddd_spinner);

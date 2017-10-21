@@ -34,10 +34,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <LinearLayout
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="172dp"
+           android:orientation="vertical"
+           android:layout_gravity="center"
+           android:gravity="center">
+        <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="155dp"
+        android:layout_height="145dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:orientation="horizontal">
@@ -63,7 +68,9 @@
             android:visibility="visible"
             android:layout_margin="10dp"
             app:civ_border_color="@color/dark_gray"
-            app:civ_border_width="0.6dp"/>
+            app:civ_border_width="0.6dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <Button
             android:id="@+id/user_perfil_edit_password"
@@ -77,6 +84,15 @@
             android:layout_marginRight="6dp"/>
 
         </LinearLayout>
+           <TextView
+               android:id="@+id/user_perfil_photo_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Clique na foto para editar"
+               android:layout_marginTop="2dp"
+               android:layout_marginBottom="2dp"
+               android:visibility="gone"/>
+       </LinearLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView2"
@@ -94,7 +110,6 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_margin="@dimen/card_margin">
 
                     <LinearLayout
@@ -150,7 +165,6 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -209,7 +223,6 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -269,7 +282,6 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/darker_gray"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
                     android:layout_marginRight="@dimen/card_margin">
@@ -299,7 +311,9 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="4dp"
-                            android:gravity="center_horizontal"/>
+                            android:gravity="center_horizontal"
+                            android:clickable="false"
+                            android:focusable="false"/>
                         <!--EditText
                             android:id="@+id/user_perfil_ddd"
                             android:layout_width="200dp"

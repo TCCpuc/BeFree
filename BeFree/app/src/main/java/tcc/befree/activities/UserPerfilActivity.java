@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -42,6 +43,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
 
 
     private CircleImageView photo;
+    private TextView imageText;
     private Button edit_dados;
     private boolean edit_dados_val;
     private Button edit_password;
@@ -102,6 +104,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
 
 
         photo = (CircleImageView)findViewById(R.id.user_perfil_photo);
+        imageText = (TextView) findViewById(R.id.user_perfil_photo_text);
         Picasso.with(this).load(usuario.imagemPerfil).into(photo);
         edit_dados = (Button) findViewById(R.id.user_perfil_edit_data);
         edit_dados_val = false;
@@ -144,6 +147,8 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         ddd.setAdapter(arrayAdapterDDD);
         ddd.setId(usuario.ddd);
         ddd.setSelection(usuario.ddd - 12);
+        ddd.setEnabled(false);
+
 
         //ddd.setText("" + usuario.ddd);
         dddButton = (ImageButton) findViewById(R.id.user_perfil_ddd_button);
@@ -151,7 +156,6 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         titulo.setText(usuario.nomeUsuario);
 
         edit_dados.setOnClickListener(this);
-        photo.setOnClickListener(this);
         edit_password.setOnClickListener(this);
         usernameButton.setOnClickListener(this);
         emailButton.setOnClickListener(this);
@@ -182,6 +186,8 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     email.setBackgroundColor(Color.WHITE);
                     cpfButton.setVisibility(View.GONE);
                     cpf.setBackgroundColor(Color.WHITE);
+                    imageText.setVisibility(View.GONE);
+                    photo.setOnClickListener(null);
                     /*cidadeButton.setVisibility(View.GONE);
                     cidade.setBackgroundColor(Color.WHITE);
                     estadoButton.setVisibility(View.GONE);
@@ -198,11 +204,32 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     dddButton.setVisibility(View.GONE);
                     ddd.setBackgroundColor(Color.WHITE);
                     edit_dados_val = false;
+                    ddd.setEnabled(false);
+                    ddd.setClickable(false);
+                    ddd.setFocusableInTouchMode(false);
+                    ddd.setFocusable(false);
+                    ddd.setBackgroundColor(Color.WHITE);
+                    username.setFocusableInTouchMode(false);
+                    username.setFocusable(false);
+                    username.setBackgroundColor(Color.WHITE);
+                    try {
+                        usuario.nomeUsuario = username.getText().toString();
+                        usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                        if(bitmapUsuarioPerfil!= null){
+                            usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                        }
+                        new PutApiModels().putUsuarios(usuario);
+                    }
+                    catch (Exception E){
+                        System.err.print("Erro ao atualizar usuario");
+                    }
                 }else {
                     edit_dados.setText("Confirmar");
                     usernameButton.setVisibility(View.VISIBLE);
                     emailButton.setVisibility(View.VISIBLE);
                     cpfButton.setVisibility(View.VISIBLE);
+                    imageText.setVisibility(View.VISIBLE);
+                    photo.setOnClickListener(this);
                     /*cidadeButton.setVisibility(View.VISIBLE);
                     estadoButton.setVisibility(View.VISIBLE);
                     bairroButton.setVisibility(View.VISIBLE);
@@ -250,13 +277,14 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
             case R.id.user_perfil_cpf_button:
                 toast.show();
                 break;
-            /*case R.id.user_perfil_ddd_button:
+            case R.id.user_perfil_ddd_button:
+                ddd.setEnabled(true);
+                ddd.setClickable(true);
                 ddd.setFocusableInTouchMode(true);
                 ddd.setFocusable(true);
-                imm.showSoftInput(ddd, InputMethodManager.SHOW_IMPLICIT);
                 ddd.setBackgroundColor(Color.RED);
                 ddd.requestFocus();
-                break;*/
+                break;
             case R.id.user_perfil_email_button:
                 toast.show();
                 break;
@@ -289,17 +317,6 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
             default:
                 break;
         }
-        if (edit_dados.getText().equals("Editar Dados")) {
-            try {
-                usuario.nomeUsuario = username.getText().toString();
-                usuario.ddd = ddd.getSelectedItemPosition() + 13;
-                usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
-                new PutApiModels().putUsuarios(usuario);
-            }
-            catch (Exception E){
-
-            }
-        }
     }
 
     @Override
@@ -321,31 +338,41 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onBackPressed() {
         if(edit_dados_val){
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Editar")
-                        .setMessage("Você deseja salvar as alterações antes de sair?")
-                        .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Editar")
+                    .setMessage("Você deseja salvar as alterações antes de sair?")
+                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //comita no banco
+                                try {
+                                    usuario.nomeUsuario = username.getText().toString();
+                                    usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                                    if(bitmapUsuarioPerfil!= null){
+                                        usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                                    }
+                                    new PutApiModels().putUsuarios(usuario);
+                                }
+                                catch (Exception E){
+                                    System.err.print("Erro ao atualizar usuario");
+                                }
                                 finish();
                             }
 
                         })
-                        .setNegativeButton("Não", null)
-                        .show();
+                    .setNegativeButton("Não", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .show();
 
                 //super.onBackPressed();
-            }
         }else{
             finish();
         }
-
     }
 }

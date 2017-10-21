@@ -36,7 +36,7 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-        <CheckBox
+        <!--<CheckBox
             android:id="@+id/advanced_search_dialog_categoria_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:clickable="false"
             android:layout_marginRight="30dp"
             android:layout_gravity="left"
-            android:onClick="onCheckboxClicked" />
+            android:onClick="onCheckboxClicked" />-->
 
 
         <Spinner
@@ -76,7 +76,7 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-        <CheckBox
+        <!--<CheckBox
             android:id="@+id/advanced_search_dialog_sub_categoria_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:clickable="false"
             android:layout_marginRight="30dp"
             android:layout_gravity="left"
-            android:onClick="onCheckboxClicked" />
+            android:onClick="onCheckboxClicked" />-->
 
         <Spinner
             android:id="@+id/advanced_search_dialog_sub_categoria_spinner"
@@ -114,14 +114,14 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-        <CheckBox
+        <!--<CheckBox
             android:id="@+id/advanced_search_dialog_ddd_radio_button"
             android:layout_width="wrap_content"
             android:layout_marginRight="30dp"
             android:background="@drawable/border_white"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:onClick="onCheckboxClicked"/>
+            android:onClick="onCheckboxClicked"/>-->
 
         <Spinner
             android:id="@+id/advanced_search_dialog_ddd_spinner"
