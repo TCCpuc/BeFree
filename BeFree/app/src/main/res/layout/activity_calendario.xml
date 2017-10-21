@@ -1,42 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:textAlignment="center"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calendario"
+                android:layout_gravity="center"
+                android:id="@+id/user_perfil_title" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
 
         <CalendarView
             android:id="@+id/calendarView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
             android:layout_marginTop="14dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <Button
-            android:id="@+id/calendario_Voltar"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        android:orientation="horizontal">
+        <ListView
+            android:id="@+id/calendar_listview"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:background="@drawable/border">
+        </ListView>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="51dp"
-            android:layout_marginStart="51dp"
-            android:layout_marginTop="40dp"
-            android:text="Voltar"
-            android:layout_below="@+id/calendarView"
-            android:layout_alignLeft="@+id/calendarView"
-            android:layout_alignStart="@+id/calendarView" />
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginLeft="6dp">
 
-        <Button
-            android:id="@+id/calendario_Agendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/calendarView"
-            android:layout_alignRight="@+id/calendarView"
-            android:layout_alignTop="@+id/calendario_Voltar"
-            android:layout_marginEnd="49dp"
-            android:layout_marginRight="49dp"
-            android:text="Agendar" />
+            <Button
+                android:id="@+id/calendario_Agendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agendar" />
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/calendario_Voltar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Voltar" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
 </LinearLayout>
