@@ -1,5 +1,6 @@
 package tcc.befree.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CalendarView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -212,12 +214,19 @@ public class GenderActivity extends AppCompatActivity {
             //Agenda agenda = gender.get(position);
             View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
 
-            CircleImageView mImagePerfil = (CircleImageView) view.findViewById(R.id.item_agenda_image);
+            //CircleImageView mImagePerfil = (CircleImageView) view.findViewById(R.id.item_agenda_image);
             TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
-            TextView descricao = (TextView) view.findViewById(R.id.item_agenda_description);
+            //TextView descricao = (TextView) view.findViewById(R.id.item_agenda_description);
             TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
-            /*
+            if(position < 9){
+                tempo.setText("0" + position + ":00 - 0" + (position + 1) + ":00");
+            }else if(position == 9){
+                tempo.setText("0" + position + ":00 - " + (position + 1) + ":00");
+            }else{
+                tempo.setText(position + ":00 - " + (position + 1) + ":00");
+            }
 
+            /*
             TextView description = (TextView) view.findViewById(R.id.item_service_description);
             description.setText(agenda.getUltima_mensagem_texto());
 
