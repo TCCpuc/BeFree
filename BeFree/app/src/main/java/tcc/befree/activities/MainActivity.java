@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
     private String buscaSimples = "";
     private ApiModels api = new ApiModels();
     private Usuarios usuario;
+    private int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,20 +133,22 @@ public class MainActivity extends AppCompatActivity{
         Intent it = this.getIntent();
         Bundle loginActivityIntent = it.getExtras();
         String x [] = loginActivityIntent.getString("arrayUsuario").split("%");
-        usuario = new Usuarios();
-        usuario.idUsuario = Integer.parseInt(x[0]);
-        usuario.nomeUsuario = x[1];
-        usuario.cpf = x[2];
-        usuario.idCidade = Integer.parseInt(x[3]);
-        usuario.idEstado = Integer.parseInt(x[4]);
-        usuario.bairro = x[5];
-        usuario.logradouro = x[6];
-        usuario.numero = Integer.parseInt(x[7]);
-        usuario.cep = Integer.parseInt(x[8]);
-        usuario.email = x[9];
-        usuario.ddd = Integer.parseInt(x[10]);
-        usuario.imagemPerfil = x[11];
-        usuario.senha = x[12];
+        id = Integer.parseInt(x[0]);
+        usuario = new ApiModels().getUsuarioById(id);
+
+//        usuario.idUsuario = Integer.parseInt(x[0]);
+//        usuario.nomeUsuario = x[1];
+//        usuario.cpf = x[2];
+//        usuario.idCidade = Integer.parseInt(x[3]);
+//        usuario.idEstado = Integer.parseInt(x[4]);
+//        usuario.bairro = x[5];
+//        usuario.logradouro = x[6];
+//        usuario.numero = Integer.parseInt(x[7]);
+//        usuario.cep = Integer.parseInt(x[8]);
+//        usuario.email = x[9];
+//        usuario.ddd = Integer.parseInt(x[10]);
+//        usuario.imagemPerfil = x[11];
+//        usuario.senha = x[12];
         //usuario.dataNascimento = Date.parse(x[10]);
         //usuario.dataCadastro = x[11].toDate;
 
@@ -221,7 +224,6 @@ public class MainActivity extends AppCompatActivity{
                     public boolean onNavigationItemSelected(MenuItem item) {
                         // Handle navigation view item clicks here.
                         int id = item.getItemId();
-
                         if (id == R.id.menu_anuncios) {
 
                             Bundle bundle = new Bundle();
@@ -463,6 +465,7 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //usuario = new ApiModels().getUsuarioById(id);
         if (item.getItemId() == android.R.id.home){
             mDrawerLayout.openDrawer(GravityCompat.START);
         }

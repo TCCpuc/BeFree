@@ -85,20 +85,23 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         Intent it = this.getIntent();
         Bundle mainActivityIntent = it.getExtras();
         String x [] = mainActivityIntent.getString("arrayUsuario").split("%");
-        usuario = new Usuarios();
-        usuario.idUsuario = Integer.parseInt(x[0]);
-        usuario.nomeUsuario = x[1];
-        usuario.cpf = x[2];
-        usuario.idCidade = Integer.parseInt(x[3]);
-        usuario.idEstado = Integer.parseInt(x[4]);
-        usuario.bairro = x[5];
-        usuario.logradouro = x[6];
-        usuario.numero = Integer.parseInt(x[7]);
-        usuario.cep = Integer.parseInt(x[8]);
-        usuario.email = x[9];
-        usuario.ddd = Integer.parseInt(x[10]);
-        usuario.imagemPerfil = x[11];
-        usuario.senha = x[12];
+
+        usuario = new ApiModels().getUsuarioById(Integer.parseInt(x[0]));
+
+//        usuario.idUsuario = Integer.parseInt(x[0]);
+//        usuario.nomeUsuario = x[1];
+//        usuario.cpf = x[2];
+//        usuario.idCidade = Integer.parseInt(x[3]);
+//        usuario.idEstado = Integer.parseInt(x[4]);
+//        usuario.bairro = x[5];
+//        usuario.logradouro = x[6];
+//        usuario.numero = Integer.parseInt(x[7]);
+//        usuario.cep = Integer.parseInt(x[8]);
+//        usuario.email = x[9];
+//        usuario.ddd = Integer.parseInt(x[10]);
+//        usuario.imagemPerfil = x[11];
+//        usuario.senha = x[12];
+
 
         //------------------------------
 
@@ -146,7 +149,10 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         ddd.setAdapter(arrayAdapterDDD);
         ddd.setId(usuario.ddd);
-        ddd.setSelection(usuario.ddd - 12);
+        if (usuario.ddd > 16)
+            ddd.setSelection(usuario.ddd - 13);
+        else
+            ddd.setSelection(usuario.ddd - 12);
         ddd.setEnabled(false);
 
 
@@ -214,7 +220,10 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     username.setBackgroundColor(Color.WHITE);
                     try {
                         usuario.nomeUsuario = username.getText().toString();
-                        usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                        if (ddd.getSelectedItemPosition() > 5)
+                            usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                        else
+                            usuario.ddd = ddd.getSelectedItemPosition() + 12;
                         if(bitmapUsuarioPerfil!= null){
                             usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
                         }
@@ -348,7 +357,10 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     usuario.nomeUsuario = username.getText().toString();
-                                    usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                                    if (ddd.getSelectedItemPosition() > 5)
+                                        usuario.ddd = ddd.getSelectedItemPosition() + 13;
+                                    else
+                                        usuario.ddd = ddd.getSelectedItemPosition() + 12;
                                     if(bitmapUsuarioPerfil!= null){
                                         usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
                                     }

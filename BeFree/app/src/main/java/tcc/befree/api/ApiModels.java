@@ -89,6 +89,14 @@ public class ApiModels implements Runnable{
                 usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
                 usuario.senha = jSonObject.getString("senha");
                 usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
+                usuario.cpf = jSonObject.getString("cpf");
+                usuario.idCidade = jSonObject.getInt("idCidade");
+                usuario.idEstado = jSonObject.getInt("idEstado");
+                usuario.bairro = jSonObject.getString("bairro");
+                usuario.logradouro = jSonObject.getString("logradouro");;
+                usuario.numero = jSonObject.getInt("numero");
+                usuario.cep = jSonObject.getInt("cep");
+                usuario.ddd = jSonObject.getInt("ddd");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,6 +123,7 @@ public class ApiModels implements Runnable{
             usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
             usuario.cpf = jSonObject.getString("cpf");
             usuario.idCidade = jSonObject.getInt("idCidade");
+            usuario.codigoSeguranca = jSonObject.getString("codigoSeguranca");
             usuario.idEstado = jSonObject.getInt("idEstado");
             if(jSonObject.getString("bairro") != "null"){
                 usuario.bairro = jSonObject.getString("bairro");
@@ -146,6 +155,7 @@ public class ApiModels implements Runnable{
 
         try {
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/RecuperarSenha/?email=" + email;
+            //urlAPI = "http://localhost:1994/api/Usuarios/RecuperarSenha/?email=" + email;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -1181,5 +1191,10 @@ public class ApiModels implements Runnable{
                 result.add(c.idCategoria);
         };
         return result;
+    }
+
+    public String getCodigoSegurancaByEmail(String s) {
+        Usuarios usuario = getUsuariosByEmail(s);
+        return usuario.codigoSeguranca;
     }
 }

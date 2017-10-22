@@ -23,6 +23,7 @@ public class Usuarios {
     public String email ;
     public int ddd ;
     public String imagemPerfil;
+    public String codigoSeguranca;
 
     @Override
     public String toString() {

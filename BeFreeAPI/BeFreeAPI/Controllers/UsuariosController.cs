@@ -215,6 +215,15 @@ namespace BeFreeAPI.Controllers
                 string bodyEmail = function.GenerateRandomString();
                 bool emailOK = function.EnviaEmail(email, "Recuperação de Senha Befree", bodyEmail);
 
+                //colocar bodyEmail no banco
+                IQueryable<Usuario> usuario = db.tbUsuarios.Where(u => u.email == email);
+                if (usuario == null)
+                {
+                    return NotFound();
+                }
+                var usuarioEncontrado = usuario.FirstOrDefault();
+                usuarioEncontrado.codigoSeguranca = bodyEmail;
+                PutUsuario(usuarioEncontrado.idUsuario, usuarioEncontrado);
             }
             catch (Exception err) {
 
