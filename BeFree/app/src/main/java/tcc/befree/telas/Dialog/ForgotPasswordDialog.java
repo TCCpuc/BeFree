@@ -26,6 +26,7 @@ import tcc.befree.models.Usuarios;
 public class ForgotPasswordDialog extends Dialog implements
         android.view.View.OnClickListener{
 
+    private final ApiModels apiModels;
     private Activity c;
     private Button sendButton;
     private Button backButton;
@@ -41,6 +42,7 @@ public class ForgotPasswordDialog extends Dialog implements
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
+        apiModels = new ApiModels();
     }
 
     @Override
@@ -76,8 +78,9 @@ public class ForgotPasswordDialog extends Dialog implements
                         dialogMessage.setText("");
                         dialogMessage.requestFocus();
                     }else{
-                        new ApiModels().getCodePassword(dialogMessage.getText().toString());
+                        apiModels.getCodePassword(dialogMessage.getText().toString());
                         textMessage.setText("Digite o codigo enviado para seu email");
+                        dialogMessage.setHint("Código");
                         code.setVisibility(View.GONE);
                         dialogMessage.setText("");
                         dialogMessage.requestFocus();
@@ -85,8 +88,12 @@ public class ForgotPasswordDialog extends Dialog implements
                     }
                 }else if(count == 1){
                     //VERIFICAR NO BANCO SE CODIGO É CORRETO
-                    String codigoNoBanco = new ApiModels().getCodigoSegurancaByEmail(email);
                     String codigoDigitado = dialogMessage.getText().toString();
+                    boolean codigoExiste = false;
+                    if (email == null)
+                        //Está no fluxo de código
+                        email = apiModels.getEmailByCodigoSeguranca(codigoDigitado);
+                    String codigoNoBanco = apiModels.getCodigoSegurancaByEmail(email);
                     if(codigoDigitado.equals(codigoNoBanco)){
                         textMessage.setText("Digite uma nova senha");
                         dialogMessage.setText("");
@@ -117,7 +124,7 @@ public class ForgotPasswordDialog extends Dialog implements
                     }else{
                         textMessage.setText("Senha alterada com sucesso");
                         sendButton.setVisibility(View.GONE);
-                        Usuarios usuarioComSenhaAlterada = new ApiModels().getUsuariosByEmail(email);
+                        Usuarios usuarioComSenhaAlterada = apiModels.getUsuariosByEmail(email);
                         usuarioComSenhaAlterada.senha = senha;
                         usuarioComSenhaAlterada.codigoSeguranca = null;
                         new PutApiModels().putUsuarios(usuarioComSenhaAlterada);
@@ -132,6 +139,7 @@ public class ForgotPasswordDialog extends Dialog implements
                 break;
             case R.id.dialog_btn_codigo:
                 textMessage.setText("Digite o codigo enviado para seu email");
+                dialogMessage.setHint("Código");
                 code.setVisibility(View.GONE);
                 dialogMessage.setText("");
                 dialogMessage.requestFocus();

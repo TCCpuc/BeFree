@@ -40,7 +40,7 @@ public class ApiModels implements Runnable{
         ArrayList<Usuarios> arrayUsuarios = new ArrayList<Usuarios>();
 
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/GettbUsuarios";
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/GettbUsuarios";
 
             Thread thread = new Thread(this);
             thread.start();
@@ -56,6 +56,7 @@ public class ApiModels implements Runnable{
                 usuario.idUsuario = jSonObject.getInt("idUsuario");
                 usuario.email = jSonObject.getString("email");
                 usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
+                usuario.codigoSeguranca = jSonObject.getString("codigoSeguranca");
                 usuario.senha = jSonObject.getString("senha");
                 usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
                 arrayUsuarios.add(usuario);
@@ -1196,5 +1197,25 @@ public class ApiModels implements Runnable{
     public String getCodigoSegurancaByEmail(String s) {
         Usuarios usuario = getUsuariosByEmail(s);
         return usuario.codigoSeguranca;
+    }
+
+    public Usuarios getUsuarioByCodigoSeguranca(String codigo) {
+        List<Usuarios> usuarios = getUsuarios();
+        for (Usuarios u:
+             usuarios) {
+            if (codigo.equals(u.codigoSeguranca))
+                return u;
+        }
+        return null;
+    }
+
+
+    public String getEmailByCodigoSeguranca(String codigo) {
+        try{
+            return getUsuarioByCodigoSeguranca(codigo).email;
+        }
+        catch (Exception E){
+            return null;
+        }
     }
 }
