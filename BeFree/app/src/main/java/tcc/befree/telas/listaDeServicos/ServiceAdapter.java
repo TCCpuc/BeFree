@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import tcc.befree.R;
 import tcc.befree.activities.CreateServicoActivity;
 import tcc.befree.activities.EditServicoActivity;
+import tcc.befree.api.DeleteApiModels;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Servico;
 
@@ -98,7 +99,7 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //COLOCAR AQUI O METODO DELETAR ANUNCIO API
+                                //new DeleteApiModels().postServico()
                             }
 
                         })

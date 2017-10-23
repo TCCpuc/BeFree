@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tcc.befree.api.ApiModels;
 import tcc.befree.api.PostApiModels;
 import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
@@ -43,6 +46,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private TextView insertPhoto;
     private CircleImageView photo;
     private ProgressBar loading;
+    private Spinner ddd;
     private Button continuar;
     private int passo;
 
@@ -55,6 +59,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        ddd = (Spinner) findViewById(R.id.create_account_DDD);
         presentation = (TextView) findViewById(R.id.create_account_presentation);
         edtNome = (AutoCompleteTextView) findViewById(R.id.create_account_username);
         edtSenha = (EditText) findViewById(R.id.create_account_password);
@@ -68,6 +73,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         photo = (CircleImageView) findViewById(R.id.create_account_user_photo);
         insertPhoto = (TextView) findViewById(R.id.create_account_insert_foto);
         passo = 0;
+        //popula o spinner do ddd
+        ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
+        arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        ddd.setAdapter(arrayAdapterDDD);
 
         continuar.setOnClickListener(new View.OnClickListener() {
 
@@ -97,6 +106,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 passo = 3;
                                 message.setText("\n Estamos quase lá!! \n Agora preciso que voce nos informe seu \n E-mail e CPF. \n");
                                 edtCpf.setVisibility(View.VISIBLE);
+                                ddd.setVisibility(View.VISIBLE);
                                 edtEmail.setVisibility(View.VISIBLE);
                             }
                         }
@@ -106,6 +116,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         if(validaEmail(edtEmail.getText().toString())){
                             edtCpf.setVisibility(View.GONE);
                             edtEmail.setVisibility(View.GONE);
+                            ddd.setVisibility(View.GONE);
                             message.setVisibility(View.GONE);
                             passo = 4;
                             photo.setVisibility(View.VISIBLE);
@@ -127,6 +138,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                     novoUsuario.cpf = edtCpf.getText().toString();
                     novoUsuario.email = edtEmail.getText().toString();
                     novoUsuario.senha = edtSenha.getText().toString();
+                    if (ddd.getSelectedItemPosition() > 5)
+                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 13;
+                    else
+                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 12;
                     try {
                         novoUsuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
                     }catch(Exception e){

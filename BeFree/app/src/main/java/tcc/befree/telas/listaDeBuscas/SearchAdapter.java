@@ -96,7 +96,7 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //COLOCAR AQUI O METODO DELETAR ANUNCIO API
+                                //new DeleteApiModels().postBusca)
                             }
 
                         })

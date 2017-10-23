@@ -46,19 +46,19 @@
 
     <!-- PASSO 1 - CRIAR E VALIDAR NOME DE USUARIO -->
     <AutoCompleteTextView
-            android:id="@+id/create_account_username"
-            android:layout_width="300dp"
-            android:layout_height="33dp"
-            android:background="@drawable/border"
-            android:maxLines="1"
-            android:inputType="textCapWords"
-            android:hint="                      Ex: Befree01"
-            android:textColorHint="@color/cardview_dark_background"
-            android:text=""
-            android:imeOptions="actionDone"
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+        android:id="@+id/create_account_username"
+        android:layout_width="300dp"
+        android:layout_height="33dp"
+        android:background="@drawable/border"
+        android:maxLines="1"
+        android:inputType="textCapWords"
+        android:hint="                      Ex: Befree01"
+        android:textColorHint="@color/cardview_dark_background"
+        android:text=""
+        android:imeOptions="actionDone"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <!-- PASSO 2 - DIGITAR E CONFIRMAR SENHA-->
 
@@ -116,6 +116,18 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+    <Spinner
+        android:id="@+id/create_account_DDD"
+        android:layout_gravity="left"
+        android:layout_width="300dp"
+        android:layout_height="33dp"
+        android:background="@drawable/border"
+        android:layout_marginBottom="50dp"
+        android:visibility="gone"
+        android:layout_above="@+id/create_account_continue"
+        android:layout_alignLeft="@+id/create_account_email"
+        android:layout_alignStart="@+id/create_account_email" />
+
     <AutoCompleteTextView
         android:id="@+id/create_account_email"
         android:layout_width="300dp"
@@ -162,40 +174,40 @@
     <!-- FIM DO PASSO 4-->
 
 
-        <ProgressBar
-            android:id="@+id/create_account_loading"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+    <ProgressBar
+        android:id="@+id/create_account_loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:id="@+id/create_account_username_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/create_account_username"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
-            android:text="Nome de Usuario ja existe, favor digitar outro"
-            android:textColor="@color/red"
-            android:visibility="gone"/>
+    <TextView
+        android:id="@+id/create_account_username_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/create_account_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:text="Nome de Usuario ja existe, favor digitar outro"
+        android:textColor="@color/red"
+        android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/create_account_message"
-            android:layout_width="362dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.03"
-            android:visibility="gone"
-            android:background="@drawable/border"
-            android:text="\n Por favor digite um nome de usuario para validarmos em nosso banco de dados!! \n"
-            android:textAlignment="center"
-            android:textColor="@color/dark_gray"
-            android:textSize="14sp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/cabecalho"
-            android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/create_account_message"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03"
+        android:visibility="gone"
+        android:background="@drawable/border"
+        android:text="\n Por favor digite um nome de usuario para validarmos em nosso banco de dados!! \n"
+        android:textAlignment="center"
+        android:textColor="@color/dark_gray"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/cabecalho"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/create_account_continue"
