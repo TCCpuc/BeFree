@@ -12,6 +12,7 @@ import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +30,7 @@ import tcc.befree.models.CircleImageView;
  * Created by guilherme.leme on 8/17/17.
  */
 
-public class GenderActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
     private List<Agenda> gender = new List<Agenda>() {
@@ -164,6 +165,14 @@ public class GenderActivity extends AppCompatActivity {
         calendarView.setShowWeekNumber(false);
         long selectedDate = calendarView.getDate();
         calendarView.requestFocus();
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // display the selected date by using a toast
+                Toast.makeText(getApplicationContext(), dayOfMonth + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+            }
+        });
+
         popular(gender);
         ListView listView = (ListView) findViewById(R.id.calendar_listview);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
