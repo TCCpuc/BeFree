@@ -227,20 +227,15 @@ public class LoginActivity extends AppCompatActivity {
             }
             else {
                 Intent intent = new Intent(this, MainActivity.class);
-                /*
-                intent.putExtra("nomeUsuario",usuario.nomeUsuario);
-                intent.putExtra("emailUsuario",usuario.email);
-                intent.putExtra("imagemPerfil",usuario.imagemPerfil);
-                */
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 intent.putExtra("arrayUsuario", usuario.toString());
-
                 Bundle bundle = new Bundle();
                 bundle.putInt("idUsuario",usuario.idUsuario);
                 intent.putExtra("idUsuario", bundle);
 
                 startActivity(intent);
-                finish();
             }
         }
     }

@@ -316,7 +316,9 @@ public class MainActivity extends AppCompatActivity{
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         }
 
                     })
