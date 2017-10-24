@@ -37,6 +37,7 @@
         <activity android:name=".activities.AnuncioBuscaActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.AnuncioServicoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.CalendarActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.GenderActivity" android:screenOrientation="portrait"/>
         <!--
         <activity
             android:name=".activities.SplashActivity"

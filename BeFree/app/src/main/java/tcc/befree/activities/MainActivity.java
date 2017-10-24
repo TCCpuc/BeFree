@@ -250,8 +250,7 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_calendario) {
                             // ABRIR Agenda
-                            Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-
+                            Intent intent = new Intent(MainActivity.this, GenderActivity.class);
                             startActivity(intent);
 
                         } else if (id == R.id.menu_chat) {
