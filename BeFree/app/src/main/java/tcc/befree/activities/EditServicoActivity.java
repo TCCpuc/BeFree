@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import com.squareup.picasso.Picasso;
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.api.PostApiModels;
+import tcc.befree.api.PutApiModels;
 import tcc.befree.models.Categoria;
 import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
@@ -52,6 +54,7 @@ public class EditServicoActivity extends AppCompatActivity {
     private Bitmap bitmapUsuarioPerfil;
     private int idServico;
     private Servico servico;
+    private SubCategoria subCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class EditServicoActivity extends AppCompatActivity {
         idServico = loginActivityIntent.getInt("idServico");
         ApiModels api = new ApiModels();
         servico = api.getServicosById(idServico);
+        subCategoria = new ApiModels().getSubCategoriasByID(servico.idSubCategoria);
 
         spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
         photo = (ImageView) findViewById(R.id.create_servico_unounce_photo);
@@ -72,19 +76,36 @@ public class EditServicoActivity extends AppCompatActivity {
         spinnerCategorias = (Spinner) findViewById(R.id.create_servico_spinnerCategoria);
         spinnerSubCategorias = (Spinner) findViewById(R.id.create_servico_spinnerSubCategoria);
         title = (TextView) findViewById(R.id.create_servico_title);
-
+        editDescricao = (EditText) findViewById(R.id.create_servico_txtDescricao);
 
         //popula o spinner do ddd
-
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDDDs.setAdapter(arrayAdapterDDD);
+        spinnerDDDs.setId(servico.idDDD);
+        if (servico.idDDD > 16)
+            spinnerDDDs.setSelection(servico.idDDD - 13);
+        else
+            spinnerDDDs.setSelection(servico.idDDD - 12);
 
         //popula o spinner de categoria
-
-        ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
+        Categoria[] categorias = new ApiModels().getCategoriasVetor();
+        ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias);
         arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
+//        Categoria categoria = null;
+//        for (Categoria c : categorias) {
+//            if (c.idCategoria == subCategoria.idCategoria) {
+//                categoria = c;
+//                break;
+//            }
+//        }
+//        if (!categoria.descricao.equals(null)) {
+//            int spinnerPosition = arrayAdapterCategoria.getPosition(categoria.descricao);
+            spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
+//        }
+
+
 
         //popula restante
 
@@ -162,12 +183,31 @@ public class EditServicoActivity extends AppCompatActivity {
                         novaServico.imagemServico = "";
                     }
                     new PostApiModels().postServico(novaServico);
-                    Toast toast = Toast.makeText(getApplicationContext(), "Servico criado com sucesso!", Toast.LENGTH_LONG);
-                    toast.show();
-                    EditServicoActivity.super.onBackPressed();
+
                 }
             }
         });*/
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Servico servicoAlterado = servico;
+                if (spinnerDDDs.getSelectedItemPosition() > 5)
+                    servicoAlterado.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
+                else
+                    servicoAlterado.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
+                servicoAlterado.descricao = editDescricao.getText().toString();
+                servicoAlterado.titulo = ((EditText) viewNome).getText().toString();
+                if(bitmapUsuarioPerfil!= null)
+                    servicoAlterado.imagemServico = Utils.convert(bitmapUsuarioPerfil);
+                int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
+                servicoAlterado.idSubCategoria = idSubCategoria;
+                new PutApiModels().putServico(servicoAlterado);
+                Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
+                toast.show();
+                onBackPressed();
+            }
+        });
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,14 +235,29 @@ public class EditServicoActivity extends AppCompatActivity {
         }
     }
 
+    //private method of your class
+    private int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     protected void preencheSubCategoria(int idCategoria) {
-
-        //popula o spinner de subcategoria
-
+        //popula o spinner de subcategoria - não está populando certo
         ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoria(idCategoria));
         arrayAdapterSubCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
-
+//        if (!subCategoria.descricao.equals(null)) {
+            int spinnerPosition = getIndex(spinnerSubCategorias, subCategoria.descricao);
+            spinnerSubCategorias.setSelection(spinnerPosition);
+//        }
     }
 
     @Override

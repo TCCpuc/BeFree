@@ -16,15 +16,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
+import tcc.befree.api.PutApiModels;
 import tcc.befree.models.Busca;
 import tcc.befree.models.Categoria;
 import tcc.befree.models.Servico;
+import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.utils.Utils;
 
 /**
  * Created by guilherme.leme on 10/17/17.
@@ -46,6 +50,7 @@ public class EditBuscaActivity extends AppCompatActivity {
     private Bitmap bitmapUsuarioPerfil;
     private int idBusca;
     private Busca busca;
+    private SubCategoria subCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class EditBuscaActivity extends AppCompatActivity {
         idBusca = loginActivityIntent.getInt("idBusca");
         ApiModels api = new ApiModels();
         busca = api.getBuscaByID(idBusca);
+        subCategoria = new ApiModels().getSubCategoriasByID(busca.idSubCategoria);
 
         spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
         photo = (ImageView) findViewById(R.id.create_busca_unounce_photo);
@@ -66,6 +72,7 @@ public class EditBuscaActivity extends AppCompatActivity {
         spinnerCategorias = (Spinner) findViewById(R.id.create_busca_spinnerCategoria);
         spinnerSubCategorias = (Spinner) findViewById(R.id.create_busca_spinnerSubCategoria);
         title = (TextView) findViewById(R.id.create_busca_title);
+        editDescricao = (EditText) findViewById(R.id.create_busca_txtDescricao);
 
 
         //popula o spinner do ddd
@@ -73,12 +80,27 @@ public class EditBuscaActivity extends AppCompatActivity {
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDDDs.setAdapter(arrayAdapterDDD);
+        if (busca.idDDD > 16)
+            spinnerDDDs.setSelection(busca.idDDD - 13);
+        else
+            spinnerDDDs.setSelection(busca.idDDD - 12);
 
         //popula o spinner de categoria
 
         ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
         arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
+//        Categoria categoria = null;
+//        for (Categoria c : categorias) {
+//            if (c.idCategoria == subCategoria.idCategoria) {
+//                categoria = c;
+//                break;
+//            }
+//        }
+//        if (!categoria.descricao.equals(null)) {
+//            int spinnerPosition = arrayAdapterCategoria.getPosition(categoria.descricao);
+        spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
+//        }
 
         //popula restante
 
@@ -88,9 +110,26 @@ public class EditBuscaActivity extends AppCompatActivity {
         submit.setText("Editar Busca");
         title.setText(busca.titulo);
 
-
-
-
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Busca buscaAlterada = busca;
+                if (spinnerDDDs.getSelectedItemPosition() > 5)
+                    buscaAlterada.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
+                else
+                    buscaAlterada.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
+                buscaAlterada.descricao = editDescricao.getText().toString();
+                buscaAlterada.titulo = ((EditText) viewNome).getText().toString();
+                if(bitmapUsuarioPerfil!= null)
+                    buscaAlterada.imagemBusca = Utils.convert(bitmapUsuarioPerfil);
+                int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
+                buscaAlterada.idSubCategoria = idSubCategoria;
+                new PutApiModels().putBusca(buscaAlterada);
+                Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
+                toast.show();
+                onBackPressed();
+            }
+        });
 
 
         spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -189,14 +228,29 @@ public class EditBuscaActivity extends AppCompatActivity {
         }
     }
 
+    //private method of your class
+    private int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     protected void preencheSubCategoria(int idCategoria) {
-
-        //popula o spinner de subcategoria
-
+        //popula o spinner de subcategoria - não está populando certo
         ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoria(idCategoria));
         arrayAdapterSubCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
-
+//        if (!subCategoria.descricao.equals(null)) {
+        int spinnerPosition = getIndex(spinnerSubCategorias, subCategoria.descricao);
+        spinnerSubCategorias.setSelection(spinnerPosition);
+//        }
     }
 
     @Override

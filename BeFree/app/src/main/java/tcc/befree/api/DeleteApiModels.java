@@ -26,68 +26,52 @@ public class DeleteApiModels implements Runnable{
     private boolean semaforo;
     private String urlAPI = "";
 
-    public boolean postServico(Servico servico){
-        Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/PostServico/";
-
-        jSonObject = new JSONObject();
-        try {
-            jSonObject.put("idServico",servico.idServico);
-            jSonObject.put("titulo",servico.titulo);
-            jSonObject.put("descricao",servico.descricao);
-            jSonObject.put("idUsuario",servico.idUsuario);
-            jSonObject.put("idSubCategoria",servico.idSubCategoria);
-            jSonObject.put("idStatus",servico.idStatus);
-            //jSonObject.put("imagemServico",Utils.criptografarBase64(servico.imagemServico));
-            jSonObject.put("imagemBusca",servico.imagemServico);
-            jSonObject.put("idDDD",servico.idDDD);
-
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            thread.interrupt();
-        }
-
-        return true;
-    }
-
-    public boolean  postBusca(Busca busca){
-        Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/PostBusca/";
-
-        jSonObject = new JSONObject();
-        try {
-            jSonObject.put("idBusca",busca.idBusca);
-            jSonObject.put("titulo",busca.titulo);
-            jSonObject.put("descricao",busca.descricao);
-            jSonObject.put("idUsuario",busca.idUsuario);
-            jSonObject.put("idSubCategoria",busca.idSubCategoria);
-            jSonObject.put("idStatus",busca.idStatus);
-            //jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
-            jSonObject.put("imagemBusca",busca.imagemBusca);
-            jSonObject.put("idDDD",busca.idDDD);
-
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            thread.interrupt();
-        }
-
-        return true;
-    }
-
     //Verifica se a thread foi executada com sucesso para executar proxima
     private void controlaThread(){
         for(;;){
             if (semaforo)
                 break;
         }
+    }
+
+    //Retorna Servicos pelo id
+    public Servico getServicosById(int id){
+
+        Servico servico = new Servico();
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/DeleteServico/?id=" + id;
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return servico;
+    }
+
+    public Busca getBuscaByID(int id){
+
+        Busca busca = new Busca();
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/DeleteBusca/?id=" + id;
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            if (jSonArray == null)
+                thread.sleep(500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jSonArray = null;
+        return busca;
     }
 
     @Override
