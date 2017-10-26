@@ -11,9 +11,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tcc.befree.api.ApiModels;
 import tcc.befree.R;
 import tcc.befree.api.PostApiModels;
@@ -26,6 +23,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
 
     protected ImageView imgAnuncio;
     private FloatingActionButton contato;
+    private FloatingActionButton agenda;
 
     private void setText(String campo, String valor){
         int Servico = getResources().getIdentifier(campo, "id", getPackageName());
@@ -43,6 +41,15 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
         imgAnuncio = (ImageView) findViewById(R.id.newactivity_img_anuncio);
+        agenda = (FloatingActionButton) findViewById(R.id.anuncio_gender);
+        agenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AnuncioServicoActivity.this,CalendarActivity.class);
+                intent.putExtra("idUsuario", idUsuarioAtual);
+                startActivity(intent);
+            }
+        });
         contato = (FloatingActionButton) findViewById(R.id.anuncio_contato);
         contato.setOnClickListener(new View.OnClickListener() {
             @Override

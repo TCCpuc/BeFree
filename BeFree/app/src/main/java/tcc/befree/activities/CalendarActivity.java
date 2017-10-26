@@ -1,5 +1,6 @@
 package tcc.befree.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CalendarView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -17,19 +23,16 @@ import java.util.ListIterator;
 
 import tcc.befree.R;
 import tcc.befree.models.Agenda;
+import tcc.befree.models.Chat;
+import tcc.befree.models.CircleImageView;
 
 /**
- * Created by guilherme.leme on 10/23/17.
+ * Created by guilherme.leme on 8/17/17.
  */
 
-public class GenderActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity {
 
-    private ListView oldday;
-
-    private ListView day;
-
-    private ListView time;
-
+    private CalendarView calendarView;
     private List<Agenda> gender = new List<Agenda>() {
         @Override
         public int size() {
@@ -156,111 +159,49 @@ public class GenderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gender);
+        setContentView(R.layout.activity_calendario);
 
-        day = (ListView) findViewById(R.id.gender_day);
-        time = (ListView) findViewById(R.id.gender_time);
-        oldday = (ListView) findViewById(R.id.gender_old_day);
+        calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView.setShowWeekNumber(false);
+        long selectedDate = calendarView.getDate();
+        calendarView.requestFocus();
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // display the selected date by using a toast
+                Toast.makeText(getApplicationContext(), dayOfMonth + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+            }
+        });
 
-        oldday.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        popular(gender);
+        ListView listView = (ListView) findViewById(R.id.calendar_listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
         });
-
-        oldday.setAdapter(new GenderActivity.OldDayAdapter());
-
-        day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        day.setAdapter(new GenderActivity.DayAdapter());
-
-        time.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        time.setAdapter(new GenderActivity.TimeAdapter());
+        listView.setAdapter(new MyAdapter());
     }
+
+    private void popular(List<Agenda> ag) {
+        Agenda teste = new Agenda();
+        teste.setConteudo("teste");
+        teste.setHora("13:00 - 14:00");
+        teste.setTitulo("Vazio");
+        teste.setImagem("");
+        for(int x = 0; x<24; x++){
+            ag.add(teste);
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
         finish();
     }
 
-    private class DayAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
-            return 1;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return gender.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
-            TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
-            TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
-                tempo.setText("24/11/2017");
-                titulo.setText("Tosa para Cachorro");
-            return view;
-        }
-    }
-
-    private class OldDayAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
-            return 3;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return gender.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
-            TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
-            TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
-            if(position==0){
-                tempo.setText("19/02/2017");
-                titulo.setText("Pedreiro para Argila");
-            }else if(position==1){
-                tempo.setText("13/08/2017");
-                titulo.setText("Serviço de Buffet");
-            }else {
-                tempo.setText("29/09/2017");
-                titulo.setText("Lavagem de Carros");
-            }
-
-            return view;
-        }
-    }
-
-    private class TimeAdapter extends BaseAdapter {
+    private class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
             return 24;
@@ -276,10 +217,15 @@ public class GenderActivity extends AppCompatActivity {
             return position;
         }
 
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            //Agenda agenda = gender.get(position);
             View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
+
+            //CircleImageView mImagePerfil = (CircleImageView) view.findViewById(R.id.item_agenda_image);
             TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
+            //TextView descricao = (TextView) view.findViewById(R.id.item_agenda_description);
             TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
             if(position < 9){
                 tempo.setText("0" + position + ":00 - 0" + (position + 1) + ":00");
@@ -288,6 +234,18 @@ public class GenderActivity extends AppCompatActivity {
             }else{
                 tempo.setText(position + ":00 - " + (position + 1) + ":00");
             }
+
+            /*
+            TextView description = (TextView) view.findViewById(R.id.item_service_description);
+            description.setText(agenda.getUltima_mensagem_texto());
+
+            TextView username = (TextView) view.findViewById(R.id.item_service_title);
+            username.setText(agenda.getNome_outro_usuario());
+
+            CircleImageView mImagePerfil = (CircleImageView) view.findViewById(R.id.item_agenda_imagem);
+            Picasso.with(getContext()).load(chat.getImagem_outro_usuario()).into(mImagePerfil);
+            */
+
             return view;
         }
     }

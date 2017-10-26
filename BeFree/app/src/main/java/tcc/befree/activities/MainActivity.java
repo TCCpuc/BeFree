@@ -24,13 +24,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import tcc.befree.R;
@@ -253,7 +251,6 @@ public class MainActivity extends AppCompatActivity{
                         } else if (id == R.id.menu_calendario) {
                             // ABRIR Agenda
                             Intent intent = new Intent(MainActivity.this, GenderActivity.class);
-
                             startActivity(intent);
 
                         } else if (id == R.id.menu_chat) {
@@ -319,7 +316,9 @@ public class MainActivity extends AppCompatActivity{
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         }
 
                     })

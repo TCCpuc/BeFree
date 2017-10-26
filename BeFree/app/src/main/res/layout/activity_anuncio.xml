@@ -171,9 +171,21 @@
         android:id="@+id/anuncio_contato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginRight="5dp"
         android:clickable="true"
         android:src="@drawable/ic_discuss"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/anuncio_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="70dp"
+        android:clickable="true"
+        android:src="@drawable/ic_event"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
 
