@@ -8,15 +8,16 @@ public class Evento {
     private int idEvento;
     private int idServico;
     private int idUsuarioContratante;
+    private String nomeUsuarioContratante;
     private String dtEvento;
     private int hrInicio;
     private int hrFinal;
     private float notaAvalicao;
     private boolean avaliado;
     private int situacaoEvento;
-    private String titulo;
-    private String conteudo;
-    private String imagem;
+    private String titulo; //SERVICO
+    private String conteudo; //SERVICO
+    private String imagem; //SERVICO
 
     public int getIdEvento() {
         return idEvento;
@@ -32,6 +33,14 @@ public class Evento {
 
     public void setIdServico(int idEvento) {
         this.idEvento = idEvento;
+    }
+
+    public String getNomeUsuarioContratante() {
+        return nomeUsuarioContratante;
+    }
+
+    public void setNomeUsuarioContratante(String nomeUsuarioContratante) {
+        this.nomeUsuarioContratante = nomeUsuarioContratante;
     }
 
     public int getIdUsuarioContratante() {

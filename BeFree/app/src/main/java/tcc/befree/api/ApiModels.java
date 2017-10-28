@@ -977,6 +977,7 @@ public class ApiModels implements Runnable{
         x.setTitulo("Pintor");
         x.setConteudo("Pinto portas");
         x.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
+        x.setNomeUsuarioContratante("Alfredo Duarte");
         ar.add(x);
         Evento y = new Evento();
         y.setIdEvento(2);
@@ -989,6 +990,7 @@ public class ApiModels implements Runnable{
         y.setTitulo("Bibliotecario");
         y.setConteudo("Arrumo Biblioteca");
         y.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
+        y.setNomeUsuarioContratante("Alicia Keys");
         ar.add(y);
         return ar;
     }

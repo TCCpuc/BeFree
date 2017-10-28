@@ -1,5 +1,7 @@
 package tcc.befree.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.Evento;
+import tcc.befree.telas.Dialog.ForgotPasswordDialog;
+import tcc.befree.telas.Dialog.GenderServiceDialog;
 
 /**
  * Created by guilherme.leme on 10/23/17.
@@ -67,8 +71,9 @@ public class GenderActivity extends AppCompatActivity {
         time.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
+                GenderServiceDialog dialog = new GenderServiceDialog(GenderActivity.this, evento);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
             }
         });
     }
@@ -194,5 +199,8 @@ public class GenderActivity extends AppCompatActivity {
 
             return view;
         }
+    }
+    public Evento getEvento(){
+        return this.evento;
     }
 }
