@@ -257,6 +257,7 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\DDDController.cs" />
+    <Compile Include="Controllers\EventosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MensagemController.cs" />
     <Compile Include="Controllers\ServicoController.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="Models\DDD.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Mensagem.cs" />
+    <Compile Include="Models\Evento.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\VwChatUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -160,6 +160,7 @@ namespace BeFreeAPI.Controllers
 
         // DELETE: api/Servico/5
         [ResponseType(typeof(Servico))]
+        [HttpGet]
         public IHttpActionResult DeleteServico(int id)
         {
             Servico servico = db.tbServicoes.Find(id);

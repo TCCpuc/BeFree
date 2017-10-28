@@ -1,69 +1,79 @@
 ﻿@model IEnumerable<BeFreeWeb.Models.Servico>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Servico";
 }
+<html>
+<head>
+</head>
+<body>
 
-<h2>Index</h2>
+    <div class="content-inner">
+        <!-- Page Header-->
+        <header class="page-header">
+            <div class="container-fluid">
+                <h2 class="no-margin-bottom">Serviços</h2>
+            </div>
+        </header>
+        <!-- Breadcrumb-->
+        <ul class="breadcrumb">
+            <div class="container-fluid">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                <li class="breadcrumb-item active">Serviços</li>
+            </div>
+        </ul>
+        <section class="tables">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card" style="width:800px; height:auto;">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="h4">Serviços</h3>
+                            </div>
+                            <div class="card-body">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idUsuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idSubCategoria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imagemServico)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idDDD)
-        </th>
-        <th></th>
-    </tr>
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.titulo)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.descricao)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.idDDD)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idUsuario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idSubCategoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idStatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imagemServico)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idDDD)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idServico }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idServico }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idServico })
-        </td>
-    </tr>
-}
-
-</table>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.titulo)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.descricao)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.idDDD)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "EditServico", new { id = item.idServico }) |
+                                                    @Html.ActionLink("Delete", "DeleteServico", new { id = item.idServico })
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

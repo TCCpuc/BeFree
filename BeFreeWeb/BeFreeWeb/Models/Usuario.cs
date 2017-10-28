@@ -55,5 +55,7 @@ namespace BeFreeWeb.Models
         public string ddd { get; set; }
 
         public string imagemPerfil { get; set; }
+
+        public string paginaRenderizada {get;set;}
     }
 }

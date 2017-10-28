@@ -18,7 +18,7 @@ namespace BeFreeWeb.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Servico
-        public async System.Threading.Tasks.Task<ActionResult> Servico()
+        public async System.Threading.Tasks.Task<ActionResult> Index()
         {
             List<Servico> model = new List<Servico>();
             if (Session["IsAuthenticated"].ToString() == "true")
@@ -84,18 +84,32 @@ namespace BeFreeWeb.Controllers
         }
 
         // GET: Servico/Edit/5
-        public ActionResult EditServico(int? id)
+        public async System.Threading.Tasks.Task<ActionResult> EditServico(int? id)
         {
-            if (id == null)
+            List<Servico> model = new List<Servico>();
+            if (Session["IsAuthenticated"].ToString() == "true")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    try
+                    {
+                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Servico/GetServico/?id=" + id);
+                        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
+                        string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                        model = JsonConvert.DeserializeObject<List<Servico>>(result);
+                    }
+                    catch (Exception err)
+                    {
+                        string erro = err.Message;
+                    }
+
+                }
+                Servico servico = model[0];
+                return View(servico);
             }
-            Servico servico = db.Servicoes.Find(id);
-            if (servico == null)
-            {
-                return HttpNotFound();
-            }
-            return View(servico);
+            else
+                return RedirectToAction("Login");
         }
 
         // POST: Servico/Edit/5

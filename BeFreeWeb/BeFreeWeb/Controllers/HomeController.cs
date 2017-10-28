@@ -15,10 +15,10 @@ namespace BeFreeWeb.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            List<Usuario> model = new List<Usuario>();
+            //List<Usuario> model = new List<Usuario>();
             if (Session["IsAuthenticated"].ToString() == "true")
             {
-
+                /*
                 using (HttpClient httpClient = new HttpClient())
                 {
                     try
@@ -34,8 +34,8 @@ namespace BeFreeWeb.Controllers
                     }
                     
                 }
-                Usuario usuario = model[0];
-                return View(usuario);
+                Usuario usuario = model[0]; */
+                return View();
             }
             else
                 return RedirectToAction("Login");
@@ -91,6 +91,8 @@ namespace BeFreeWeb.Controllers
 
             Session["IsAuthenticated"] = "true";
             Session["IdUsuarioAtual"] = model[0].idUsuario;
+            Session["imagemPerfil"] = model[0].imagemPerfil;
+            Session["nomeUsuario"] = model[0].nomeUsuario;
             return RedirectToAction("Index");
         }
 
