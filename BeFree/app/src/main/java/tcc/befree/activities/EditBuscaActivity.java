@@ -80,10 +80,13 @@ public class EditBuscaActivity extends AppCompatActivity {
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDDDs.setAdapter(arrayAdapterDDD);
-        if (busca.idDDD > 16)
-            spinnerDDDs.setSelection(busca.idDDD - 13);
-        else
-            spinnerDDDs.setSelection(busca.idDDD - 12);
+
+        spinnerDDDs.setSelection(busca.idDDD - 1);
+
+//        if (busca.idDDD > 16)
+//            spinnerDDDs.setSelection(busca.idDDD - 13);
+//        else
+//            spinnerDDDs.setSelection(busca.idDDD - 12);
 
         //popula o spinner de categoria
 
@@ -114,10 +117,11 @@ public class EditBuscaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Busca buscaAlterada = busca;
-                if (spinnerDDDs.getSelectedItemPosition() > 5)
-                    buscaAlterada.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
-                else
-                    buscaAlterada.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
+                buscaAlterada.idDDD  = spinnerDDDs.getSelectedItemPosition() + 1;
+//                if (spinnerDDDs.getSelectedItemPosition() > 5)
+//                    buscaAlterada.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
+//                else
+//                    buscaAlterada.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
                 buscaAlterada.descricao = editDescricao.getText().toString();
                 buscaAlterada.titulo = ((EditText) viewNome).getText().toString();
                 if(bitmapUsuarioPerfil!= null)

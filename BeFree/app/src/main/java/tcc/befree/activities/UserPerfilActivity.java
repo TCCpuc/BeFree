@@ -149,10 +149,11 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         ddd.setAdapter(arrayAdapterDDD);
         ddd.setId(usuario.ddd);
-        if (usuario.ddd > 16)
-            ddd.setSelection(usuario.ddd - 13);
-        else
-            ddd.setSelection(usuario.ddd - 12);
+        ddd.setSelection(usuario.ddd - 1);
+//        if (usuario.ddd > 16)
+//            ddd.setSelection(usuario.ddd - 13);
+//        else
+//            ddd.setSelection(usuario.ddd - 12);
         ddd.setEnabled(false);
 
 
@@ -220,10 +221,11 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     username.setBackgroundColor(Color.WHITE);
                     try {
                         usuario.nomeUsuario = username.getText().toString();
-                        if (ddd.getSelectedItemPosition() > 5)
-                            usuario.ddd = ddd.getSelectedItemPosition() + 13;
-                        else
-                            usuario.ddd = ddd.getSelectedItemPosition() + 12;
+                        usuario.ddd = ddd.getSelectedItemPosition() + 1;
+//                        if (ddd.getSelectedItemPosition() > 5)
+//                            usuario.ddd = ddd.getSelectedItemPosition() + 13;
+//                        else
+//                            usuario.ddd = ddd.getSelectedItemPosition() + 12;
                         if(bitmapUsuarioPerfil!= null){
                             usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
                         }
@@ -357,10 +359,11 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     usuario.nomeUsuario = username.getText().toString();
-                                    if (ddd.getSelectedItemPosition() > 5)
-                                        usuario.ddd = ddd.getSelectedItemPosition() + 13;
-                                    else
-                                        usuario.ddd = ddd.getSelectedItemPosition() + 12;
+                                    usuario.ddd = ddd.getSelectedItemPosition() + 1;
+//                                    if (ddd.getSelectedItemPosition() > 5)
+//                                        usuario.ddd = ddd.getSelectedItemPosition() + 13;
+//                                    else
+//                                        usuario.ddd = ddd.getSelectedItemPosition() + 12;
                                     if(bitmapUsuarioPerfil!= null){
                                         usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
                                     }

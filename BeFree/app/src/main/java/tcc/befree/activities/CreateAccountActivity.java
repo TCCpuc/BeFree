@@ -138,10 +138,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                     novoUsuario.cpf = edtCpf.getText().toString();
                     novoUsuario.email = edtEmail.getText().toString();
                     novoUsuario.senha = edtSenha.getText().toString();
-                    if (ddd.getSelectedItemPosition() > 5)
-                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 13;
-                    else
-                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 12;
+                    novoUsuario.ddd = ddd.getSelectedItemPosition() + 1;
+//                    if (ddd.getSelectedItemPosition() > 5)
+//                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 13;
+//                    else
+//                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 12;
                     try {
                         novoUsuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
                     }catch(Exception e){

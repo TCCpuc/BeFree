@@ -83,10 +83,11 @@ public class EditServicoActivity extends AppCompatActivity {
         arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDDDs.setAdapter(arrayAdapterDDD);
         spinnerDDDs.setId(servico.idDDD);
-        if (servico.idDDD > 16)
-            spinnerDDDs.setSelection(servico.idDDD - 13);
-        else
-            spinnerDDDs.setSelection(servico.idDDD - 12);
+        spinnerDDDs.setSelection(servico.idDDD - 1);
+//        if (servico.idDDD > 16)
+//            spinnerDDDs.setSelection(servico.idDDD - 13);
+//        else
+//            spinnerDDDs.setSelection(servico.idDDD - 12);
 
         //popula o spinner de categoria
         Categoria[] categorias = new ApiModels().getCategoriasVetor();
@@ -192,10 +193,11 @@ public class EditServicoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Servico servicoAlterado = servico;
-                if (spinnerDDDs.getSelectedItemPosition() > 5)
-                    servicoAlterado.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
-                else
-                    servicoAlterado.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
+                servicoAlterado.idDDD = spinnerDDDs.getSelectedItemPosition() + 1;
+//                if (spinnerDDDs.getSelectedItemPosition() > 5)
+//                    servicoAlterado.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
+//                else
+//                    servicoAlterado.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
                 servicoAlterado.descricao = editDescricao.getText().toString();
                 servicoAlterado.titulo = ((EditText) viewNome).getText().toString();
                 if(bitmapUsuarioPerfil!= null)

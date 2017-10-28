@@ -32,6 +32,8 @@ import tcc.befree.R;
 import tcc.befree.models.Busca;
 import tcc.befree.models.Categoria;
 import tcc.befree.models.CircleImageView;
+import tcc.befree.models.DDD;
+import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
 import tcc.befree.utils.Utils;
 
@@ -68,7 +70,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
         //popula o spinner de categoria
         spinnerCategorias = (Spinner) findViewById(R.id.create_busca_spinnerCategoria);
         ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
-        arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
         spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -84,6 +86,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
+
 
         //Botão Submit
         Button submit = (Button) findViewById(R.id.create_busca_BtnSubmitBusca);
@@ -103,9 +106,8 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 String descricao = editDescricao.getText().toString();
 
                 String ddd = spinnerDDDs.getSelectedItem().toString();
-
-                String subCategoria = spinnerSubCategorias.getSelectedItem().toString();
-
+                String subCategoria =  spinnerSubCategorias.getSelectedItem().toString();
+                int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
                 String categoria = spinnerCategorias.getSelectedItem().toString();
 
                 if(ddd ==null
@@ -128,8 +130,9 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 else {
                     novaBusca.descricao = descricao;
                     novaBusca.titulo = nome;
-                    novaBusca.idDDD = new ApiModels().getDDDByCodigo(ddd).id;
-                    novaBusca.idSubCategoria = new ApiModels().getSubCategoriaByNome(subCategoria).idSubCategoria;
+                    novaBusca.idDDD = ((DDD)spinnerDDDs.getSelectedItem()).id;
+                    novaBusca.idSubCategoria = idSubCategoria;
+                    novaBusca.idUsuario = idUsuario;
                     novaBusca.imagemBusca = getImagem();
                     novaBusca.idUsuario = idUsuario;
                     try {

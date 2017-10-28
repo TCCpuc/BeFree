@@ -56,15 +56,14 @@ public class PostApiModels implements Runnable{
     //CRIAR CHAT E MENSAGEM--------------------------------
 
     public boolean postChat(Chat chat){
-        //Testar
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/PosttbChat/";
-
+        urlAPI = "http://localhost:1994/BeFreeAPI/api/Chat/PosttbChat/";
         jSonObject = new JSONObject();
         try {
-            jSonObject.put("ID",chat.getId());
-            jSonObject.put("USUARIO_1",chat.getUsuario_1());
-            jSonObject.put("USUARIO_2",chat.getUsuario_2());
+            jSonObject.put("ID", chat.getId());
+            jSonObject.put("USUARIO_1", chat.getUsuario_1());
+            jSonObject.put("USUARIO_2", chat.getUsuario_2());
+            jSonObject.put("ULTIMA_MENSAGEM", chat.getUltima_mensagem());
 
             thread.start();
             controlaThread();
@@ -74,7 +73,6 @@ public class PostApiModels implements Runnable{
             e.printStackTrace();
             thread.interrupt();
         }
-
         return true;
     }
 
