@@ -961,6 +961,38 @@ public class ApiModels implements Runnable{
         return  chats;
     }
 
+    public ArrayList<Evento> getEventosbyIdUsuario(int idDoUsuario){
+
+        //CLASSE A SER FEITA
+        //SIMULAR
+        ArrayList<Evento> ar = new ArrayList<Evento>();
+        Evento x = new Evento();
+        x.setIdEvento(1);
+        x.setIdServico(1);
+        x.setIdUsuarioContratante(16);
+        x.setDtEvento("05/12/2017");
+        x.setHrInicio(6);
+        x.setHrFinal(18);
+        x.setSituacaoEvento(0);
+        x.setTitulo("Pintor");
+        x.setConteudo("Pinto portas");
+        x.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
+        ar.add(x);
+        Evento y = new Evento();
+        y.setIdEvento(2);
+        y.setIdServico(2);
+        y.setIdUsuarioContratante(9);
+        y.setDtEvento("06/12/2017");
+        y.setHrInicio(9);
+        y.setHrFinal(13);
+        y.setSituacaoEvento(0);
+        y.setTitulo("Bibliotecario");
+        y.setConteudo("Arrumo Biblioteca");
+        y.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
+        ar.add(y);
+        return ar;
+    }
+
     public boolean getUsuarioEUsuario1DoChat(int idDoChat, int idDoUsuarioAtual){
 
         ArrayList<Chat> arrayChats= new ArrayList<Chat>();
