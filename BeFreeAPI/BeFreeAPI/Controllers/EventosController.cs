@@ -35,6 +35,20 @@ namespace BeFreeAPI.Controllers
             return Ok(evento);
         }
 
+        // GET: api/Eventos/5
+        [ResponseType(typeof(Evento))]
+        public IHttpActionResult GetEventosUsuario(int id)
+        {
+            Evento evento = db.tbEventos.Find(id);
+            if (evento == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(evento);
+        }
+
+
         // PUT: api/Eventos/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutEvento(int id, Evento evento)
@@ -114,5 +128,20 @@ namespace BeFreeAPI.Controllers
         {
             return db.tbEventos.Count(e => e.idEvento == id) > 0;
         }
+
+        [ResponseType(typeof(VwChatUsuarios))]
+        public IHttpActionResult GetEventosByUsuario(int usuario)
+        {
+
+            String str = "SELECT * " +
+                         "FROM vw_evento_usuario AS EU " +
+                         "WHERE EU.idUsuario = " + usuario;
+
+            var buscar = db.Database.SqlQuery<VwEventoUsuario>(str);
+
+            return Ok(buscar);
+        }
+
+
     }
 }
