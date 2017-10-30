@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/curve_shap"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/dialog_gender_service_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="1dp"
+        android:text="NOME DO USUARIO"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"/>
+
+    <tcc.befree.models.CircleImageView
+        android:id="@+id/dialog_gender_service_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_camera_alt_48px"
+        android:layout_marginTop="10dp"
+        android:visibility="visible"
+        app:civ_border_color="@color/dark_gray"
+        app:civ_border_width="0dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    
+    <TextView
+        android:id="@+id/dialog_gender_service_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Titulo"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/dialog_gender_service_refuse"
+            android:layout_gravity="left"
+            android:background="@drawable/curve_shap"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="3dp"
+            android:text="RECUSAR" />
+
+        <Button
+            android:id="@+id/dialog_gender_service_accept"
+            android:layout_gravity="left"
+            android:background="@drawable/curve_shap"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="3dp"
+            android:text="ACEITAR" />
+
+    </LinearLayout>
+
+</LinearLayout>

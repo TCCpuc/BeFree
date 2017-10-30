@@ -38,6 +38,7 @@ public class GenderActivity extends AppCompatActivity {
     private ArrayList<Evento> gender;
     private ApiModels api;
     private Evento evento;
+    private String beforeDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,7 @@ public class GenderActivity extends AppCompatActivity {
             Button avaliar = (Button) view.findViewById(R.id.item_agenda_button);
             LinearLayout backgroundLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_background);
             LinearLayout defaultLayout = (LinearLayout) view.findViewById(R.id.item_agenda_default_layout);
+            LinearLayout dayLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_day);
             final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
 
             avaliar.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +151,12 @@ public class GenderActivity extends AppCompatActivity {
                     horario = (horario + " - " + ev.getHrFinal() + ":00");
                 }
                 tempo.setText(horario);
+            }
+
+            if(beforeDate.equals(ev.getDtEvento())){
+                dayLayout.setVisibility(View.GONE);
+            }else {
+                beforeDate = ev.getDtEvento();
             }
             return view;
         }

@@ -966,6 +966,20 @@ public class ApiModels implements Runnable{
         //CLASSE A SER FEITA
         //SIMULAR
         ArrayList<Evento> ar = new ArrayList<Evento>();
+        Evento h = new Evento();
+        h.setIdEvento(1);
+        h.setIdServico(1);
+        h.setIdUsuarioContratante(16);
+        h.setDtEvento("25/12/2017");
+        h.setHrInicio(19);
+        h.setHrFinal(23);
+        h.setAvaliado(false);
+        h.setSituacaoEvento(2);
+        h.setTitulo("Testao");
+        h.setConteudo("TesteTesteTesteTesteTesteTesteTesteTestevTesteTesteTesteTesteTesteTesteTesteTestev");
+        h.setImagem("https://abrilcapricho.files.wordpress.com/2017/07/testes2.png");
+        h.setNomeUsuarioContratante("Joana Duarte");
+        ar.add(h);
         Evento x = new Evento();
         x.setIdEvento(1);
         x.setIdServico(1);
