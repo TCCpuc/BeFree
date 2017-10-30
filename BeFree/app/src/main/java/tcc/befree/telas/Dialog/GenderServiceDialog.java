@@ -23,10 +23,9 @@ import tcc.befree.models.Evento;
 public class GenderServiceDialog  extends Dialog {
 
     private Activity c;
-    private Bitmap bitmapUsuarioPerfil;
-    private static final int SELECT_FILE1 = 100;
     private TextView userName;
     private TextView serviceTitle;
+    private TextView serviceDescription;
     private CircleImageView imagem;
     private Button accept;
     private Button refuse;
@@ -50,6 +49,7 @@ public class GenderServiceDialog  extends Dialog {
         setContentView(R.layout.dialog_gender_service);
         userName = (TextView) findViewById(R.id.dialog_gender_service_username);
         serviceTitle = (TextView) findViewById(R.id.dialog_gender_service_title);
+        serviceDescription = (TextView) findViewById(R.id.dialog_gender_service_descricao);
         imagem = (CircleImageView) findViewById(R.id.dialog_gender_service_image);
         accept = (Button) findViewById(R.id.dialog_gender_service_accept);
         refuse = (Button) findViewById(R.id.dialog_gender_service_refuse);
@@ -57,6 +57,7 @@ public class GenderServiceDialog  extends Dialog {
         Picasso.with(c).load(evento.getImagem()).into(imagem);
         userName.setText(evento.getNomeUsuarioContratante());
         serviceTitle.setText(evento.getTitulo());
+        serviceDescription.setText(evento.getConteudo());
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

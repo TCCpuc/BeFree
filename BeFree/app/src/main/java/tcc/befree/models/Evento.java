@@ -14,7 +14,7 @@ public class Evento {
     private int hrFinal;
     private float notaAvalicao;
     private boolean avaliado;
-    private int situacaoEvento;
+    private int situacaoEvento; //0 - PENDENTE | 1 - ACEITO - 2 - RECUSADO
     private String titulo; //SERVICO
     private String conteudo; //SERVICO
     private String imagem; //SERVICO

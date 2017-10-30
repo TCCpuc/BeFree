@@ -8,15 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
+import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Evento;
-import tcc.befree.telas.Dialog.ForgotPasswordDialog;
 import tcc.befree.telas.Dialog.GenderServiceDialog;
 
 /**
@@ -25,12 +32,11 @@ import tcc.befree.telas.Dialog.GenderServiceDialog;
 
 public class GenderActivity extends AppCompatActivity {
 
-    private ListView oldday;
+    //private ListView oldday;
     private ListView day;
-    private ListView time;
+    //private ListView time;
     private ArrayList<Evento> gender;
     private ApiModels api;
-    private int horas;
     private Evento evento;
 
     @Override
@@ -42,40 +48,19 @@ public class GenderActivity extends AppCompatActivity {
         api = new ApiModels();
         gender = api.getEventosbyIdUsuario(1);// enviar id do usuario
         day = (ListView) findViewById(R.id.gender_day);
-        time = (ListView) findViewById(R.id.gender_time);
-        oldday = (ListView) findViewById(R.id.gender_old_day);
-        horas = 0;
-
-
-        oldday.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        oldday.setAdapter(new GenderActivity.OldDayAdapter());
 
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 evento = gender.get(position);
-                horas = (evento.getHrFinal() - evento.getHrInicio());
-                time.setAdapter(new GenderActivity.TimeAdapter());
-
-            }
-        });
-
-        day.setAdapter(new GenderActivity.DayAdapter());
-
-        time.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //time.setAdapter(new GenderActivity.TimeAdapter());
                 GenderServiceDialog dialog = new GenderServiceDialog(GenderActivity.this, evento);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+
             }
         });
+        day.setAdapter(new GenderActivity.DayAdapter());
     }
 
     @Override
@@ -104,102 +89,94 @@ public class GenderActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
+            View view;
+            view = getLayoutInflater().inflate(R.layout.item_agenda, null);
             TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
+            TextView descricao = (TextView) view.findViewById(R.id.item_agenda_description);
             TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
+            TextView dia = (TextView) view.findViewById(R.id.item_agenda_day);
+            CircleImageView image = (CircleImageView) view.findViewById(R.id.item_agenda_imagem);
+            Button avaliar = (Button) view.findViewById(R.id.item_agenda_button);
+            LinearLayout backgroundLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_background);
+            LinearLayout defaultLayout = (LinearLayout) view.findViewById(R.id.item_agenda_default_layout);
+            final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
+
+            avaliar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    avaliarLayout.setVisibility(View.GONE);
+                }
+            });
+
             Evento ev = gender.get(position);
-            tempo.setText(ev.getDtEvento());
+            Picasso.with(GenderActivity.this).load(ev.getImagem()).into(image);
+            dia.setText(ev.getDtEvento());
             titulo.setText(ev.getTitulo());
-            horas = (ev.getHrFinal() - ev.getHrInicio());
-            /*
-                tempo.setText("24/11/2017");
-                titulo.setText("Tosa para Cachorro");
-
-            */
-            return view;
-        }
-    }
-
-    private class OldDayAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
-            return 3;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return gender.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
-            TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
-            TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
-            if(position==0){
-                tempo.setText("19/02/2017");
-                titulo.setText("Pedreiro para Argila");
-            }else if(position==1){
-                tempo.setText("13/08/2017");
-                titulo.setText("Serviço de Buffet");
-            }else {
-                tempo.setText("29/09/2017");
-                titulo.setText("Lavagem de Carros");
-            }
-
-            return view;
-        }
-    }
-
-    private class TimeAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-             if(horas != 0){
-                 return horas;
-             }else {
-                 return 0;
-             }
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return gender.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
-            TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
-            TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
+            descricao.setText(ev.getConteudo());
             String horario;
-            if((evento.getHrInicio() + position) <= 9){
-                horario = ("0" + (evento.getHrInicio() + position) + ":00");
-            }else{
-                horario = ((evento.getHrInicio() + position) + ":00");
-            }
-            if((evento.getHrInicio() + position + 1) <= 9){
-                horario = (horario + " - 0" + (evento.getHrInicio() + position + 1) + ":00");
-            }else {
-                horario = (horario + " - " + (evento.getHrInicio() + position + 1) + ":00");
-            }
-            tempo.setText(horario);
-            titulo.setText(evento.getTitulo());
 
+            if(ev.isAvaliado()){
+                tempo.setText("AVALIADO\n\n" + ev.getNotaAvalicao());
+            }else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2){
+                defaultLayout.setVisibility(View.GONE);
+                avaliarLayout.setVisibility(View.VISIBLE);
+            }else if(ev.getSituacaoEvento() == 2){
+                tempo.setText("RECUSADO");
+                backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+            }else if (ev.getSituacaoEvento() == 1){
+                if(ev.getHrInicio() <= 9){
+                    horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
+                }else{
+                    horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
+                }
+                if(ev.getHrFinal() <= 9){
+                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                }else {
+                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                }
+                backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
+                tempo.setText(horario);
+            }
+            else {
+                if(ev.getHrInicio() <= 9){
+                    horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
+                }else{
+                    horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
+                }
+                if(ev.getHrFinal() <= 9){
+                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                }else {
+                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                }
+                tempo.setText(horario);
+            }
             return view;
         }
     }
+
+    public boolean oldDate(String data){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String today [] = dateFormat.format(date).split("/");
+        String oldDay [] = data.split("/");
+        int oDia = Integer.parseInt(oldDay[0]);
+        int oMes = Integer.parseInt(oldDay[1]);
+        int oAno = Integer.parseInt(oldDay[2]);
+        int tDia = Integer.parseInt(today[0]);
+        int tMes = Integer.parseInt(today[1]);
+        int tAno = Integer.parseInt(today[2]);
+
+        if(oAno < tAno){
+            return true;
+        }else if(oMes < tMes && oAno == tAno ){
+            return true;
+        }else if(oDia < tDia && oMes == tMes && oAno == tAno){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public Evento getEvento(){
         return this.evento;
     }

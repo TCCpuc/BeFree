@@ -3,6 +3,7 @@ package tcc.befree.telas.listaDeBuscas;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,7 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
             }
         });
 
-
+        LinearLayout background = (LinearLayout) convertView.findViewById(R.id.item_service_background);
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
         CircleImageView imgBusca = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
@@ -72,6 +73,10 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
         editLayout = (LinearLayout) convertView.findViewById(R.id.item_service_edit_layout);
         deleteButton = (ImageButton) convertView.findViewById(R.id.item_service_delete);
         editButton = (ImageButton) convertView.findViewById(R.id.item_service_edit);
+
+        if((position % 2) != 0){
+            background.setBackgroundColor(Color.parseColor("#f2f2f2"));
+        }
 
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
