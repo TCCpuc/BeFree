@@ -21,6 +21,7 @@ import tcc.befree.R;
 import tcc.befree.activities.CreateBuscaActivity;
 import tcc.befree.activities.CreateServicoActivity;
 import tcc.befree.activities.EditBuscaActivity;
+import tcc.befree.api.DeleteApiModels;
 import tcc.befree.models.Busca;
 import tcc.befree.models.CircleImageView;
 
@@ -96,7 +97,7 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //new DeleteApiModels().postBusca)
+                                new DeleteApiModels().deleteBuscaByID(busca.idBusca);
                             }
 
                         })

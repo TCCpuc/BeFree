@@ -99,7 +99,7 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //new DeleteApiModels().postServico()
+                                new DeleteApiModels().deleteServicosById(servico.idServico);
                             }
 
                         })

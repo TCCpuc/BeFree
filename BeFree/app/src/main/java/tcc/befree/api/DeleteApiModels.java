@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -35,7 +37,7 @@ public class DeleteApiModels implements Runnable{
     }
 
     //Retorna Servicos pelo id
-    public Servico getServicosById(int id){
+    public Servico deleteServicosById(int id){
 
         Servico servico = new Servico();
 
@@ -46,8 +48,6 @@ public class DeleteApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class DeleteApiModels implements Runnable{
         return servico;
     }
 
-    public Busca getBuscaByID(int id){
+    public Busca deleteBuscaByID(int id){
 
         Busca busca = new Busca();
         try{
@@ -65,8 +65,6 @@ public class DeleteApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,43 +75,28 @@ public class DeleteApiModels implements Runnable{
     @Override
     public void run() {
         try {
-            String type = "application/json";
-
             semaforo = false;
             HttpURLConnection urlConnection = null;
+            char[] buffer = new char[1024];
+            String jsonString = new String();
             StringBuilder sb = new StringBuilder();
             String line;
             URL url = new URL(urlAPI);
 
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Content-Type", type);
-            urlConnection.setReadTimeout(25000 /* milliseconds */);
-            urlConnection.setConnectTimeout(30000 /* milliseconds */);
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection.setDoOutput(true);
             urlConnection.connect();
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            while ((line = br.readLine()) != null)
+                sb.append(line + "\n");
 
-            DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
-            wr.writeBytes(jSonObject.toString());
-            wr.flush();
-            wr.close();
+            br.close();
+            jsonString = sb.toString();
 
-            int HttpResult =urlConnection.getResponseCode();
-            /*if(HttpResult ==HttpURLConnection.HTTP_OK){
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        urlConnection.getInputStream(),"utf-8"));
-                line = null;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                br.close();
-
-                System.out.println("" + sb.toString());
-
-            }else{
-                System.out.println(urlConnection.getResponseMessage());
-            }*/
-
+            jSonArray = new JSONArray(jsonString);
             semaforo = true;
         }catch (Exception e){
             String erro = e.getMessage();
