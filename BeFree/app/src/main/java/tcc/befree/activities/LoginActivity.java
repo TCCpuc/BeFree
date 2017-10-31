@@ -111,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                 usuarioFacebook.senha = " ";
                 Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
                 usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
+                //COLOCAR CHAMADA PARA INSERIR USUARIO
             }
         };
 

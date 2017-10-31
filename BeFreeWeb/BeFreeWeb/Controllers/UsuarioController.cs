@@ -17,7 +17,7 @@ namespace BeFreeWeb.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public async System.Threading.Tasks.Task<ActionResult> Users()
+        public async System.Threading.Tasks.Task<ActionResult> Index()
         {
 
             List<Usuario> model = new List<Usuario>();
@@ -32,6 +32,7 @@ namespace BeFreeWeb.Controllers
                         HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
                         string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
                         model = JsonConvert.DeserializeObject<List<Usuario>>(result);
+
                     }
                     catch (Exception err)
                     {
@@ -43,12 +44,6 @@ namespace BeFreeWeb.Controllers
             }
             else
                 return RedirectToAction("Login");
-        }
-
-        // GET: Usuario
-        public ActionResult Index()
-        {
-            return View(db.Usuarios.ToList());
         }
 
 
@@ -91,18 +86,33 @@ namespace BeFreeWeb.Controllers
         }
 
         // GET: Usuario/Edit/5
-        public ActionResult Edit(int? id)
+        public async System.Threading.Tasks.Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            List<Usuario> model = new List<Usuario>();
+            if (Session["IsAuthenticated"].ToString() == "true")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    try
+                    {
+                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Usuarios/GetUsuario/?id=" + id);
+                        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
+                        string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                        model = JsonConvert.DeserializeObject<List<Usuario>>(result);
+
+                    }
+                    catch (Exception err)
+                    {
+                        string erro = err.Message;
+                    }
+
+                }
+                Usuario usuario = model[0];
+                return View(usuario);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            else
+                return RedirectToAction("Login");
         }
 
         // POST: Usuario/Edit/5

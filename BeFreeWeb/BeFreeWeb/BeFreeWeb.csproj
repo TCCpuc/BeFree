@@ -330,8 +330,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Usuario\Users.cshtml" />
-    <Content Include="Views\Servico\Servico.cshtml" />
     <Content Include="Views\Usuario\Create.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Usuario\Details.cshtml" />
@@ -345,6 +343,7 @@
     <Content Include="Views\Servico\EditServico.cshtml" />
     <Content Include="Views\Log\Log.cshtml" />
     <Content Include="Views\Denuncia\Denuncia.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

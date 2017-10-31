@@ -10,6 +10,7 @@
 
 
     <LinearLayout
+        android:id="@+id/item_service_background"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_weight="0.15"

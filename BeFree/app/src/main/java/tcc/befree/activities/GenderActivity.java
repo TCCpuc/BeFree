@@ -1,22 +1,30 @@
 package tcc.befree.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import tcc.befree.R;
-import tcc.befree.models.Agenda;
+import tcc.befree.api.ApiModels;
+import tcc.befree.models.CircleImageView;
+import tcc.befree.models.Evento;
+import tcc.befree.telas.Dialog.GenderServiceDialog;
 
 /**
  * Created by guilherme.leme on 10/23/17.
@@ -24,133 +32,13 @@ import tcc.befree.models.Agenda;
 
 public class GenderActivity extends AppCompatActivity {
 
-    private ListView oldday;
-
+    //private ListView oldday;
     private ListView day;
-
-    private ListView time;
-
-    private List<Agenda> gender = new List<Agenda>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @NonNull
-        @Override
-        public Iterator<Agenda> iterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @NonNull
-        @Override
-        public <T> T[] toArray(@NonNull T[] a) {
-            return null;
-        }
-
-        @Override
-        public boolean add(Agenda agenda) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(@NonNull Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(@NonNull Collection<? extends Agenda> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(int index, @NonNull Collection<? extends Agenda> c) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(@NonNull Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(@NonNull Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public Agenda get(int index) {
-            return null;
-        }
-
-        @Override
-        public Agenda set(int index, Agenda element) {
-            return null;
-        }
-
-        @Override
-        public void add(int index, Agenda element) {
-
-        }
-
-        @Override
-        public Agenda remove(int index) {
-            return null;
-        }
-
-        @Override
-        public int indexOf(Object o) {
-            return 0;
-        }
-
-        @Override
-        public int lastIndexOf(Object o) {
-            return 0;
-        }
-
-        @Override
-        public ListIterator<Agenda> listIterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<Agenda> listIterator(int index) {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public List<Agenda> subList(int fromIndex, int toIndex) {
-            return null;
-        }
-    };
+    //private ListView time;
+    private ArrayList<Evento> gender;
+    private ApiModels api;
+    private Evento evento;
+    private String beforeDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,36 +46,22 @@ public class GenderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gender);
 
+        api = new ApiModels();
+        gender = api.getEventosbyIdUsuario(1);// enviar id do usuario
         day = (ListView) findViewById(R.id.gender_day);
-        time = (ListView) findViewById(R.id.gender_time);
-        oldday = (ListView) findViewById(R.id.gender_old_day);
-
-        oldday.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        oldday.setAdapter(new GenderActivity.OldDayAdapter());
 
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                evento = gender.get(position);
+                //time.setAdapter(new GenderActivity.TimeAdapter());
+                GenderServiceDialog dialog = new GenderServiceDialog(GenderActivity.this, evento);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
 
             }
         });
-
         day.setAdapter(new GenderActivity.DayAdapter());
-
-        time.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        time.setAdapter(new GenderActivity.TimeAdapter());
     }
 
     @Override
@@ -198,8 +72,9 @@ public class GenderActivity extends AppCompatActivity {
     private class DayAdapter extends BaseAdapter {
         @Override
         public int getCount() {
+
             //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
-            return 1;
+            return gender.size();
         }
 
         @Override
@@ -214,81 +89,103 @@ public class GenderActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
+
+            View view;
+            view = getLayoutInflater().inflate(R.layout.item_agenda, null);
             TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
+            TextView descricao = (TextView) view.findViewById(R.id.item_agenda_description);
             TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
-                tempo.setText("24/11/2017");
-                titulo.setText("Tosa para Cachorro");
-            return view;
-        }
-    }
+            TextView dia = (TextView) view.findViewById(R.id.item_agenda_day);
+            CircleImageView image = (CircleImageView) view.findViewById(R.id.item_agenda_imagem);
+            Button avaliar = (Button) view.findViewById(R.id.item_agenda_button);
+            LinearLayout backgroundLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_background);
+            LinearLayout defaultLayout = (LinearLayout) view.findViewById(R.id.item_agenda_default_layout);
+            LinearLayout dayLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_day);
+            final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
 
-    private class OldDayAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
-            return 3;
-        }
+            avaliar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    avaliarLayout.setVisibility(View.GONE);
+                }
+            });
 
-        @Override
-        public Object getItem(int position) {
-            return gender.get(position);
-        }
+            Evento ev = gender.get(position);
+            Picasso.with(GenderActivity.this).load(ev.getImagem()).into(image);
+            dia.setText(ev.getDtEvento());
+            titulo.setText(ev.getTitulo());
+            descricao.setText(ev.getConteudo());
+            String horario;
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
+            if(ev.isAvaliado()){
+                tempo.setText("AVALIADO\n\n" + ev.getNotaAvalicao());
+            }else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2){
+                defaultLayout.setVisibility(View.GONE);
+                avaliarLayout.setVisibility(View.VISIBLE);
+            }else if(ev.getSituacaoEvento() == 2){
+                tempo.setText("RECUSADO");
+                backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+            }else if (ev.getSituacaoEvento() == 1){
+                if(ev.getHrInicio() <= 9){
+                    horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
+                }else{
+                    horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
+                }
+                if(ev.getHrFinal() <= 9){
+                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                }else {
+                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                }
+                backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
+                tempo.setText(horario);
+            }
+            else {
+                if(ev.getHrInicio() <= 9){
+                    horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
+                }else{
+                    horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
+                }
+                if(ev.getHrFinal() <= 9){
+                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                }else {
+                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                }
+                tempo.setText(horario);
+            }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
-            TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
-            TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
-            if(position==0){
-                tempo.setText("19/02/2017");
-                titulo.setText("Pedreiro para Argila");
-            }else if(position==1){
-                tempo.setText("13/08/2017");
-                titulo.setText("Serviço de Buffet");
+            if(beforeDate.equals(ev.getDtEvento())){
+                dayLayout.setVisibility(View.GONE);
             }else {
-                tempo.setText("29/09/2017");
-                titulo.setText("Lavagem de Carros");
+                beforeDate = ev.getDtEvento();
             }
-
             return view;
         }
     }
 
-    private class TimeAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            return 24;
-        }
+    public boolean oldDate(String data){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String today [] = dateFormat.format(date).split("/");
+        String oldDay [] = data.split("/");
+        int oDia = Integer.parseInt(oldDay[0]);
+        int oMes = Integer.parseInt(oldDay[1]);
+        int oAno = Integer.parseInt(oldDay[2]);
+        int tDia = Integer.parseInt(today[0]);
+        int tMes = Integer.parseInt(today[1]);
+        int tAno = Integer.parseInt(today[2]);
 
-        @Override
-        public Object getItem(int position) {
-            return gender.get(position);
+        if(oAno < tAno){
+            return true;
+        }else if(oMes < tMes && oAno == tAno ){
+            return true;
+        }else if(oDia < tDia && oMes == tMes && oAno == tAno){
+            return true;
+        }else {
+            return false;
         }
+    }
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.item_agenda, null);
-            TextView titulo = (TextView) view.findViewById(R.id.item_agenda_title);
-            TextView tempo = (TextView) view.findViewById(R.id.item_agenda_time);
-            if(position < 9){
-                tempo.setText("0" + position + ":00 - 0" + (position + 1) + ":00");
-            }else if(position == 9){
-                tempo.setText("0" + position + ":00 - " + (position + 1) + ":00");
-            }else{
-                tempo.setText(position + ":00 - " + (position + 1) + ":00");
-            }
-            return view;
-        }
+    public Evento getEvento(){
+        return this.evento;
     }
 }

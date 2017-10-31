@@ -1,103 +1,78 @@
-﻿@model BeFreeWeb.Models.Usuario
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <body>
+    <!--
     <div class="page home-page">
-        <div class="page-content d-flex align-items-stretch">
-            <!-- Side Navbar -->
-            <nav class="side-navbar" >
-                <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center">
-                    <div class="avatar"><img src=@Model.imagemPerfil alt="..." class="img-fluid rounded-circle"></div>
-                    <div class="title">
-                        <h1 class="h4">@Model.nomeUsuario</h1>
-                        <p>Administrador</p>
-                    </div>
-                </div>
-                <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
-                <ul class="list-unstyled">
-                    <li class="active"> <a href="~/Home/Index"><i class="icon-home"></i>Home</a></li>
-                    <li>
-                        <a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Controle </a>
-                        <ul id="dashvariants" class="collapse list-unstyled">
-                            <li><a href="~/Usuario/Users">Usuários</a></li>
-                            <li><a href="~/Servico/Servico">Serviços</a></li>
-                            <li><a href="~/Log/Log">Alterações no Banco</a></li>
-                            <li><a href="~/Denuncia/Denuncia">Denuncias</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            <div class="content-inner">
-                <!-- Page Header-->
-                <header class="page-header">
-                    <div class="container-fluid">
-                        <h2 class="no-margin-bottom">Dashboard</h2>
-                    </div>
-                </header>
-                <!-- Dashboard Counts Section-->
-                <section class="dashboard-counts no-padding-bottom">
-                    <div class="container-fluid">
-                        <div class="row bg-white has-shadow">
-                            <!-- Item -->
-                            <div class="col-xl-3 col-sm-6">
-                                <div class="item d-flex align-items-center">
-                                    <div class="icon bg-violet"><i class="icon-user"></i></div>
-                                    <div class="title">
-                                        <span>New<br>Clients</span>
-                                        <div class="progress">
-                                            <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
-                                        </div>
-                                    </div>
-                                    <div class="number"><strong>25</strong></div>
+        <div class="page-content d-flex align-items-stretch"> -->
+
+    <div class="content-inner">
+        <!-- Page Header-->
+        <header class="page-header">
+            <div class="container-fluid">
+                <h2 class="no-margin-bottom">Dashboard</h2>
+            </div>
+        </header>
+        <!-- Dashboard Counts Section-->
+        <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+                <div class="row bg-white has-shadow">
+                    <!-- Item -->
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="item d-flex align-items-center">
+                            <div class="icon bg-violet"><i class="icon-user"></i></div>
+                            <div class="title">
+                                <span>New<br>Clients</span>
+                                <div class="progress">
+                                    <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
                                 </div>
                             </div>
-                            <!-- Item -->
-                            <div class="col-xl-3 col-sm-6">
-                                <div class="item d-flex align-items-center">
-                                    <div class="icon bg-red"><i class="icon-padnote"></i></div>
-                                    <div class="title">
-                                        <span>Work<br>Orders</span>
-                                        <div class="progress">
-                                            <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
-                                        </div>
-                                    </div>
-                                    <div class="number"><strong>70</strong></div>
-                                </div>
-                            </div>
-                            <!-- Item -->
-                            <div class="col-xl-3 col-sm-6">
-                                <div class="item d-flex align-items-center">
-                                    <div class="icon bg-green"><i class="icon-bill"></i></div>
-                                    <div class="title">
-                                        <span>New<br>Invoices</span>
-                                        <div class="progress">
-                                            <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
-                                        </div>
-                                    </div>
-                                    <div class="number"><strong>44</strong></div>
-                                </div>
-                            </div>
-                            <!-- Item -->
-                            <div class="col-xl-3 col-sm-6">
-                                <div class="item d-flex align-items-center">
-                                    <div class="icon bg-orange"><i class="icon-check"></i></div>
-                                    <div class="title">
-                                        <span>Open<br>Cases</span>
-                                        <div class="progress">
-                                            <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
-                                        </div>
-                                    </div>
-                                    <div class="number"><strong>35</strong></div>
-                                </div>
-                            </div>
+                            <div class="number"><strong>25</strong></div>
                         </div>
                     </div>
-                </section>
+                    <!-- Item -->
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="item d-flex align-items-center">
+                            <div class="icon bg-red"><i class="icon-padnote"></i></div>
+                            <div class="title">
+                                <span>Work<br>Orders</span>
+                                <div class="progress">
+                                    <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+                                </div>
+                            </div>
+                            <div class="number"><strong>70</strong></div>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="item d-flex align-items-center">
+                            <div class="icon bg-green"><i class="icon-bill"></i></div>
+                            <div class="title">
+                                <span>New<br>Invoices</span>
+                                <div class="progress">
+                                    <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
+                                </div>
+                            </div>
+                            <div class="number"><strong>44</strong></div>
+                        </div>
+                    </div>
+                    <!-- Item -->
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="item d-flex align-items-center">
+                            <div class="icon bg-orange"><i class="icon-check"></i></div>
+                            <div class="title">
+                                <span>Open<br>Cases</span>
+                                <div class="progress">
+                                    <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
+                                </div>
+                            </div>
+                            <div class="number"><strong>35</strong></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
-
+    <!--</div>
+    </div>-->
 </body>
 </html>

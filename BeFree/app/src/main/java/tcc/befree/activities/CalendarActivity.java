@@ -1,6 +1,5 @@
 package tcc.befree.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +8,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CalendarView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -22,9 +18,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import tcc.befree.R;
-import tcc.befree.models.Agenda;
-import tcc.befree.models.Chat;
-import tcc.befree.models.CircleImageView;
+import tcc.befree.models.Evento;
 
 /**
  * Created by guilherme.leme on 8/17/17.
@@ -33,7 +27,7 @@ import tcc.befree.models.CircleImageView;
 public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
-    private List<Agenda> gender = new List<Agenda>() {
+    private List<Evento> gender = new List<Evento>() {
         @Override
         public int size() {
             return 0;
@@ -51,7 +45,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public Iterator<Agenda> iterator() {
+        public Iterator<Evento> iterator() {
             return null;
         }
 
@@ -68,7 +62,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean add(Agenda agenda) {
+        public boolean add(Evento agenda) {
             return false;
         }
 
@@ -83,12 +77,12 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean addAll(@NonNull Collection<? extends Agenda> c) {
+        public boolean addAll(@NonNull Collection<? extends Evento> c) {
             return false;
         }
 
         @Override
-        public boolean addAll(int index, @NonNull Collection<? extends Agenda> c) {
+        public boolean addAll(int index, @NonNull Collection<? extends Evento> c) {
             return false;
         }
 
@@ -108,22 +102,22 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         @Override
-        public Agenda get(int index) {
+        public Evento get(int index) {
             return null;
         }
 
         @Override
-        public Agenda set(int index, Agenda element) {
+        public Evento set(int index, Evento element) {
             return null;
         }
 
         @Override
-        public void add(int index, Agenda element) {
+        public void add(int index, Evento element) {
 
         }
 
         @Override
-        public Agenda remove(int index) {
+        public Evento remove(int index) {
             return null;
         }
 
@@ -138,19 +132,19 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         @Override
-        public ListIterator<Agenda> listIterator() {
+        public ListIterator<Evento> listIterator() {
             return null;
         }
 
         @NonNull
         @Override
-        public ListIterator<Agenda> listIterator(int index) {
+        public ListIterator<Evento> listIterator(int index) {
             return null;
         }
 
         @NonNull
         @Override
-        public List<Agenda> subList(int fromIndex, int toIndex) {
+        public List<Evento> subList(int fromIndex, int toIndex) {
             return null;
         }
     };
@@ -184,10 +178,11 @@ public class CalendarActivity extends AppCompatActivity {
         listView.setAdapter(new MyAdapter());
     }
 
-    private void popular(List<Agenda> ag) {
-        Agenda teste = new Agenda();
+    private void popular(List<Evento> ag) {
+        Evento teste = new Evento();
         teste.setConteudo("teste");
-        teste.setHora("13:00 - 14:00");
+        teste.setHrInicio(13);
+        teste.setHrFinal(14);
         teste.setTitulo("Vazio");
         teste.setImagem("");
         for(int x = 0; x<24; x++){
