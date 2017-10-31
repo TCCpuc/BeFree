@@ -24,6 +24,7 @@ import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Evento;
+import tcc.befree.telas.Dialog.GenderEvaluationDialog;
 import tcc.befree.telas.Dialog.GenderServiceDialog;
 
 /**
@@ -102,15 +103,19 @@ public class GenderActivity extends AppCompatActivity {
             LinearLayout defaultLayout = (LinearLayout) view.findViewById(R.id.item_agenda_default_layout);
             LinearLayout dayLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_day);
             final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
+            final Evento ev = gender.get(position);
 
             avaliar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //time.setAdapter(new GenderActivity.TimeAdapter());
+                    GenderEvaluationDialog dialog = new GenderEvaluationDialog(GenderActivity.this, ev);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
                     avaliarLayout.setVisibility(View.GONE);
                 }
             });
 
-            Evento ev = gender.get(position);
             Picasso.with(GenderActivity.this).load(ev.getImagem()).into(image);
             dia.setText(ev.getDtEvento());
             titulo.setText(ev.getTitulo());

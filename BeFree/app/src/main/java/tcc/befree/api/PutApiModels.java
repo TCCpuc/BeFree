@@ -71,6 +71,13 @@ public class PutApiModels implements Runnable {
         return true;
     }
 
+    public boolean putNotaEvento(Evento ev){
+        //Todo Criar metodo no banco para alterar nota do evento no banco;
+        ev.getNotaAvalicao();//0 ou 1 ou 2
+        ev.getIdEvento();
+        return true;
+    }
+
     public boolean putServico(Servico servico){
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/PutServico/" + servico.idServico;
