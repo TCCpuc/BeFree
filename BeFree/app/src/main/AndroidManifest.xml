@@ -16,6 +16,7 @@
         android:icon="@mipmap/befree_logo_icone"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/befree_logo"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
