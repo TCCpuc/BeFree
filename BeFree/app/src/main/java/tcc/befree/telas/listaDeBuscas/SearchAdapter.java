@@ -22,6 +22,7 @@ import tcc.befree.R;
 import tcc.befree.activities.CreateBuscaActivity;
 import tcc.befree.activities.CreateServicoActivity;
 import tcc.befree.activities.EditBuscaActivity;
+import tcc.befree.api.DeleteApiModels;
 import tcc.befree.models.Busca;
 import tcc.befree.models.CircleImageView;
 
@@ -74,10 +75,6 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
         deleteButton = (ImageButton) convertView.findViewById(R.id.item_service_delete);
         editButton = (ImageButton) convertView.findViewById(R.id.item_service_edit);
 
-        if((position % 2) != 0){
-            background.setBackgroundColor(Color.parseColor("#f2f2f2"));
-        }
-
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
             @Override
@@ -101,7 +98,7 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //new DeleteApiModels().postBusca)
+                                new DeleteApiModels().deleteBuscaByID(busca.idBusca);
                             }
 
                         })

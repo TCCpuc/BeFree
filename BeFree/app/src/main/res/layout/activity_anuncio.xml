@@ -40,7 +40,7 @@
             app:expandedTitleMarginEnd="64dp">
 
             <ImageView
-                android:id="@+id/newactivity_img_anuncio"
+                android:id="@+id/activity_anuncio_img_anuncio"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -49,7 +49,7 @@
                 app:srcCompat="@mipmap/pedreiro_perfil" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/activity_anuncio_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -73,93 +73,140 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp">
+                android:layout_marginBottom="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin">
 
-                <RelativeLayout
+                <LinearLayout
+                    style="@style/Widget.CardContent"
                     android:layout_width="match_parent"
-                    android:layout_height="559dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/newactivity_Categoria"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
+                        android:text="DESCRICAO"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/activity_anuncio_txtDescricao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="5dp"
+                        android:text="Descricao do servico Descricao do servicoDescricao do servico Descricao do servico Descricao do servico v "
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="PREÇO"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/activity_anuncio_preco"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="350 reias / Dia"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="5dp"
+                        android:textSize="15dp"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="FORMA DE PAGAMENTO"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/activity_anuncio_forma_pagamento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Á Vista"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="5dp"
+                        android:textSize="15dp"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CATEGORIA"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/activity_anuncio_categoria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="Categoria > Subcategoria"
-                        android:textSize="18dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="5dp"
+                        android:textSize="15dp"/>
 
-                    <TextView
-                        android:id="@+id/newactivity_txtNome"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:inputType="textPersonName"
-                        android:text="Name"
-                        android:textSize="29dp"
-                        android:layout_below="@+id/newactivity_Categoria"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-
-
-                    <TextView
-                        android:id="@+id/newactivity_Descricao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="136dp"
-                        android:text="Descrição"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_below="@+id/newactivity_Categoria"
-                        android:layout_alignLeft="@+id/newactivity_txtDescricao"
-                        android:layout_alignStart="@+id/newactivity_txtDescricao" />
-
-                    <TextView
-                        android:id="@+id/newactivity_txtDescricao"
-                        android:layout_width="300dp"
-                        android:layout_height="300dp"
-                        android:background="@drawable/border"
-                        android:text="Texto......"
-                        android:textSize="16sp"
-                        android:layout_below="@+id/newactivity_Descricao"
-                        android:layout_centerHorizontal="true" />
-
-                    <Button
-                        android:id="@+id/newactivity_Denunciar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Denunciar"
-                        android:layout_below="@+id/newactivity_txtDescricao"
-                        android:layout_alignRight="@+id/newactivity_Descricao"
-                        android:layout_alignEnd="@+id/newactivity_Descricao"
-                        android:layout_marginTop="17dp"
-                        android:textSize="12sp"/>
-
-                    <Button
-                        android:id="@+id/announce_Editar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/newactivity_Denunciar"
-                        android:layout_centerHorizontal="true"
-                        android:visibility="visible"
-                        android:text="Editar" />
-
-                    <Button
-                        android:id="@+id/newactivity_Contato"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/announce_Editar"
-                        android:layout_alignBottom="@+id/announce_Editar"
-                        android:layout_alignEnd="@+id/newactivity_txtDescricao"
-                        android:layout_alignRight="@+id/newactivity_txtDescricao"
-                        android:text="Contato" />
-
-
-                </RelativeLayout>
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -188,5 +235,28 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/anuncio_denunciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="135dp"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@android:drawable/stat_sys_warning"
+        app:backgroundTint="@color/red"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
+
+    <TextView
+        android:id="@+id/activity_anuncio_txtNome"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textSize="29dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

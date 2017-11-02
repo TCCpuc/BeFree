@@ -77,10 +77,6 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
         padraoLayout = (LinearLayout) convertView.findViewById(R.id.item_service_default_layout);
         editLayout = (LinearLayout) convertView.findViewById(R.id.item_service_edit_layout);
 
-        if((position % 2) != 0){
-            background.setBackgroundColor(Color.parseColor("#f2f2f2"));
-        }
-
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
             @Override
@@ -104,7 +100,7 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //new DeleteApiModels().postServico()
+                                new DeleteApiModels().deleteServicosById(servico.idServico);
                             }
 
                         })

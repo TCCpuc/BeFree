@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/dialog_gender_service_username"
+        android:id="@+id/dialog_gender_evaluation_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -19,7 +19,7 @@
         android:textStyle="bold"/>
 
     <tcc.befree.models.CircleImageView
-        android:id="@+id/dialog_gender_service_image"
+        android:id="@+id/dialog_gender_evaluation_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -32,9 +32,11 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/dialog_gender_service_title"
+        android:id="@+id/dialog_gender_evaluation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -42,22 +44,57 @@
         android:textColor="@android:color/white"
         android:textSize="15dp"/>
 
-    <TextView
-        android:id="@+id/dialog_gender_service_descricao"
-        android:layout_width="match_parent"
+    <RatingBar
+        android:id="@+id/dialog_gender_evaluation_ratingBar"
+        android:theme="@style/RatingBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border_white"
-        android:text="Descricao do servico Descricao do servicoDescricao do servico Descricao do servico Descricao do servico v "
-        android:textColor="@android:color/white"
-        android:padding="5dp"
-        android:textSize="15dp"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+
+        <TextView
+            android:id="@+id/dialog_gender_evaluation_text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/curve_shap"
+            android:ems="10"
+            android:textAlignment="center"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
+            android:textSize="42dp"
+            android:hint="6,5"
+            android:inputType="numberDecimal" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <ImageButton
+                android:id="@+id/dialog_gender_evaluation_up"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:src="@android:drawable/arrow_up_float"
+                android:textSize="12dp"/>
+            <ImageButton
+                android:id="@+id/dialog_gender_evaluation_down"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:src="@android:drawable/arrow_down_float"
+                android:textSize="12dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -65,35 +102,26 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:gravity="center">
 
-
         <Button
-            android:id="@+id/dialog_gender_service_refuse"
+            android:id="@+id/dialog_gender_evaluation_back"
             android:layout_gravity="left"
             android:background="@drawable/curve_shap"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginRight="3dp"
-            android:text="RECUSAR" />
+            android:text="VOLTAR" />
 
         <Button
-            android:id="@+id/dialog_gender_service_ok"
-            android:layout_gravity="left"
-            android:background="@drawable/curve_shap"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:visibility="gone"
-            android:text="OK" />
-
-        <Button
-            android:id="@+id/dialog_gender_service_accept"
+            android:id="@+id/dialog_gender_evaluation_accept"
             android:layout_gravity="left"
             android:background="@drawable/curve_shap"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="3dp"
-            android:text="ACEITAR" />
+            android:text="AVALIAR" />
 
     </LinearLayout>
 

@@ -40,7 +40,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         final int idUsuarioAtual = bundle.getInt("idUsuario");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
-        imgAnuncio = (ImageView) findViewById(R.id.newactivity_img_anuncio);
+        imgAnuncio = (ImageView) findViewById(R.id.activity_anuncio_img_anuncio);
         agenda = (FloatingActionButton) findViewById(R.id.anuncio_gender);
         agenda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +64,11 @@ public class AnuncioServicoActivity extends AppCompatActivity {
                     PostApiModels postApi = new PostApiModels();
                     chat.setUsuario_1(idUsuarioAtual);
                     chat.setUsuario_2(idAnunciante);
-                    postApi.postChat(chat);
-                    chat = api.getChatDosUsuarios(idUsuarioAtual, idAnunciante);
+                    do {
+                        postApi.postChat(chat);
+                        chat = api.getChatDosUsuarios(idUsuarioAtual, idAnunciante);
+                    }
+                    while (chat == null);
                 }
                 Bundle bundleChat = new Bundle();
                 bundleChat.putInt("idChat", chat.getId());
@@ -96,8 +99,8 @@ public class AnuncioServicoActivity extends AppCompatActivity {
             //categoria = conexao.getCategoriaByID(subCategoria.idCategoria);
 
             //setText("newactivity_Categoria",categoria.descricao + " - " + subCategoria.descricao);
-            setText("newactivity_txtNome", srv.titulo);
-            setText("newactivity_txtDescricao", srv.descricao);
+            setText("activity_anuncio_txtNome", srv.titulo);
+            setText("activity_anuncio_txtDescricao", srv.descricao);
             Picasso.with(this).load(srv.imagemServico).into(imgAnuncio);
 
 

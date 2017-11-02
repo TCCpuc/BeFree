@@ -46,11 +46,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Usuarios usuario = new Usuarios();
                 usuario.idUsuario = jSonObject.getInt("idUsuario");
@@ -81,23 +78,21 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-
-            if (jSonArray == null)
-                thread.sleep(500);
-                JSONObject jSonObject = jSonArray.getJSONObject(0);
-                usuario.idUsuario = jSonObject.getInt("idUsuario");
-                usuario.email = jSonObject.getString("email");
-                usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
-                usuario.senha = jSonObject.getString("senha");
-                usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
-                usuario.cpf = jSonObject.getString("cpf");
-                usuario.idCidade = jSonObject.getInt("idCidade");
-                usuario.idEstado = jSonObject.getInt("idEstado");
-                usuario.bairro = jSonObject.getString("bairro");
-                usuario.logradouro = jSonObject.getString("logradouro");;
-                usuario.numero = jSonObject.getInt("numero");
-                usuario.cep = jSonObject.getInt("cep");
-                usuario.ddd = jSonObject.getInt("ddd");
+            workaroundSleepThread(thread);
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            usuario.idUsuario = jSonObject.getInt("idUsuario");
+            usuario.email = jSonObject.getString("email");
+            usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
+            usuario.senha = jSonObject.getString("senha");
+            usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
+            usuario.cpf = jSonObject.getString("cpf");
+            usuario.idCidade = jSonObject.getInt("idCidade");
+            usuario.idEstado = jSonObject.getInt("idEstado");
+            usuario.bairro = jSonObject.getString("bairro");
+            usuario.logradouro = jSonObject.getString("logradouro");;
+            usuario.numero = jSonObject.getInt("numero");
+            usuario.cep = jSonObject.getInt("cep");
+            usuario.ddd = jSonObject.getInt("ddd");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,8 +112,7 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             usuario.idUsuario = jSonObject.getInt("idUsuario");
             usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
@@ -162,9 +156,7 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
-
+            workaroundSleepThread(thread);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
 
         }catch (Exception er){
@@ -189,11 +181,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
 
@@ -228,11 +217,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
 
                 servico.idServico = jSonObject.getInt("idServico");
@@ -264,11 +250,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
 
@@ -304,11 +287,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Busca busca = new Busca();
 
@@ -341,11 +321,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Busca busca = new Busca();
 
@@ -377,8 +354,7 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             busca.idBusca = jSonObject.getInt("idBusca");
             busca.titulo = jSonObject.getString("titulo");
@@ -411,12 +387,9 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            workaroundSleepThread(thread);
             vetorCategorias= new Categoria[jSonArray.length()];
-            if (jSonArray == null)
-                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Categoria categoria = new Categoria();
                 categoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -445,11 +418,8 @@ public class ApiModels implements Runnable{
             categoria1.descricao = "Todos";
             categoria1.idCategoria= 0;
             vetorCategorias.add(categoria1);
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Categoria categoria = new Categoria();
                 categoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -474,11 +444,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Categoria categoria = new Categoria();
                 categoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -505,8 +472,7 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             categoria.idCategoria = jSonObject.getInt("idCategoria");
             categoria.descricao = jSonObject.getString("descricao");
@@ -537,11 +503,8 @@ public class ApiModels implements Runnable{
                 thread.start();
                 controlaThread();
                 thread.interrupt();
-                if (jSonArray == null)
-                    thread.sleep(500);
+                workaroundSleepThread(thread);
                 for (int i = 0; i < jSonArray.length(); i++) {
-                    if (jSonArray == null)
-                        thread.sleep(500);
                     JSONObject jSonObject = jSonArray.getJSONObject(i);
                     SubCategoria subCategoria = new SubCategoria();
                     subCategoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -569,12 +532,9 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            workaroundSleepThread(thread);
             vetorSubCategorias = new SubCategoria[jSonArray.length()];
-            if (jSonArray == null)
-                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(1000);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 SubCategoria subCategoria = new SubCategoria();
                 subCategoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -601,12 +561,9 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            workaroundSleepThread(thread);
             vetorSubCategorias = new SubCategoria[jSonArray.length()];
-            if (jSonArray == null)
-                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 SubCategoria subCategoria = new SubCategoria();
                 subCategoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -633,11 +590,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(1000);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(1000);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 SubCategoria subCategoria = new SubCategoria();
                 subCategoria.idCategoria = jSonObject.getInt("idCategoria");
@@ -666,8 +620,7 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             subCategoria.idCategoria = jSonObject.getInt("idCategoria");
             subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
@@ -694,12 +647,9 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
+            workaroundSleepThread(thread);
             vetorDDDs= new DDD[jSonArray.length()];
-            if (jSonArray == null)
-                thread.sleep(500);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 DDD ddd = new DDD();
                 ddd.id = jSonObject.getInt("idDDD");
@@ -727,11 +677,8 @@ public class ApiModels implements Runnable{
             DDD ddd1 = new DDD();
             ddd1.descricao = "Todos";
             vetorDDDs.add(ddd1);
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 DDD ddd = new DDD();
                 ddd.id = jSonObject.getInt("idDDD");
@@ -758,11 +705,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(1000);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(1000);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 DDD ddd = new DDD();
                 ddd.id = jSonObject.getInt("idDDD");
@@ -833,8 +777,7 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             existe = jSonArray.length() != 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -876,11 +819,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Mensagem mensagem = new Mensagem();
                 mensagem.setId(jSonObject.getInt("ID"));
@@ -932,11 +872,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Chat chat = new Chat();
                 chat.setId(jSonObject.getInt("ID"));
@@ -966,6 +903,20 @@ public class ApiModels implements Runnable{
         //CLASSE A SER FEITA
         //SIMULAR
         ArrayList<Evento> ar = new ArrayList<Evento>();
+        Evento h = new Evento();
+        h.setIdEvento(1);
+        h.setIdServico(1);
+        h.setIdUsuarioContratante(16);
+        h.setDtEvento("25/12/2017");
+        h.setHrInicio(19);
+        h.setHrFinal(23);
+        h.setAvaliado(false);
+        h.setSituacaoEvento(2);
+        h.setTitulo("Testao");
+        h.setConteudo("TesteTesteTesteTesteTesteTesteTesteTestevTesteTesteTesteTesteTesteTesteTesteTestev");
+        h.setImagem("https://abrilcapricho.files.wordpress.com/2017/07/testes2.png");
+        h.setNomeUsuarioContratante("Joana Duarte");
+        ar.add(h);
         Evento x = new Evento();
         x.setIdEvento(1);
         x.setIdServico(1);
@@ -1067,8 +1018,7 @@ public class ApiModels implements Runnable{
             controlaThread();
             thread.interrupt();
             JSONObject jSonObject;
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             jSonObject = jSonArray.getJSONObject(0);
             Chat chat = new Chat();
             id = jSonObject.getInt("USUARIO_1");
@@ -1094,8 +1044,7 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
             imagem = jSonObject.getString("imagemPerfil");
         } catch (Exception e) {
@@ -1135,11 +1084,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Busca busca = new Busca();
 
@@ -1173,11 +1119,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
 
@@ -1212,11 +1155,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Busca busca = new Busca();
 
@@ -1250,11 +1190,8 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            if (jSonArray == null)
-                thread.sleep(500);
+            workaroundSleepThread(thread);
             for (int i = 0; i < jSonArray.length();i++){
-                if (jSonArray == null)
-                    thread.sleep(500);
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
 
@@ -1276,6 +1213,12 @@ public class ApiModels implements Runnable{
         }
         jSonArray = null;
         return arrayServicos;
+    }
+
+    private void workaroundSleepThread(Thread thread) throws InterruptedException {
+        while (jSonArray == null) {
+            thread.sleep(500);
+        }
     }
 
     public ArrayList<Integer> getSubCategoriasDaCategoria(int idcategoriaBuscaAvancada) {

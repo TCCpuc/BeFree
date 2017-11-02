@@ -57,7 +57,7 @@ public class PostApiModels implements Runnable{
 
     public boolean postChat(Chat chat){
         Thread thread = new Thread(this);
-        urlAPI = "http://localhost:1994/BeFreeAPI/api/Chat/PosttbChat/";
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Chat/PosttbChat/";
         jSonObject = new JSONObject();
         try {
             jSonObject.put("ID", chat.getId());

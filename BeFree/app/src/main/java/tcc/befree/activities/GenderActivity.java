@@ -24,6 +24,7 @@ import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Evento;
+import tcc.befree.telas.Dialog.GenderEvaluationDialog;
 import tcc.befree.telas.Dialog.GenderServiceDialog;
 
 /**
@@ -38,6 +39,7 @@ public class GenderActivity extends AppCompatActivity {
     private ArrayList<Evento> gender;
     private ApiModels api;
     private Evento evento;
+    private String beforeDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,16 +101,21 @@ public class GenderActivity extends AppCompatActivity {
             Button avaliar = (Button) view.findViewById(R.id.item_agenda_button);
             LinearLayout backgroundLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_background);
             LinearLayout defaultLayout = (LinearLayout) view.findViewById(R.id.item_agenda_default_layout);
+            LinearLayout dayLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_day);
             final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
+            final Evento ev = gender.get(position);
 
             avaliar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //time.setAdapter(new GenderActivity.TimeAdapter());
+                    GenderEvaluationDialog dialog = new GenderEvaluationDialog(GenderActivity.this, ev);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
                     avaliarLayout.setVisibility(View.GONE);
                 }
             });
 
-            Evento ev = gender.get(position);
             Picasso.with(GenderActivity.this).load(ev.getImagem()).into(image);
             dia.setText(ev.getDtEvento());
             titulo.setText(ev.getTitulo());
@@ -149,6 +156,12 @@ public class GenderActivity extends AppCompatActivity {
                     horario = (horario + " - " + ev.getHrFinal() + ":00");
                 }
                 tempo.setText(horario);
+            }
+
+            if(beforeDate.equals(ev.getDtEvento())){
+                dayLayout.setVisibility(View.GONE);
+            }else {
+                beforeDate = ev.getDtEvento();
             }
             return view;
         }

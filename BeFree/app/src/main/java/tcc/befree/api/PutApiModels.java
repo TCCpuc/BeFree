@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import tcc.befree.models.Busca;
+import tcc.befree.models.Evento;
 import tcc.befree.models.Servico;
 import tcc.befree.models.Usuarios;
 import tcc.befree.utils.Utils;
@@ -60,6 +61,20 @@ public class PutApiModels implements Runnable {
             thread.interrupt();
         }
 
+        return true;
+    }
+
+    public boolean putStatusEvento(Evento ev){
+        //Todo Criar metodo no banco para alterar status no banco;
+        ev.getSituacaoEvento();//0 ou 1 ou 2
+        ev.getIdEvento();
+        return true;
+    }
+
+    public boolean putNotaEvento(Evento ev){
+        //Todo Criar metodo no banco para alterar nota do evento no banco;
+        ev.getNotaAvalicao();//0 ou 1 ou 2
+        ev.getIdEvento();
         return true;
     }
 
