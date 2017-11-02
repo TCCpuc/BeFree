@@ -80,18 +80,18 @@ public class PutApiModels implements Runnable {
 
     public boolean putServico(Servico servico){
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/PutServico/" + servico.idServico;
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/PutServico/" + servico.getIdServico();
 
         jSonObject = new JSONObject();
         try {
-            jSonObject.put("idServico",servico.idServico);
-            jSonObject.put("titulo",servico.titulo);
-            jSonObject.put("descricao",servico.descricao);
-            jSonObject.put("idUsuario",servico.idUsuario);
-            jSonObject.put("idSubCategoria",servico.idSubCategoria);
-            jSonObject.put("idStatus",servico.idStatus);
-            jSonObject.put("imagemServico", Utils.criptografarBase64(servico.imagemServico));
-            jSonObject.put("idDDD",servico.idDDD);
+            jSonObject.put("idServico",servico.getIdServico());
+            jSonObject.put("titulo",servico.getTitulo());
+            jSonObject.put("descricao",servico.getDescricao());
+            jSonObject.put("idUsuario",servico.getIdUsuario());
+            jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
+            jSonObject.put("idStatus",servico.getIdStatus());
+            jSonObject.put("imagemServico", Utils.criptografarBase64(servico.getImagemServico()));
+            jSonObject.put("idDDD",servico.getIdDDD());
 
             thread.start();
             controlaThread();

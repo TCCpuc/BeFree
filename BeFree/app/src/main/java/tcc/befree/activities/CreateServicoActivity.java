@@ -123,15 +123,15 @@ public class CreateServicoActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-                    novaServico.descricao = descricao;
-                    novaServico.titulo = nome;
-                    novaServico.idDDD = ((DDD)spinnerDDDs.getSelectedItem()).id;
-                    novaServico.idSubCategoria = idSubCategoria;
-                    novaServico.idUsuario = idUsuario;
+                    novaServico.setDescricao(descricao);
+                    novaServico.setTitulo(nome);
+                    novaServico.setIdDDD(((DDD)spinnerDDDs.getSelectedItem()).id);
+                    novaServico.setIdSubCategoria(idSubCategoria);
+                    novaServico.setIdUsuario(idUsuario);
                     try {
-                        novaServico.imagemServico = Utils.convert(bitmapUsuarioPerfil);
+                        novaServico.setImagemServico(Utils.convert(bitmapUsuarioPerfil));
                     }catch(Exception e){
-                        novaServico.imagemServico = "";
+                        novaServico.setImagemServico("");
                     }
                     new PostApiModels().postServico(novaServico);
                     Toast toast = Toast.makeText(getApplicationContext(), "Servico criado com sucesso!", Toast.LENGTH_LONG);

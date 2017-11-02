@@ -431,18 +431,19 @@ public class MainActivity extends AppCompatActivity{
 
         for (Servico s : serviceFragment.results) {
             //Busca por titulo e descrição
-            s.mostrar = s.titulo.toLowerCase().contains(buscaSimples.toLowerCase()) || s.descricao.toLowerCase().contains(buscaSimples.toLowerCase());
+            s.setMostrar(s.getTitulo().toLowerCase().contains(buscaSimples.toLowerCase()) || s.getDescricao().toLowerCase().contains(buscaSimples.toLowerCase()));
 
-            if (!"Todos".equals(categoriaBuscaAvancada) && s.mostrar){
-                s.mostrar = s.mostrar && subCategoriasDaCategoria.contains(s.idSubCategoria);
+
+            if (!"Todos".equals(categoriaBuscaAvancada) && s.isMostrar()){
+                s.setMostrar(s.isMostrar() && subCategoriasDaCategoria.contains(s.getIdSubCategoria()));
             }
 
             if (!"Todos".equals(dddBuscaAvancada)){
-                s.mostrar = s.mostrar && s.idDDD == idDDDBuscaAvancada;
+                s.setMostrar(s.isMostrar() && s.getIdDDD() == idDDDBuscaAvancada);
             }
 
             if (!"Todos".equals(subcategoriaBuscaAvancada)){
-                s.mostrar = s.mostrar && s.idSubCategoria == idSubCategoriaBuscaAvancada;
+                s.setMostrar(s.isMostrar() && s.getIdSubCategoria() == idSubCategoriaBuscaAvancada);
             }
         }
         serviceFragment.setRealizouBusca(true);

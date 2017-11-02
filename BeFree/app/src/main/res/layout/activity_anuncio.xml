@@ -232,7 +232,7 @@
         android:layout_marginRight="70dp"
         android:clickable="true"
         android:src="@drawable/ic_event"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/green"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
 
@@ -240,13 +240,13 @@
         android:id="@+id/anuncio_denunciar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="135dp"
+        android:layout_marginLeft="5dp"
         android:clickable="true"
         android:scaleType="center"
         android:src="@android:drawable/stat_sys_warning"
         app:backgroundTint="@color/red"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchorGravity="bottom|left|end" />
 
     <TextView
         android:id="@+id/activity_anuncio_txtNome"
