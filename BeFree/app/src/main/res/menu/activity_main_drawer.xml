@@ -23,22 +23,18 @@
             android:icon="@drawable/ic_forum"
             android:title="Chat" />
         <item
-            android:id="@+id/menu_historico"
+            android:id="@+id/menu_sobre"
             android:icon="@drawable/ic_menu_send"
-            android:title="Historico" />
+            android:title="Sobre" />
 
     </group>
 
-    <item android:title="Categorias">
+    <item android:title="Sistema">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/menu_logoff"
+                android:icon="@android:drawable/ic_lock_power_off"
+                android:title="Logoff" />
         </menu>
     </item>
 

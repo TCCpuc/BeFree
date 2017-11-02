@@ -228,9 +228,6 @@ public class MainActivity extends AppCompatActivity{
                             bundle.putInt("id",usuario.idUsuario);
                             Intent intent = MainActivity.this.getIntent();
                             intent.putExtra("bundle", bundle);
-                            /*Intent i = MainActivity.this.getIntent();
-                            startActivity(i);*/
-
                             ViewPager viewPager = (ViewPager) findViewById(R.id.container);
                             if (viewPager != null) {
                                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -243,9 +240,7 @@ public class MainActivity extends AppCompatActivity{
                         } else if (id == R.id.menu_perfil) {
                             // ABRIR MEU PERFIL
                             Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
-
                             intent.putExtra("arrayUsuario", usuario.toString());
-
                             startActivity(intent);
 
                         } else if (id == R.id.menu_calendario) {
@@ -255,19 +250,14 @@ public class MainActivity extends AppCompatActivity{
 
                         } else if (id == R.id.menu_chat) {
                             // ABRIR CHAT
-
                             Bundle bundle = new Bundle();
                             bundle.putInt("idUsuario",usuario.idUsuario);
                             Intent intent = new Intent(MainActivity.this, ListChatActivity.class);
                             intent.putExtra("bundle", bundle);
-
-
                             startActivity(intent);
 
-                        } else if (id == R.id.menu_historico) {
-                            // ABRIR HISTORICO
-                            Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
-
+                        } else if (id == R.id.menu_sobre) {
+                            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
                             startActivity(intent);
 
                         } else if (id == R.id.menu_pagina_inicial) {
@@ -276,10 +266,6 @@ public class MainActivity extends AppCompatActivity{
                             bundle.putInt("id",id);
                             Intent intent = MainActivity.this.getIntent();
                             intent.putExtra("bundle", bundle);
-                            /*Intent i = MainActivity.this.getIntent();
-                            startActivity(i);*/
-
-
                             ViewPager viewPager = (ViewPager) findViewById(R.id.container);
                             if (viewPager != null) {
                                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -289,10 +275,8 @@ public class MainActivity extends AppCompatActivity{
                             TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
                             tabLayout.setupWithViewPager(viewPager);
 
-                        } else if (id == R.id.nav_share) {
-
-                        } else if (id == R.id.nav_send) {
-
+                        } else if (id == R.id.menu_logoff) {
+                            logoff();
                         }
 
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -304,6 +288,10 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
+        logoff();
+    }
+
+    private void logoff(){
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
