@@ -31,15 +31,15 @@ public class PostApiModels implements Runnable{
 
         jSonObject = new JSONObject();
         try {
-            jSonObject.put("idServico",servico.idServico);
-            jSonObject.put("titulo",servico.titulo);
-            jSonObject.put("descricao",servico.descricao);
-            jSonObject.put("idUsuario",servico.idUsuario);
-            jSonObject.put("idSubCategoria",servico.idSubCategoria);
-            jSonObject.put("idStatus",servico.idStatus);
+            jSonObject.put("idServico",servico.getIdServico());
+            jSonObject.put("titulo",servico.getTitulo());
+            jSonObject.put("descricao",servico.getDescricao());
+            jSonObject.put("idUsuario",servico.getIdUsuario());
+            jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
+            jSonObject.put("idStatus",servico.getIdStatus());
             //jSonObject.put("imagemServico",Utils.criptografarBase64(servico.imagemServico));
-            jSonObject.put("imagemBusca",servico.imagemServico);
-            jSonObject.put("idDDD",servico.idDDD);
+            jSonObject.put("imagemBusca",servico.getImagemServico());
+            jSonObject.put("idDDD",servico.getIdDDD());
 
             thread.start();
             controlaThread();
@@ -169,6 +169,42 @@ public class PostApiModels implements Runnable{
         return true;
     }
 
+    public boolean authenticateUserFacebook(Usuarios usuario){
+
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/AuthenticateUsuarioFacebook/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("idUsuario",usuario.idUsuario);
+            jSonObject.put("nomeUsuario",usuario.nomeUsuario);
+            jSonObject.put("cpf",usuario.cpf);
+            jSonObject.put("idCidade",usuario.idCidade);
+            jSonObject.put("idEstado",usuario.idEstado);
+            jSonObject.put("bairro",usuario.bairro);
+            jSonObject.put("logradouro",usuario.logradouro);
+            jSonObject.put("numero",usuario.numero);
+            jSonObject.put("cep",usuario.cep);
+            jSonObject.put("dataNascimento",usuario.dataNascimento);
+            jSonObject.put("dataCadastro",usuario.dataCadastro);
+            jSonObject.put("ativo",usuario.ativo);
+            jSonObject.put("senha",usuario.senha);
+            jSonObject.put("email",usuario.email);
+            jSonObject.put("ddd",usuario.ddd);
+            jSonObject.put("imagemPerfil", usuario.imagemPerfil);
+
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+        }
+
+        return true;
+    }
+
     //Verifica se a thread foi executada com sucesso para executar proxima
     private void controlaThread(){
         for(;;){
@@ -203,20 +239,6 @@ public class PostApiModels implements Runnable{
             wr.close();
 
             int HttpResult =urlConnection.getResponseCode();
-            /*if(HttpResult ==HttpURLConnection.HTTP_OK){
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        urlConnection.getInputStream(),"utf-8"));
-                line = null;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                br.close();
-
-                System.out.println("" + sb.toString());
-
-            }else{
-                System.out.println(urlConnection.getResponseMessage());
-            }*/
 
             semaforo = true;
         }catch (Exception e){

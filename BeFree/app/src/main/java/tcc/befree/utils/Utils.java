@@ -1,6 +1,8 @@
 package tcc.befree.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
@@ -9,6 +11,9 @@ import java.io.ByteArrayOutputStream;
  */
 
 public class Utils {
+
+    public static final int MAX_WIDTH = 1080;
+    public static final int MAX_HEIGHT = 1920;
 
     //Criptografa Base64
     public static String criptografarBase64(String stringNaoCriptografada){
@@ -34,6 +39,11 @@ public class Utils {
     // Converte String Bitmap base64
     public static String convert(Bitmap bitmap)
     {
+        if (bitmap.getHeight()> MAX_HEIGHT || bitmap.getWidth()>MAX_WIDTH){
+            Matrix m = new Matrix();
+            m.setRectToRect(new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight()), new RectF(0, 0, MAX_WIDTH, MAX_HEIGHT), Matrix.ScaleToFit.CENTER);
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+        }
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
 
