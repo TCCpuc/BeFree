@@ -26,5 +26,9 @@ namespace BeFreeAPI.Models
         public string imagemServico { get; set; }
 
         public int idDDD { get; set; }
+
+        public decimal ?preco { get; set; }
+
+        public string formaPagto { get; set; }
     }
 }
