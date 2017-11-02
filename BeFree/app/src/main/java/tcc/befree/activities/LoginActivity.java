@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
+import tcc.befree.api.PostApiModels;
 import tcc.befree.models.Usuarios;
 import tcc.befree.telas.Dialog.ForgotPasswordDialog;
 
@@ -85,13 +86,6 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-
-            }
-        };
-
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -99,6 +93,24 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
 
+        forgotPassword = (Button) findViewById(R.id.login_forgot_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForgotPasswordDialog dialog = new ForgotPasswordDialog(LoginActivity.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+
+        callbackManager = CallbackManager.Factory.create();
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+            }
+        };
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
@@ -111,45 +123,36 @@ public class LoginActivity extends AppCompatActivity {
                 usuarioFacebook.senha = " ";
                 Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
                 usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
-                //COLOCAR CHAMADA PARA INSERIR USUARIO
+
+                PostApiModels postApiModels = new PostApiModels();
+                if(postApiModels.authenticateUserFacebook(usuarioFacebook))
+                    nextActivity(usuarioFacebook);
+                else
+                    Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
             }
         };
 
-        /*accessTokenTracker.startTracking();
-        profileTracker.startTracking();*/
-
-        forgotPassword = (Button) findViewById(R.id.login_forgot_password);
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ForgotPasswordDialog dialog = new ForgotPasswordDialog(LoginActivity.this);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
+        accessTokenTracker.startTracking();
+        profileTracker.startTracking();
 
         loginButton = (LoginButton) findViewById(R.id.login_facebook_button);
-        callbackManager = CallbackManager.Factory.create();
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
-                //txtStatus.setText("Login Sucess \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
+                Profile profile = Profile.getCurrentProfile();
+                Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel() {
-                //txtStatus.setText("Login Cancelled");
             }
 
             @Override
-            public void onError(FacebookException error) {
-
+            public void onError(FacebookException e) {
             }
-        });
-
-        // If the access token is available already assign it.
-        //accessToken = AccessToken.getCurrentAccessToken();
+        };
+        loginButton.setReadPermissions("user_friends");
+        loginButton.registerCallback(callbackManager, callback);
 
         overridePendingTransition(0,0);
         View relativeLayout=findViewById(R.id.newLogin_container);
@@ -226,18 +229,8 @@ public class LoginActivity extends AppCompatActivity {
                 focusView = Email;
                 focusView.requestFocus();
             }
-            else {
-                Intent intent = new Intent(this, MainActivity.class);
-
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                intent.putExtra("arrayUsuario", usuario.toString());
-                Bundle bundle = new Bundle();
-                bundle.putInt("idUsuario",usuario.idUsuario);
-                intent.putExtra("idUsuario", bundle);
-
-                startActivity(intent);
-            }
+            else
+                nextActivity(usuario);
         }
     }
 
@@ -289,4 +282,46 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Facebook login
+        Profile profile = Profile.getCurrentProfile();
+        //nextActivity(profile);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void onStop() {
+        super.onStop();
+        //Facebook login
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        super.onActivityResult(requestCode, responseCode, intent);
+        //Facebook login
+        callbackManager.onActivityResult(requestCode, responseCode, intent);
+
+    }
+
+    private void nextActivity(Usuarios usuario){
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("arrayUsuario", usuario.toString());
+        Bundle bundle = new Bundle();
+        bundle.putInt("idUsuario",usuario.idUsuario);
+        intent.putExtra("idUsuario", bundle);
+
+        startActivity(intent);
+
+    }
+
 }
