@@ -119,8 +119,7 @@ namespace BeFreeWeb.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idUsuario,nomeUsuario,cpf,idCidade,idEstado,bairro,logradouro,numero,cep,dataNascimento,dataCadastro,ativo,senha,email,ddd,imagemPerfil")] Usuario usuario)
+        public ActionResult Edit(Usuario usuario)
         {
             if (ModelState.IsValid)
             {

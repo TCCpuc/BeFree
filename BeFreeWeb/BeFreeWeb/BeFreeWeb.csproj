@@ -350,6 +350,7 @@
     <Content Include="Views\Busca\Details.cshtml" />
     <Content Include="Views\Busca\Edit.cshtml" />
     <Content Include="Views\Busca\Index.cshtml" />
+    <Content Include="Views\Denuncia\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

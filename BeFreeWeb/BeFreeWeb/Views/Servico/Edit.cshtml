@@ -12,7 +12,7 @@
         </header>
         <ul class="breadcrumb">
             <div class="container-fluid">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="~/Views/Home/Index.cshtml">Home</a></li>
                 <li class="breadcrumb-item active">Editar</li>
             </div>
         </ul>
@@ -37,6 +37,13 @@
                                                    
                                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                                     @Html.HiddenFor(model => model.idServico)
+
+                                                    <div align="center">
+
+                                                        <img src=@Model.imagemServico alt="..." style="height:300px;width:auto;align-self:center">
+
+                                                    </div>
+                                                    <div class="line"></div>
 
                                                     <div class="form-group row">
                                                         @Html.LabelFor(model => model.titulo, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
@@ -68,16 +75,6 @@
                                                             @Html.EditorFor(model => model.idStatus, new { htmlAttributes = new { @class = "form-control" } })
                                                         </div>
                                                     </div>
-                                                    <div class="line"></div>
-
-                                                    <div class="form-group row">
-                                                        @Html.LabelFor(model => model.imagemServico, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                        <div class="col-sm-9">
-                                                            @Html.EditorFor(model => model.imagemServico, new { htmlAttributes = new { @class = "form-control" } })
-                                                        </div>
-                                                    </div>
-                                                    <div class="line"></div>
-
                                                     <div class="form-group row">
                                                         @Html.LabelFor(model => model.idDDD, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
                                                         <div class="col-sm-9">
