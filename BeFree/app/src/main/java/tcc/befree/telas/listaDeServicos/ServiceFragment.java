@@ -69,7 +69,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
         this.realizouBusca = false;
         ArrayList<Servico> valuesComMostrarTrue = new ArrayList<Servico>();
         for (Servico s : results)
-            if (s.mostrar)
+            if (s.isMostrar())
                 valuesComMostrarTrue.add(s);
         if (id != 0)
             meusAnuncios = true;
@@ -83,7 +83,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
     @Override
     public void onClick(Servico servico) {
         Bundle bundle = new Bundle();
-        int id = servico.idServico;
+        int id = servico.getIdServico();
         bundle.putInt("id",id);
         bundle.putInt("idUsuario",idUsuario);
         Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);

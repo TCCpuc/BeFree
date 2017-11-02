@@ -186,14 +186,14 @@ public class ApiModels implements Runnable{
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
 
-                servico.idServico = jSonObject.getInt("idServico");
-                servico.titulo = jSonObject.getString("titulo");
-                servico.descricao = jSonObject.getString("descricao");
-                servico.idUsuario = jSonObject.getInt("idUsuario");
-                servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = jSonObject.getString("imagemServico");
-                servico.idDDD = jSonObject.getInt("idDDD");
+                servico.setIdServico(jSonObject.getInt("idServico"));
+                servico.setTitulo(jSonObject.getString("titulo"));
+                servico.setDescricao(jSonObject.getString("descricao"));
+                servico.setIdUsuario(jSonObject.getInt("idUsuario"));
+                servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
+                servico.setIdStatus(jSonObject.getInt("idStatus"));
+                servico.setImagemServico(jSonObject.getString("imagemServico"));
+                servico.setIdDDD(jSonObject.getInt("idDDD"));
 
                 arrayServicos.add(servico);
             }
@@ -221,14 +221,14 @@ public class ApiModels implements Runnable{
             for (int i = 0; i < jSonArray.length();i++){
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
 
-                servico.idServico = jSonObject.getInt("idServico");
-                servico.titulo = jSonObject.getString("titulo");
-                servico.descricao = jSonObject.getString("descricao");
-                servico.idUsuario = jSonObject.getInt("idUsuario");
-                servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = jSonObject.getString("imagemServico");
-                servico.idDDD = jSonObject.getInt("idDDD");
+                servico.setIdServico(jSonObject.getInt("idServico"));
+                servico.setTitulo(jSonObject.getString("titulo"));
+                servico.setDescricao(jSonObject.getString("descricao"));
+                servico.setIdUsuario(jSonObject.getInt("idUsuario"));
+                servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
+                servico.setIdStatus(jSonObject.getInt("idStatus"));
+                servico.setImagemServico(jSonObject.getString("imagemServico"));
+                servico.setIdDDD(jSonObject.getInt("idDDD"));
 
             }
 
@@ -255,14 +255,14 @@ public class ApiModels implements Runnable{
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
 
-                servico.idServico = jSonObject.getInt("idServico");
-                servico.titulo = jSonObject.getString("titulo");
-                servico.descricao = jSonObject.getString("descricao");
-                servico.idUsuario = jSonObject.getInt("idUsuario");
-                servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                servico.idStatus = jSonObject.getInt("idStatus");
-                servico.imagemServico = jSonObject.getString("imagemServico");
-                servico.idDDD = jSonObject.getInt("idDDD");
+                servico.setIdServico(jSonObject.getInt("idServico"));
+                servico.setTitulo(jSonObject.getString("titulo"));
+                servico.setDescricao(jSonObject.getString("descricao"));
+                servico.setIdUsuario(jSonObject.getInt("idUsuario"));
+                servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
+                servico.setIdStatus(jSonObject.getInt("idStatus"));
+                servico.setImagemServico(jSonObject.getString("imagemServico"));
+                servico.setIdDDD(jSonObject.getInt("idDDD"));
 
                 arrayServicos.add(servico);
             }
@@ -1125,14 +1125,14 @@ public class ApiModels implements Runnable{
                 Servico servico = new Servico();
 
                 if (jSonObject.getInt("idUsuario") != idUsuario) {
-                    servico.idServico = jSonObject.getInt("idServico");
-                    servico.titulo = jSonObject.getString("titulo");
-                    servico.descricao = jSonObject.getString("descricao");
-                    servico.idUsuario = jSonObject.getInt("idUsuario");
-                    servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                    servico.idStatus = jSonObject.getInt("idStatus");
-                    servico.imagemServico = jSonObject.getString("imagemServico");
-                    servico.idDDD = jSonObject.getInt("idDDD");
+                    servico.setIdServico(jSonObject.getInt("idServico"));
+                    servico.setTitulo(jSonObject.getString("titulo"));
+                    servico.setDescricao(jSonObject.getString("descricao"));
+                    servico.setIdUsuario(jSonObject.getInt("idUsuario"));
+                    servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
+                    servico.setIdStatus(jSonObject.getInt("idStatus"));
+                    servico.setImagemServico(jSonObject.getString("imagemServico"));
+                    servico.setIdDDD(jSonObject.getInt("idDDD"));
 
                     arrayServicos.add(servico);
                 }
@@ -1196,14 +1196,14 @@ public class ApiModels implements Runnable{
                 Servico servico = new Servico();
 
                 if (jSonObject.getInt("idUsuario") == idUsuario) {
-                    servico.idServico = jSonObject.getInt("idServico");
-                    servico.titulo = jSonObject.getString("titulo");
-                    servico.descricao = jSonObject.getString("descricao");
-                    servico.idUsuario = jSonObject.getInt("idUsuario");
-                    servico.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                    servico.idStatus = jSonObject.getInt("idStatus");
-                    servico.imagemServico = jSonObject.getString("imagemServico");
-                    servico.idDDD = jSonObject.getInt("idDDD");
+                    servico.setIdServico(jSonObject.getInt("idServico"));
+                    servico.setTitulo(jSonObject.getString("titulo"));
+                    servico.setDescricao(jSonObject.getString("descricao"));
+                    servico.setIdUsuario(jSonObject.getInt("idUsuario"));
+                    servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
+                    servico.setIdStatus(jSonObject.getInt("idStatus"));
+                    servico.setImagemServico(jSonObject.getString("imagemServico"));
+                    servico.setIdDDD(jSonObject.getInt("idDDD"));
 
                     arrayServicos.add(servico);
                 }

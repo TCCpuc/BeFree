@@ -52,7 +52,8 @@ namespace BeFreeAPI.Utils
         {
             try
             {
-                string path = ConfigurationManager.AppSettings["imagesPathUpload"].ToString() + target;
+                //string path = ConfigurationManager.AppSettings["imagesPathUpload"].ToString() + target;
+                string path = ConfigurationManager.AppSettings["ImagesPathUpload"].ToString() + target;
                 img.Save(path,ImageFormat.Jpeg);
                 return true;
             }

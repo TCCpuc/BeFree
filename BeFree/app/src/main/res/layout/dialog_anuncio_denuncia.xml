@@ -7,19 +7,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/dialog_gender_service_username"
+        android:id="@+id/dialog_anuncio_denuncia_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="1dp"
-        android:text="NOME DO USUARIO"
+        android:text="NOME DO ANUNCIO"
         android:textColor="@android:color/white"
         android:textSize="18dp"
         android:textStyle="bold"/>
 
     <tcc.befree.models.CircleImageView
-        android:id="@+id/dialog_gender_service_image"
+        android:id="@+id/dialog_anuncio_denuncia_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -32,18 +32,17 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/dialog_gender_service_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Titulo"
+        android:text="Denúncia"
         android:textColor="@android:color/white"
         android:textSize="15dp"/>
 
-    <TextView
-        android:id="@+id/dialog_gender_service_descricao"
+    <EditText
+        android:id="@+id/dialog_anuncio_denuncia_denuncia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -51,13 +50,11 @@
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/border_white"
-        android:text="Descricao do servico Descricao do servicoDescricao do servico Descricao do servico Descricao do servico v "
+        android:hint="Digite aqui sua denúncia"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         android:padding="5dp"
-        android:textSize="15dp"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:textSize="15dp"/>
 
 
     <LinearLayout
@@ -69,31 +66,24 @@
 
 
         <Button
-            android:id="@+id/dialog_gender_service_refuse"
+            android:id="@+id/dialog_anuncio_denuncia_back"
             android:layout_gravity="left"
             android:background="@drawable/curve_shap"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginRight="3dp"
-            android:text="RECUSAR" />
+            android:text="VOLTAR" />
 
         <Button
-            android:id="@+id/dialog_gender_service_ok"
-            android:layout_gravity="left"
-            android:background="@drawable/curve_shap"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:visibility="gone"
-            android:text="OK" />
-
-        <Button
-            android:id="@+id/dialog_gender_service_accept"
+            android:id="@+id/dialog_anuncio_denuncia_send"
             android:layout_gravity="left"
             android:background="@drawable/curve_shap"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="3dp"
-            android:text="ACEITAR" />
+            android:backgroundTint="@color/red"
+            android:textColor="@color/white"
+            android:text="DENUNCIAR" />
 
     </LinearLayout>
 

@@ -71,15 +71,11 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
         TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
         TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
         CircleImageView imageView = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
-        Picasso.with(getContext()).load(servico.imagemServico).into(imageView);
+        Picasso.with(getContext()).load(servico.getImagemServico()).into(imageView);
         deleteButton = (ImageButton) convertView.findViewById(R.id.item_service_delete);
         editButton = (ImageButton) convertView.findViewById(R.id.item_service_edit);
         padraoLayout = (LinearLayout) convertView.findViewById(R.id.item_service_default_layout);
         editLayout = (LinearLayout) convertView.findViewById(R.id.item_service_edit_layout);
-
-        if((position % 2) != 0){
-            background.setBackgroundColor(Color.parseColor("#f2f2f2"));
-        }
 
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
@@ -87,7 +83,7 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
             public void onClick(View v) {
                 // SUBIR UM BUNDLE COM AS INFORMAÇOES DO ANUNCIO
                 intent = new Intent(getContext(), EditServicoActivity.class);
-                intent.putExtra("idServico", servico.idServico);
+                intent.putExtra("idServico", servico.getIdServico());
                 getContext().startActivity(intent);
             }
         });
@@ -104,7 +100,7 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                new DeleteApiModels().deleteServicosById(servico.idServico);
+                                new DeleteApiModels().deleteServicosById(servico.getIdServico());
                             }
 
                         })
@@ -120,8 +116,8 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
             setVisibilityLayout(true);
         }
 
-        title.setText(servico.titulo);
-        description.setText(servico.descricao);
+        title.setText(servico.getTitulo());
+        description.setText(servico.getDescricao());
 
         return convertView;
 
