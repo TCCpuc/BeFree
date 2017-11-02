@@ -69,7 +69,8 @@ namespace BeFreeAPI.Controllers
                 return BadRequest();
             }
 
-            if (!usuario.imagemPerfil.Contains("http")) {
+            if (!usuario.imagemPerfil.Contains("http"))
+            {
                 usuario.imagemPerfil = this.SetImagem(usuario);
             }
 
@@ -168,7 +169,7 @@ namespace BeFreeAPI.Controllers
 
             Random random = new Random();
 
-            string nomeImage =  "usuarios\\" + usuario.nomeUsuario.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpg";
+            string nomeImage = "usuarios\\" + usuario.nomeUsuario.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpg";
 
             Image image = function.Base64ToImage(usuario.imagemPerfil);
             if (image != null)
@@ -188,7 +189,7 @@ namespace BeFreeAPI.Controllers
         public IHttpActionResult ValidarCodigo(String codigo)
         {
 
-            IQueryable <Usuario> usuario = null;
+            IQueryable<Usuario> usuario = null;
 
             try
             {
@@ -211,7 +212,8 @@ namespace BeFreeAPI.Controllers
         public IHttpActionResult RecuperarSenha(String email)
         {
 
-            try {
+            try
+            {
                 string bodyEmail = function.GenerateRandomString();
                 bool emailOK = function.EnviaEmail(email, "Recuperação de Senha Befree", bodyEmail);
 
@@ -225,7 +227,8 @@ namespace BeFreeAPI.Controllers
                 usuarioEncontrado.codigoSeguranca = bodyEmail;
                 PutUsuario(usuarioEncontrado.idUsuario, usuarioEncontrado);
             }
-            catch (Exception err) {
+            catch (Exception err)
+            {
 
                 return NotFound();
             }
@@ -243,12 +246,9 @@ namespace BeFreeAPI.Controllers
             }
 
 
-            if (db.tbUsuarios.Count(u => u.email == usuario.email) > 0)
+            if (db.tbUsuarios.Count(u => u.email == usuario.email) == 0)
             {
                 db.tbUsuarios.Add(usuario);
-            }
-            else
-            {
 
                 try
                 {

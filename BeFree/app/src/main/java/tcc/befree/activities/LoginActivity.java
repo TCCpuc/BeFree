@@ -114,21 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-
-                Usuarios usuarioFacebook = new Usuarios();
-
-                usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + currentProfile.getLastName();
-                usuarioFacebook.cpf = "";
-                usuarioFacebook.email = currentProfile.getId();
-                usuarioFacebook.senha = " ";
-                Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
-                usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
-
-                PostApiModels postApiModels = new PostApiModels();
-                if(postApiModels.authenticateUserFacebook(usuarioFacebook))
-                    nextActivity(usuarioFacebook);
-                else
-                    Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
+                createUsuarioFacebook(currentProfile);
             }
         };
 
@@ -288,7 +274,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
         //Facebook login
         Profile profile = Profile.getCurrentProfile();
-        //nextActivity(profile);
+        createUsuarioFacebook(profile);
     }
 
     @Override
@@ -309,6 +295,26 @@ public class LoginActivity extends AppCompatActivity {
         //Facebook login
         callbackManager.onActivityResult(requestCode, responseCode, intent);
 
+    }
+
+    private void createUsuarioFacebook(Profile currentProfile){
+
+        Usuarios usuarioFacebook = new Usuarios();
+
+        if(currentProfile != null) {
+            usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + currentProfile.getLastName();
+            usuarioFacebook.cpf = "";
+            usuarioFacebook.email = currentProfile.getId();
+            usuarioFacebook.senha = " ";
+            Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
+            usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
+
+            PostApiModels postApiModels = new PostApiModels();
+            if (postApiModels.authenticateUserFacebook(usuarioFacebook))
+                nextActivity(usuarioFacebook);
+            else
+                Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void nextActivity(Usuarios usuario){
