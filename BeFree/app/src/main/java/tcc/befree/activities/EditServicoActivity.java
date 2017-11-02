@@ -66,7 +66,7 @@ public class EditServicoActivity extends AppCompatActivity {
         idServico = loginActivityIntent.getInt("idServico");
         ApiModels api = new ApiModels();
         servico = api.getServicosById(idServico);
-        subCategoria = new ApiModels().getSubCategoriasByID(servico.idSubCategoria);
+        subCategoria = new ApiModels().getSubCategoriasByID(servico.getIdSubCategoria());
 
         spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
         photo = (ImageView) findViewById(R.id.create_servico_unounce_photo);
@@ -82,8 +82,8 @@ public class EditServicoActivity extends AppCompatActivity {
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDDDs.setAdapter(arrayAdapterDDD);
-        spinnerDDDs.setId(servico.idDDD);
-        spinnerDDDs.setSelection(servico.idDDD - 1);
+        spinnerDDDs.setId(servico.getIdDDD());
+        spinnerDDDs.setSelection(servico.getIdDDD() - 1);
 //        if (servico.idDDD > 16)
 //            spinnerDDDs.setSelection(servico.idDDD - 13);
 //        else
@@ -110,16 +110,11 @@ public class EditServicoActivity extends AppCompatActivity {
 
         //popula restante
 
-        Picasso.with(this).load(servico.imagemServico).into(photo);
-        ((EditText) viewNome).setText(servico.titulo);
-        ((EditText) viewDescricao).setText(servico.descricao);
+        Picasso.with(this).load(servico.getImagemServico()).into(photo);
+        ((EditText) viewNome).setText(servico.getTitulo());
+        ((EditText) viewDescricao).setText(servico.getDescricao());
         submit.setText("Editar Anuncio");
-        title.setText(servico.titulo);
-
-
-
-
-
+        title.setText(servico.getTitulo());
 
         spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -193,17 +188,17 @@ public class EditServicoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Servico servicoAlterado = servico;
-                servicoAlterado.idDDD = spinnerDDDs.getSelectedItemPosition() + 1;
+                servicoAlterado.setIdDDD(spinnerDDDs.getSelectedItemPosition() + 1);
 //                if (spinnerDDDs.getSelectedItemPosition() > 5)
 //                    servicoAlterado.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
 //                else
 //                    servicoAlterado.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
-                servicoAlterado.descricao = editDescricao.getText().toString();
-                servicoAlterado.titulo = ((EditText) viewNome).getText().toString();
+                servicoAlterado.setDescricao(editDescricao.getText().toString());
+                servicoAlterado.setTitulo(((EditText) viewNome).getText().toString());
                 if(bitmapUsuarioPerfil!= null)
-                    servicoAlterado.imagemServico = Utils.convert(bitmapUsuarioPerfil);
+                    servicoAlterado.setImagemServico(Utils.convert(bitmapUsuarioPerfil));
                 int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
-                servicoAlterado.idSubCategoria = idSubCategoria;
+                servicoAlterado.setIdSubCategoria(idSubCategoria);
                 new PutApiModels().putServico(servicoAlterado);
                 Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
                 toast.show();
