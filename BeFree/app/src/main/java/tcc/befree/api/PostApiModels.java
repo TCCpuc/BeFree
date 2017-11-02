@@ -38,7 +38,7 @@ public class PostApiModels implements Runnable{
             jSonObject.put("idSubCategoria",servico.idSubCategoria);
             jSonObject.put("idStatus",servico.idStatus);
             //jSonObject.put("imagemServico",Utils.criptografarBase64(servico.imagemServico));
-            jSonObject.put("imagemBusca",servico.imagemServico);
+            jSonObject.put("imagemServico",servico.imagemServico);
             jSonObject.put("idDDD",servico.idDDD);
 
             thread.start();

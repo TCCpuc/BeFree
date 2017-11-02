@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MainActivity.class);
 
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+                usuario.imagemPerfil = "";
                 intent.putExtra("arrayUsuario", usuario.toString());
                 Bundle bundle = new Bundle();
                 bundle.putInt("idUsuario",usuario.idUsuario);
