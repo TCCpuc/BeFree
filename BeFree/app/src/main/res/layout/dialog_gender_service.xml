@@ -54,7 +54,10 @@
         android:text="Descricao do servico Descricao do servicoDescricao do servico Descricao do servico Descricao do servico v "
         android:textColor="@android:color/white"
         android:padding="5dp"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
 
     <LinearLayout

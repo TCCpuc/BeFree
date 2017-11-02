@@ -3,12 +3,9 @@ package tcc.befree.telas.Dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,7 +27,7 @@ public class GenderEvaluationDialog   extends Dialog {
     private TextView userName;
     private TextView serviceTitle;
     private CircleImageView imagem;
-    private EditText nota;
+    private TextView nota;
     private RatingBar notaStar;
     private Button accept;
     private Button refuse;
@@ -55,7 +52,7 @@ public class GenderEvaluationDialog   extends Dialog {
         imagem = (CircleImageView) findViewById(R.id.dialog_gender_evaluation_image);
         accept = (Button) findViewById(R.id.dialog_gender_evaluation_accept);
         refuse = (Button) findViewById(R.id.dialog_gender_evaluation_back);
-        nota = (EditText) findViewById(R.id.dialog_gender_evaluation_text);
+        nota = (TextView) findViewById(R.id.dialog_gender_evaluation_text);
         notaStar = (RatingBar) findViewById(R.id.dialog_gender_evaluation_ratingBar);
         up = (ImageButton) findViewById(R.id.dialog_gender_evaluation_up);
         down = (ImageButton) findViewById(R.id.dialog_gender_evaluation_down);
@@ -70,8 +67,9 @@ public class GenderEvaluationDialog   extends Dialog {
                 }else if(Float.parseFloat(nota.getText().toString()) > 9.5){
                     nota.setText((10.0) + "");
                 }else {
-                    nota.setText((Float.parseFloat(nota.getText().toString()) + 0.5) + "");
+                    nota.setText((Double.parseDouble(nota.getText().toString()) + 0.5) + "");
                 }
+                notaStar.setRating(Float.parseFloat(nota.getText().toString())/2);
             }
         });
 
@@ -86,9 +84,9 @@ public class GenderEvaluationDialog   extends Dialog {
                 }else if(Float.parseFloat(nota.getText().toString()) < 0.5){
                     nota.setText((0.0) + "");
                 }else {
-                    nota.setText((Float.parseFloat(nota.getText().toString()) - 0.5) + "");
+                    nota.setText((Double.parseDouble(nota.getText().toString()) - 0.5) + "");
                 }
-                notaStar.setRating(Float.parseFloat(nota.getText().toString()));
+                notaStar.setRating(Float.parseFloat(nota.getText().toString())/2);
             }
         });
         
@@ -96,13 +94,12 @@ public class GenderEvaluationDialog   extends Dialog {
         notaStar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (!nota.hasFocusable()){
-                    nota.setText((rating * 2) + "");
-                }
+                nota.setText((rating * 2) + "");
             }
         });
         nota.setHint((notaStar.getRating() * 2) + "");
         Picasso.with(c).load(evento.getImagem()).into(imagem);
+        /*
         nota.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -129,7 +126,7 @@ public class GenderEvaluationDialog   extends Dialog {
 
                 }
             }
-        });
+        });*/
         userName.setText(evento.getNomeUsuarioContratante());
         serviceTitle.setText(evento.getTitulo());
         accept.setOnClickListener(new View.OnClickListener() {

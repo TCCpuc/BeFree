@@ -75,10 +75,6 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
         deleteButton = (ImageButton) convertView.findViewById(R.id.item_service_delete);
         editButton = (ImageButton) convertView.findViewById(R.id.item_service_edit);
 
-        if((position % 2) != 0){
-            background.setBackgroundColor(Color.parseColor("#f2f2f2"));
-        }
-
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
             @Override
