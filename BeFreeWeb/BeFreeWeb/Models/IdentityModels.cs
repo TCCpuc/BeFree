@@ -33,5 +33,7 @@ namespace BeFreeWeb.Models
         public System.Data.Entity.DbSet<BeFreeWeb.Models.Usuario> Usuarios { get; set; }
 
         public System.Data.Entity.DbSet<BeFreeWeb.Models.Servico> Servicoes { get; set; }
+
+        public System.Data.Entity.DbSet<BeFreeWeb.Models.Busca> Buscas { get; set; }
     }
 }

@@ -11,16 +11,17 @@ using System.Net.Http;
 using System.Configuration;
 using Newtonsoft.Json;
 
+
 namespace BeFreeWeb.Controllers
 {
-    public class ServicoController : Controller
+    public class BuscaController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Servico
+        // GET: Busca
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {
-            List<Servico> model = new List<Servico>();
+            List<Busca> model = new List<Busca>();
             if (Session["IsAuthenticated"].ToString() == "true")
             {
 
@@ -28,10 +29,10 @@ namespace BeFreeWeb.Controllers
                 {
                     try
                     {
-                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Servico/GettbServicoes/");
+                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Busca/GettbBuscas/");
                         HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
                         string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                        model = JsonConvert.DeserializeObject<List<Servico>>(result);
+                        model = JsonConvert.DeserializeObject<List<Busca>>(result);
                     }
                     catch (Exception err)
                     {
@@ -45,48 +46,48 @@ namespace BeFreeWeb.Controllers
                 return RedirectToAction("Login");
         }
 
-        // GET: Servico/Details/5
+        // GET: Busca/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Servico servico = db.Servicoes.Find(id);
-            if (servico == null)
+            Busca busca = db.Buscas.Find(id);
+            if (busca == null)
             {
                 return HttpNotFound();
             }
-            return View(servico);
+            return View(busca);
         }
 
-        // GET: Servico/Create
+        // GET: Busca/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Servico/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Busca/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
+        public ActionResult Create([Bind(Include = "idBusca,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemBusca,idDDD")] Busca busca)
         {
             if (ModelState.IsValid)
             {
-                db.Servicoes.Add(servico);
+                db.Buscas.Add(busca);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(servico);
+            return View(busca);
         }
 
-        // GET: Servico/Edit/5
+        // GET: Busca/Edit/5
         public async System.Threading.Tasks.Task<ActionResult> Edit(int? id)
         {
-            List<Servico> model = new List<Servico>();
+            List<Busca> model = new List<Busca>();
             if (Session["IsAuthenticated"].ToString() == "true")
             {
 
@@ -94,10 +95,10 @@ namespace BeFreeWeb.Controllers
                 {
                     try
                     {
-                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Servico/GetServico/?id=" + id);
+                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Busca/GetBusca/?id=" + id);
                         HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
                         string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                        model = JsonConvert.DeserializeObject<List<Servico>>(result);
+                        model = JsonConvert.DeserializeObject<List<Busca>>(result);
                     }
                     catch (Exception err)
                     {
@@ -105,51 +106,51 @@ namespace BeFreeWeb.Controllers
                     }
 
                 }
-                Servico servico = model[0];
-                return View(servico);
+                Busca busca = model[0];
+                return View(busca);
             }
             else
                 return RedirectToAction("Login");
         }
 
-        // POST: Servico/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Busca/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
+        public ActionResult Edit([Bind(Include = "idBusca,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemBusca,idDDD")] Busca busca)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(servico).State = EntityState.Modified;
+                db.Entry(busca).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(servico);
+            return View(busca);
         }
 
-        // GET: Servico/Delete/5
+        // GET: Busca/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Servico servico = db.Servicoes.Find(id);
-            if (servico == null)
+            Busca busca = db.Buscas.Find(id);
+            if (busca == null)
             {
                 return HttpNotFound();
             }
-            return View(servico);
+            return View(busca);
         }
 
-        // POST: Servico/Delete/5
+        // POST: Busca/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Servico servico = db.Servicoes.Find(id);
-            db.Servicoes.Remove(servico);
+            Busca busca = db.Buscas.Find(id);
+            db.Buscas.Remove(busca);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

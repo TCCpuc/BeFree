@@ -22,8 +22,10 @@ namespace BeFreeWeb.Models
 
         public int idSubCategoria { get; set; }
 
+        [Display(Name = "Status")]
         public int? idStatus { get; set; }
 
+        [Display(Name = "Imagem")]
         public string imagemServico { get; set; }
 
         [Display(Name = "DDD")]

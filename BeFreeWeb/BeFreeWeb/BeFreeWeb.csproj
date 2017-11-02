@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BeFreeWeb</RootNamespace>
     <AssemblyName>BeFreeWeb</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -223,6 +224,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\BuscaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServicoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -340,10 +342,14 @@
     <Content Include="Views\Servico\Details.cshtml" />
     <Content Include="Views\Servico\Edit.cshtml" />
     <Content Include="Views\Servico\Index.cshtml" />
-    <Content Include="Views\Servico\EditServico.cshtml" />
     <Content Include="Views\Log\Log.cshtml" />
     <Content Include="Views\Denuncia\Denuncia.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Busca\Create.cshtml" />
+    <Content Include="Views\Busca\Delete.cshtml" />
+    <Content Include="Views\Busca\Details.cshtml" />
+    <Content Include="Views\Busca\Edit.cshtml" />
+    <Content Include="Views\Busca\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
