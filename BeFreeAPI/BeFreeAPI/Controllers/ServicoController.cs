@@ -101,7 +101,7 @@ namespace BeFreeAPI.Controllers
                 return BadRequest();
             }
 
-            if (!servico.imagemServico.Contains("http")) {
+            if (!servico.imagemServico.Contains("http:")) {
                 servico.imagemServico = this.SetImagem(servico);
             }
 

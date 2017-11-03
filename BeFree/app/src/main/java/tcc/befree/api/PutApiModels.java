@@ -90,7 +90,8 @@ public class PutApiModels implements Runnable {
             jSonObject.put("idUsuario",servico.getIdUsuario());
             jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
             jSonObject.put("idStatus",servico.getIdStatus());
-            jSonObject.put("imagemServico", Utils.criptografarBase64(servico.getImagemServico()));
+            //jSonObject.put("imagemServico", Utils.criptografarBase64(servico.getImagemServico()));
+            jSonObject.put("imagemServico", servico.getImagemServico());
             jSonObject.put("idDDD",servico.getIdDDD());
 
             thread.start();
@@ -117,7 +118,8 @@ public class PutApiModels implements Runnable {
             jSonObject.put("idUsuario",busca.idUsuario);
             jSonObject.put("idSubCategoria",busca.idSubCategoria);
             jSonObject.put("idStatus",busca.idStatus);
-            jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
+            //jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
+            jSonObject.put("imagemBusca",busca.imagemBusca);
             jSonObject.put("idDDD",busca.idDDD);
 
             thread.start();

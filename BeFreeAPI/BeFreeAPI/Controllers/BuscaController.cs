@@ -94,7 +94,7 @@ namespace BeFreeAPI.Controllers
                 return BadRequest();
             }
 
-            if (!busca.imagemBusca.Contains("http"))
+            if (!busca.imagemBusca.Contains("http:"))
             {
                 busca.imagemBusca = this.SetImagem(busca);
             }
