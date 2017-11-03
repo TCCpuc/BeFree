@@ -159,6 +159,27 @@ public class PostApiModels implements Runnable{
         return true;
     }
 
+    public boolean postDenuncia(Denuncia denuncia){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Denuncia/PostDenuncia/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("idServico",denuncia.getIdServico());
+            jSonObject.put("idBusca",denuncia.getIdBusca());
+            jSonObject.put("idUsuarioDenunciante",denuncia.getIdUsuarioDenunciante());
+            jSonObject.put("denuncia",denuncia.getDenuncia());
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+            return false;
+        }
+        return true;
+    }
+
 
     public boolean postUsuarios(Usuarios usuario){
 

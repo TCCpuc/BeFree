@@ -66,9 +66,6 @@ public class AnuncioServicoActivity extends AppCompatActivity {
             Picasso.with(this).load(srv.getImagemServico()).into(imgAnuncio);
             titulo.setText(srv.getTitulo());
             descricao.setText(srv.getDescricao());
-            //preco.setText(srv.preco);
-            //formaPgto.setText(srv.formaPgto);
-            //categoriaESub.setText(srv.);
         }catch (Exception e){
             String erro = "Problema de conexao";
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();
@@ -124,7 +121,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         denuncia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnuncioDenunciaDialog dialog = new AnuncioDenunciaDialog(AnuncioServicoActivity.this, srv);
+                AnuncioDenunciaDialog dialog = new AnuncioDenunciaDialog(AnuncioServicoActivity.this, srv, idUsuarioAtual);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }

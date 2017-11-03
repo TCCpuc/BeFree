@@ -116,7 +116,7 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         denuncia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnuncioDenunciaDialog dialog = new AnuncioDenunciaDialog(AnuncioBuscaActivity.this, srv);
+                AnuncioDenunciaDialog dialog = new AnuncioDenunciaDialog(AnuncioBuscaActivity.this, srv, idUsuarioAtual);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
