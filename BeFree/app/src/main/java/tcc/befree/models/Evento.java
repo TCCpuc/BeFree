@@ -28,19 +28,11 @@ public class Evento {
     }
 
     public int getIdServico() {
-        return idEvento;
+        return idServico;
     }
 
-    public void setIdServico(int idEvento) {
-        this.idEvento = idEvento;
-    }
-
-    public String getNomeUsuarioContratante() {
-        return nomeUsuarioContratante;
-    }
-
-    public void setNomeUsuarioContratante(String nomeUsuarioContratante) {
-        this.nomeUsuarioContratante = nomeUsuarioContratante;
+    public void setIdServico(int idServico) {
+        this.idServico = idServico;
     }
 
     public int getIdUsuarioContratante() {
@@ -49,6 +41,14 @@ public class Evento {
 
     public void setIdUsuarioContratante(int idUsuarioContratante) {
         this.idUsuarioContratante = idUsuarioContratante;
+    }
+
+    public String getNomeUsuarioContratante() {
+        return nomeUsuarioContratante;
+    }
+
+    public void setNomeUsuarioContratante(String nomeUsuarioContratante) {
+        this.nomeUsuarioContratante = nomeUsuarioContratante;
     }
 
     public String getDtEvento() {

@@ -1,6 +1,6 @@
-﻿@model IEnumerable<BeFreeWeb.Models.Servico>
+﻿@model IEnumerable<BeFreeWeb.Models.Busca>
 @{
-    ViewBag.Title = "Servico";
+    ViewBag.Title = "Busca";
 }
 <html>
 <head>
@@ -11,23 +11,23 @@
         <!-- Page Header-->
         <header class="page-header">
             <div class="container-fluid">
-                <h2 class="no-margin-bottom">Serviços</h2>
+                <h2 class="no-margin-bottom">Buscas</h2>
             </div>
         </header>
         <!-- Breadcrumb-->
         <ul class="breadcrumb">
             <div class="container-fluid">
                 <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
-                <li class="breadcrumb-item active">Serviços</li>
+                <li class="breadcrumb-item active">Buscas</li>
             </div>
         </ul>
         <section class="tables">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="card" style="width:1000px; height:auto;">
+                        <div class="card" style="width:800px; height:auto;">
                             <div class="card-header d-flex align-items-center">
-                                <h3 class="h4">Serviços</h3>
+                                <h3 class="h4">Buscas</h3>
                             </div>
                             <div class="card-body">
 
@@ -61,8 +61,8 @@
                                                     @Html.DisplayFor(modelItem => item.idDDD)
                                                 </td>
                                                 <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.idServico }) |
-                                                    @Html.ActionLink("Delete", "Delete", new { id = item.idServico })
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.idBusca }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.idBusca })
                                                 </td>
                                             </tr>
                                         </tbody>

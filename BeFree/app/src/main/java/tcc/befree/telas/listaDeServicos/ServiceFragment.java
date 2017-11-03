@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import tcc.befree.R;
 import tcc.befree.activities.AnuncioServicoActivity;
+import tcc.befree.activities.EditServicoActivity;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.Servico;
 
@@ -82,12 +83,20 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
     @Override
     public void onClick(Servico servico) {
-        Bundle bundle = new Bundle();
-        int id = servico.getIdServico();
-        bundle.putInt("id",id);
-        bundle.putInt("idUsuario",idUsuario);
-        Intent intent = new Intent(getActivity(), AnuncioServicoActivity.class);
-        intent.putExtra("bundle", bundle);
-        startActivity(intent);
+        Intent intent = null;
+        if(id == 0){
+            Bundle bundle = new Bundle();
+            int id = servico.getIdServico();
+            bundle.putInt("id",id);
+            bundle.putInt("idUsuario",idUsuario);
+            intent = new Intent(getActivity(), AnuncioServicoActivity.class);
+            intent.putExtra("bundle", bundle);
+            startActivity(intent);
+        }else{
+            intent = new Intent(getContext(), EditServicoActivity.class);
+            intent.putExtra("idServico", servico.getIdServico());
+            getContext().startActivity(intent);
+        }
+
     }
 }

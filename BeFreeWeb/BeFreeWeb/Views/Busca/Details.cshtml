@@ -1,0 +1,74 @@
+﻿@model BeFreeWeb.Models.Busca
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Busca</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idSubCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idSubCategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imagemBusca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imagemBusca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idDDD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idDDD)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idBusca }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

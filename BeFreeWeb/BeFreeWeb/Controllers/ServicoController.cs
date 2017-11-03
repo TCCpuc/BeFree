@@ -84,7 +84,7 @@ namespace BeFreeWeb.Controllers
         }
 
         // GET: Servico/Edit/5
-        public async System.Threading.Tasks.Task<ActionResult> EditServico(int? id)
+        public async System.Threading.Tasks.Task<ActionResult> Edit(int? id)
         {
             List<Servico> model = new List<Servico>();
             if (Session["IsAuthenticated"].ToString() == "true")
@@ -117,7 +117,7 @@ namespace BeFreeWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditServico([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
+        public ActionResult Edit([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
         {
             if (ModelState.IsValid)
             {

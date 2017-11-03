@@ -42,7 +42,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         bundle = getIntent().getBundleExtra("bundle");
-        final int id = bundle.getInt("id");
+        final int idServico = bundle.getInt("id");
         final int idUsuarioAtual = bundle.getInt("idUsuario");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
@@ -62,13 +62,10 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         subCategoria = new SubCategoria();
 
         try {
-            srv = conexao.getServicosById(id);
+            srv = conexao.getServicosById(idServico);
             Picasso.with(this).load(srv.getImagemServico()).into(imgAnuncio);
             titulo.setText(srv.getTitulo());
             descricao.setText(srv.getDescricao());
-            //preco.setText(srv.preco);
-            //formaPgto.setText(srv.formaPgto);
-            //categoriaESub.setText(srv.);
         }catch (Exception e){
             String erro = "Problema de conexao";
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();
@@ -80,6 +77,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AnuncioServicoActivity.this,CalendarActivity.class);
                 intent.putExtra("idUsuario", idUsuarioAtual);
+                intent.putExtra("idServico", idServico);
                 startActivity(intent);
             }
         });
@@ -88,7 +86,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ApiModels api = new ApiModels();
-                int idAnunciante = api.getServicosById(id).getIdUsuario();
+                int idAnunciante = api.getServicosById(idServico).getIdUsuario();
                 Chat chat = new Chat();
                 if (api.getChatJaExisteEntreOsUsuarios(idAnunciante,idUsuarioAtual)){
                     chat = api.getChatDosUsuarios(idAnunciante,idUsuarioAtual);
@@ -123,7 +121,7 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         denuncia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnuncioDenunciaDialog dialog = new AnuncioDenunciaDialog(AnuncioServicoActivity.this, srv);
+                AnuncioDenunciaDialog dialog = new AnuncioDenunciaDialog(AnuncioServicoActivity.this, srv, idUsuarioAtual);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }

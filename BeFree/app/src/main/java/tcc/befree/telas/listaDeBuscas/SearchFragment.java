@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import tcc.befree.R;
 import tcc.befree.activities.AnuncioBuscaActivity;
+import tcc.befree.activities.EditBuscaActivity;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.Busca;
 
@@ -82,12 +83,19 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
     @Override
     public void onClick(Busca busca) {
-        Bundle bundle = new Bundle();
-        int id = busca.idBusca;
-        bundle.putInt("id",id);
-        bundle.putInt("idUsuario",idUsuario);
-        Intent intent = new Intent(getActivity(), AnuncioBuscaActivity.class);
-        intent.putExtra("bundle", bundle);
-        startActivity(intent);
+        Intent intent = null;
+        if(id == 0){
+            Bundle bundle = new Bundle();
+            int id = busca.idBusca;
+            bundle.putInt("id",id);
+            bundle.putInt("idUsuario",idUsuario);
+            intent = new Intent(getActivity(), AnuncioBuscaActivity.class);
+            intent.putExtra("bundle", bundle);
+            startActivity(intent);
+        }else {
+            intent = new Intent(getContext(), EditBuscaActivity.class);
+            intent.putExtra("idBusca", busca.idBusca);
+            getContext().startActivity(intent);
+        }
     }
 }
