@@ -306,6 +306,8 @@ public class ApiModels implements Runnable{
                 busca.idStatus = jSonObject.getInt("idStatus");
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
+                busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                busca.setFormaPgto(jSonObject.getString("formaPagto"));
                 arrayBuscas.add(busca);
             }
 
@@ -340,6 +342,8 @@ public class ApiModels implements Runnable{
                 busca.idStatus = jSonObject.getInt("idStatus");
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
+                busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                busca.setFormaPgto(jSonObject.getString("formaPagto"));
                 arrayBuscas.add(busca);
             }
 
@@ -370,6 +374,8 @@ public class ApiModels implements Runnable{
             busca.idStatus = jSonObject.getInt("idStatus");
             busca.imagemBusca = jSonObject.getString("imagemBusca");
             busca.idDDD = jSonObject.getInt("idDDD");
+            busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+            busca.setFormaPgto(jSonObject.getString("formaPagto"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1040,6 +1046,8 @@ public class ApiModels implements Runnable{
                     busca.idStatus = jSonObject.getInt("idStatus");
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
+                    busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    busca.setFormaPgto(jSonObject.getString("formaPagto"));
                     arrayBuscas.add(busca);
                 }
             }
@@ -1114,6 +1122,8 @@ public class ApiModels implements Runnable{
                     busca.idStatus = jSonObject.getInt("idStatus");
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
+                    busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    busca.setFormaPgto(jSonObject.getString("formaPagto"));
                     arrayBuscas.add(busca);
                 }
             }

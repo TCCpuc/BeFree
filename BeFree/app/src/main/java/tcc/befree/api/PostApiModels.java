@@ -120,6 +120,8 @@ public class PostApiModels implements Runnable{
             //jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
             jSonObject.put("imagemBusca",busca.imagemBusca);
             jSonObject.put("idDDD",busca.idDDD);
+            jSonObject.put("preco",busca.getPreco());
+            jSonObject.put("formaPagto",busca.getFormaPgto());
 
             thread.start();
             controlaThread();

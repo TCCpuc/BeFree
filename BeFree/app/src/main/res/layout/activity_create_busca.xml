@@ -1,193 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context="tcc.befree.activities.CreateBuscaActivity"
-    android:weightSum="1">
+    tools:context="tcc.befree.activities.CreateBuscaActivity">
 
-    <LinearLayout android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="@color/colorPrimary"
-        android:id="@+id/cabecalho" android:orientation="horizontal"
-        android:padding="20dip">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/create_busca_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_horizontal"
-            android:text="CRIAR BUSCA"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/create_busca_unounce_photo"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_gravity="center"
-        android:scaleType="center"
-        android:src="@drawable/ic_photo"
-        android:visibility="visible"
-        android:layout_marginTop="5dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-
-        <LinearLayout
-            style="@style/Widget.CardContent"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <EditText
-                android:id="@+id/create_busca_titulo"
+            <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Titulo da busca"
-                android:background="@drawable/border_white"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
                 android:textAlignment="center"
-                android:inputType="text"
-                android:maxLines="1"
-                android:layout_marginBottom="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+                app:popupTheme="@style/AppTheme.PopupOverlay" >
 
+                <TextView
+                    android:id="@+id/create_busca_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CRIAR BUSCA"
+                    android:layout_gravity="center"/>
 
-            <EditText
-                android:id="@+id/create_busca_txtDescricao"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:hint="Descrição"
-                android:textSize="15dp"
-                android:gravity="top"
-                android:background="@drawable/border"
-                android:textAlignment="inherit"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textMultiLine"
-                android:padding="5dp"
-                android:maxLines="10"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+            </android.support.v7.widget.Toolbar>
 
-        </LinearLayout>
-
+        </android.support.design.widget.AppBarLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/border_white"
-                android:text="Selecione a Categoria"
-                android:textColor="#00284d"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
+            android:layout_height="172dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="145dp"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.15"
-                    android:background="@drawable/border">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_arrow_drop_down" />
-
-                    <Spinner
-                        android:id="@+id/create_busca_spinnerCategoria"
-                        android:layout_width="0dip"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="right"
-                        android:layout_weight="0.15"
-                        android:background="@android:color/transparent" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.15"
-                    android:background="@drawable/border">
-
-                    <Spinner
-                        android:id="@+id/create_busca_spinnerSubCategoria"
-                        android:layout_width="0dip"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="right"
-                        android:layout_weight="0.15"
-                        android:background="@android:color/transparent" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_arrow_drop_down" />
-
-                </LinearLayout>
-
+                <tcc.befree.models.CircleImageView
+                    android:id="@+id/create_busca_unounce_photo"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_plus"
+                    android:gravity="top"
+                    android:visibility="visible"
+                    android:layout_margin="10dp"
+                    app:civ_border_color="@color/dark_gray"
+                    app:civ_border_width="0.6dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
             </LinearLayout>
-
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/create_busca_photo_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/border_white"
-                android:text="DDD"
-                android:textColor="#00284d"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:text="Clique na foto para adicionar"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:visibility="visible"/>
+        </LinearLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/border">
+                android:orientation="vertical"
+                android:paddingTop="6dp">
 
-                <Spinner
-                    android:id="@+id/create_busca_spinnerDDD"
-                    android:layout_width="100dp"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="right"
-                    android:layout_weight="0.15" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="TÍTULO"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <EditText
+                                android:id="@+id/create_busca_titulo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Titulo da busca"
+                                android:background="@drawable/border_white"
+                                android:textAlignment="center"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:layout_marginBottom="10dp"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="DESCRIÇÃO"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <EditText
+                                android:id="@+id/create_busca_txtDescricao"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Descrição"
+                                android:textSize="15dp"
+                                android:gravity="top"
+                                android:background="@drawable/border"
+                                android:textAlignment="inherit"
+                                android:imeOptions="actionUnspecified"
+                                android:inputType="textMultiLine"
+                                android:padding="5dp"
+                                android:maxLines="10"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CATEGORIA"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <Spinner
+                                android:id="@+id/create_busca_spinnerCategoria"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center_horizontal"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="SUB - CATEGORIA"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <Spinner
+                                android:id="@+id/create_busca_spinnerSubCategoria"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center_horizontal"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="DDD"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <Spinner
+                            android:id="@+id/create_busca_spinnerDDD"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="VALOR"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <EditText
+                            android:id="@+id/create_busca_valor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="R$:"
+                            android:background="@drawable/border_white"
+                            android:textAlignment="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:layout_marginBottom="10dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_margin"
+                    android:layout_marginLeft="@dimen/card_margin"
+                    android:layout_marginRight="@dimen/card_margin">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="FORMA DE PAGAMENTO"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <Spinner
+                            android:id="@+id/create_busca_spinnerFormaPgto"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:entries="@array/FormaPgto"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <Button
+                    android:id="@+id/create_busca_BtnSubmitBusca"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Anunciar"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/create_busca_BtnSubmitBusca"
-        style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Anunciar"
-        android:textStyle="bold" />
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
