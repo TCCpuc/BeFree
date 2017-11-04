@@ -90,7 +90,8 @@ public class PutApiModels implements Runnable {
             jSonObject.put("idUsuario",servico.getIdUsuario());
             jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
             jSonObject.put("idStatus",servico.getIdStatus());
-            jSonObject.put("imagemServico", Utils.criptografarBase64(servico.getImagemServico()));
+            //jSonObject.put("imagemServico", Utils.criptografarBase64(servico.getImagemServico()));
+            jSonObject.put("imagemServico", servico.getImagemServico());
             jSonObject.put("idDDD",servico.getIdDDD());
 
             thread.start();
@@ -100,6 +101,34 @@ public class PutApiModels implements Runnable {
         } catch (JSONException e) {
             e.printStackTrace();
             thread.interrupt();
+        }
+
+        return true;
+    }
+
+    public boolean putEvento(Evento evento){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Evento/PutEvento/" + evento.getIdEvento();
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("idServico",evento.getIdServico());
+            jSonObject.put("idUsuarioContratante",evento.getIdUsuarioContratante());
+            //jSonObject.put("dtEvento",evento.getDtEvento()); VERIFICAR
+            jSonObject.put("hrInicio",evento.getHrInicio());
+            jSonObject.put("hrFinal",evento.getHrFinal());
+            jSonObject.put("notaAvaliacao",evento.getNotaAvalicao());
+            jSonObject.put("avaliado",evento.isAvaliado());
+            jSonObject.put("situacaoEvento",evento.getSituacaoEvento());
+
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+            return false;
         }
 
         return true;
@@ -117,7 +146,8 @@ public class PutApiModels implements Runnable {
             jSonObject.put("idUsuario",busca.idUsuario);
             jSonObject.put("idSubCategoria",busca.idSubCategoria);
             jSonObject.put("idStatus",busca.idStatus);
-            jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
+            //jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
+            jSonObject.put("imagemBusca",busca.imagemBusca);
             jSonObject.put("idDDD",busca.idDDD);
 
             thread.start();

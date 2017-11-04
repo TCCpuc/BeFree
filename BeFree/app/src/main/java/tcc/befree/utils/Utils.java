@@ -16,14 +16,14 @@ public class Utils {
     public static final int MAX_HEIGHT = 1920;
 
     //Criptografa Base64
-    public static String criptografarBase64(String stringNaoCriptografada){
-        return stringNaoCriptografada.replace("+","-").replace("/","_").replace("=","*");
-    }
-
-    //Descriptografa Base64
-    public static String descriptografarBase64(String stringCriptografada){
-        return stringCriptografada.replace("-","+").replace("_","/").replace("*","=");
-    }
+//    public static String criptografarBase64(String stringNaoCriptografada){
+//        return stringNaoCriptografada.replace("+","-").replace("/","_").replace("=","*");
+//    }
+//
+//    //Descriptografa Base64
+//    public static String descriptografarBase64(String stringCriptografada){
+//        return stringCriptografada.replace("-","+").replace("_","/").replace("*","=");
+//    }
 
     // Converte String base64 para Bitmap
     public static Bitmap convert(String base64Str) throws IllegalArgumentException

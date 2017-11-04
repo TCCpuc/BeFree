@@ -38,7 +38,7 @@ public class PostApiModels implements Runnable{
             jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
             jSonObject.put("idStatus",servico.getIdStatus());
             //jSonObject.put("imagemServico",Utils.criptografarBase64(servico.imagemServico));
-            jSonObject.put("imagemBusca",servico.getImagemServico());
+            jSonObject.put("imagemServico",servico.getImagemServico());
             jSonObject.put("idDDD",servico.getIdDDD());
 
             thread.start();
@@ -131,6 +131,55 @@ public class PostApiModels implements Runnable{
 
         return true;
     }
+
+    public boolean postEvento(Evento evento){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Evento/PostEvento/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("idServico",evento.getIdServico());
+            jSonObject.put("idUsuarioContratante",evento.getIdUsuarioContratante());
+            jSonObject.put("dtEvento",evento.getDtEvento());
+            jSonObject.put("hrInicio",evento.getHrInicio());
+            jSonObject.put("hrFinal",evento.getHrFinal());
+            jSonObject.put("avaliado",evento.isAvaliado());
+            jSonObject.put("situacaoEvento",0);
+
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean postDenuncia(Denuncia denuncia){
+        Thread thread = new Thread(this);
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Denuncia/PostDenuncia/";
+
+        jSonObject = new JSONObject();
+        try {
+            jSonObject.put("idServico",denuncia.getIdServico());
+            jSonObject.put("idBusca",denuncia.getIdBusca());
+            jSonObject.put("idUsuarioDenunciante",denuncia.getIdUsuarioDenunciante());
+            jSonObject.put("denuncia",denuncia.getDenuncia());
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thread.interrupt();
+            return false;
+        }
+        return true;
+    }
+
 
     public boolean postUsuarios(Usuarios usuario){
 

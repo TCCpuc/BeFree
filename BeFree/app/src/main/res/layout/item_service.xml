@@ -86,7 +86,18 @@
             android:orientation="vertical"
             android:visibility="visible"
             android:layout_marginTop="2dp">
-            <LinearLayout
+
+            <RatingBar
+                android:id="@+id/item_service_ratingBar"
+                android:theme="@style/RatingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.1"
+                android:layout_gravity="center"/>
+
+            <!--<LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -127,15 +138,16 @@
                     android:layout_marginRight="5dp"
                     app:srcCompat="@drawable/ic_star_border_black_18dp" />
 
-            </LinearLayout>
+            </LinearLayout>-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Evaluation Rate"
-                android:textSize="8dp"
+                android:textSize="7dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="4dp"
+                android:layout_gravity="center"
                 android:textAlignment="center"/>
 
             <TextView

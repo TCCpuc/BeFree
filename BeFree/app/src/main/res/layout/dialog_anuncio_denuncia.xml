@@ -80,7 +80,9 @@
             android:background="@drawable/curve_shap"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:textSize="13dp"
             android:layout_marginLeft="3dp"
+            android:padding="2dp"
             android:backgroundTint="@color/red"
             android:textColor="@color/white"
             android:text="DENUNCIAR" />

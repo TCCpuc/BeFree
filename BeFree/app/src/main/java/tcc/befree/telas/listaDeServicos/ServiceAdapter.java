@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -38,6 +39,11 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
     private LinearLayout editLayout;
     private ImageButton deleteButton;
     private ImageButton editButton;
+    private RatingBar ratingBar;
+    private TextView nota;
+    private TextView title;
+    private TextView description;
+    private CircleImageView imageView;
     private boolean editable;
 
     public ServiceAdapter(Context context, ArrayList<Servico> values, OnClickListener onClickListener, boolean edit) {
@@ -67,16 +73,19 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
             }
         });
 
-        LinearLayout background = (LinearLayout) convertView.findViewById(R.id.item_service_background);
-        TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
-        TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
-        CircleImageView imageView = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
-        Picasso.with(getContext()).load(servico.getImagemServico()).into(imageView);
+        title = (TextView) convertView.findViewById(R.id.item_service_title);
+        description = (TextView) convertView.findViewById(R.id.item_service_description);
+        nota = (TextView) convertView.findViewById(R.id.item_service_evaluation_note);
+        imageView = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
         deleteButton = (ImageButton) convertView.findViewById(R.id.item_service_delete);
         editButton = (ImageButton) convertView.findViewById(R.id.item_service_edit);
         padraoLayout = (LinearLayout) convertView.findViewById(R.id.item_service_default_layout);
         editLayout = (LinearLayout) convertView.findViewById(R.id.item_service_edit_layout);
+        ratingBar = (RatingBar) convertView.findViewById(R.id.item_service_ratingBar);
 
+        ratingBar.setRating(servico.getMediaAvalicao() / 2);
+        nota.setText(servico.getMediaAvalicao() + "");
+        Picasso.with(getContext()).load(servico.getImagemServico()).into(imageView);
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
             @Override
@@ -87,7 +96,6 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
                 getContext().startActivity(intent);
             }
         });
-
 
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override

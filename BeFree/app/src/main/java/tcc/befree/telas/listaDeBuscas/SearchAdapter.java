@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -38,6 +39,11 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
     private LinearLayout editLayout;
     private ImageButton deleteButton;
     private ImageButton editButton;
+    private RatingBar ratingBar;
+    private TextView nota;
+    private TextView title;
+    private TextView description;
+    private CircleImageView imgBusca;
     private boolean editable;
 
     public SearchAdapter(Context context, ArrayList<Busca> values, OnClickListener onClickListener, boolean edit) {
@@ -63,18 +69,21 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
             }
         });
 
-        LinearLayout background = (LinearLayout) convertView.findViewById(R.id.item_service_background);
-        TextView title = (TextView) convertView.findViewById(R.id.item_service_title);
-        CircleImageView imgBusca = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
-        TextView description = (TextView) convertView.findViewById(R.id.item_service_description);
+        title = (TextView) convertView.findViewById(R.id.item_service_title);
+        imgBusca = (CircleImageView) convertView.findViewById(R.id.img_anuncio);
+        description = (TextView) convertView.findViewById(R.id.item_service_description);
         title.setText(busca.titulo);
         description.setText(busca.descricao);
-        Picasso.with(getContext()).load(busca.imagemBusca).into(imgBusca);
         padraoLayout = (LinearLayout) convertView.findViewById(R.id.item_service_default_layout);
         editLayout = (LinearLayout) convertView.findViewById(R.id.item_service_edit_layout);
         deleteButton = (ImageButton) convertView.findViewById(R.id.item_service_delete);
         editButton = (ImageButton) convertView.findViewById(R.id.item_service_edit);
+        nota = (TextView) convertView.findViewById(R.id.item_service_evaluation_note);
+        ratingBar = (RatingBar) convertView.findViewById(R.id.item_service_ratingBar);
 
+        ratingBar.setRating(busca.getMediaAvalicao() / 2);
+        nota.setText(busca.getMediaAvalicao() + "");
+        Picasso.with(getContext()).load(busca.imagemBusca).into(imgBusca);
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
             @Override
