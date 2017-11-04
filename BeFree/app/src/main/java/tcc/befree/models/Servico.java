@@ -11,6 +11,7 @@ public class Servico {
     private int idUsuario;
     private int idSubCategoria;
     private int idStatus;
+    private float mediaAvalicao;
     private String imagemServico;
     private int idDDD;
     private boolean mostrar = true;
@@ -85,5 +86,13 @@ public class Servico {
 
     public void setMostrar(boolean mostrar) {
         this.mostrar = mostrar;
+    }
+
+    public float getMediaAvalicao() {
+        return mediaAvalicao;
+    }
+
+    public void setMediaAvalicao(float mediaAvalicao) {
+        this.mediaAvalicao = mediaAvalicao;
     }
 }

@@ -14,5 +14,13 @@ public class Busca {
     public String imagemBusca;
     public int idDDD;
     public boolean mostrar = true;
+    private float mediaAvalicao;
 
+    public float getMediaAvalicao() {
+        return mediaAvalicao;
+    }
+
+    public void setMediaAvalicao(float mediaAvalicao) {
+        this.mediaAvalicao = mediaAvalicao;
+    }
 }

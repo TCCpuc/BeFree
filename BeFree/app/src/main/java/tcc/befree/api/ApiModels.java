@@ -1068,6 +1068,7 @@ public class ApiModels implements Runnable{
                     servico.setIdStatus(jSonObject.getInt("idStatus"));
                     servico.setImagemServico(jSonObject.getString("imagemServico"));
                     servico.setIdDDD(jSonObject.getInt("idDDD"));
+                    //servico.setMediaAvalicao(jSonObject.getInt("mediaAvaliacao"));
 
                     arrayServicos.add(servico);
                 }
