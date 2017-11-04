@@ -143,7 +143,6 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         nascimentoButton = (ImageButton) findViewById(R.id.user_perfil_nascimento_button);*/
         ddd = (Spinner) findViewById(R.id.user_perfil_ddd);
 
-        ArrayAdapter<CharSequence> spinnerDDDs = ArrayAdapter.createFromResource(this,R.array.Bolas, android.R.layout.simple_spinner_dropdown_item);
         //popula o spinner do ddd
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -106,11 +107,17 @@ public class GenderEvaluationDialog   extends Dialog {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PutApiModels api = new PutApiModels();
-                evento.setNotaAvalicao(Float.parseFloat(nota.getText().toString()));
-                api.putNotaEvento(evento);
-                c.setAdapter();
-                dismiss();
+                try{
+                    PutApiModels api = new PutApiModels();
+                    evento.setNotaAvalicao(Float.parseFloat(nota.getText().toString()));
+                    api.putEvento(evento);
+                    c.setAdapter();
+                    Toast.makeText(c.getApplicationContext(), evento.getDtEvento(), Toast.LENGTH_LONG).show();
+                    dismiss();
+                }catch (Exception e){
+                    Toast.makeText(c.getApplicationContext(), "Escolha uma nota", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         refuse.setOnClickListener(new View.OnClickListener() {

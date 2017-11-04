@@ -194,6 +194,8 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
                 arrayServicos.add(servico);
             }
@@ -229,6 +231,8 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
             }
 
@@ -263,6 +267,8 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
                 arrayServicos.add(servico);
             }
@@ -926,6 +932,7 @@ public class ApiModels implements Runnable{
                 h.setAvaliado(jSonObject.getBoolean("avaliado"));
                 h.setSituacaoEvento(jSonObject.getInt("situacaoEvento"));
                 h.setTitulo(jSonObject.getString("titulo"));
+                h.setNotaAvalicao(Float.parseFloat(jSonObject.getString("notaAvaliacao")));
                 h.setConteudo(jSonObject.getString("descricao"));
                 h.setImagem(jSonObject.getString("imagemServico"));
                 h.setNomeUsuarioContratante(jSonObject.getString("nomeUsuario"));
@@ -1068,6 +1075,8 @@ public class ApiModels implements Runnable{
                     servico.setIdStatus(jSonObject.getInt("idStatus"));
                     servico.setImagemServico(jSonObject.getString("imagemServico"));
                     servico.setIdDDD(jSonObject.getInt("idDDD"));
+                    servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    servico.setFormaPgto(jSonObject.getString("formaPagto"));
                     //servico.setMediaAvalicao(jSonObject.getInt("mediaAvaliacao"));
 
                     arrayServicos.add(servico);
@@ -1140,6 +1149,8 @@ public class ApiModels implements Runnable{
                     servico.setIdStatus(jSonObject.getInt("idStatus"));
                     servico.setImagemServico(jSonObject.getString("imagemServico"));
                     servico.setIdDDD(jSonObject.getInt("idDDD"));
+                    servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
                     arrayServicos.add(servico);
                 }

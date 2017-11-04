@@ -64,6 +64,7 @@ public class PutApiModels implements Runnable {
         return true;
     }
 
+
     public boolean putStatusEvento(Evento ev){
         //Todo Criar metodo no banco para alterar status no banco;
         ev.getSituacaoEvento();//0 ou 1 ou 2
@@ -93,6 +94,8 @@ public class PutApiModels implements Runnable {
             //jSonObject.put("imagemServico", Utils.criptografarBase64(servico.getImagemServico()));
             jSonObject.put("imagemServico", servico.getImagemServico());
             jSonObject.put("idDDD",servico.getIdDDD());
+            jSonObject.put("preco",servico.getPreco());
+            jSonObject.put("formaPagto",servico.getFormaPgto());
 
             thread.start();
             controlaThread();
@@ -114,7 +117,10 @@ public class PutApiModels implements Runnable {
         try {
             jSonObject.put("idServico",evento.getIdServico());
             jSonObject.put("idUsuarioContratante",evento.getIdUsuarioContratante());
-            //jSonObject.put("dtEvento",evento.getDtEvento()); VERIFICAR
+            String trashData = evento.getDtEvento();
+            String formatTrash[] = trashData.split("/");
+            String data = formatTrash[2] + "-" + formatTrash[1] + "-" + formatTrash[0];
+            jSonObject.put("dtEvento",data);
             jSonObject.put("hrInicio",evento.getHrInicio());
             jSonObject.put("hrFinal",evento.getHrFinal());
             jSonObject.put("notaAvaliacao",evento.getNotaAvalicao());
