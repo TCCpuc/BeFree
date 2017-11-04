@@ -1,10 +1,12 @@
 package tcc.befree.activities;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity{
     private ViewPager viewPager;
     private int abaAtual = 0;
     private int currentPage;
+    private AppBarLayout appbar;
     private String categoriaBuscaAvancada = "Todos";
     private int idcategoriaBuscaAvancada = 0;
     ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.container);
+        appbar = (AppBarLayout) findViewById(R.id.appbar);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -246,6 +250,7 @@ public class MainActivity extends AppCompatActivity{
                         } else if (id == R.id.menu_calendario) {
                             // ABRIR Agenda
                             Intent intent = new Intent(MainActivity.this, GenderActivity.class);
+                            intent.putExtra("idUsuario", usuario.idUsuario);
                             startActivity(intent);
 
                         } else if (id == R.id.menu_chat) {
