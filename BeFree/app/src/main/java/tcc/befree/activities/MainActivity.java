@@ -134,35 +134,6 @@ public class MainActivity extends AppCompatActivity{
         id = Integer.parseInt(x[0]);
         usuario = new ApiModels().getUsuarioById(id);
 
-//        usuario.idUsuario = Integer.parseInt(x[0]);
-//        usuario.nomeUsuario = x[1];
-//        usuario.cpf = x[2];
-//        usuario.idCidade = Integer.parseInt(x[3]);
-//        usuario.idEstado = Integer.parseInt(x[4]);
-//        usuario.bairro = x[5];
-//        usuario.logradouro = x[6];
-//        usuario.numero = Integer.parseInt(x[7]);
-//        usuario.cep = Integer.parseInt(x[8]);
-//        usuario.email = x[9];
-//        usuario.ddd = Integer.parseInt(x[10]);
-//        usuario.imagemPerfil = x[11];
-//        usuario.senha = x[12];
-        //usuario.dataNascimento = Date.parse(x[10]);
-        //usuario.dataCadastro = x[11].toDate;
-
-
-
-
-
-        /*Bundle bundle = getIntent().getBundleExtra("idUsuario");
-        try {
-            idUsuario = bundle.getInt("idUsuario");
-        }catch(Exception e){
-            idUsuario = 0;
-        }
-        */
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
