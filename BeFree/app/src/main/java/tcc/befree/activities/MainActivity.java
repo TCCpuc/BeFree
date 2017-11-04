@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity{
     private String buscaSimples = "";
     private ApiModels api = new ApiModels();
     private Usuarios usuario;
+    private DrawerLayout drawer;
     private int id = 0;
 
     @Override
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.container);
         appbar = (AppBarLayout) findViewById(R.id.appbar);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -252,6 +254,7 @@ public class MainActivity extends AppCompatActivity{
                             tabLayout.setupWithViewPager(viewPager);
 
                         } else if (id == R.id.menu_logoff) {
+                            drawer.closeDrawer(GravityCompat.START);
                             logoff();
                         }
 
@@ -264,34 +267,32 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        logoff();
-    }
-
-    private void logoff(){
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Logout")
-                    .setMessage("Você tem certeza que deseja sair do Befree?")
-                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
-
-                    })
-                    .setNegativeButton("Não", null)
-                    .show();
-
-            //super.onBackPressed();
+            logoff();
         }
     }
+
+    private void logoff(){
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Logout")
+                .setMessage("Você tem certeza que deseja sair do Befree?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
+                })
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

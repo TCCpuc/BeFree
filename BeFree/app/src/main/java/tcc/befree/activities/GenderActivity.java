@@ -1,5 +1,7 @@
 package tcc.befree.activities;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -55,7 +57,7 @@ public class GenderActivity extends AppCompatActivity {
 
         notEventos = false;
         api = new ApiModels();
-        gender = api.getEventosbyIdUsuario(idUsuario);// enviar id do usuario
+
         day = (ListView) findViewById(R.id.gender_day);
 
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,8 +71,12 @@ public class GenderActivity extends AppCompatActivity {
 
             }
         });
+        setAdapter();
+    }
 
-        day.setAdapter(new GenderActivity.DayAdapter());
+    public void setAdapter(){
+        gender = api.getEventosbyIdUsuario(idUsuario);// enviar id do usuario
+        this.day.setAdapter(new GenderActivity.DayAdapter());
     }
 
     @Override
@@ -83,7 +89,7 @@ public class GenderActivity extends AppCompatActivity {
         public int getCount() {
             //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
             if(gender.size() == 0){
-                notEventos = true;
+                notEventos = true;  //SE NAO ENCONTRAR EVENTOS EMITE MENSSAGEM
                 return 1;
             }else {
                 return gender.size();
