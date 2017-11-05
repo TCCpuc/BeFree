@@ -798,29 +798,8 @@ public class ApiModels implements Runnable{
         return existe;
     }
 
-    public List<Mensagem> getMensagensDoChat(int idDoChat){
-//--------------
-//      MOCK:
-//
-//        List<Mensagem> l = new ArrayList<Mensagem>();
-//        Mensagem c = new Mensagem();
-//        c.setId(1);
-//        c.setChat(1);
-//        //c.setMe(true);
-//        c.setMensagem("oi");
-//        c.setUsuario_origem(2033);
-//        c.setUsuario_destino(1017);
-//        l.add(c);
-//        c = new Mensagem();
-//        c.setId(2);
-//        c.setChat(1);
-//        //c.setMe(false);
-//        c.setMensagem("oi tb");
-//        c.setUsuario_origem(1017);
-//        c.setUsuario_destino(2033);
-//        l.add(c);
-//        return l;
-//--------------
+    public ArrayList<Mensagem> getMensagensDoChat(int idDoChat){
+
         ArrayList<Mensagem> arrayMensagens= new ArrayList<Mensagem>();
 
         try{

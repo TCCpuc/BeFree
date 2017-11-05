@@ -111,10 +111,11 @@ public class PutApiModels implements Runnable {
 
     public boolean putEvento(Evento evento){
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Evento/PutEvento/" + evento.getIdEvento();
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Eventos/PutEvento/" + evento.getIdEvento();
 
         jSonObject = new JSONObject();
         try {
+            jSonObject.put("idEvento",evento.getIdEvento());
             jSonObject.put("idServico",evento.getIdServico());
             jSonObject.put("idUsuarioContratante",evento.getIdUsuarioContratante());
             String trashData = evento.getDtEvento();

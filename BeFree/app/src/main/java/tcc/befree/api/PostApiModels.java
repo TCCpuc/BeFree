@@ -137,7 +137,7 @@ public class PostApiModels implements Runnable{
 
     public boolean postEvento(Evento evento){
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Evento/PostEvento/";
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Eventos/PostEvento/";
 
         jSonObject = new JSONObject();
         try {
