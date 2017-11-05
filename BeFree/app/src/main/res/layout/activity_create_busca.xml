@@ -155,7 +155,7 @@
                             <EditText
                                 android:id="@+id/create_busca_txtDescricao"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="120dp"
                                 android:hint="Descrição"
                                 android:textSize="15dp"
                                 android:gravity="top"
