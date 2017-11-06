@@ -41,6 +41,8 @@ public class CreateBuscaActivity extends AppCompatActivity {
 
     private Spinner spinnerDDDs;
     private Spinner spinnerCategorias;
+    protected Spinner spinnerFormaPgto;
+    protected EditText valor;
     private Spinner spinnerSubCategorias;
     private ImageView photo;
     private static final int SELECT_FILE1 = 100;
@@ -59,6 +61,9 @@ public class CreateBuscaActivity extends AppCompatActivity {
         }catch(Exception e){
             this.idUsuario = 0;
         }
+
+        valor = (EditText) findViewById(R.id.create_busca_valor);
+        spinnerFormaPgto = (Spinner) findViewById(R.id.create_busca_spinnerFormaPgto);
 
         //popula o spinner do ddd
         spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
@@ -128,6 +133,12 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
+                    novaBusca.setFormaPgto(spinnerFormaPgto.getSelectedItem().toString());
+                    if(valor.getText().toString().equals("")){
+                        novaBusca.setPreco(0);
+                    }else {
+                        novaBusca.setPreco(Float.parseFloat(valor.getText().toString()));
+                    }
                     novaBusca.descricao = descricao;
                     novaBusca.titulo = nome;
                     novaBusca.idDDD = ((DDD)spinnerDDDs.getSelectedItem()).id;

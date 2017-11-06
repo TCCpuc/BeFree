@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity{
     private ViewPager viewPager;
     private int abaAtual = 0;
     private int currentPage;
+    private AppBarLayout appbar;
     private String categoriaBuscaAvancada = "Todos";
     private int idcategoriaBuscaAvancada = 0;
     ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
     private String buscaSimples = "";
     private ApiModels api = new ApiModels();
     private Usuarios usuario;
+    private DrawerLayout drawer;
     private int id = 0;
 
     @Override
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.container);
+        appbar = (AppBarLayout) findViewById(R.id.appbar);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -133,35 +138,6 @@ public class MainActivity extends AppCompatActivity{
         String x [] = loginActivityIntent.getString("arrayUsuario").split("%");
         id = Integer.parseInt(x[0]);
         usuario = new ApiModels().getUsuarioById(id);
-
-//        usuario.idUsuario = Integer.parseInt(x[0]);
-//        usuario.nomeUsuario = x[1];
-//        usuario.cpf = x[2];
-//        usuario.idCidade = Integer.parseInt(x[3]);
-//        usuario.idEstado = Integer.parseInt(x[4]);
-//        usuario.bairro = x[5];
-//        usuario.logradouro = x[6];
-//        usuario.numero = Integer.parseInt(x[7]);
-//        usuario.cep = Integer.parseInt(x[8]);
-//        usuario.email = x[9];
-//        usuario.ddd = Integer.parseInt(x[10]);
-//        usuario.imagemPerfil = x[11];
-//        usuario.senha = x[12];
-        //usuario.dataNascimento = Date.parse(x[10]);
-        //usuario.dataCadastro = x[11].toDate;
-
-
-
-
-
-        /*Bundle bundle = getIntent().getBundleExtra("idUsuario");
-        try {
-            idUsuario = bundle.getInt("idUsuario");
-        }catch(Exception e){
-            idUsuario = 0;
-        }
-        */
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +222,7 @@ public class MainActivity extends AppCompatActivity{
                         } else if (id == R.id.menu_calendario) {
                             // ABRIR Agenda
                             Intent intent = new Intent(MainActivity.this, GenderActivity.class);
+                            intent.putExtra("idUsuario", usuario.idUsuario);
                             startActivity(intent);
 
                         } else if (id == R.id.menu_chat) {
@@ -276,6 +253,7 @@ public class MainActivity extends AppCompatActivity{
                             tabLayout.setupWithViewPager(viewPager);
 
                         } else if (id == R.id.menu_logoff) {
+                            drawer.closeDrawer(GravityCompat.START);
                             logoff();
                         }
 
@@ -288,34 +266,32 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        logoff();
-    }
-
-    private void logoff(){
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Logout")
-                    .setMessage("Você tem certeza que deseja sair do Befree?")
-                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
-
-                    })
-                    .setNegativeButton("Não", null)
-                    .show();
-
-            //super.onBackPressed();
+            logoff();
         }
     }
+
+    private void logoff(){
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Logout")
+                .setMessage("Você tem certeza que deseja sair do Befree?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
+                })
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

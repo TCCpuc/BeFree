@@ -11,9 +11,12 @@ public class Servico {
     private int idUsuario;
     private int idSubCategoria;
     private int idStatus;
+    private float mediaAvalicao;
     private String imagemServico;
     private int idDDD;
     private boolean mostrar = true;
+    private float preco;
+    private String formaPgto;
 
     public int getIdServico() {
         return idServico;
@@ -85,5 +88,29 @@ public class Servico {
 
     public void setMostrar(boolean mostrar) {
         this.mostrar = mostrar;
+    }
+
+    public float getMediaAvalicao() {
+        return mediaAvalicao;
+    }
+
+    public void setMediaAvalicao(float mediaAvalicao) {
+        this.mediaAvalicao = mediaAvalicao;
+    }
+
+    public float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(float preco) {
+        this.preco = preco;
+    }
+
+    public String getFormaPgto() {
+        return formaPgto;
+    }
+
+    public void setFormaPgto(String formaPgto) {
+        this.formaPgto = formaPgto;
     }
 }

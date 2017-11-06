@@ -302,7 +302,7 @@ public class LoginActivity extends AppCompatActivity {
         Usuarios usuarioFacebook = new Usuarios();
 
         if(currentProfile != null) {
-            usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + currentProfile.getLastName();
+            usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + " " + currentProfile.getLastName();
             usuarioFacebook.cpf = "";
             usuarioFacebook.email = currentProfile.getId();
             usuarioFacebook.senha = " ";

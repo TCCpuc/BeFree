@@ -66,6 +66,8 @@ public class AnuncioServicoActivity extends AppCompatActivity {
             Picasso.with(this).load(srv.getImagemServico()).into(imgAnuncio);
             titulo.setText(srv.getTitulo());
             descricao.setText(srv.getDescricao());
+            preco.setText("R$:" + srv.getPreco());
+            formaPgto.setText(srv.getFormaPgto());
         }catch (Exception e){
             String erro = "Problema de conexao";
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();

@@ -1,5 +1,8 @@
 package tcc.befree.activities;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -40,6 +43,8 @@ public class GenderActivity extends AppCompatActivity {
     private ApiModels api;
     private Evento evento;
     private String beforeDate = "";
+    private int idUsuario;
+    private boolean notEventos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,12 @@ public class GenderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gender);
 
+        Bundle intent = this.getIntent().getExtras();
+        idUsuario = intent.getInt("idUsuario");
+
+        notEventos = false;
         api = new ApiModels();
-        gender = api.getEventosbyIdUsuario(1);// enviar id do usuario
+
         day = (ListView) findViewById(R.id.gender_day);
 
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,7 +71,12 @@ public class GenderActivity extends AppCompatActivity {
 
             }
         });
-        day.setAdapter(new GenderActivity.DayAdapter());
+        setAdapter();
+    }
+
+    public void setAdapter(){
+        gender = api.getEventosbyIdUsuario(idUsuario);// enviar id do usuario
+        this.day.setAdapter(new GenderActivity.DayAdapter());
     }
 
     @Override
@@ -73,9 +87,13 @@ public class GenderActivity extends AppCompatActivity {
     private class DayAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-
             //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
-            return gender.size();
+            if(gender.size() == 0){
+                notEventos = true;  //SE NAO ENCONTRAR EVENTOS EMITE MENSSAGEM
+                return 1;
+            }else {
+                return gender.size();
+            }
         }
 
         @Override
@@ -103,66 +121,72 @@ public class GenderActivity extends AppCompatActivity {
             LinearLayout defaultLayout = (LinearLayout) view.findViewById(R.id.item_agenda_default_layout);
             LinearLayout dayLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_day);
             final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
-            final Evento ev = gender.get(position);
 
-            avaliar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //time.setAdapter(new GenderActivity.TimeAdapter());
-                    GenderEvaluationDialog dialog = new GenderEvaluationDialog(GenderActivity.this, ev);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.show();
-                    avaliarLayout.setVisibility(View.GONE);
-                }
-            });
-
-            Picasso.with(GenderActivity.this).load(ev.getImagem()).into(image);
-            dia.setText(ev.getDtEvento());
-            titulo.setText(ev.getTitulo());
-            descricao.setText(ev.getConteudo());
-            String horario;
-
-            if(ev.isAvaliado()){
-                tempo.setText("AVALIADO\n\n" + ev.getNotaAvalicao());
-            }else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2){
-                defaultLayout.setVisibility(View.GONE);
-                avaliarLayout.setVisibility(View.VISIBLE);
-            }else if(ev.getSituacaoEvento() == 2){
-                tempo.setText("RECUSADO");
-                backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
-            }else if (ev.getSituacaoEvento() == 1){
-                if(ev.getHrInicio() <= 9){
-                    horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
-                }else{
-                    horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
-                }
-                if(ev.getHrFinal() <= 9){
-                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
-                }else {
-                    horario = (horario + " - " + ev.getHrFinal() + ":00");
-                }
-                backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
-                tempo.setText(horario);
-            }
-            else {
-                if(ev.getHrInicio() <= 9){
-                    horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
-                }else{
-                    horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
-                }
-                if(ev.getHrFinal() <= 9){
-                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
-                }else {
-                    horario = (horario + " - " + ev.getHrFinal() + ":00");
-                }
-                tempo.setText(horario);
-            }
-
-            if(beforeDate.equals(ev.getDtEvento())){
-                dayLayout.setVisibility(View.GONE);
+            if(notEventos){
+                backgroundLayout.setVisibility(View.GONE);
+                dia.setText("Você não tem nenhum evento agendado");
             }else {
-                beforeDate = ev.getDtEvento();
+                final Evento ev = gender.get(position);
+                avaliar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //time.setAdapter(new GenderActivity.TimeAdapter());
+                        GenderEvaluationDialog dialog = new GenderEvaluationDialog(GenderActivity.this, ev);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+                        avaliarLayout.setVisibility(View.GONE);
+                    }
+                });
+
+                Picasso.with(GenderActivity.this).load(ev.getImagem()).into(image);
+                dia.setText(ev.getDtEvento());
+                titulo.setText(ev.getTitulo());
+                descricao.setText(ev.getConteudo());
+                String horario;
+
+                if(ev.isAvaliado()){
+                    tempo.setText("AVALIADO\n\n" + ev.getNotaAvalicao());
+                }else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2){
+                    defaultLayout.setVisibility(View.GONE);
+                    avaliarLayout.setVisibility(View.VISIBLE);
+                }else if(ev.getSituacaoEvento() == 2){
+                    tempo.setText("RECUSADO");
+                    backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+                }else if (ev.getSituacaoEvento() == 1){
+                    if(ev.getHrInicio() <= 9){
+                        horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
+                    }else{
+                        horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
+                    }
+                    if(ev.getHrFinal() <= 9){
+                        horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                    }else {
+                        horario = (horario + " - " + ev.getHrFinal() + ":00");
+                    }
+                    backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
+                    tempo.setText(horario);
+                }
+                else {
+                    if(ev.getHrInicio() <= 9){
+                        horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
+                    }else{
+                        horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
+                    }
+                    if(ev.getHrFinal() <= 9){
+                        horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                    }else {
+                        horario = (horario + " - " + ev.getHrFinal() + ":00");
+                    }
+                    tempo.setText(horario);
+                }
+
+                if(beforeDate.equals(ev.getDtEvento())){
+                    dayLayout.setVisibility(View.GONE);
+                }else {
+                    beforeDate = ev.getDtEvento();
+                }
             }
+
             return view;
         }
     }

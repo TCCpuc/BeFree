@@ -194,6 +194,8 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
                 arrayServicos.add(servico);
             }
@@ -229,6 +231,8 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
             }
 
@@ -263,6 +267,8 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
                 arrayServicos.add(servico);
             }
@@ -300,6 +306,8 @@ public class ApiModels implements Runnable{
                 busca.idStatus = jSonObject.getInt("idStatus");
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
+                busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                busca.setFormaPgto(jSonObject.getString("formaPagto"));
                 arrayBuscas.add(busca);
             }
 
@@ -334,6 +342,8 @@ public class ApiModels implements Runnable{
                 busca.idStatus = jSonObject.getInt("idStatus");
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
+                busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                busca.setFormaPgto(jSonObject.getString("formaPagto"));
                 arrayBuscas.add(busca);
             }
 
@@ -364,6 +374,8 @@ public class ApiModels implements Runnable{
             busca.idStatus = jSonObject.getInt("idStatus");
             busca.imagemBusca = jSonObject.getString("imagemBusca");
             busca.idDDD = jSonObject.getInt("idDDD");
+            busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+            busca.setFormaPgto(jSonObject.getString("formaPagto"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -786,29 +798,8 @@ public class ApiModels implements Runnable{
         return existe;
     }
 
-    public List<Mensagem> getMensagensDoChat(int idDoChat){
-//--------------
-//      MOCK:
-//
-//        List<Mensagem> l = new ArrayList<Mensagem>();
-//        Mensagem c = new Mensagem();
-//        c.setId(1);
-//        c.setChat(1);
-//        //c.setMe(true);
-//        c.setMensagem("oi");
-//        c.setUsuario_origem(2033);
-//        c.setUsuario_destino(1017);
-//        l.add(c);
-//        c = new Mensagem();
-//        c.setId(2);
-//        c.setChat(1);
-//        //c.setMe(false);
-//        c.setMensagem("oi tb");
-//        c.setUsuario_origem(1017);
-//        c.setUsuario_destino(2033);
-//        l.add(c);
-//        return l;
-//--------------
+    public ArrayList<Mensagem> getMensagensDoChat(int idDoChat){
+
         ArrayList<Mensagem> arrayMensagens= new ArrayList<Mensagem>();
 
         try{
@@ -903,105 +894,41 @@ public class ApiModels implements Runnable{
         //CLASSE A SER FEITA
         //SIMULAR
         ArrayList<Evento> ar = new ArrayList<Evento>();
-        Evento h = new Evento();
-        h.setIdEvento(1);
-        h.setIdServico(1);
-        h.setIdUsuarioContratante(16);
-        h.setDtEvento("25/12/2017");
-        h.setHrInicio(19);
-        h.setHrFinal(23);
-        h.setAvaliado(false);
-        h.setSituacaoEvento(2);
-        h.setTitulo("Testao");
-        h.setConteudo("TesteTesteTesteTesteTesteTesteTesteTestevTesteTesteTesteTesteTesteTesteTesteTestev");
-        h.setImagem("https://abrilcapricho.files.wordpress.com/2017/07/testes2.png");
-        h.setNomeUsuarioContratante("Joana Duarte");
-        ar.add(h);
-        Evento x = new Evento();
-        x.setIdEvento(1);
-        x.setIdServico(1);
-        x.setIdUsuarioContratante(16);
-        x.setDtEvento("25/12/2017");
-        x.setHrInicio(6);
-        x.setHrFinal(18);
-        x.setAvaliado(false);
-        x.setSituacaoEvento(2);
-        x.setTitulo("Pintor");
-        x.setConteudo("Pinto portas");
-        x.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
-        x.setNomeUsuarioContratante("Alfredo Duarte");
-        ar.add(x);
-        Evento y = new Evento();
-        y.setIdEvento(2);
-        y.setIdServico(2);
-        y.setIdUsuarioContratante(9);
-        y.setDtEvento("20/12/2017");
-        y.setHrInicio(9);
-        y.setHrFinal(13);
-        y.setAvaliado(false);
-        y.setSituacaoEvento(0);
-        y.setTitulo("Bibliotecario");
-        y.setConteudo("Arrumo Biblioteca");
-        y.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
-        y.setNomeUsuarioContratante("Alicia Keys");
-        ar.add(y);
-        Evento z = new Evento();
-        z.setIdEvento(2);
-        z.setIdServico(2);
-        z.setIdUsuarioContratante(9);
-        z.setDtEvento("15/12/2017");
-        z.setHrInicio(14);
-        z.setHrFinal(17);
-        z.setAvaliado(false);
-        z.setSituacaoEvento(1);
-        z.setTitulo("Faxineiro");
-        z.setConteudo("Faço Faxina");
-        z.setImagem("http://2.bp.blogspot.com/-M47vcNN0mtU/UI0mEM56slI/AAAAAAAAJcI/Dm5De1Xc-Po/s1600/faxineiroProfessor.jpg");
-        z.setNomeUsuarioContratante("Alicia Keys");
-        ar.add(z);
-        Evento k = new Evento();
-        k.setIdEvento(2);
-        k.setIdServico(2);
-        k.setIdUsuarioContratante(9);
-        k.setDtEvento("13/12/2017");
-        k.setHrInicio(14);
-        k.setHrFinal(17);
-        k.setAvaliado(false);
-        k.setSituacaoEvento(1);
-        k.setTitulo("Bibliotecario");
-        k.setConteudo("Arrumo Biblioteca");
-        k.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
-        k.setNomeUsuarioContratante("Alicia Keys");
-        ar.add(k);
-        Evento l = new Evento();
-        l.setIdEvento(2);
-        l.setIdServico(2);
-        l.setIdUsuarioContratante(9);
-        l.setDtEvento("15/10/2017");
-        l.setHrInicio(14);
-        l.setHrFinal(17);
-        l.setAvaliado(false);
-        l.setSituacaoEvento(1);
-        l.setTitulo("Bibliotecario");
-        l.setConteudo("Arrumo Biblioteca");
-        l.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
-        l.setNomeUsuarioContratante("Alicia Keys");
-        ar.add(l);
-        Evento r = new Evento();
-        r.setIdEvento(2);
-        r.setIdServico(2);
-        r.setIdUsuarioContratante(9);
-        r.setDtEvento("01/10/2017");
-        r.setHrInicio(14);
-        r.setHrFinal(17);
-        r.setAvaliado(true);
-        r.setNotaAvalicao(10);
-        r.setSituacaoEvento(1);
-        r.setTitulo("Bibliotecario");
-        r.setConteudo("Arrumo Biblioteca");
-        r.setImagem("http://befreeapi-com.umbler.net/images/sem_imagem.jpg");
-        r.setNomeUsuarioContratante("Alicia Keys");
-        ar.add(r);
+
+        try{
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Eventos/GetEventosByUsuario/?usuario=" + idDoUsuario;
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            workaroundSleepThread(thread);
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Evento h = new Evento();
+                h.setIdEvento(jSonObject.getInt("idEvento"));
+                h.setIdServico(jSonObject.getInt("idServico"));
+                h.setIdUsuarioContratante(jSonObject.getInt("idUsuarioContratante"));
+                String trashData = jSonObject.getString("dtEvento").substring(0,10);
+                String formatTrash[] = trashData.split("-");
+                String data = formatTrash[2] + "/" + formatTrash[1] + "/" + formatTrash[0];
+                h.setDtEvento(data);
+                h.setHrInicio(jSonObject.getInt("hrInicio"));
+                h.setHrFinal(jSonObject.getInt("hrFinal"));
+                h.setAvaliado(jSonObject.getBoolean("avaliado"));
+                h.setSituacaoEvento(jSonObject.getInt("situacaoEvento"));
+                h.setTitulo(jSonObject.getString("titulo"));
+                h.setNotaAvalicao(Float.parseFloat(jSonObject.getString("notaAvaliacao")));
+                h.setConteudo(jSonObject.getString("descricao"));
+                h.setImagem(jSonObject.getString("imagemServico"));
+                h.setNomeUsuarioContratante(jSonObject.getString("nomeUsuario"));
+                ar.add(h);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
         return ar;
     }
 
@@ -1098,6 +1025,8 @@ public class ApiModels implements Runnable{
                     busca.idStatus = jSonObject.getInt("idStatus");
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
+                    busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    busca.setFormaPgto(jSonObject.getString("formaPagto"));
                     arrayBuscas.add(busca);
                 }
             }
@@ -1133,6 +1062,9 @@ public class ApiModels implements Runnable{
                     servico.setIdStatus(jSonObject.getInt("idStatus"));
                     servico.setImagemServico(jSonObject.getString("imagemServico"));
                     servico.setIdDDD(jSonObject.getInt("idDDD"));
+                    servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    servico.setFormaPgto(jSonObject.getString("formaPagto"));
+                    //servico.setMediaAvalicao(jSonObject.getInt("mediaAvaliacao"));
 
                     arrayServicos.add(servico);
                 }
@@ -1169,6 +1101,8 @@ public class ApiModels implements Runnable{
                     busca.idStatus = jSonObject.getInt("idStatus");
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
+                    busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    busca.setFormaPgto(jSonObject.getString("formaPagto"));
                     arrayBuscas.add(busca);
                 }
             }
@@ -1204,6 +1138,8 @@ public class ApiModels implements Runnable{
                     servico.setIdStatus(jSonObject.getInt("idStatus"));
                     servico.setImagemServico(jSonObject.getString("imagemServico"));
                     servico.setIdDDD(jSonObject.getInt("idDDD"));
+                    servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    servico.setFormaPgto(jSonObject.getString("formaPagto"));
 
                     arrayServicos.add(servico);
                 }

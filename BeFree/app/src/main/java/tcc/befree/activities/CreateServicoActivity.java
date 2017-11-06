@@ -35,6 +35,8 @@ import tcc.befree.utils.Utils;
 public class CreateServicoActivity extends AppCompatActivity {
 
     protected Spinner spinnerDDDs;
+    protected Spinner spinnerFormaPgto;
+    protected EditText valor;
     protected Spinner spinnerCategorias;
     protected Spinner spinnerSubCategorias;
     protected View viewNome;
@@ -45,6 +47,7 @@ public class CreateServicoActivity extends AppCompatActivity {
     private static final int SELECT_FILE1 = 100;
     private Bitmap bitmapUsuarioPerfil;
     private int idUsuario;
+    private Button submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +61,22 @@ public class CreateServicoActivity extends AppCompatActivity {
             this.idUsuario = 0;
         }
 
-        //popula o spinner do ddd
         spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
+        spinnerCategorias = (Spinner) findViewById(R.id.create_servico_spinnerCategoria);
+        spinnerFormaPgto = (Spinner) findViewById(R.id.create_servico_spinnerFormaPgto);
         photo = (ImageView) findViewById(R.id.create_servico_unounce_photo);
+        submit = (Button) findViewById(R.id.create_servico_BtnSubmitServico);
+        valor = (EditText) findViewById(R.id.create_servico_valor);
+        editNome = (EditText) findViewById(R.id.create_servico_titulo);
+        viewDescricao = findViewById(R.id.create_servico_txtDescricao);
+        editDescricao = (EditText) viewDescricao;
+
+        editNome.requestFocus();
+        //popula o spinner do ddd
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerDDDs.setAdapter(arrayAdapterDDD);
-
         //popula o spinner de categoria
-        spinnerCategorias = (Spinner) findViewById(R.id.create_servico_spinnerCategoria);
         ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
         arrayAdapterCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
@@ -86,30 +96,17 @@ public class CreateServicoActivity extends AppCompatActivity {
         });
 
         //Botão Submit
-        Button submit = (Button) findViewById(R.id.create_servico_BtnSubmitServico);
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                viewNome = findViewById(R.id.create_servico_titulo);
-                editNome = (EditText) viewNome;
-                viewDescricao = findViewById(R.id.create_servico_txtDescricao);
-                editDescricao = (EditText) viewDescricao;
-
                 Servico novaServico = new Servico();
-                String nome = editNome.getText().toString();
-                String descricao = editDescricao.getText().toString();
 
-                String ddd = spinnerDDDs.getSelectedItem().toString();
-                String subCategoria =  spinnerSubCategorias.getSelectedItem().toString();
-                int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
-                String categoria = spinnerCategorias.getSelectedItem().toString();
-
-                if(ddd ==null
-                    || "".equals(subCategoria)
-                    || "".equals(categoria)
-                    || "".equals(nome)
-                    || "".equals(descricao))
+                if(spinnerDDDs.getSelectedItem().toString() == null
+                        || "".equals(spinnerSubCategorias.getSelectedItem().toString())
+                        || "".equals(spinnerCategorias.getSelectedItem().toString())
+                        || "".equals(editNome.getText().toString())
+                        || "".equals(editDescricao.getText().toString()))
                 {
                     AlertDialog alertDialog = new AlertDialog.Builder(CreateServicoActivity.this).create();
                     alertDialog.setTitle("Todos os campos são obrigatórios");
@@ -123,11 +120,17 @@ public class CreateServicoActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-                    novaServico.setDescricao(descricao);
-                    novaServico.setTitulo(nome);
+                    novaServico.setDescricao(editDescricao.getText().toString());
+                    novaServico.setTitulo(editNome.getText().toString());
                     novaServico.setIdDDD(((DDD)spinnerDDDs.getSelectedItem()).id);
-                    novaServico.setIdSubCategoria(idSubCategoria);
+                    novaServico.setIdSubCategoria(((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria);
                     novaServico.setIdUsuario(idUsuario);
+                    novaServico.setFormaPgto(spinnerFormaPgto.getSelectedItem().toString());
+                    if(valor.getText().toString().equals("")){
+                        novaServico.setPreco(0);
+                    }else {
+                        novaServico.setPreco(Float.parseFloat(valor.getText().toString()));
+                    }
                     try {
                         novaServico.setImagemServico(Utils.convert(bitmapUsuarioPerfil));
                     }catch(Exception e){

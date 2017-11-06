@@ -27,43 +27,17 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_slide">Slide</string>
 
-    <string-array name="Search">
-        <item>Joao</item>
-        <item>Marcelo</item>
-        <item>Tiago</item>
-        <item>Pedro</item>
-    </string-array>
-
-    <string-array name="Services">
-        <item>Pedreiro</item>
-        <item>Pintor</item>
-        <item>Faxineira</item>
-        <item>Computeiro</item>
+    <string-array name="FormaPgto">
+        <item>A Vista</item>
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>6x</item>
+        <item>12x</item>
+        <item>24x</item>
     </string-array>
 
 
-    <string-array name="Bolas">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-        <item>7</item>
-    </string-array>
     <string name="title_activity_user_perfil">activity_user_perfil</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_messages">MessagesActivity</string>

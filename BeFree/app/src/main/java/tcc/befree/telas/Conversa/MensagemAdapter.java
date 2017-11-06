@@ -15,6 +15,7 @@ import tcc.befree.R;
 import tcc.befree.models.Mensagem;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +24,14 @@ import java.util.List;
 
 public class MensagemAdapter extends BaseAdapter {
 
-    private final List<Mensagem> chatMessages;
+    private final ArrayList<Mensagem> chatMessages;
     private Activity context;
+    private int idUsuarioOrigem;
 
-    public MensagemAdapter(Activity context, List<Mensagem> chatMessages) {
+    public MensagemAdapter(Activity context, ArrayList<Mensagem> chatMessages, int idUsuarioOrigem) {
         this.context = context;
         this.chatMessages = chatMessages;
+        this.idUsuarioOrigem = idUsuarioOrigem;
     }
 
     @Override
@@ -59,6 +62,11 @@ public class MensagemAdapter extends BaseAdapter {
         ViewHolder holder;
         Mensagem chatMessage = getItem(position);
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        if(idUsuarioOrigem != chatMessage.getUsuario_origem()){
+            chatMessage.setMe(false);
+        }else
+            chatMessage.setMe(true);
 
         if (convertView == null) {
             convertView = vi.inflate(R.layout.list_item_chat_message, null);
