@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -109,6 +110,9 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new DeleteApiModels().deleteServicosById(servico.getIdServico());
+                                remove(servico);
+                                notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Serviço excluido!!", Toast.LENGTH_LONG).show();
                             }
 
                         })

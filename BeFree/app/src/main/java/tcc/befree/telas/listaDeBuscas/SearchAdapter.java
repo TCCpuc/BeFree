@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -108,6 +109,10 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new DeleteApiModels().deleteBuscaByID(busca.idBusca);
+                                remove(busca);
+                                notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Busca excluida!!", Toast.LENGTH_LONG).show();
+                                SearchAdapter.this.notifyDataSetChanged();
                             }
 
                         })
