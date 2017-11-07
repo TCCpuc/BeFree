@@ -143,7 +143,10 @@ public class PostApiModels implements Runnable{
         try {
             jSonObject.put("idServico",evento.getIdServico());
             jSonObject.put("idUsuarioContratante",evento.getIdUsuarioContratante());
-            jSonObject.put("dtEvento",evento.getDtEvento());
+            String trashData = evento.getDtEvento();
+            String formatTrash[] = trashData.split("/");
+            String data = formatTrash[2] + "-" + formatTrash[1] + "-" + formatTrash[0];
+            jSonObject.put("dtEvento",data);
             jSonObject.put("hrInicio",evento.getHrInicio());
             jSonObject.put("hrFinal",evento.getHrFinal());
             jSonObject.put("avaliado",evento.isAvaliado());

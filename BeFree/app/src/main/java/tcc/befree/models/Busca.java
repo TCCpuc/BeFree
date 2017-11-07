@@ -14,17 +14,10 @@ public class Busca {
     public String imagemBusca;
     public int idDDD;
     public boolean mostrar = true;
-    private float mediaAvalicao;
     private float preco;
     private String formaPgto;
-
-    public float getMediaAvalicao() {
-        return mediaAvalicao;
-    }
-
-    public void setMediaAvalicao(float mediaAvalicao) {
-        this.mediaAvalicao = mediaAvalicao;
-    }
+    private String descCategoria;
+    private String descSubCategoria;
 
     public float getPreco() {
         return preco;
@@ -40,5 +33,21 @@ public class Busca {
 
     public void setFormaPgto(String formaPgto) {
         this.formaPgto = formaPgto;
+    }
+
+    public String getDescCategoria() {
+        return descCategoria;
+    }
+
+    public void setDescCategoria(String descCategoria) {
+        this.descCategoria = descCategoria;
+    }
+
+    public String getDescSubCategoria() {
+        return descSubCategoria;
+    }
+
+    public void setDescSubCategoria(String descSubCategoria) {
+        this.descSubCategoria = descSubCategoria;
     }
 }

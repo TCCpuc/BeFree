@@ -12,7 +12,6 @@ import tcc.befree.models.Busca;
 import tcc.befree.models.Evento;
 import tcc.befree.models.Servico;
 import tcc.befree.models.Usuarios;
-import tcc.befree.utils.Utils;
 
 /**
  * Created by Guilherme Domingues on 10/9/2017.
@@ -64,21 +63,6 @@ public class PutApiModels implements Runnable {
         return true;
     }
 
-
-    public boolean putStatusEvento(Evento ev){
-        //Todo Criar metodo no banco para alterar status no banco;
-        ev.getSituacaoEvento();//0 ou 1 ou 2
-        ev.getIdEvento();
-        return true;
-    }
-
-    public boolean putNotaEvento(Evento ev){
-        //Todo Criar metodo no banco para alterar nota do evento no banco;
-        ev.getNotaAvalicao();//0 ou 1 ou 2
-        ev.getIdEvento();
-        return true;
-    }
-
     public boolean putServico(Servico servico){
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/PutServico/" + servico.getIdServico();
@@ -124,7 +108,7 @@ public class PutApiModels implements Runnable {
             jSonObject.put("dtEvento",data);
             jSonObject.put("hrInicio",evento.getHrInicio());
             jSonObject.put("hrFinal",evento.getHrFinal());
-            jSonObject.put("notaAvaliacao",evento.getNotaAvalicao());
+            jSonObject.put("notaAvaliacao",evento.getNotaAvaliacao());
             jSonObject.put("avaliado",evento.isAvaliado());
             jSonObject.put("situacaoEvento",evento.getSituacaoEvento());
 
@@ -156,6 +140,8 @@ public class PutApiModels implements Runnable {
             //jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
             jSonObject.put("imagemBusca",busca.imagemBusca);
             jSonObject.put("idDDD",busca.idDDD);
+            jSonObject.put("preco",busca.getPreco());
+            jSonObject.put("formaPagto",busca.getFormaPgto());
 
             thread.start();
             controlaThread();

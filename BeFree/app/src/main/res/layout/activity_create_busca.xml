@@ -319,6 +319,11 @@
                             android:layout_marginBottom="10dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
+                        <CheckBox
+                            android:id="@+id/create_busca_valor_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>

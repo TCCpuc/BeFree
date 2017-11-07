@@ -1,6 +1,5 @@
 package tcc.befree.telas.Dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
@@ -109,7 +108,8 @@ public class GenderEvaluationDialog   extends Dialog {
             public void onClick(View v) {
                 try{
                     PutApiModels api = new PutApiModels();
-                    evento.setNotaAvalicao(Float.parseFloat(nota.getText().toString()));
+                    evento.setNotaAvaliacao(Float.parseFloat(nota.getText().toString()));
+                    evento.setAvaliado(true);
                     api.putEvento(evento);
                     c.setAdapter();
                     Toast.makeText(c.getApplicationContext(), evento.getDtEvento(), Toast.LENGTH_LONG).show();

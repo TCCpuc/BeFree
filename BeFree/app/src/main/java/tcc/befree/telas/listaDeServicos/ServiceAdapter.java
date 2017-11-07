@@ -84,8 +84,8 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
         editLayout = (LinearLayout) convertView.findViewById(R.id.item_service_edit_layout);
         ratingBar = (RatingBar) convertView.findViewById(R.id.item_service_ratingBar);
 
-        ratingBar.setRating(servico.getMediaAvalicao() / 2);
-        nota.setText(servico.getMediaAvalicao() + "");
+        ratingBar.setRating(servico.getMediaAvaliacao() / 2);
+        nota.setText(servico.getMediaAvaliacao() + "");
         Picasso.with(getContext()).load(servico.getImagemServico()).into(imageView);
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;

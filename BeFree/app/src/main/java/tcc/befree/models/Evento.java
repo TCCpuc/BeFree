@@ -12,7 +12,7 @@ public class Evento {
     private String dtEvento;
     private int hrInicio;
     private int hrFinal;
-    private float notaAvalicao;
+    private float notaAvaliacao;
     private boolean avaliado;
     private int situacaoEvento; //0 - PENDENTE | 1 - ACEITO - 2 - RECUSADO
     private String titulo; //SERVICO
@@ -75,12 +75,12 @@ public class Evento {
         this.hrFinal = hrFinal;
     }
 
-    public float getNotaAvalicao() {
-        return notaAvalicao;
+    public float getNotaAvaliacao() {
+        return notaAvaliacao;
     }
 
-    public void setNotaAvalicao(float notaAvalicao) {
-        this.notaAvalicao = notaAvalicao;
+    public void setNotaAvaliacao(float notaAvaliacao) {
+        this.notaAvaliacao = notaAvaliacao;
     }
 
     public boolean isAvaliado() {

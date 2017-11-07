@@ -62,7 +62,7 @@ public class GenderServiceDialog  extends Dialog {
             public void onClick(View v) {
                 PutApiModels api = new PutApiModels();
                 evento.setSituacaoEvento(1);
-                api.putStatusEvento(evento);
+                api.putEvento(evento);
                 c.setAdapter();
                 dismiss();
             }
@@ -72,7 +72,7 @@ public class GenderServiceDialog  extends Dialog {
             public void onClick(View v) {
                 PutApiModels api = new PutApiModels();
                 evento.setSituacaoEvento(2);
-                api.putStatusEvento(evento);
+                api.putEvento(evento);
                 c.setAdapter();
                 dismiss();
             }

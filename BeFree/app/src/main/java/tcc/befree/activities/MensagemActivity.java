@@ -83,7 +83,6 @@ public class MensagemActivity extends AppCompatActivity {
                     if(chatHistory.size() != (newMessage.size()) ){
                         for (chatHistory.size();chatHistory.size()<newMessage.size();){
                             chatHistory.add(newMessage.get(chatHistory.size()));
-                            //adapter.add(newMessage.get(chatHistory.size() - 1));
                             threadUI();
                         }
                     }
