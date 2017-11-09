@@ -15,7 +15,7 @@ public class Busca {
     public int idDDD;
     public boolean mostrar = true;
     private float preco;
-    private String formaPgto;
+    private int formaPgto;
     private String descCategoria;
     private String descSubCategoria;
 
@@ -27,11 +27,11 @@ public class Busca {
         this.preco = preco;
     }
 
-    public String getFormaPgto() {
+    public int getFormaPgto() {
         return formaPgto;
     }
 
-    public void setFormaPgto(String formaPgto) {
+    public void setFormaPgto(int formaPgto) {
         this.formaPgto = formaPgto;
     }
 

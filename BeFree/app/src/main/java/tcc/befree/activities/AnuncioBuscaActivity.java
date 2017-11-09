@@ -67,7 +67,7 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
             Picasso.with(this).load(srv.imagemBusca).into(imgAnuncio);
             titulo.setText(srv.titulo);
             descricao.setText(srv.descricao);
-            preco.setText("R$:" + srv.getPreco());
+            preco.setText(srv.getPreco() + "");
             formaPgto.setText(srv.getFormaPgto());
             //categoriaESub.setText(srv.ge);
         }catch (Exception e){

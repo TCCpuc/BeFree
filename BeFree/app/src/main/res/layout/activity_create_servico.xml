@@ -114,7 +114,7 @@
                                 android:id="@+id/create_servico_titulo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Titulo da busca"
+                                android:hint="Titulo da servico"
                                 android:background="@drawable/border_white"
                                 android:textAlignment="center"
                                 android:inputType="text"
@@ -274,15 +274,15 @@
                             android:text="DDD"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                            <Spinner
-                                android:id="@+id/create_servico_spinnerDDD"
-                                android:layout_gravity="right"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center_horizontal"/>
+                        <Spinner
+                            android:id="@+id/create_servico_spinnerDDD"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_horizontal"/>
 
                     </LinearLayout>
 
@@ -317,7 +317,16 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:layout_marginBottom="10dp"
+                            android:focusableInTouchMode="false"
+                            android:focusable="false"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                        <CheckBox
+                            android:id="@+id/create_servico_valor_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Valor A negociar"/>
 
                     </LinearLayout>
 

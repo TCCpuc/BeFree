@@ -188,7 +188,7 @@ public class ApiModels implements Runnable{
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                servico.setFormaPgto(jSonObject.getString("formaPagto"));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
                 servico.setDescCategoria("descCategoria");
                 servico.setDescSubCategoria("descSubCategoria");
@@ -228,7 +228,7 @@ public class ApiModels implements Runnable{
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                servico.setFormaPgto(jSonObject.getString("formaPagto"));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
                 servico.setDescCategoria("descCategoria");
                 servico.setDescSubCategoria("descSubCategoria");
@@ -267,7 +267,7 @@ public class ApiModels implements Runnable{
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                servico.setFormaPgto(jSonObject.getString("formaPagto"));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
                 servico.setDescCategoria("descCategoria");
                 servico.setDescSubCategoria("descSubCategoria");
@@ -309,7 +309,7 @@ public class ApiModels implements Runnable{
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
                 busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                busca.setFormaPgto(jSonObject.getString("formaPagto"));
+                busca.setFormaPgto(jSonObject.getInt("formaPagto"));
                 busca.setDescCategoria("descCategoria");
                 busca.setDescSubCategoria("descSubCategoria");
                 arrayBuscas.add(busca);
@@ -347,7 +347,7 @@ public class ApiModels implements Runnable{
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
                 busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                busca.setFormaPgto(jSonObject.getString("formaPagto"));
+                busca.setFormaPgto(jSonObject.getInt("formaPagto"));
                 busca.setDescCategoria("descCategoria");
                 busca.setDescSubCategoria("descSubCategoria");
                 arrayBuscas.add(busca);
@@ -381,7 +381,7 @@ public class ApiModels implements Runnable{
             busca.imagemBusca = jSonObject.getString("imagemBusca");
             busca.idDDD = jSonObject.getInt("idDDD");
             busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-            busca.setFormaPgto(jSonObject.getString("formaPagto"));
+            busca.setFormaPgto(jSonObject.getInt("formaPagto"));
             busca.setDescCategoria("descCategoria");
             busca.setDescSubCategoria("descSubCategoria");
 
@@ -1034,7 +1034,7 @@ public class ApiModels implements Runnable{
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
                     busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                    busca.setFormaPgto(jSonObject.getString("formaPagto"));
+                    busca.setFormaPgto(jSonObject.getInt("formaPagto"));
                     busca.setDescCategoria("descCategoria");
                     busca.setDescSubCategoria("descSubCategoria");
                     arrayBuscas.add(busca);
@@ -1071,7 +1071,7 @@ public class ApiModels implements Runnable{
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                servico.setFormaPgto(jSonObject.getString("formaPagto"));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
                 servico.setDescCategoria("descCategoria");
                 servico.setDescSubCategoria("descSubCategoria");
@@ -1092,7 +1092,7 @@ public class ApiModels implements Runnable{
                     servico.setImagemServico(jSonObject.getString("imagemServico"));
                     servico.setIdDDD(jSonObject.getInt("idDDD"));
                     servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                    servico.setFormaPgto(jSonObject.getString("formaPagto"));
+                    servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                     servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
                     servico.setDescCategoria("descCategoria");
                     servico.setDescSubCategoria("descSubCategoria");
@@ -1135,7 +1135,7 @@ public class ApiModels implements Runnable{
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
                     busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                    busca.setFormaPgto(jSonObject.getString("formaPagto"));
+                    busca.setFormaPgto(jSonObject.getInt("formaPagto"));
                     busca.setDescCategoria("descCategoria");
                     busca.setDescSubCategoria("descSubCategoria");
                     arrayBuscas.add(busca);
@@ -1172,7 +1172,7 @@ public class ApiModels implements Runnable{
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
-                servico.setFormaPgto(jSonObject.getString("formaPagto"));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
                 servico.setDescCategoria("descCategoria");
                 servico.setDescSubCategoria("descSubCategoria");
@@ -1208,7 +1208,7 @@ public class ApiModels implements Runnable{
     public Usuarios getUsuarioByCodigoSeguranca(String codigo) {
         List<Usuarios> usuarios = getUsuarios();
         for (Usuarios u:
-             usuarios) {
+                usuarios) {
             if (codigo.equals(u.codigoSeguranca))
                 return u;
         }

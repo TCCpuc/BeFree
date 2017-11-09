@@ -28,6 +28,7 @@
     <string name="title_activity_slide">Slide</string>
 
     <string-array name="FormaPgto">
+        <item>A Negociar</item>
         <item>A Vista</item>
         <item>2x</item>
         <item>3x</item>

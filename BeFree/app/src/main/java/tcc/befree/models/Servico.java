@@ -15,7 +15,7 @@ public class Servico {
     private int idDDD;
     private boolean mostrar = true;
     private float preco;
-    private String formaPgto;
+    private int formaPgto;
     private float mediaAvaliacao;
     private String descCategoria;
     private String descSubCategoria;
@@ -100,11 +100,11 @@ public class Servico {
         this.preco = preco;
     }
 
-    public String getFormaPgto() {
+    public int getFormaPgto() {
         return formaPgto;
     }
 
-    public void setFormaPgto(String formaPgto) {
+    public void setFormaPgto(int formaPgto) {
         this.formaPgto = formaPgto;
     }
 
