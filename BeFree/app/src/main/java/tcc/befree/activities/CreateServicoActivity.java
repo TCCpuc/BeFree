@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -127,10 +125,10 @@ public class CreateServicoActivity extends AppCompatActivity {
                 }
                 else {
                     novoServico.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
-                    if(editValor.getText().toString().equals("")){
-                        novoServico.setPreco(0);
-                    }else {
+                    try {
                         novoServico.setPreco(Float.parseFloat(editValor.getText().toString()));
+                    }catch (Exception e){
+                        novoServico.setPreco(0);
                     }
                     novoServico.setDescricao(descricao);
                     novoServico.setTitulo(nome);
@@ -144,12 +142,10 @@ public class CreateServicoActivity extends AppCompatActivity {
                     }catch(Exception e){
                         novoServico.setImagemServico("");
                     }
-
-                    new PostApiModels().postServico(novoServico);
-
-                    Toast toast = Toast.makeText(getApplicationContext(), "Servico criada com sucesso!", Toast.LENGTH_LONG);
+                    threadUpdate();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Criando o serviço...", Toast.LENGTH_LONG);
                     toast.show();
-                    CreateServicoActivity.super.onBackPressed();
+                    onBackPressed();
                 }
             }
         });
@@ -187,6 +183,26 @@ public class CreateServicoActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {}
+        });
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                new PostApiModels().postServico(novoServico);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), "Serviço criado com sucesso!", Toast.LENGTH_LONG);
+                toast.show();
+            }
         });
     }
 

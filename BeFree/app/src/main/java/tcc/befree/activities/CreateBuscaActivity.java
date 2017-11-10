@@ -128,10 +128,10 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 }
                 else {
                     novaBusca.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
-                    if(editValor.getText().toString().equals("")){
-                        novaBusca.setPreco(0);
-                    }else {
+                    try {
                         novaBusca.setPreco(Float.parseFloat(editValor.getText().toString()));
+                    }catch (Exception e){
+                        novaBusca.setPreco(0);
                     }
                     novaBusca.descricao = descricao;
                     novaBusca.titulo = nome;
@@ -145,10 +145,9 @@ public class CreateBuscaActivity extends AppCompatActivity {
                     }catch(Exception e){
                         novaBusca.imagemBusca = "";
                     }
-
-                    new PostApiModels().postBusca(novaBusca);
-
-                    Toast toast = Toast.makeText(getApplicationContext(), "Busca criada com sucesso!", Toast.LENGTH_LONG);
+                    
+                    threadUpdate();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Criando a busca...", Toast.LENGTH_LONG);
                     toast.show();
                     CreateBuscaActivity.super.onBackPressed();
                 }
@@ -188,6 +187,26 @@ public class CreateBuscaActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {}
+        });
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                new PostApiModels().postBusca(novaBusca);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), "Busca criada com sucesso!", Toast.LENGTH_LONG);
+                toast.show();
+            }
         });
     }
 

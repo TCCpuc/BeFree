@@ -1,7 +1,5 @@
 package tcc.befree.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -10,8 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,10 +24,8 @@ import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
-import tcc.befree.api.PostApiModels;
 import tcc.befree.api.PutApiModels;
 import tcc.befree.models.Categoria;
-import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
@@ -45,6 +39,7 @@ public class EditServicoActivity extends AppCompatActivity {
 
     private int idServico;
     private Servico servico;
+    private Servico servicoAlterado;
     private Spinner spinnerDDDs;
     private Spinner spinnerCategorias;
     private Spinner spinnerSubCategorias;
@@ -119,23 +114,22 @@ public class EditServicoActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Servico servicoAlterada = servico;
-                servicoAlterada.setIdDDD(spinnerDDDs.getSelectedItemPosition() + 1);
-                servicoAlterada.setDescricao(editDescricao.getText().toString());
-                servicoAlterada.setTitulo(nome.getText().toString());
-                if(editValor.getText().equals("")){
-                    servicoAlterada.setPreco(0);
-                }else {
-                    String preco[] = editValor.getText().toString().split(":");
-                    servicoAlterada.setPreco(Float.parseFloat(preco[1]));
+                servicoAlterado = servico;
+                servicoAlterado.setIdDDD(spinnerDDDs.getSelectedItemPosition() + 1);
+                servicoAlterado.setDescricao(editDescricao.getText().toString());
+                servicoAlterado.setTitulo(nome.getText().toString());
+                try {
+                    servicoAlterado.setPreco(Float.parseFloat(editValor.getText().toString()));
+                }catch (Exception e){
+                    servicoAlterado.setPreco(0);
                 }
-                servicoAlterada.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
+                servicoAlterado.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
                 if(bitmapUsuarioPerfil!= null)
-                    servicoAlterada.setImagemServico(Utils.convert(bitmapUsuarioPerfil));
+                    servicoAlterado.setImagemServico(Utils.convert(bitmapUsuarioPerfil));
                 int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
-                servicoAlterada.setIdSubCategoria(idSubCategoria);
-                new PutApiModels().putServico(servicoAlterada);
-                Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
+                servicoAlterado.setIdSubCategoria(idSubCategoria);
+                threadUpdate();
+                Toast toast = Toast.makeText(getApplicationContext(), "Editando o servico...", Toast.LENGTH_LONG);
                 toast.show();
                 onBackPressed();
             }
@@ -173,6 +167,26 @@ public class EditServicoActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {}
+        });
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                new PutApiModels().putServico(servicoAlterado);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
+                toast.show();
+            }
         });
     }
 

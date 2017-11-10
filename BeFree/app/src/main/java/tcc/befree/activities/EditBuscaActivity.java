@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,6 +39,7 @@ public class EditBuscaActivity extends AppCompatActivity {
 
     private int idBusca;
     private Busca busca;
+    private Busca buscaAlterada;
     private Spinner spinnerDDDs;
     private Spinner spinnerCategorias;
     private Spinner spinnerSubCategorias;
@@ -116,23 +115,22 @@ public class EditBuscaActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Busca buscaAlterada = busca;
+                buscaAlterada = busca;
                 buscaAlterada.idDDD  = spinnerDDDs.getSelectedItemPosition() + 1;
                 buscaAlterada.descricao = editDescricao.getText().toString();
-                buscaAlterada.titulo = ((EditText) nome).getText().toString();
-                if(editValor.getText().equals("")){
+                buscaAlterada.titulo = nome.getText().toString();
+                try {
+                    buscaAlterada.setPreco(Float.parseFloat(editValor.getText().toString()));
+                }catch (Exception e){
                     buscaAlterada.setPreco(0);
-                }else {
-                    String preco[] = editValor.getText().toString().split(":");
-                    buscaAlterada.setPreco(Float.parseFloat(preco[1]));
                 }
                 buscaAlterada.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
                 if(bitmapUsuarioPerfil!= null)
                     buscaAlterada.imagemBusca = Utils.convert(bitmapUsuarioPerfil);
                 int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
                 buscaAlterada.idSubCategoria = idSubCategoria;
-                new PutApiModels().putBusca(buscaAlterada);
-                Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
+                threadUpdate();
+                Toast toast = Toast.makeText(getApplicationContext(), "Editando a busca...", Toast.LENGTH_LONG);
                 toast.show();
                 onBackPressed();
             }
@@ -170,6 +168,26 @@ public class EditBuscaActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {}
+        });
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                new PutApiModels().putBusca(buscaAlterada);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), "Busca editada com sucesso!", Toast.LENGTH_LONG);
+                toast.show();
+            }
         });
     }
 
