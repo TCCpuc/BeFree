@@ -1,6 +1,5 @@
 package tcc.befree.activities;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity{
     private AppBarLayout appbar;
     private String categoriaBuscaAvancada = "Todos";
     private int idcategoriaBuscaAvancada = 0;
-    ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
+    private ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
     private String dddBuscaAvancada = "Todos";
     private int idDDDBuscaAvancada = 0;
     private String subcategoriaBuscaAvancada = "Todos";
@@ -69,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
     private String buscaSimples = "";
     private ApiModels api = new ApiModels();
     private Usuarios usuario;
+    private DrawerLayout drawer;
     private int id = 0;
 
     @Override
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.container);
         appbar = (AppBarLayout) findViewById(R.id.appbar);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -252,6 +253,7 @@ public class MainActivity extends AppCompatActivity{
                             tabLayout.setupWithViewPager(viewPager);
 
                         } else if (id == R.id.menu_logoff) {
+                            drawer.closeDrawer(GravityCompat.START);
                             logoff();
                         }
 
@@ -264,34 +266,32 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        logoff();
-    }
-
-    private void logoff(){
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Logout")
-                    .setMessage("Você tem certeza que deseja sair do Befree?")
-                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
-
-                    })
-                    .setNegativeButton("Não", null)
-                    .show();
-
-            //super.onBackPressed();
+            logoff();
         }
     }
+
+    private void logoff(){
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Logout")
+                .setMessage("Você tem certeza que deseja sair do Befree?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
+                })
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -357,7 +357,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void busca() {
-        ApiModels api = new ApiModels();
         for (Busca b : searchFragment.results) {
             //Busca por titulo e descrição
             b.mostrar = b.titulo.toLowerCase().contains(buscaSimples.toLowerCase())
@@ -365,22 +364,6 @@ public class MainActivity extends AppCompatActivity{
 
             if (!"Todos".equals(categoriaBuscaAvancada) && b.mostrar){
                 b.mostrar = b.mostrar && subCategoriasDaCategoria.contains(b.idSubCategoria);
-//                ArrayList<Categoria> categorias = api.getCategorias();
-//                int idCategoria = 0;
-//                for (Categoria c: categorias) {
-//                    if (c.descricao.equals(categoriaBuscaAvancada)) {
-//                        idCategoria = c.idCategoria;
-//                        break;
-//                    }
-//                }
-//                SubCategoria[] subCategorias = api.getSubCategoriasVetorByIdCategoria(idCategoria);
-//                boolean subcategoriaExiste = false;
-//                for (int i = 0; i< subCategorias.length; i++)
-//                    if (subCategorias[i].idSubCategoria == b.idSubCategoria){
-//                        subcategoriaExiste = true;
-//                        break;
-//                    }
-//                b.mostrar = b.mostrar && subcategoriaExiste;
             }
 
             if (!"Todos".equals(dddBuscaAvancada)){
@@ -429,7 +412,6 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //usuario = new ApiModels().getUsuarioById(id);
         if (item.getItemId() == android.R.id.home){
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
@@ -487,10 +469,5 @@ public class MainActivity extends AppCompatActivity{
             }
             return null;
         }
-    }
-
-    public void onCheckboxClicked(View view) {
-        //CheckBox do Busca Avançada
-        //dialog.onCheckboxClicked(view);
     }
 }

@@ -1,7 +1,5 @@
 package tcc.befree.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -10,11 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -25,10 +24,8 @@ import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
-import tcc.befree.api.PostApiModels;
 import tcc.befree.api.PutApiModels;
 import tcc.befree.models.Categoria;
-import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
@@ -40,21 +37,25 @@ import tcc.befree.utils.Utils;
 
 public class EditServicoActivity extends AppCompatActivity {
 
-    protected Spinner spinnerDDDs;
-    protected Spinner spinnerCategorias;
-    protected Spinner spinnerSubCategorias;
-    private Button submit;
-    private TextView title;
-    protected View viewNome;
-    protected EditText editNome;
-    protected View viewDescricao;
-    protected EditText editDescricao;
-    private ImageView photo;
-    private static final int SELECT_FILE1 = 100;
-    private Bitmap bitmapUsuarioPerfil;
     private int idServico;
     private Servico servico;
+    private Servico servicoAlterado;
+    private Spinner spinnerDDDs;
+    private Spinner spinnerCategorias;
+    private Spinner spinnerSubCategorias;
+    private Spinner spinnerFormaPgto;
+    private Button submit;
+    private TextView title;
+    private TextView photoText;
+    private EditText editDescricao;
+    private EditText editValor;
+    private CheckBox editValorCheck;
+    private ImageView photo;
+    private EditText nome;
+    private EditText descricao;
     private SubCategoria subCategoria;
+    private Bitmap bitmapUsuarioPerfil;
+    private static final int SELECT_FILE1 = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,143 +67,86 @@ public class EditServicoActivity extends AppCompatActivity {
         idServico = loginActivityIntent.getInt("idServico");
         ApiModels api = new ApiModels();
         servico = api.getServicosById(idServico);
-        subCategoria = new ApiModels().getSubCategoriasByID(servico.getIdSubCategoria());
-
         spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
-        photo = (ImageView) findViewById(R.id.create_servico_unounce_photo);
-        viewNome = findViewById(R.id.create_servico_titulo);
-        viewDescricao = findViewById(R.id.create_servico_txtDescricao);
-        submit = (Button) findViewById(R.id.create_servico_BtnSubmitServico);
+        photoText = (TextView) findViewById(R.id.create_servico_photo_text);
         spinnerCategorias = (Spinner) findViewById(R.id.create_servico_spinnerCategoria);
         spinnerSubCategorias = (Spinner) findViewById(R.id.create_servico_spinnerSubCategoria);
+        spinnerFormaPgto = (Spinner) findViewById(R.id.create_servico_spinnerFormaPgto);
+        submit = (Button) findViewById(R.id.create_servico_BtnSubmitServico);
         title = (TextView) findViewById(R.id.create_servico_title);
+        editValor = (EditText) findViewById(R.id.create_servico_valor);
         editDescricao = (EditText) findViewById(R.id.create_servico_txtDescricao);
+        photo = (ImageView) findViewById(R.id.create_servico_unounce_photo);
+        nome = (EditText) findViewById(R.id.create_servico_titulo);
+        descricao = (EditText) findViewById(R.id.create_servico_txtDescricao);
+        editValorCheck = (CheckBox) findViewById(R.id.create_servico_valor_check);
+        subCategoria = new ApiModels().getSubCategoriasByID(servico.getIdSubCategoria());
 
         //popula o spinner do ddd
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
         arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDDDs.setAdapter(arrayAdapterDDD);
-        spinnerDDDs.setId(servico.getIdDDD());
         spinnerDDDs.setSelection(servico.getIdDDD() - 1);
-//        if (servico.idDDD > 16)
-//            spinnerDDDs.setSelection(servico.idDDD - 13);
-//        else
-//            spinnerDDDs.setSelection(servico.idDDD - 12);
-
         //popula o spinner de categoria
-        Categoria[] categorias = new ApiModels().getCategoriasVetor();
-        ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias);
+        ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
         arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategorias.setAdapter(arrayAdapterCategoria);
-//        Categoria categoria = null;
-//        for (Categoria c : categorias) {
-//            if (c.idCategoria == subCategoria.idCategoria) {
-//                categoria = c;
-//                break;
-//            }
-//        }
-//        if (!categoria.descricao.equals(null)) {
-//            int spinnerPosition = arrayAdapterCategoria.getPosition(categoria.descricao);
-            spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
-//        }
-
-
-
+        spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
         //popula restante
-
+        photoText.setText("Clique na foto para editar");
         Picasso.with(this).load(servico.getImagemServico()).into(photo);
-        ((EditText) viewNome).setText(servico.getTitulo());
-        ((EditText) viewDescricao).setText(servico.getDescricao());
-        submit.setText("Editar Anuncio");
+        nome.setText(servico.getTitulo());
+        descricao.setText(servico.getDescricao());
+        submit.setText("Editar Servico");
         title.setText(servico.getTitulo());
-
-        spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // TODO Auto-generated method stub
-                int idCategoria = ((Categoria) parent.getItemAtPosition(position)).idCategoria;
-                preencheSubCategoria(idCategoria);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-
-
-
-
-
-        //Botão Submit
-
-        /*submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-                Servico novaServico = new Servico();
-                String nome = editNome.getText().toString();
-                String descricao = editDescricao.getText().toString();
-
-                String ddd = spinnerDDDs.getSelectedItem().toString();
-                String subCategoria = spinnerSubCategorias.getSelectedItem().toString();
-                int idSubCategoria = ((SubCategoria) spinnerSubCategorias.getSelectedItem()).idSubCategoria;
-                String categoria = spinnerCategorias.getSelectedItem().toString();
-
-                if (ddd == null
-                        || "".equals(subCategoria)
-                        || "".equals(categoria)
-                        || "".equals(nome)
-                        || "".equals(descricao)) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(EditServicoActivity.this).create();
-                    alertDialog.setTitle("Todos os campos são obrigatórios");
-                    alertDialog.setMessage("Por favor, preencha todos os campos");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                } else {
-                    novaServico.descricao = descricao;
-                    novaServico.titulo = nome;
-                    novaServico.idDDD = ((DDD) spinnerDDDs.getSelectedItem()).id;
-                    novaServico.idSubCategoria = idSubCategoria;
-                    novaServico.idUsuario = idUsuario;
-                    try {
-                        novaServico.imagemServico = Utils.convert(bitmapUsuarioPerfil);
-                    } catch (Exception e) {
-                        novaServico.imagemServico = "";
-                    }
-                    new PostApiModels().postServico(novaServico);
-
-                }
-            }
-        });*/
+        spinnerFormaPgto.setSelection(servico.getFormaPgto());
+        if(servico.getPreco() == 0){
+            editValor.setFocusable(false);
+            editValor.setFocusableInTouchMode(false);
+            editValorCheck.setChecked(true);
+        }else {
+            editValor.setFocusable(true);
+            editValor.setFocusableInTouchMode(true);
+            editValor.setText("RS:" + servico.getPreco());
+            editValorCheck.setChecked(false);
+        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Servico servicoAlterado = servico;
+                servicoAlterado = servico;
                 servicoAlterado.setIdDDD(spinnerDDDs.getSelectedItemPosition() + 1);
-//                if (spinnerDDDs.getSelectedItemPosition() > 5)
-//                    servicoAlterado.idDDD  = spinnerDDDs.getSelectedItemPosition() + 13;
-//                else
-//                    servicoAlterado.idDDD = spinnerDDDs.getSelectedItemPosition() + 12;
                 servicoAlterado.setDescricao(editDescricao.getText().toString());
-                servicoAlterado.setTitulo(((EditText) viewNome).getText().toString());
+                servicoAlterado.setTitulo(nome.getText().toString());
+                try {
+                    servicoAlterado.setPreco(Float.parseFloat(editValor.getText().toString()));
+                }catch (Exception e){
+                    servicoAlterado.setPreco(0);
+                }
+                servicoAlterado.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
                 if(bitmapUsuarioPerfil!= null)
                     servicoAlterado.setImagemServico(Utils.convert(bitmapUsuarioPerfil));
                 int idSubCategoria = ((SubCategoria)spinnerSubCategorias.getSelectedItem()).idSubCategoria;
                 servicoAlterado.setIdSubCategoria(idSubCategoria);
-                new PutApiModels().putServico(servicoAlterado);
-                Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
+                threadUpdate();
+                Toast toast = Toast.makeText(getApplicationContext(), "Editando o servico...", Toast.LENGTH_LONG);
                 toast.show();
                 onBackPressed();
+            }
+        });
+
+        editValorCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if(!isChecked){
+                    editValor.setText("");
+                    editValor.setFocusable(true);
+                    editValor.setFocusableInTouchMode(true);
+                }else {
+                    editValor.setText("");
+                    editValor.setFocusable(false);
+                    editValor.setFocusableInTouchMode(false);
+                }
             }
         });
 
@@ -212,6 +156,36 @@ public class EditServicoActivity extends AppCompatActivity {
                 InsertImageDialog image = new InsertImageDialog(EditServicoActivity.this);
                 image.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 image.show();
+            }
+        });
+
+        spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int idCategoria = ((Categoria) parent.getItemAtPosition(position)).idCategoria;
+                preencheSubCategoria(idCategoria);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {}
+        });
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                new PutApiModels().putServico(servicoAlterado);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), "Servico editado com sucesso!", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
     }
@@ -232,11 +206,9 @@ public class EditServicoActivity extends AppCompatActivity {
         }
     }
 
-    //private method of your class
     private int getIndex(Spinner spinner, String myString)
     {
         int index = 0;
-
         for (int i=0;i<spinner.getCount();i++){
             if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
                 index = i;
@@ -247,14 +219,11 @@ public class EditServicoActivity extends AppCompatActivity {
     }
 
     protected void preencheSubCategoria(int idCategoria) {
-        //popula o spinner de subcategoria - não está populando certo
         ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoria(idCategoria));
         arrayAdapterSubCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSubCategorias.setAdapter(arrayAdapterSubCategoria);
-//        if (!subCategoria.descricao.equals(null)) {
-            int spinnerPosition = getIndex(spinnerSubCategorias, subCategoria.descricao);
-            spinnerSubCategorias.setSelection(spinnerPosition);
-//        }
+        int spinnerPosition = getIndex(spinnerSubCategorias, subCategoria.descricao);
+        spinnerSubCategorias.setSelection(spinnerPosition);
     }
 
     @Override

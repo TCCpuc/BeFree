@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
+import tcc.befree.activities.GenderActivity;
 import tcc.befree.api.PutApiModels;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Evento;
@@ -23,7 +24,7 @@ import tcc.befree.models.Evento;
 
 public class GenderServiceDialog  extends Dialog {
 
-    private Activity c;
+    private GenderActivity c;
     private TextView userName;
     private TextView serviceTitle;
     private TextView serviceDescription;
@@ -33,7 +34,7 @@ public class GenderServiceDialog  extends Dialog {
     private Button ok;
     private Evento evento;
 
-    public GenderServiceDialog(Activity a, Evento evento) {
+    public GenderServiceDialog(GenderActivity a, Evento evento) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
@@ -61,7 +62,8 @@ public class GenderServiceDialog  extends Dialog {
             public void onClick(View v) {
                 PutApiModels api = new PutApiModels();
                 evento.setSituacaoEvento(1);
-                api.putStatusEvento(evento);
+                api.putEvento(evento);
+                c.setAdapter();
                 dismiss();
             }
         });
@@ -70,7 +72,8 @@ public class GenderServiceDialog  extends Dialog {
             public void onClick(View v) {
                 PutApiModels api = new PutApiModels();
                 evento.setSituacaoEvento(2);
-                api.putStatusEvento(evento);
+                api.putEvento(evento);
+                c.setAdapter();
                 dismiss();
             }
         });
@@ -89,6 +92,7 @@ public class GenderServiceDialog  extends Dialog {
 
     @Override
     public void onBackPressed() {
+        c.setAdapter();
         dismiss();
     }
 }

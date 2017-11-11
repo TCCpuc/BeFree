@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -81,8 +82,6 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
         nota = (TextView) convertView.findViewById(R.id.item_service_evaluation_note);
         ratingBar = (RatingBar) convertView.findViewById(R.id.item_service_ratingBar);
 
-        ratingBar.setRating(busca.getMediaAvalicao() / 2);
-        nota.setText(busca.getMediaAvalicao() + "");
         Picasso.with(getContext()).load(busca.imagemBusca).into(imgBusca);
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
@@ -108,6 +107,10 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new DeleteApiModels().deleteBuscaByID(busca.idBusca);
+                                remove(busca);
+                                notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Busca excluida!!", Toast.LENGTH_LONG).show();
+                                SearchAdapter.this.notifyDataSetChanged();
                             }
 
                         })
@@ -133,7 +136,7 @@ public class SearchAdapter extends ArrayAdapter<Busca> {
     public void setVisibilityLayout(boolean edit){
         //LAYOUT PADRAO DE AVALIAÇÃO
         if(!edit){
-            padraoLayout.setVisibility(View.VISIBLE);
+            padraoLayout.setVisibility(View.GONE);
             editLayout.setVisibility(View.GONE);
         }else {
             padraoLayout.setVisibility(View.GONE);

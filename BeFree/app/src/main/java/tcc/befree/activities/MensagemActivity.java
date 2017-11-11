@@ -30,13 +30,14 @@ public class MensagemActivity extends AppCompatActivity {
     private ListView messagesContainer;
     private ImageButton sendBtn;
     private MensagemAdapter adapter;
-    private List<Mensagem> chatHistory;
+    private ArrayList<Mensagem> chatHistory;
     private int idUsuarioOrigem;
     private int idChat;
     private int isMe;
     private int idUsuarioDestino;
     private Bundle bundle;
     private TextView userName;
+    private ApiModels api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class MensagemActivity extends AppCompatActivity {
         messageET = (EditText) findViewById(R.id.messageEdit);
         sendBtn = (ImageButton) findViewById(R.id.chatSendButton);
         userName = (TextView) findViewById(R.id.messages_username);
+        api = new ApiModels();
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         Intent intent = this.getIntent();
@@ -57,8 +59,46 @@ public class MensagemActivity extends AppCompatActivity {
         isMe = bundle.getInt("isMe");
         idUsuarioDestino = bundle.getInt("idUsuarioDestino");
         userName.setText(new ApiModels().getUsuarioById(idUsuarioDestino).nomeUsuario);
-        loadHistory();
+        chatHistory = (new ApiModels()).getMensagensDoChat(idChat);
+        //loadHistory(chatHistory);
         initControls();
+        adapter = new MensagemAdapter(MensagemActivity.this, chatHistory, idUsuarioOrigem);
+        messagesContainer.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        scroll();
+        threadUpdate();
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    List<Mensagem> newMessage = api.getMensagensDoChat(idChat);
+                    if(chatHistory.size() != (newMessage.size()) ){
+                        for (chatHistory.size();chatHistory.size()<newMessage.size();){
+                            chatHistory.add(newMessage.get(chatHistory.size()));
+                            threadUI();
+                        }
+                    }
+                }
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+                scroll();
+            }
+        });
     }
 
     @Override
@@ -84,13 +124,14 @@ public class MensagemActivity extends AppCompatActivity {
                 //newMessage.setDate(DateFormat.getDateTimeInstance().format(new Date()));
                 //newMessage.setMe(true);
 
-
                 try {
                     newMessage.setUsuario_origem(idUsuarioOrigem);
                     newMessage.setUsuario_destino(idUsuarioDestino);
                     newMessage.setMe(true);
                     //newMessage.setData(new java.sql.Date(new java.util.Date().getTime()));
                     newMessage.setChat(idChat);
+                    scroll();
+                    //chatHistory.add(newMessage);
                 }catch(Exception e){
                     System.err.print("deu erro no bundle chat");
                 }
@@ -105,29 +146,22 @@ public class MensagemActivity extends AppCompatActivity {
 
     public void displayMessage(Mensagem message) {
         adapter.add(message);
-        adapter.notifyDataSetChanged();
-        scroll();
+
     }
 
     private void scroll() {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
-    private void loadHistory() {
+    private void loadHistory(List<Mensagem> l) {
 
-        chatHistory = (new ApiModels()).getMensagensDoChat(idChat);
 
-        adapter = new MensagemAdapter(MensagemActivity.this, new ArrayList<Mensagem>());
-        messagesContainer.setAdapter(adapter);
 
-        for (int i = 0; i < chatHistory.size(); i++) {
 
-            Mensagem message = chatHistory.get(i);
+        for (int i = 0; i < l.size(); i++) {
 
-            if(idUsuarioOrigem != message.getUsuario_origem()){
-                message.setMe(false);
-            }else
-                message.setMe(true);
+            Mensagem message = l.get(i);
+
 
             displayMessage(message);
         }

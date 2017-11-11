@@ -1,6 +1,5 @@
 package tcc.befree.telas.Dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +8,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tcc.befree.R;
+import tcc.befree.activities.GenderActivity;
 import tcc.befree.api.PutApiModels;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Evento;
@@ -23,7 +24,7 @@ import tcc.befree.models.Evento;
 
 public class GenderEvaluationDialog   extends Dialog {
 
-    private Activity c;
+    private GenderActivity c;
     private TextView userName;
     private TextView serviceTitle;
     private CircleImageView imagem;
@@ -35,11 +36,12 @@ public class GenderEvaluationDialog   extends Dialog {
     private ImageButton down;
     private Evento evento;
 
-    public GenderEvaluationDialog(Activity a, Evento evento) {
+    public GenderEvaluationDialog(GenderActivity a, Evento evento) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
         this.evento = evento;
+
     }
 
     @Override
@@ -99,48 +101,29 @@ public class GenderEvaluationDialog   extends Dialog {
         });
         nota.setHint((notaStar.getRating() * 2) + "");
         Picasso.with(c).load(evento.getImagem()).into(imagem);
-        /*
-        nota.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.equals(",")){
-                    s = ".";
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (Float.parseFloat(s.toString()) > 10){
-                    nota.setText(10 + "");
-                }else if(Float.parseFloat(s.toString()) < 0){
-                    nota.setText(0 + "");
-                }
-                try {
-                    notaStar.setRating(Float.parseFloat(nota.getText().toString())/2);
-                }catch (Exception e){
-
-                }
-            }
-        });*/
         userName.setText(evento.getNomeUsuarioContratante());
         serviceTitle.setText(evento.getTitulo());
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PutApiModels api = new PutApiModels();
-                evento.setNotaAvalicao(Float.parseFloat(nota.getText().toString()));
-                api.putNotaEvento(evento);
-                dismiss();
+                try{
+                    PutApiModels api = new PutApiModels();
+                    evento.setNotaAvaliacao(Float.parseFloat(nota.getText().toString()));
+                    evento.setAvaliado(true);
+                    api.putEvento(evento);
+                    c.setAdapter();
+                    Toast.makeText(c.getApplicationContext(), evento.getDtEvento(), Toast.LENGTH_LONG).show();
+                    dismiss();
+                }catch (Exception e){
+                    Toast.makeText(c.getApplicationContext(), "Escolha uma nota", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         refuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                c.setAdapter();
                 dismiss();
             }
         });
@@ -148,6 +131,8 @@ public class GenderEvaluationDialog   extends Dialog {
 
     @Override
     public void onBackPressed() {
+        c.setAdapter();
         dismiss();
     }
+
 }

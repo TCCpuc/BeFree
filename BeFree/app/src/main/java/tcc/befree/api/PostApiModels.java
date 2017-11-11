@@ -40,7 +40,8 @@ public class PostApiModels implements Runnable{
             //jSonObject.put("imagemServico",Utils.criptografarBase64(servico.imagemServico));
             jSonObject.put("imagemServico",servico.getImagemServico());
             jSonObject.put("idDDD",servico.getIdDDD());
-
+            jSonObject.put("preco",servico.getPreco());
+            jSonObject.put("formaPagto",servico.getFormaPgto());
             thread.start();
             controlaThread();
             thread.interrupt();
@@ -119,6 +120,8 @@ public class PostApiModels implements Runnable{
             //jSonObject.put("imagemBusca",Utils.criptografarBase64(busca.imagemBusca));
             jSonObject.put("imagemBusca",busca.imagemBusca);
             jSonObject.put("idDDD",busca.idDDD);
+            jSonObject.put("preco",busca.getPreco());
+            jSonObject.put("formaPagto",busca.getFormaPgto());
 
             thread.start();
             controlaThread();
@@ -134,13 +137,16 @@ public class PostApiModels implements Runnable{
 
     public boolean postEvento(Evento evento){
         Thread thread = new Thread(this);
-        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Evento/PostEvento/";
+        urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Eventos/PostEvento/";
 
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idServico",evento.getIdServico());
             jSonObject.put("idUsuarioContratante",evento.getIdUsuarioContratante());
-            jSonObject.put("dtEvento",evento.getDtEvento());
+            String trashData = evento.getDtEvento();
+            String formatTrash[] = trashData.split("/");
+            String data = formatTrash[2] + "-" + formatTrash[1] + "-" + formatTrash[0];
+            jSonObject.put("dtEvento",data);
             jSonObject.put("hrInicio",evento.getHrInicio());
             jSonObject.put("hrFinal",evento.getHrFinal());
             jSonObject.put("avaliado",evento.isAvaliado());

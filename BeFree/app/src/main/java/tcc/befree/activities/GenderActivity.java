@@ -1,6 +1,5 @@
 package tcc.befree.activities;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -55,7 +54,7 @@ public class GenderActivity extends AppCompatActivity {
 
         notEventos = false;
         api = new ApiModels();
-        gender = api.getEventosbyIdUsuario(idUsuario);// enviar id do usuario
+
         day = (ListView) findViewById(R.id.gender_day);
 
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,8 +68,12 @@ public class GenderActivity extends AppCompatActivity {
 
             }
         });
+        setAdapter();
+    }
 
-        day.setAdapter(new GenderActivity.DayAdapter());
+    public void setAdapter(){
+        gender = api.getEventosbyIdUsuario(idUsuario);// enviar id do usuario
+        this.day.setAdapter(new GenderActivity.DayAdapter());
     }
 
     @Override
@@ -83,7 +86,7 @@ public class GenderActivity extends AppCompatActivity {
         public int getCount() {
             //RETORNA QUANTOS EVENTOS/DIA ENCONTROU
             if(gender.size() == 0){
-                notEventos = true;
+                notEventos = true;  //SE NAO ENCONTRAR EVENTOS EMITE MENSSAGEM
                 return 1;
             }else {
                 return gender.size();
@@ -138,8 +141,12 @@ public class GenderActivity extends AppCompatActivity {
                 descricao.setText(ev.getConteudo());
                 String horario;
 
-                if(ev.isAvaliado()){
-                    tempo.setText("AVALIADO\n\n" + ev.getNotaAvalicao());
+                if(ev.isAvaliado()) {
+                    tempo.setText("AVALIADO\n\n" + ev.getNotaAvaliacao());
+                }else if(oldDate(ev.getDtEvento()) && (ev.getSituacaoEvento() == 0)){
+                    ev.setSituacaoEvento(2);
+                    tempo.setText("RECUSADO");
+                    backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
                 }else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2){
                     defaultLayout.setVisibility(View.GONE);
                     avaliarLayout.setVisibility(View.VISIBLE);

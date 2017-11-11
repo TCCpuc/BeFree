@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -83,8 +84,8 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
         editLayout = (LinearLayout) convertView.findViewById(R.id.item_service_edit_layout);
         ratingBar = (RatingBar) convertView.findViewById(R.id.item_service_ratingBar);
 
-        ratingBar.setRating(servico.getMediaAvalicao() / 2);
-        nota.setText(servico.getMediaAvalicao() + "");
+        ratingBar.setRating(servico.getMediaAvaliacao() / 2);
+        nota.setText(servico.getMediaAvaliacao() + "");
         Picasso.with(getContext()).load(servico.getImagemServico()).into(imageView);
         editButton.setOnClickListener(new View.OnClickListener() {
             Intent intent = null;
@@ -109,6 +110,9 @@ public class ServiceAdapter extends ArrayAdapter<Servico> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 new DeleteApiModels().deleteServicosById(servico.getIdServico());
+                                remove(servico);
+                                notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Serviço excluido!!", Toast.LENGTH_LONG).show();
                             }
 
                         })

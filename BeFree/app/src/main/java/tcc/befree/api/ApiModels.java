@@ -1,24 +1,17 @@
 package tcc.befree.api;
 
 
-import android.os.AsyncTask;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import tcc.befree.models.*;
-import tcc.befree.utils.Utils;
 
 /**
  * Created by Guilherme Domingues on 5/20/2017.
@@ -194,6 +187,11 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
+                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
+                servico.setDescCategoria("descCategoria");
+                servico.setDescSubCategoria("descSubCategoria");
 
                 arrayServicos.add(servico);
             }
@@ -229,6 +227,11 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
+                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
+                servico.setDescCategoria("descCategoria");
+                servico.setDescSubCategoria("descSubCategoria");
 
             }
 
@@ -263,6 +266,11 @@ public class ApiModels implements Runnable{
                 servico.setIdStatus(jSonObject.getInt("idStatus"));
                 servico.setImagemServico(jSonObject.getString("imagemServico"));
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
+                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
+                servico.setDescCategoria("descCategoria");
+                servico.setDescSubCategoria("descSubCategoria");
 
                 arrayServicos.add(servico);
             }
@@ -300,6 +308,10 @@ public class ApiModels implements Runnable{
                 busca.idStatus = jSonObject.getInt("idStatus");
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
+                busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                busca.setFormaPgto(jSonObject.getInt("formaPagto"));
+                busca.setDescCategoria("descCategoria");
+                busca.setDescSubCategoria("descSubCategoria");
                 arrayBuscas.add(busca);
             }
 
@@ -334,6 +346,10 @@ public class ApiModels implements Runnable{
                 busca.idStatus = jSonObject.getInt("idStatus");
                 busca.imagemBusca = jSonObject.getString("imagemBusca");
                 busca.idDDD = jSonObject.getInt("idDDD");
+                busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                busca.setFormaPgto(jSonObject.getInt("formaPagto"));
+                busca.setDescCategoria("descCategoria");
+                busca.setDescSubCategoria("descSubCategoria");
                 arrayBuscas.add(busca);
             }
 
@@ -364,6 +380,10 @@ public class ApiModels implements Runnable{
             busca.idStatus = jSonObject.getInt("idStatus");
             busca.imagemBusca = jSonObject.getString("imagemBusca");
             busca.idDDD = jSonObject.getInt("idDDD");
+            busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+            busca.setFormaPgto(jSonObject.getInt("formaPagto"));
+            busca.setDescCategoria("descCategoria");
+            busca.setDescSubCategoria("descSubCategoria");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -786,29 +806,8 @@ public class ApiModels implements Runnable{
         return existe;
     }
 
-    public List<Mensagem> getMensagensDoChat(int idDoChat){
-//--------------
-//      MOCK:
-//
-//        List<Mensagem> l = new ArrayList<Mensagem>();
-//        Mensagem c = new Mensagem();
-//        c.setId(1);
-//        c.setChat(1);
-//        //c.setMe(true);
-//        c.setMensagem("oi");
-//        c.setUsuario_origem(2033);
-//        c.setUsuario_destino(1017);
-//        l.add(c);
-//        c = new Mensagem();
-//        c.setId(2);
-//        c.setChat(1);
-//        //c.setMe(false);
-//        c.setMensagem("oi tb");
-//        c.setUsuario_origem(1017);
-//        c.setUsuario_destino(2033);
-//        l.add(c);
-//        return l;
-//--------------
+    public ArrayList<Mensagem> getMensagensDoChat(int idDoChat){
+
         ArrayList<Mensagem> arrayMensagens= new ArrayList<Mensagem>();
 
         try{
@@ -926,6 +925,7 @@ public class ApiModels implements Runnable{
                 h.setAvaliado(jSonObject.getBoolean("avaliado"));
                 h.setSituacaoEvento(jSonObject.getInt("situacaoEvento"));
                 h.setTitulo(jSonObject.getString("titulo"));
+                h.setNotaAvaliacao(Float.parseFloat(jSonObject.getString("notaAvaliacao")));
                 h.setConteudo(jSonObject.getString("descricao"));
                 h.setImagem(jSonObject.getString("imagemServico"));
                 h.setNomeUsuarioContratante(jSonObject.getString("nomeUsuario"));
@@ -1033,6 +1033,10 @@ public class ApiModels implements Runnable{
                     busca.idStatus = jSonObject.getInt("idStatus");
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
+                    busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    busca.setFormaPgto(jSonObject.getInt("formaPagto"));
+                    busca.setDescCategoria("descCategoria");
+                    busca.setDescSubCategoria("descSubCategoria");
                     arrayBuscas.add(busca);
                 }
             }
@@ -1048,13 +1052,32 @@ public class ApiModels implements Runnable{
         ArrayList<Servico> arrayServicos = new ArrayList<Servico>();
 
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GettbServicoes";
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GetVwServicos/?usuario=" + idUsuario;
 
             Thread thread = new Thread(this);
             thread.start();
             controlaThread();
             thread.interrupt();
             workaroundSleepThread(thread);
+            for (int i = 0; i < jSonArray.length();i++){
+                JSONObject jSonObject = jSonArray.getJSONObject(i);
+                Servico servico = new Servico();
+                servico.setIdServico(jSonObject.getInt("idServico"));
+                servico.setTitulo(jSonObject.getString("titulo"));
+                servico.setDescricao(jSonObject.getString("descricao"));
+                servico.setIdUsuario(jSonObject.getInt("idUsuario"));
+                servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
+                servico.setIdStatus(jSonObject.getInt("idStatus"));
+                servico.setImagemServico(jSonObject.getString("imagemServico"));
+                servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
+                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
+                servico.setDescCategoria("descCategoria");
+                servico.setDescSubCategoria("descSubCategoria");
+                arrayServicos.add(servico);
+            }
+            /*
             for (int i = 0; i < jSonArray.length();i++){
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
@@ -1068,11 +1091,17 @@ public class ApiModels implements Runnable{
                     servico.setIdStatus(jSonObject.getInt("idStatus"));
                     servico.setImagemServico(jSonObject.getString("imagemServico"));
                     servico.setIdDDD(jSonObject.getInt("idDDD"));
-                    //servico.setMediaAvalicao(jSonObject.getInt("mediaAvaliacao"));
+                    servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    servico.setFormaPgto(jSonObject.getInt("formaPagto"));
+                    servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
+                    servico.setDescCategoria("descCategoria");
+                    servico.setDescSubCategoria("descSubCategoria");
 
                     arrayServicos.add(servico);
                 }
             }
+            */
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1105,6 +1134,10 @@ public class ApiModels implements Runnable{
                     busca.idStatus = jSonObject.getInt("idStatus");
                     busca.imagemBusca = jSonObject.getString("imagemBusca");
                     busca.idDDD = jSonObject.getInt("idDDD");
+                    busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                    busca.setFormaPgto(jSonObject.getInt("formaPagto"));
+                    busca.setDescCategoria("descCategoria");
+                    busca.setDescSubCategoria("descSubCategoria");
                     arrayBuscas.add(busca);
                 }
             }
@@ -1120,7 +1153,7 @@ public class ApiModels implements Runnable{
         ArrayList<Servico> arrayServicos = new ArrayList<Servico>();
 
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GettbServicoes";
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GetVwServicosByUsuario/?usuario=" + idUsuario;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -1130,19 +1163,20 @@ public class ApiModels implements Runnable{
             for (int i = 0; i < jSonArray.length();i++){
                 JSONObject jSonObject = jSonArray.getJSONObject(i);
                 Servico servico = new Servico();
-
-                if (jSonObject.getInt("idUsuario") == idUsuario) {
-                    servico.setIdServico(jSonObject.getInt("idServico"));
-                    servico.setTitulo(jSonObject.getString("titulo"));
-                    servico.setDescricao(jSonObject.getString("descricao"));
-                    servico.setIdUsuario(jSonObject.getInt("idUsuario"));
-                    servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
-                    servico.setIdStatus(jSonObject.getInt("idStatus"));
-                    servico.setImagemServico(jSonObject.getString("imagemServico"));
-                    servico.setIdDDD(jSonObject.getInt("idDDD"));
-
-                    arrayServicos.add(servico);
-                }
+                servico.setIdServico(jSonObject.getInt("idServico"));
+                servico.setTitulo(jSonObject.getString("titulo"));
+                servico.setDescricao(jSonObject.getString("descricao"));
+                servico.setIdUsuario(jSonObject.getInt("idUsuario"));
+                servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
+                servico.setIdStatus(jSonObject.getInt("idStatus"));
+                servico.setImagemServico(jSonObject.getString("imagemServico"));
+                servico.setIdDDD(jSonObject.getInt("idDDD"));
+                servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
+                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
+                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
+                servico.setDescCategoria("descCategoria");
+                servico.setDescSubCategoria("descSubCategoria");
+                arrayServicos.add(servico);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1174,7 +1208,7 @@ public class ApiModels implements Runnable{
     public Usuarios getUsuarioByCodigoSeguranca(String codigo) {
         List<Usuarios> usuarios = getUsuarios();
         for (Usuarios u:
-             usuarios) {
+                usuarios) {
             if (codigo.equals(u.codigoSeguranca))
                 return u;
         }

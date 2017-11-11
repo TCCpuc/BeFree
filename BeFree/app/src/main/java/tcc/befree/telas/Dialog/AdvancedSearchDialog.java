@@ -70,7 +70,6 @@ public class AdvancedSearchDialog extends Dialog implements
 
     protected void preencheSubCategoria(int idCategoria){
 
-        ArrayAdapter<CharSequence> spinnerSubCategorias = ArrayAdapter.createFromResource(c,R.array.Bolas, android.R.layout.simple_spinner_dropdown_item);
         //popula o spinner de subcategoria
         ArrayAdapter arrayAdapterSubCategoria = new ArrayAdapter(c, android.R.layout.simple_spinner_item, new ApiModels().getSubCategoriasVetorByIdCategoriaComValorDefault(idCategoria));
         arrayAdapterSubCategoria.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
@@ -78,8 +77,6 @@ public class AdvancedSearchDialog extends Dialog implements
     }
 
     public void Populate(){
-        ArrayAdapter<CharSequence> spinnerCategorias = ArrayAdapter.createFromResource(c,R.array.Services, android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter<CharSequence> spinnerDDDs = ArrayAdapter.createFromResource(c,R.array.Bolas, android.R.layout.simple_spinner_dropdown_item);
         //popula o spinner do ddd
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(c, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetorComValorDefault());
         arrayAdapterDDD.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
