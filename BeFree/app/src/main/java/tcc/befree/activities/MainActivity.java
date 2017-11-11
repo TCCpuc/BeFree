@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity{
     private AppBarLayout appbar;
     private String categoriaBuscaAvancada = "Todos";
     private int idcategoriaBuscaAvancada = 0;
-    ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
+    private ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
     private String dddBuscaAvancada = "Todos";
     private int idDDDBuscaAvancada = 0;
     private String subcategoriaBuscaAvancada = "Todos";
@@ -357,7 +357,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void busca() {
-        ApiModels api = new ApiModels();
         for (Busca b : searchFragment.results) {
             //Busca por titulo e descrição
             b.mostrar = b.titulo.toLowerCase().contains(buscaSimples.toLowerCase())
@@ -365,22 +364,6 @@ public class MainActivity extends AppCompatActivity{
 
             if (!"Todos".equals(categoriaBuscaAvancada) && b.mostrar){
                 b.mostrar = b.mostrar && subCategoriasDaCategoria.contains(b.idSubCategoria);
-//                ArrayList<Categoria> categorias = api.getCategorias();
-//                int idCategoria = 0;
-//                for (Categoria c: categorias) {
-//                    if (c.descricao.equals(categoriaBuscaAvancada)) {
-//                        idCategoria = c.idCategoria;
-//                        break;
-//                    }
-//                }
-//                SubCategoria[] subCategorias = api.getSubCategoriasVetorByIdCategoria(idCategoria);
-//                boolean subcategoriaExiste = false;
-//                for (int i = 0; i< subCategorias.length; i++)
-//                    if (subCategorias[i].idSubCategoria == b.idSubCategoria){
-//                        subcategoriaExiste = true;
-//                        break;
-//                    }
-//                b.mostrar = b.mostrar && subcategoriaExiste;
             }
 
             if (!"Todos".equals(dddBuscaAvancada)){
@@ -429,7 +412,6 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //usuario = new ApiModels().getUsuarioById(id);
         if (item.getItemId() == android.R.id.home){
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
@@ -487,10 +469,5 @@ public class MainActivity extends AppCompatActivity{
             }
             return null;
         }
-    }
-
-    public void onCheckboxClicked(View view) {
-        //CheckBox do Busca Avançada
-        //dialog.onCheckboxClicked(view);
     }
 }
