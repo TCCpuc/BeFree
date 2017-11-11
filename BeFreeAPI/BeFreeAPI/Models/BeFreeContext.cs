@@ -24,82 +24,11 @@ namespace BeFreeAPI.Models
         public virtual DbSet<Evento> tbEventos { get; set; }
         public virtual DbSet<VwChatUsuarios> vw_chat_usuario { get; set; }
         public virtual DbSet<VwEventoUsuario> vw_evento_usuario { get; set; }
+        public virtual DbSet<vwServico> vw_servico { get; set; }
+
+        public virtual DbSet<VwBusca> vw_busca { get; set; }
 
         public System.Data.Entity.DbSet<BeFreeAPI.Models.DDD> tbDDDs { get; set; }
 
-        /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Cidade>()
-                .Property(e => e.codMunicipio)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Cidade>()
-                .Property(e => e.nomeMunicipio)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Cidade>()
-                .Property(e => e.codUF)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Estado>()
-                .Property(e => e.codUF)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Estado>()
-                .Property(e => e.siglaUF)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Estado>()
-                .Property(e => e.nomeEstado)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Usuario>()
-                .Property(e => e.nomeUsuario)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Usuario>()
-                .Property(e => e.cpf)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Usuario>()
-                .Property(e => e.bairro)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Usuario>()
-                .Property(e => e.logradouro)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Usuario>()
-                .Property(e => e.numero)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Usuario>()
-                .Property(e => e.cep)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<tbBusca>()
-                .Property(e => e.titulo)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<tbBusca>()
-                .Property(e => e.descricao)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<tbCategoria>()
-                .Property(e => e.descricao)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<tbServico>()
-                .Property(e => e.titulo)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<tbServico>()
-                .Property(e => e.descricao)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<tbSubCategoria>()
-                .Property(e => e.descricao)
-                .IsUnicode(false);
-        }*/
     }
 }

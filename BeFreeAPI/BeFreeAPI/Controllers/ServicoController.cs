@@ -23,7 +23,7 @@ namespace BeFreeAPI.Controllers
         public IQueryable<Servico> GettbServicoes()
         {
             return db.tbServicoes;
-        }
+        }        
 
         // GET: api/Servico/5
         [ResponseType(typeof(Servico))]
@@ -208,6 +208,32 @@ namespace BeFreeAPI.Controllers
                 nomeImage = ConfigurationManager.AppSettings["imagesPathSemImagem"].ToString(); /** Recebe a imagem padrão (SEM IMAGEM) **/
 
             return nomeImage;
+        }
+
+        [ResponseType(typeof(vwServico))]
+        public IHttpActionResult GetVwServicos(int usuario)
+        {
+
+            String str = "SELECT * " +
+                         "FROM vw_servico AS S " +
+                         "WHERE S.idUsuario <> " + usuario;
+
+            var buscar = db.Database.SqlQuery<vwServico>(str);
+
+            return Ok(buscar);
+        }
+
+        [ResponseType(typeof(vwServico))]
+        public IHttpActionResult GetVwServicosByUsuario(int usuario)
+        {
+
+            String str = "SELECT * " +
+                         "FROM vw_servico AS S " +
+                         "WHERE S.idUsuario = " + usuario;
+
+            var buscar = db.Database.SqlQuery<vwServico>(str);
+
+            return Ok(buscar);
         }
     }
 }

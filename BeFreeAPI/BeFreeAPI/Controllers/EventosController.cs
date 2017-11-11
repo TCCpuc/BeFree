@@ -50,12 +50,13 @@ namespace BeFreeAPI.Controllers
 
 
         // PUT: api/Eventos/5
+        [HttpPost]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutEvento(int id, Evento evento)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Usuário inválido");
             }
 
             if (id != evento.idEvento)
@@ -94,8 +95,14 @@ namespace BeFreeAPI.Controllers
             }
 
             db.tbEventos.Add(evento);
-            db.SaveChanges();
-
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception err) {
+                String erro = err.Message;
+                return BadRequest();
+            }
             return CreatedAtRoute("DefaultApi", new { id = evento.idEvento }, evento);
         }
 

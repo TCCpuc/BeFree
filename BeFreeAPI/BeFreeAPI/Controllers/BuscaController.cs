@@ -201,5 +201,29 @@ namespace BeFreeAPI.Controllers
 
             return nomeImage;
         }
+
+        [ResponseType(typeof(VwBusca))]
+        public IHttpActionResult GetVwBusca(int usuario)
+        {
+            String str = "SELECT * " +
+                         "FROM vw_busca AS B " +
+                         "WHERE B.idUsuario <> " + usuario;
+
+            var buscar = db.Database.SqlQuery<VwBusca>(str);
+
+            return Ok(buscar);
+        }
+
+        [ResponseType(typeof(VwBusca))]
+        public IHttpActionResult GetVwBuscaByUsuario(int usuario)
+        {
+            String str = "SELECT * " +
+                         "FROM vw_busca AS B " +
+                         "WHERE B.idUsuario = " + usuario;
+
+            var buscar = db.Database.SqlQuery<VwBusca>(str);
+
+            return Ok(buscar);
+        }
     }
 }

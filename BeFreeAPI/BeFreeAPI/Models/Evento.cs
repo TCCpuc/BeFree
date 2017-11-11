@@ -16,13 +16,13 @@ namespace BeFreeAPI.Models
 
         public int idUsuarioContratante { get; set; }
 
-        public int dtEvento { get; set; }
+        public DateTime dtEvento { get; set; }
 
         public int? hrInicio { get; set; }
 
         public int? hrFinal { get; set; }
 
-        public decimal? notaAvaliacao { get; set; }
+        public decimal notaAvaliacao { get; set; }
 
         public bool? avaliado { get; set; }
 
