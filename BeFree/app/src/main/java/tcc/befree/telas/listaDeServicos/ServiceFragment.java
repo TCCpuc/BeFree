@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -27,12 +28,13 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
     private ViewGroup container;
     private LayoutInflater inflater;
     private View rootView;
-    private boolean realizouBusca = false;
-    public void setRealizouBusca(boolean realizouBusca) {
-        this.realizouBusca = realizouBusca;
-    }
+    private boolean realizouBusca;
+    private ListView ls;
     private ServiceAdapter adapter;
+    private boolean meusAnuncios;
     public ArrayList<Servico> results = new ArrayList<>();
+    private ArrayList<Servico> valuesComMostrarTrue;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,29 +58,10 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
 
     @NonNull
     public void getLista() {
-        boolean meusAnuncios = false;
-        ServiceAdapter adapter;ApiModels api = new ApiModels();
-        if (!this.realizouBusca) {
-            if (id == 0) {
-                results = api.getServicosExcetoDoUsuario(idUsuario);
-                meusAnuncios = false;
-            } else {
-                results = api.getServicosApenasDoUsuario(id);
-                meusAnuncios = true;
-            }
-        }
-        this.realizouBusca = false;
-        ArrayList<Servico> valuesComMostrarTrue = new ArrayList<Servico>();
-        for (Servico s : results)
-            if (s.isMostrar())
-                valuesComMostrarTrue.add(s);
-        if (id != 0)
-            meusAnuncios = true;
-        adapter = new ServiceAdapter(getContext(), valuesComMostrarTrue, this, meusAnuncios);
-        this.adapter = adapter;
-        this.rootView = this.inflater.inflate(R.layout.fragment_slide, this.container, false);
-        ListView ls = (ListView) rootView.findViewById(R.id.list);
-        ls.setAdapter(adapter);
+        rootView = inflater.inflate(R.layout.fragment_slide, this.container, false);
+        ls = (ListView) rootView.findViewById(R.id.list);
+        ls.setAdapter(new loadingAdapter());
+        threadUpdate();
     }
 
     @Override
@@ -98,5 +81,72 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
             getContext().startActivity(intent);
         }
 
+    }
+
+    public void setRealizouBusca(boolean realizouBusca) {
+        this.realizouBusca = realizouBusca;
+    }
+
+    private class loadingAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            view = getActivity().getLayoutInflater().inflate(R.layout.item_loading, null);
+            return view;
+        }
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                meusAnuncios = false;
+                ApiModels api = new ApiModels();
+                if (!realizouBusca) {
+                    if (id == 0) {
+                        results = api.getServicosExcetoDoUsuario(idUsuario);
+                        meusAnuncios = false;
+                    } else {
+                        results = api.getServicosApenasDoUsuario(id);
+                        meusAnuncios = true;
+                    }
+                }
+                realizouBusca = false;
+                valuesComMostrarTrue = new ArrayList<Servico>();
+                for (Servico s : results)
+                    if (s.isMostrar())
+                        valuesComMostrarTrue.add(s);
+                if (id != 0)
+                    meusAnuncios = true;
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter = new ServiceAdapter(getContext(), valuesComMostrarTrue, ServiceFragment.this, meusAnuncios);
+                ListView ls = (ListView) rootView.findViewById(R.id.list);
+                ls.setAdapter(adapter);
+            }
+        });
     }
 }

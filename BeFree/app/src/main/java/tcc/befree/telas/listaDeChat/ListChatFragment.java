@@ -29,20 +29,22 @@ import tcc.befree.models.CircleImageView;
 public class ListChatFragment extends Fragment {
 
     private List<Chat> chatList;
-
+    private ListView listView;
+    private View view;
     private int idUsuario;
 
     ApiModels api = new ApiModels();
 
 
     public ListChatFragment() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chat, container, false);
-
+        view = inflater.inflate(R.layout.fragment_chat, container, false);
+        listView = (ListView) view.findViewById(R.id.list);
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
         try {
             idUsuario = bundle.getInt("idUsuario");
@@ -50,10 +52,6 @@ public class ListChatFragment extends Fragment {
             idUsuario = 0;
         }
 
-
-        chatList = api.getChatsDoUsuario(idUsuario);
-
-        ListView listView = (ListView) view.findViewById(R.id.list);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -81,7 +79,11 @@ public class ListChatFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        listView.setAdapter(new MyAdapter());
+
+        listView.setAdapter(new loadingAdapter());
+
+        threadUpdate();
+
         return view;
     }
 
@@ -122,6 +124,50 @@ public class ListChatFragment extends Fragment {
 
             return view;
         }
+    }
+
+    private class loadingAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            view = getActivity().getLayoutInflater().inflate(R.layout.item_loading, null);
+            return view;
+        }
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                chatList = api.getChatsDoUsuario(idUsuario);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                listView.setAdapter(new MyAdapter());
+            }
+        });
     }
 
 }

@@ -49,13 +49,15 @@ public class GenderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gender);
 
+        day = (ListView) findViewById(R.id.gender_day);
+
         Bundle intent = this.getIntent().getExtras();
         idUsuario = intent.getInt("idUsuario");
 
         notEventos = false;
         api = new ApiModels();
 
-        day = (ListView) findViewById(R.id.gender_day);
+
 
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,8 +74,8 @@ public class GenderActivity extends AppCompatActivity {
     }
 
     public void setAdapter(){
-        gender = api.getEventosbyIdUsuario(idUsuario);// enviar id do usuario
-        this.day.setAdapter(new GenderActivity.DayAdapter());
+        this.day.setAdapter(new GenderActivity.loadingAdapter());
+        threadUpdate();
     }
 
     @Override
@@ -192,6 +194,31 @@ public class GenderActivity extends AppCompatActivity {
         }
     }
 
+    private class loadingAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            view = getLayoutInflater().inflate(R.layout.item_loading, null);
+            return view;
+        }
+    }
+
     public boolean oldDate(String data){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
@@ -217,5 +244,24 @@ public class GenderActivity extends AppCompatActivity {
 
     public Evento getEvento(){
         return this.evento;
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                gender = api.getEventosbyIdUsuario(idUsuario);// enviar id do usuario
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                GenderActivity.this.day.setAdapter(new GenderActivity.DayAdapter());
+            }
+        });
     }
 }

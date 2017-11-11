@@ -40,6 +40,10 @@ public class LoadingDialog extends Dialog implements
         }
         //dismiss();
     }
+
+    @Override
+    public void onBackPressed() {}
+
     public void Dismiss(){
         dismiss();
     }

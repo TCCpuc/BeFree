@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,11 +29,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
     private LayoutInflater inflater;
     private View rootView;
     private boolean realizouBusca = false;
-    public void setRealizouBusca(boolean realizouBusca) {
-        this.realizouBusca = realizouBusca;
-    }
+    private ListView ls;
     private SearchAdapter adapter;
+    private boolean meusAnuncios;
     public ArrayList<Busca> results = new ArrayList<>();
+    private ArrayList<Busca> valuesComMostrarTrue;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,29 +58,10 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
 
     @NonNull
     public void getLista() {
-        boolean meusAnuncios = false;
-        SearchAdapter adapter;ApiModels api = new ApiModels();
-        if (!this.realizouBusca) {
-            if (id == 0) {
-                results = api.getBuscasExcetoDoUsuario(idUsuario);
-                meusAnuncios = false;
-            } else {
-                results = api.getBuscasApenasDoUsuario(id);
-                meusAnuncios = true;
-            }
-        }
-        this.realizouBusca = false;
-        ArrayList<Busca> valuesComMostrarTrue = new ArrayList<Busca>();
-        for (Busca s : results)
-            if (s.mostrar)
-                valuesComMostrarTrue.add(s);
-        if (id != 0)
-            meusAnuncios = true;
-        adapter = new SearchAdapter(getContext(), valuesComMostrarTrue, this, meusAnuncios);
-        this.adapter = adapter;
         this.rootView = this.inflater.inflate(R.layout.fragment_slide, this.container, false);
-        ListView ls = (ListView) rootView.findViewById(R.id.list);
-        ls.setAdapter(adapter);
+        ls = (ListView) rootView.findViewById(R.id.list);
+        ls.setAdapter(new loadingAdapter());
+        threadUpdate();
     }
 
     @Override
@@ -97,5 +80,72 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
             intent.putExtra("idBusca", busca.idBusca);
             getContext().startActivity(intent);
         }
+    }
+
+    public void setRealizouBusca(boolean realizouBusca) {
+        this.realizouBusca = realizouBusca;
+    }
+
+    private class loadingAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            view = getActivity().getLayoutInflater().inflate(R.layout.item_loading, null);
+            return view;
+        }
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                meusAnuncios = false;
+                ApiModels api = new ApiModels();
+                if (!realizouBusca) {
+                    if (id == 0) {
+                        results = api.getBuscasExcetoDoUsuario(idUsuario);
+                        meusAnuncios = false;
+                    } else {
+                        results = api.getBuscasApenasDoUsuario(id);
+                        meusAnuncios = true;
+                    }
+                }
+                realizouBusca = false;
+                valuesComMostrarTrue = new ArrayList<Busca>();
+                for (Busca s : results)
+                    if (s.mostrar)
+                        valuesComMostrarTrue.add(s);
+                if (id != 0)
+                    meusAnuncios = true;
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter = new SearchAdapter(getContext(), valuesComMostrarTrue, SearchFragment.this, meusAnuncios);
+                ListView ls = (ListView) rootView.findViewById(R.id.list);
+                ls.setAdapter(adapter);
+            }
+        });
     }
 }

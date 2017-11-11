@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,11 +31,16 @@ import tcc.befree.R;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Usuarios;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.telas.Dialog.LoadingDialog;
 import tcc.befree.utils.Utils;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
+    private LoadingDialog loginDialog;
+    private Usuarios novoUsuario;
+    private PostApiModels apiPost;
     private static final int SELECT_FILE1 = 100;
+    private ImageView befree;
     private TextView presentation;
     private AutoCompleteTextView edtNome;
     private AutoCompleteTextView edtCpf;
@@ -48,6 +54,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private ProgressBar loading;
     private Spinner ddd;
     private Button continuar;
+    private boolean sucessoPost;
     private int passo;
 
     // 05/09 - Guilherme Domingues
@@ -59,6 +66,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        befree = (ImageView) findViewById(R.id.create_account_presentation_image);
         ddd = (Spinner) findViewById(R.id.create_account_DDD);
         presentation = (TextView) findViewById(R.id.create_account_presentation);
         edtNome = (AutoCompleteTextView) findViewById(R.id.create_account_username);
@@ -85,6 +93,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 if(passo == 0){
                     presentation.setVisibility(View.GONE);
+                    befree.setVisibility(View.GONE);
                     passo = 1;
                     edtNome.setVisibility(View.VISIBLE);
                     message.setVisibility(View.VISIBLE);
@@ -106,7 +115,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 passo = 3;
                                 message.setText("\n Estamos quase lá!! \n Agora preciso que voce nos informe seu \n E-mail e CPF. \n");
                                 edtCpf.setVisibility(View.VISIBLE);
-                                ddd.setVisibility(View.VISIBLE);
                                 edtEmail.setVisibility(View.VISIBLE);
                             }
                         }
@@ -116,11 +124,9 @@ public class CreateAccountActivity extends AppCompatActivity {
                         if(validaEmail(edtEmail.getText().toString())){
                             edtCpf.setVisibility(View.GONE);
                             edtEmail.setVisibility(View.GONE);
-                            ddd.setVisibility(View.GONE);
-                            message.setVisibility(View.GONE);
+                            message.setText("\n Otimo!! Agora preciso que nos informe qual é \n sua região de maior interesse.");
                             passo = 4;
-                            photo.setVisibility(View.VISIBLE);
-                            insertPhoto.setVisibility(View.VISIBLE);
+                            ddd.setVisibility(View.VISIBLE);
                         }
                     }else {
                         if (TextUtils.isEmpty(edtCpf.getText().toString())){
@@ -130,37 +136,15 @@ public class CreateAccountActivity extends AppCompatActivity {
                         }
                     }
                 }else if (passo == 4){
-
-                    PostApiModels apiPost = new PostApiModels();
-                    Usuarios novoUsuario = new Usuarios();
-
-                    novoUsuario.nomeUsuario = edtNome.getText().toString();
-                    novoUsuario.cpf = edtCpf.getText().toString();
-                    novoUsuario.email = edtEmail.getText().toString();
-                    novoUsuario.senha = edtSenha.getText().toString();
-                    novoUsuario.ddd = ddd.getSelectedItemPosition() + 1;
-//                    if (ddd.getSelectedItemPosition() > 5)
-//                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 13;
-//                    else
-//                        novoUsuario.ddd = ddd.getSelectedItemPosition() + 12;
-                    try {
-                        novoUsuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
-                    }catch(Exception e){
-                        novoUsuario.imagemPerfil = "";
-                    }
-
-                    if( apiPost.postUsuarios(novoUsuario)) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Usuário criado com sucesso!", Toast.LENGTH_LONG);
-                        toast.show();
-                        CreateAccountActivity.super.onBackPressed();
-                    }
-
-                    passo = 0;
-                    photo.setVisibility(View.GONE);
-                    insertPhoto.setVisibility(View.GONE);
-                    presentation.setVisibility(View.VISIBLE);
-                    finish();
-            }else{
+                    message.setVisibility(View.GONE);
+                    ddd.setVisibility(View.GONE);
+                    passo = 5;
+                    photo.setVisibility(View.VISIBLE);
+                    insertPhoto.setVisibility(View.VISIBLE);
+                }else if (passo == 5){
+                    startLoadingDialog();
+                    threadUpdate();
+                }else{
                     passo = 0;
                 }
             }
@@ -301,5 +285,58 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         //comparar o digito verificador do cpf com o primeiro resto + o segundo resto.
         return nDigVerific.equals(nDigResult);
+    }
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                apiPost = new PostApiModels();
+                novoUsuario = new Usuarios();
+                novoUsuario.nomeUsuario = edtNome.getText().toString();
+                novoUsuario.cpf = edtCpf.getText().toString();
+                novoUsuario.email = edtEmail.getText().toString();
+                novoUsuario.senha = edtSenha.getText().toString();
+                novoUsuario.ddd = ddd.getSelectedItemPosition() + 1;
+                try {
+                    novoUsuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                }catch(Exception e){
+                    novoUsuario.imagemPerfil = "";
+                }
+                sucessoPost = apiPost.postUsuarios(novoUsuario);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                passo = 0;
+                photo.setVisibility(View.GONE);
+                insertPhoto.setVisibility(View.GONE);
+                presentation.setVisibility(View.VISIBLE);
+                Toast toast;
+                if(sucessoPost){
+                    toast = Toast.makeText(getApplicationContext(), "Usuário criado com sucesso!", Toast.LENGTH_LONG);
+                }else {
+                    toast = Toast.makeText(getApplicationContext(), "Falha ao criar usuario", Toast.LENGTH_LONG);
+                }
+                toast.show();
+                stopLoadingDialog();
+                finish();
+                CreateAccountActivity.super.onBackPressed();
+            }
+        });
+    }
+
+    private void startLoadingDialog(){
+        loginDialog = new LoadingDialog(CreateAccountActivity.this);
+        loginDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loginDialog.show();
+    }
+
+    private void stopLoadingDialog(){
+        loginDialog.dismiss();
     }
 }

@@ -149,49 +149,8 @@ public class MensagemActivity extends AppCompatActivity {
 
     }
 
-    private void scroll() {
+    private void scroll()
+    {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
-
-    private void loadHistory(List<Mensagem> l) {
-
-
-
-
-        for (int i = 0; i < l.size(); i++) {
-
-            Mensagem message = l.get(i);
-
-
-            displayMessage(message);
-        }
-    }
-
-    /*
-    private void loadDummyHistory() {
-
-        chatHistory = new ArrayList<Chat>();
-
-        Chat msg = new Chat();
-        msg.setId(1);
-        msg.setMe(false);
-        msg.setMessage("Hi");
-        msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-        chatHistory.add(msg);
-        Chat msg1 = new Chat();
-        msg1.setId(2);
-        msg1.setMe(false);
-        msg1.setMessage("How r u doing???");
-        msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-        chatHistory.add(msg1);
-
-        adapter = new MensagemAdapter(MensagemActivity.this, new ArrayList<Chat>());
-        messagesContainer.setAdapter(adapter);
-
-        for (int i = 0; i < chatHistory.size(); i++) {
-            Chat message = chatHistory.get(i);
-            displayMessage(message);
-        }
-    }
-    */
 }
