@@ -4,24 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import tcc.befree.R;
-import tcc.befree.activities.AnuncioServicoActivity;
-import tcc.befree.activities.EditServicoActivity;
 import tcc.befree.api.ApiModels;
 import tcc.befree.models.Servico;
 
 /**
  * Created by guilherme.leme on 5/24/17.
  */
-public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickListener {
+public class ServiceFragment extends Fragment {
 
     private int idUsuario;
     private int id;
@@ -29,7 +29,7 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
     private LayoutInflater inflater;
     private View rootView;
     private boolean realizouBusca;
-    private ListView ls;
+    private RecyclerView ls;
     private ServiceAdapter adapter;
     private boolean meusAnuncios;
     public ArrayList<Servico> results = new ArrayList<>();
@@ -52,67 +52,58 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
         }catch(Exception e){
             idUsuario = 0;
         }
+        rootView = inflater.inflate(R.layout.fragment_slide, this.container, false);
+        ls = (RecyclerView) rootView.findViewById(R.id.list);
         getLista();
         return this.rootView ;
     }
 
     @NonNull
     public void getLista() {
-        rootView = inflater.inflate(R.layout.fragment_slide, this.container, false);
-        ls = (ListView) rootView.findViewById(R.id.list);
+
+        ls.setLayoutManager(new LinearLayoutManager(getContext()));
+        //ls.setOnClickListener();
+        LinearSnapHelper snapHelper  = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(ls);
         ls.setAdapter(new loadingAdapter());
         threadUpdate();
-    }
-
-    @Override
-    public void onClick(Servico servico) {
-        Intent intent = null;
-        if(id == 0){
-            Bundle bundle = new Bundle();
-            int id = servico.getIdServico();
-            bundle.putInt("id",id);
-            bundle.putInt("idUsuario",idUsuario);
-            intent = new Intent(getActivity(), AnuncioServicoActivity.class);
-            intent.putExtra("bundle", bundle);
-            startActivity(intent);
-        }else{
-            intent = new Intent(getContext(), EditServicoActivity.class);
-            intent.putExtra("idServico", servico.getIdServico());
-            getContext().startActivity(intent);
-        }
-
     }
 
     public void setRealizouBusca(boolean realizouBusca) {
         this.realizouBusca = realizouBusca;
     }
 
-    private class loadingAdapter extends BaseAdapter{
+    private class loadingAdapter extends RecyclerView.Adapter<loadingAdapter.ViewHolder>{
+        private ProgressBar pr;
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Override
-        public int getCount() {
-            return 1;
+            public final View view;
+
+            public ViewHolder(View view) {
+                super(view);
+                this.view = view;
+                pr = (ProgressBar) view.findViewById(R.id.item_loading_progress);
+            }
         }
-
         @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view;
-            view = getActivity().getLayoutInflater().inflate(R.layout.item_loading, null);
-            return view;
+            view = getActivity().getLayoutInflater().inflate(R.layout.item_loading_main, null);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 1;
         }
     }
 
-    private void threadUpdate(){
+      private void threadUpdate(){
         new Thread(){
             @Override
             public void run() {
@@ -139,13 +130,12 @@ public class ServiceFragment extends Fragment implements ServiceAdapter.OnClickL
         }.start();
     }
 
-    private void threadUI(){
+  private void threadUI(){
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter = new ServiceAdapter(getContext(), valuesComMostrarTrue, ServiceFragment.this, meusAnuncios);
-                ListView ls = (ListView) rootView.findViewById(R.id.list);
-                ls.setAdapter(adapter);
+                ls.setLayoutManager(new LinearLayoutManager(getContext()));
+                ls.setAdapter(new ServiceAdapter(getContext(), valuesComMostrarTrue, meusAnuncios, id, idUsuario));
             }
         });
     }
