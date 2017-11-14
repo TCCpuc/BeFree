@@ -269,5 +269,39 @@ namespace BeFreeAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = usuario.idUsuario }, usuario);
         }
 
+        [ResponseType(typeof(Usuario))]
+        [HttpPost]
+        public IHttpActionResult AuthenticateUsuarioGoogle(Usuario usuario)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            if (db.tbUsuarios.Count(u => u.email == usuario.email) == 0)
+            {
+                db.tbUsuarios.Add(usuario);
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    if (UsuarioExists(usuario.idUsuario))
+                    {
+                        return Conflict();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = usuario.idUsuario }, usuario);
+        }
+
     }
 }

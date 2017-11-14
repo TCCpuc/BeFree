@@ -30,8 +30,14 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 
 import java.util.ArrayList;
 
@@ -45,7 +51,7 @@ import tcc.befree.telas.Dialog.LoadingDialog;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     //private ArrayList<Usuarios> usuarios = null;
     private Usuarios usuario = new Usuarios();
@@ -61,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     //private View mProgressView;
     private View relativeLayout;
     private Button mEmailSignInButton;
+    private SignInButton signInButton;
     private TextView txtCriaCadastro;
     private FacebookCallback<LoginResult> callback;
     private Animation animation;
@@ -68,20 +75,43 @@ public class LoginActivity extends AppCompatActivity {
     private LoadingDialog loginDialog;
     private GoogleApiClient googleApiClient;
 
+    public static final int SING_IN_CODE = 777;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
+
+
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         forgotPassword = (Button) findViewById(R.id.login_forgot_password);
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         loginButton = (LoginButton) findViewById(R.id.login_facebook_button);
+        signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         Email = (TextInputEditText) findViewById(R.id.username_edit_text);
         Password = (TextInputEditText) findViewById(R.id.password_edit_text);
         txtCriaCadastro = (TextView) findViewById(R.id.btnCriaCadastro);
         relativeLayout = findViewById(R.id.newLogin_container);
+
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,SING_IN_CODE);
+            }
+        });
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,11 +150,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setReadPermissions("user_friends");
         loginButton.registerCallback(callbackManager, callback);
 
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -135,7 +160,9 @@ public class LoginActivity extends AppCompatActivity {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                createUsuarioFacebook(currentProfile);
+
+                if (currentProfile != null)
+                    createUsuarioFacebook(currentProfile);
             }
         };
 
@@ -155,6 +182,23 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if(opr.isDone()){
+            GoogleSignInResult resul = opr.get();
+        }else{
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+
+                }
+            });
+        }
+    }
+
     private void attemptLogin() {
 
         // Reset errors.
@@ -162,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
         Password.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = Email.getText().toString();
+         String email = Email.getText().toString();
         String password = Password.getText().toString();
 
         boolean cancel = false;
@@ -280,7 +324,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
         //Facebook login
         Profile profile = Profile.getCurrentProfile();
-        createUsuarioFacebook(profile);
+        //createUsuarioFacebook(profile);
     }
 
     @Override
@@ -298,28 +342,75 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
         super.onActivityResult(requestCode, responseCode, intent);
-        //Facebook login
-        callbackManager.onActivityResult(requestCode, responseCode, intent);
+
+        if (requestCode == SING_IN_CODE) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(intent);
+
+        } else { //Facebook login
+            callbackManager.onActivityResult(requestCode, responseCode, intent);
+
+        }
+    }
+
+    private void handleSingInResult(GoogleSignInResult result){
+
+        if(result.isSuccess()){
+            GoogleSignInAccount account = result.getSignInAccount();
+            createUsuarioGoogle(account);
+        }else
+            Toast.makeText(this, "Não foi possivel realizar o login.", Toast.LENGTH_SHORT).show();
+    }
+
+    private  void createUsuarioGoogle(GoogleSignInAccount account){
+        Usuarios usuarioGoogle;
+        ApiModels apiModels = new ApiModels();
+
+        usuarioGoogle = apiModels.getUsuariosByEmail(account.getEmail());
+        if(usuarioGoogle == null) {
+            usuarioGoogle.email = account.getEmail();
+            usuarioGoogle.nomeUsuario = account.getDisplayName();
+            usuarioGoogle.imagemPerfil = account.getPhotoUrl().toString();
+
+            PostApiModels postApiModels = new PostApiModels();
+            if (postApiModels.postUsuarios(usuarioGoogle)) {
+                usuarioGoogle = apiModels.getUsuariosByEmail(usuarioGoogle.email);
+                nextActivity(usuarioGoogle);
+            }
+            else
+                Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
+        }
+        else
+            nextActivity(usuarioGoogle);
 
     }
 
     private void createUsuarioFacebook(Profile currentProfile){
 
-        Usuarios usuarioFacebook = new Usuarios();
+        Usuarios usuarioFacebook;
 
         if(currentProfile != null) {
-            usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + " " + currentProfile.getLastName();
-            usuarioFacebook.cpf = "";
-            usuarioFacebook.email = currentProfile.getId();
-            usuarioFacebook.senha = " ";
-            Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
-            usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
 
-            PostApiModels postApiModels = new PostApiModels();
-            if (postApiModels.authenticateUserFacebook(usuarioFacebook))
-                nextActivity(usuarioFacebook);
+            ApiModels apiModels = new ApiModels();
+
+            usuarioFacebook = apiModels.getUsuariosByEmail(currentProfile.getId());
+            if (usuarioFacebook == null) {
+                usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + " " + currentProfile.getLastName();
+                usuarioFacebook.cpf = "";
+                usuarioFacebook.email = currentProfile.getId();
+                usuarioFacebook.senha = " ";
+                Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
+                usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
+
+                PostApiModels postApiModels = new PostApiModels();
+                if (postApiModels.authenticateUserFacebook(usuarioFacebook)) {
+                    usuarioFacebook = apiModels.getUsuariosByEmail(currentProfile.getId());
+                    nextActivity(usuarioFacebook);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
+            }
             else
-                Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
+                nextActivity(usuarioFacebook);
         }
     }
 
@@ -333,7 +424,7 @@ public class LoginActivity extends AppCompatActivity {
         bundle.putInt("idUsuario",usuario.idUsuario);
         intent.putExtra("idUsuario", bundle);
         */
-        stopLoadingDialog();
+        //stopLoadingDialog();
         startActivity(intent);
     }
 
@@ -345,5 +436,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void stopLoadingDialog(){
         loginDialog.dismiss();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
