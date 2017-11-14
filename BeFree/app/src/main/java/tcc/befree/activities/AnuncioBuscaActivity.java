@@ -68,8 +68,27 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
             titulo.setText(srv.titulo);
             descricao.setText(srv.descricao);
             preco.setText(srv.getPreco() + "");
-            formaPgto.setText(srv.getFormaPgto());
-            //categoriaESub.setText(srv.ge);
+            int pgto = srv.getFormaPgto();
+            switch (pgto){
+                case 0: formaPgto.setText("A Negociar");
+                break;
+                case 1: formaPgto.setText("A Vista");
+                    break;
+                case 2: formaPgto.setText("2x");
+                    break;
+                case 3: formaPgto.setText("3x");
+                    break;
+                case 4: formaPgto.setText("4x");
+                    break;
+                case 5: formaPgto.setText("6x");
+                    break;
+                case 6: formaPgto.setText("12x");
+                    break;
+                case 7: formaPgto.setText("24x");
+                    break;
+                default: formaPgto.setText("A Negociar");
+                    break;
+            }
         }catch (Exception e){
             String erro = "Problema de conexao";
             Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();

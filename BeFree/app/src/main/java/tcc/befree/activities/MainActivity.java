@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity{
     private int ultimaPosicao = 0;
     private Button search_advanced_button;
     private AdvancedSearchDialog dialog;
-    private ServiceFragment serviceFragment = new ServiceFragment();
-    private SearchFragment searchFragment = new SearchFragment();
+    private ServiceFragment serviceFragment;
+    private SearchFragment searchFragment;
     private ViewPager viewPager;
     private int abaAtual = 0;
     private int currentPage;
@@ -79,9 +79,18 @@ public class MainActivity extends AppCompatActivity{
         appbar = (AppBarLayout) findViewById(R.id.appbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        search_advanced_button = (Button) findViewById(R.id.search_advanced_button);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+
+
+        searchFragment = new SearchFragment();
+        serviceFragment = new ServiceFragment();
         setSupportActionBar(toolbar);
 
-        search_advanced_button = (Button) findViewById(R.id.search_advanced_button);
+
         search_advanced_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +148,7 @@ public class MainActivity extends AppCompatActivity{
         id = Integer.parseInt(x[0]);
         usuario = new ApiModels().getUsuarioById(id);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,10 +170,10 @@ public class MainActivity extends AppCompatActivity{
 
         setTitle("Befree");
         //Instancia menu drawer
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
@@ -399,15 +408,29 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void refreshLista() {
-        abaAtual = viewPager.getCurrentItem();
-        viewPager = (ViewPager) findViewById(R.id.container);
-        if (viewPager != null) {
-            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-            viewPager.setAdapter(mSectionsPagerAdapter);
-        }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(abaAtual);
+        new Thread(){
+            @Override
+            public void run() {
+                abaAtual = viewPager.getCurrentItem();
+                viewPager = (ViewPager) findViewById(R.id.container);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (viewPager != null) {
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(mSectionsPagerAdapter);
+                }
+                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                tabLayout.setupWithViewPager(viewPager);
+                viewPager.setCurrentItem(abaAtual);
+            }
+        });
     }
 
     @Override
