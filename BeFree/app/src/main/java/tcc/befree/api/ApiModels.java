@@ -1,6 +1,8 @@
 package tcc.befree.api;
 
 
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -149,15 +151,19 @@ public class ApiModels implements Runnable{
             thread.start();
             controlaThread();
             thread.interrupt();
-            workaroundSleepThread(thread);
             JSONObject jSonObject = jSonArray.getJSONObject(0);
+            if (jSonObject.getInt("id") == 1){
+                jSonArray = null;
+                return true;
+            }else {
+                jSonArray = null;
+                return false;
+            }
 
         }catch (Exception er){
             er.printStackTrace();
+            return false;
         }
-
-        jSonArray = null;
-        return true;
     }
 
 
@@ -190,8 +196,8 @@ public class ApiModels implements Runnable{
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria("descCategoria");
-                servico.setDescSubCategoria("descSubCategoria");
+                servico.setDescCategoria("descrCategoria");
+                servico.setDescSubCategoria("descrSubCategoria");
 
                 arrayServicos.add(servico);
             }
@@ -230,8 +236,8 @@ public class ApiModels implements Runnable{
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 //servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria(jSonObject.getString("descCategoria"));
-                servico.setDescSubCategoria(jSonObject.getString("descSubCategoria"));
+                servico.setDescCategoria(jSonObject.getString("descrCategoria"));
+                servico.setDescSubCategoria(jSonObject.getString("descrSubCategoria"));
 
             }
 
@@ -269,8 +275,8 @@ public class ApiModels implements Runnable{
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria("descCategoria");
-                servico.setDescSubCategoria("descSubCategoria");
+                servico.setDescCategoria("descrCategoria");
+                servico.setDescSubCategoria("descrSubCategoria");
 
                 arrayServicos.add(servico);
             }
@@ -310,8 +316,8 @@ public class ApiModels implements Runnable{
                 busca.idDDD = jSonObject.getInt("idDDD");
                 busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 busca.setFormaPgto(jSonObject.getInt("formaPagto"));
-                busca.setDescCategoria("descCategoria");
-                busca.setDescSubCategoria("descSubCategoria");
+                busca.setDescCategoria("descrCategoria");
+                busca.setDescSubCategoria("descrSubCategoria");
                 arrayBuscas.add(busca);
             }
 
@@ -348,8 +354,8 @@ public class ApiModels implements Runnable{
                 busca.idDDD = jSonObject.getInt("idDDD");
                 busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 busca.setFormaPgto(jSonObject.getInt("formaPagto"));
-                busca.setDescCategoria("descCategoria");
-                busca.setDescSubCategoria("descSubCategoria");
+                busca.setDescCategoria("descrCategoria");
+                busca.setDescSubCategoria("descrSubCategoria");
                 arrayBuscas.add(busca);
             }
 
@@ -382,8 +388,8 @@ public class ApiModels implements Runnable{
             busca.idDDD = jSonObject.getInt("idDDD");
             busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
             busca.setFormaPgto(jSonObject.getInt("formaPagto"));
-            busca.setDescCategoria(jSonObject.getString("descCategoria"));
-            busca.setDescSubCategoria(jSonObject.getString("descSubCategoria"));
+            busca.setDescCategoria(jSonObject.getString("descrCategoria"));
+            busca.setDescSubCategoria(jSonObject.getString("descrSubCategoria"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1074,8 +1080,8 @@ public class ApiModels implements Runnable{
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria("descCategoria");
-                servico.setDescSubCategoria("descSubCategoria");
+                servico.setDescCategoria("descrCategoria");
+                servico.setDescSubCategoria("descrSubCategoria");
                 arrayServicos.add(servico);
             }
             /*
@@ -1175,8 +1181,8 @@ public class ApiModels implements Runnable{
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 servico.setFormaPgto(jSonObject.getInt("formaPagto"));
                 servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria("descCategoria");
-                servico.setDescSubCategoria("descSubCategoria");
+                servico.setDescCategoria("descrCategoria");
+                servico.setDescSubCategoria("descrSubCategoria");
                 arrayServicos.add(servico);
             }
         } catch (Exception e) {
@@ -1201,9 +1207,46 @@ public class ApiModels implements Runnable{
         return result;
     }
 
-    public String getCodigoSegurancaByEmail(String s) {
-        Usuarios usuario = getUsuariosByEmail(s);
-        return usuario.codigoSeguranca;
+    public Usuarios validateCode(String codigo) {
+        Usuarios usuario = new Usuarios();
+        try {
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/ValidarCodigo/?codigo=" + codigo;
+            //urlAPI = "http://localhost:1994/api/Usuarios/RecuperarSenha/?email=" + email;
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            workaroundSleepThread(thread);
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            usuario.idUsuario = jSonObject.getInt("idUsuario");
+            usuario.nomeUsuario = jSonObject.getString("nomeUsuario");
+            usuario.cpf = jSonObject.getString("cpf");
+            usuario.idCidade = jSonObject.getInt("idCidade");
+            usuario.codigoSeguranca = jSonObject.getString("codigoSeguranca");
+            usuario.idEstado = jSonObject.getInt("idEstado");
+            if(jSonObject.getString("bairro") != "null"){
+                usuario.bairro = jSonObject.getString("bairro");
+            }
+            if(jSonObject.getString("logradouro") != "null"){
+                usuario.logradouro = jSonObject.getString("logradouro");
+            }
+            if(jSonObject.getString("numero") != "null"){
+                usuario.numero = jSonObject.getInt("numero");
+            }
+            if(jSonObject.getString("cep") != "null"){
+                usuario.cep = jSonObject.getInt("cep");
+            }
+            usuario.ativo = jSonObject.getBoolean("ativo");
+            usuario.email = jSonObject.getString("email");
+            usuario.senha = jSonObject.getString("senha");
+            usuario.ddd = jSonObject.getInt("ddd");
+            usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
+        }catch (Exception er){
+            er.printStackTrace();
+            return null;
+        }
+        jSonArray = null;
+        return usuario;
     }
 
     public Usuarios getUsuarioByCodigoSeguranca(String codigo) {

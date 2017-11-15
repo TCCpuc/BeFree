@@ -42,6 +42,7 @@ public class GenderActivity extends AppCompatActivity {
     private String beforeDate = "";
     private int idUsuario;
     private boolean notEventos;
+    private boolean isUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class GenderActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 evento = gender.get(position);
                 //time.setAdapter(new GenderActivity.TimeAdapter());
-                GenderServiceDialog dialog = new GenderServiceDialog(GenderActivity.this, evento);
+                GenderServiceDialog dialog = new GenderServiceDialog(GenderActivity.this, evento, isUsuario);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -143,6 +144,7 @@ public class GenderActivity extends AppCompatActivity {
 
 
                 if (ev.getIdUsuarioContratante() == idUsuario) {
+                    isUsuario = true;
                     switch (ev.getSituacaoEvento()) {
                         case 0:
                             if(oldDate(ev.getDtEvento())){
@@ -196,6 +198,7 @@ public class GenderActivity extends AppCompatActivity {
                             break;
                     }
                 } else {
+                    isUsuario = false;
                     switch (ev.getSituacaoEvento()) {
                         case 0:
                             if (oldDate(ev.getDtEvento())) {
@@ -245,6 +248,11 @@ public class GenderActivity extends AppCompatActivity {
                             backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
                             break;
                     }
+                }
+                if(beforeDate.equals(ev.getDtEvento())){
+                    dayLayout.setVisibility(View.GONE);
+                }else {
+                    beforeDate = ev.getDtEvento();
                 }
             }
             return view;
