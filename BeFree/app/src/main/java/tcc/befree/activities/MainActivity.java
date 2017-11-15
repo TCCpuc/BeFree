@@ -42,33 +42,40 @@ import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.models.Usuarios;
 import tcc.befree.telas.Dialog.AdvancedSearchDialog;
+import tcc.befree.telas.Dialog.LoadingDialog;
 import tcc.befree.telas.listaDeBuscas.SearchFragment;
 import tcc.befree.telas.listaDeServicos.ServiceFragment;
 
 public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
+    private DrawerLayout drawer;
+    private AppBarLayout appbar;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    //private int idUsuario = 0;
-    private int ultimaPosicao = 0;
     private Button search_advanced_button;
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
     private AdvancedSearchDialog dialog;
     private ServiceFragment serviceFragment;
     private SearchFragment searchFragment;
     private ViewPager viewPager;
+    private String categoriaBuscaAvancada = "Todos";
+    private String dddBuscaAvancada = "Todos";
+    private String subcategoriaBuscaAvancada = "Todos";
+    private String buscaSimples = "";
+    private ApiModels api;
+    private Usuarios usuario;
+    private NavigationView navigationView;
+    private ArrayList<Categoria> categorias;
+    private ArrayList<Integer> subCategoriasDaCategoria;
+    private ArrayList<DDD> ddds;
+    private ArrayList<SubCategoria> subCategorias;
+    private LoadingDialog loginDialog;
+    private int ultimaPosicao = 0;
     private int abaAtual = 0;
     private int currentPage;
-    private AppBarLayout appbar;
-    private String categoriaBuscaAvancada = "Todos";
     private int idcategoriaBuscaAvancada = 0;
-    private ArrayList<Integer> subCategoriasDaCategoria = new ArrayList<>();
-    private String dddBuscaAvancada = "Todos";
     private int idDDDBuscaAvancada = 0;
-    private String subcategoriaBuscaAvancada = "Todos";
     private int idSubCategoriaBuscaAvancada = 0;
-    private String buscaSimples = "";
-    private ApiModels api = new ApiModels();
-    private Usuarios usuario;
-    private DrawerLayout drawer;
     private int id = 0;
 
     @Override
@@ -78,107 +85,23 @@ public class MainActivity extends AppCompatActivity{
         viewPager = (ViewPager) findViewById(R.id.container);
         appbar = (AppBarLayout) findViewById(R.id.appbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         search_advanced_button = (Button) findViewById(R.id.search_advanced_button);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-
-
-        searchFragment = new SearchFragment();
-        serviceFragment = new ServiceFragment();
-        setSupportActionBar(toolbar);
-
-
-        search_advanced_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog = new AdvancedSearchDialog(MainActivity.this);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                dialog.show();
-                Button saveButton = (Button)dialog.findViewById(R.id.advanced_search_dialog_button_ok);
-                saveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-                        categoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_categoria_spinner)).getSelectedItem().toString();
-                        subcategoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_sub_categoria_spinner)).getSelectedItem().toString();
-                        dddBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_ddd_spinner)).getSelectedItem().toString();
-
-                        ArrayList<Categoria> categorias = api.getCategorias();
-                        for (Categoria c: categorias) {
-                            if (c.descricao.equals(categoriaBuscaAvancada)) {
-                                idcategoriaBuscaAvancada = c.idCategoria;
-                                break;
-                            }
-                        }
-
-                        subCategoriasDaCategoria = api.getSubCategoriasDaCategoria(idcategoriaBuscaAvancada);
-
-                        ArrayList<DDD> ddds = api.getDDDs();
-                        for (DDD ddd: ddds) {
-                            if (dddBuscaAvancada.contains(ddd.descricao)) {
-                                idDDDBuscaAvancada = ddd.id;
-                                break;
-                            }
-                        }
-
-                        ArrayList<SubCategoria> subCategorias = api.getSubCategorias();
-                        for (SubCategoria s: subCategorias) {
-                            if (s.descricao.equals(subcategoriaBuscaAvancada)) {
-                                idSubCategoriaBuscaAvancada = s.idSubCategoria;
-                                break;
-                            }
-                        }
-                        dialog.dismiss();
-                        busca();
-                    }
-                });
-            }
-        });
-
-        final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu_default);
-        ab.setDisplayHomeAsUpEnabled(true);
-
+        api = new ApiModels();
         Intent it = this.getIntent();
         Bundle loginActivityIntent = it.getExtras();
         String x [] = loginActivityIntent.getString("arrayUsuario").split("%");
         id = Integer.parseInt(x[0]);
-        usuario = new ApiModels().getUsuarioById(id);
+        subCategoriasDaCategoria = new ArrayList<>();
+        searchFragment = new SearchFragment();
+        serviceFragment = new ServiceFragment();
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = null;
-                Bundle bundle = new Bundle();
-                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-                if (tabLayout.getSelectedTabPosition() == 0) {
-                    intent = new Intent(MainActivity.this, CreateServicoActivity.class);
-                }
-                else{
-                    intent = new Intent(MainActivity.this, CreateBuscaActivity.class);
-                }
-                bundle.putInt("idUsuario",usuario.idUsuario);
-                intent.putExtra("idUsuario", bundle);
-                startActivity(intent);
-            }
-        });
-
-
-        setTitle("Befree");
-        //Instancia menu drawer
-
-
-
-
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
-        //int id = getIntent().getExtras().getInt("bundle");
-        refreshLista();
+        startLoadingDialog();
+        threadLoadingUpdate();
 
     }
 
@@ -492,5 +415,117 @@ public class MainActivity extends AppCompatActivity{
             }
             return null;
         }
+    }
+    private void threadLoadingUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                usuario = api.getUsuarioById(id);
+                categorias = api.getCategorias();
+                subCategorias = api.getSubCategorias();
+                ddds = api.getDDDs();
+                threadLoadingUI();
+            }
+        }.start();
+    }
+
+    private void threadLoadingUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                searchFragment.setIdUsuario(id);
+                serviceFragment.setIdUsuario(id);
+
+                setSupportActionBar(toolbar);
+
+                search_advanced_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog = new AdvancedSearchDialog(MainActivity.this);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                        dialog.show();
+                        Button saveButton = (Button)dialog.findViewById(R.id.advanced_search_dialog_button_ok);
+                        saveButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View arg0) {
+                                categoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_categoria_spinner)).getSelectedItem().toString();
+                                subcategoriaBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_sub_categoria_spinner)).getSelectedItem().toString();
+                                dddBuscaAvancada = ((Spinner)dialog.findViewById(R.id.advanced_search_dialog_ddd_spinner)).getSelectedItem().toString();
+
+
+                                for (Categoria c: categorias) {
+                                    if (c.descricao.equals(categoriaBuscaAvancada)) {
+                                        idcategoriaBuscaAvancada = c.idCategoria;
+                                        break;
+                                    }
+                                }
+
+                                subCategoriasDaCategoria = api.getSubCategoriasDaCategoria(idcategoriaBuscaAvancada);
+
+                                for (DDD ddd: ddds) {
+                                    if (dddBuscaAvancada.contains(ddd.descricao)) {
+                                        idDDDBuscaAvancada = ddd.id;
+                                        break;
+                                    }
+                                }
+
+
+                                for (SubCategoria s: subCategorias) {
+                                    if (s.descricao.equals(subcategoriaBuscaAvancada)) {
+                                        idSubCategoriaBuscaAvancada = s.idSubCategoria;
+                                        break;
+                                    }
+                                }
+                                dialog.dismiss();
+                                busca();
+                            }
+                        });
+                    }
+                });
+
+                final ActionBar ab = getSupportActionBar();
+                ab.setHomeAsUpIndicator(R.drawable.ic_menu_default);
+                ab.setDisplayHomeAsUpEnabled(true);
+
+
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = null;
+                        Bundle bundle = new Bundle();
+                        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                        if (tabLayout.getSelectedTabPosition() == 0) {
+                            intent = new Intent(MainActivity.this, CreateServicoActivity.class);
+                        }
+                        else{
+                            intent = new Intent(MainActivity.this, CreateBuscaActivity.class);
+                        }
+                        bundle.putInt("idUsuario",usuario.idUsuario);
+                        intent.putExtra("idUsuario", bundle);
+                        startActivity(intent);
+                    }
+                });
+
+                setTitle("Befree");
+
+                if (navigationView != null) {
+                    setupDrawerContent(navigationView);
+                }
+                //int id = getIntent().getExtras().getInt("bundle");
+                refreshLista();
+                stopLoadingDialog();
+            }
+        });
+    }
+
+    private void startLoadingDialog(){
+        loginDialog = new LoadingDialog(MainActivity.this);
+        loginDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loginDialog.show();
+    }
+
+    private void stopLoadingDialog(){
+        loginDialog.dismiss();
     }
 }

@@ -2,27 +2,26 @@ package tcc.befree.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.api.PostApiModels;
 import tcc.befree.models.Mensagem;
+import tcc.befree.models.Usuarios;
 import tcc.befree.telas.Conversa.MensagemAdapter;
-import tcc.befree.models.Chat;
 
 public class MensagemActivity extends AppCompatActivity {
 
@@ -38,6 +37,8 @@ public class MensagemActivity extends AppCompatActivity {
     private Bundle bundle;
     private TextView userName;
     private ApiModels api;
+    private Usuarios usuario;
+    private ArrayList<Mensagem> msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +59,44 @@ public class MensagemActivity extends AppCompatActivity {
         idChat = bundle.getInt("idChat");
         isMe = bundle.getInt("isMe");
         idUsuarioDestino = bundle.getInt("idUsuarioDestino");
-        userName.setText(new ApiModels().getUsuarioById(idUsuarioDestino).nomeUsuario);
-        chatHistory = (new ApiModels()).getMensagensDoChat(idChat);
+        loadingAdapter();
         //loadHistory(chatHistory);
-        initControls();
-        adapter = new MensagemAdapter(MensagemActivity.this, chatHistory, idUsuarioOrigem);
-        messagesContainer.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        scroll();
+
+    }
+
+    public void loadingAdapter(){
+        this.messagesContainer.setAdapter(new MensagemActivity.loadingAdapter());
         threadUpdate();
     }
 
     private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                usuario = api.getUsuarioById(idUsuarioDestino);
+                msg = api.getMensagensDoChat(idChat);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                userName.setText(usuario.nomeUsuario);
+                chatHistory = (msg);
+                initControls();
+                adapter = new MensagemAdapter(MensagemActivity.this, chatHistory, idUsuarioOrigem);
+                messagesContainer.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                scroll();
+                threadUpdateMessage();
+            }
+        });
+    }
+
+    private void threadUpdateMessage(){
         new Thread(){
             @Override
             public void run() {
@@ -83,7 +110,7 @@ public class MensagemActivity extends AppCompatActivity {
                     if(chatHistory.size() != (newMessage.size()) ){
                         for (chatHistory.size();chatHistory.size()<newMessage.size();){
                             chatHistory.add(newMessage.get(chatHistory.size()));
-                            threadUI();
+                            threadUIMessage();
                         }
                     }
                 }
@@ -91,7 +118,7 @@ public class MensagemActivity extends AppCompatActivity {
         }.start();
     }
 
-    private void threadUI(){
+    private void threadUIMessage(){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -147,6 +174,31 @@ public class MensagemActivity extends AppCompatActivity {
     public void displayMessage(Mensagem message) {
         adapter.add(message);
 
+    }
+
+    private class loadingAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            view = getLayoutInflater().inflate(R.layout.item_loading, null);
+            return view;
+        }
     }
 
     private void scroll()

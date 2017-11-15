@@ -52,11 +52,11 @@ public class SearchFragment extends Fragment{
         }catch(Exception e){
             id = 0;
         }
-        try {
+        /*try {
             idUsuario = intent.getBundleExtra("idUsuario").getInt("idUsuario");
         }catch(Exception e){
             idUsuario = 0;
-        }
+        }*/
         rootView = inflater.inflate(R.layout.fragment_slide, this.container, false);
         ls = (RecyclerView) rootView.findViewById(R.id.list);
         getLista();
@@ -144,5 +144,13 @@ public class SearchFragment extends Fragment{
                 ls.setAdapter(new SearchAdapter(getContext(), valuesComMostrarTrue, meusAnuncios, id, idUsuario));
             }
         });
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

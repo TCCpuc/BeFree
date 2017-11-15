@@ -1,6 +1,8 @@
 package tcc.befree.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,7 @@ import java.util.ListIterator;
 import tcc.befree.R;
 import tcc.befree.api.PostApiModels;
 import tcc.befree.models.Evento;
+import tcc.befree.telas.Dialog.LoadingDialog;
 
 /**
  * Created by guilherme.leme on 8/17/17.
@@ -43,6 +46,7 @@ public class CalendarActivity extends AppCompatActivity {
     private Button agendar;
     private Evento novoEvento;
     private PostApiModels post;
+    private LoadingDialog loginDialog;
 
 
 
@@ -75,12 +79,22 @@ public class CalendarActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+
                 // display the selected date by using a toast
+                Integer mesFix = month + 1;
+                String labelMes = mesFix.toString();
+
+                String labelDia = "" + dayOfMonth;
+
                 if(dayOfMonth < 10){
-                    dia.setText("0" + dayOfMonth + "/" + month + "/" + year);
-                }else {
-                    dia.setText(dayOfMonth + "/" + month + "/" + year);
+                    labelDia = "0" + labelDia;
                 }
+
+                if (mesFix < 10){
+                    labelMes = "0" + labelMes;
+                }
+
+                dia.setText(labelDia + "/" + labelMes + "/" + year);
             }
         });
         horaInicial.addTextChangedListener(new TextWatcher() {
@@ -226,12 +240,11 @@ public class CalendarActivity extends AppCompatActivity {
                     novoEvento.setHrFinal(horafinal);
 
                     try {
-                        if(post.postEvento(novoEvento)){
-                            Toast.makeText(getApplicationContext(), "Evento criado com sucesso", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
+                        startLoadingDialog();
+                        threadUpdate();
                     }catch (Exception e){
                         Toast.makeText(getApplicationContext(), "Erro de Postagem", Toast.LENGTH_LONG).show();
+                        stopLoadingDialog();
                     }
                 }
             }
@@ -241,5 +254,36 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                post.postEvento(novoEvento);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                stopLoadingDialog();
+                Toast.makeText(getApplicationContext(), "Evento criado com sucesso", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+    }
+
+    private void startLoadingDialog(){
+        loginDialog = new LoadingDialog(CalendarActivity.this);
+        loginDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loginDialog.show();
+    }
+
+    private void stopLoadingDialog(){
+        loginDialog.dismiss();
     }
 }

@@ -38,6 +38,13 @@
         <item>24x</item>
     </string-array>
 
+    <string-array name="Denunciar">
+        <item>Conteúdo Abusivo</item>
+        <item>Informações Falsas</item>
+        <item>Inapropriado para a Categoria</item>
+        <item>Spam</item>
+    </string-array>
+
 
     <string name="title_activity_user_perfil">activity_user_perfil</string>
     <string name="title_activity_chat">ChatActivity</string>

@@ -23,6 +23,7 @@ public class LoadingDialog extends Dialog implements
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
+        this.setCanceledOnTouchOutside(false);
     }
 
     @Override

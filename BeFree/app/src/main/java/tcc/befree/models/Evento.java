@@ -8,6 +8,7 @@ public class Evento {
     private int idEvento;
     private int idServico;
     private int idUsuarioContratante;
+    private int idUsuario;
     private String nomeUsuarioContratante;
     private String dtEvento;
     private int hrInicio;
@@ -121,5 +122,13 @@ public class Evento {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
     android:layout_marginLeft="13dp"
     android:layout_marginRight="13dp"
     android:orientation="vertical"
     android:weightSum="1">
-
 
     <LinearLayout
         android:id="@+id/item_service_background"
@@ -29,6 +29,7 @@
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/item_service_title"
                 android:layout_width="wrap_content"
@@ -46,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
+                android:maxLines="2"
                 android:layout_gravity="left"
                 android:ellipsize="end"
                 android:textSize="14sp"

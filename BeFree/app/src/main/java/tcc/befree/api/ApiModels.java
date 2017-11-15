@@ -209,7 +209,7 @@ public class ApiModels implements Runnable{
         Servico servico = new Servico();
 
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GetServico/" + id;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GetVwServicosById/?id=" + id;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -229,9 +229,9 @@ public class ApiModels implements Runnable{
                 servico.setIdDDD(jSonObject.getInt("idDDD"));
                 servico.setPreco(Float.parseFloat(jSonObject.getString("preco")));
                 servico.setFormaPgto(jSonObject.getInt("formaPagto"));
-                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria("descCategoria");
-                servico.setDescSubCategoria("descSubCategoria");
+                //servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
+                servico.setDescCategoria(jSonObject.getString("descCategoria"));
+                servico.setDescSubCategoria(jSonObject.getString("descSubCategoria"));
 
             }
 
@@ -364,7 +364,7 @@ public class ApiModels implements Runnable{
 
         Busca busca = new Busca();
         try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GetBusca/" + id;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GetVwBuscaById/?id=" + id;
 
             Thread thread = new Thread(this);
             thread.start();
@@ -382,8 +382,8 @@ public class ApiModels implements Runnable{
             busca.idDDD = jSonObject.getInt("idDDD");
             busca.setPreco(Float.parseFloat(jSonObject.getString("preco")));
             busca.setFormaPgto(jSonObject.getInt("formaPagto"));
-            busca.setDescCategoria("descCategoria");
-            busca.setDescSubCategoria("descSubCategoria");
+            busca.setDescCategoria(jSonObject.getString("descCategoria"));
+            busca.setDescSubCategoria(jSonObject.getString("descSubCategoria"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -915,6 +915,7 @@ public class ApiModels implements Runnable{
                 Evento h = new Evento();
                 h.setIdEvento(jSonObject.getInt("idEvento"));
                 h.setIdServico(jSonObject.getInt("idServico"));
+                h.setIdUsuario(jSonObject.getInt("idUsuario"));
                 h.setIdUsuarioContratante(jSonObject.getInt("idUsuarioContratante"));
                 String trashData = jSonObject.getString("dtEvento").substring(0,10);
                 String formatTrash[] = trashData.split("-");

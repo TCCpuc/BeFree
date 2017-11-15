@@ -146,7 +146,6 @@ public class ForgotPasswordDialog extends Dialog implements
                 count ++;
                 break;
             case R.id.dialog_btn_back:
-                c.finish();
                 dismiss();
                 break;
             default:

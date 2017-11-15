@@ -21,6 +21,7 @@ import tcc.befree.models.Chat;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.AnuncioDenunciaDialog;
+import tcc.befree.telas.Dialog.LoadingDialog;
 
 public class AnuncioServicoActivity extends AppCompatActivity {
     private Bundle bundle;
@@ -37,13 +38,17 @@ public class AnuncioServicoActivity extends AppCompatActivity {
     private FloatingActionButton agenda;
     private FloatingActionButton denuncia;
     private Servico srv;
+    private LoadingDialog loginDialog;
+    private int idServico;
+    private int idUsuarioAtual;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         bundle = getIntent().getBundleExtra("bundle");
-        final int idServico = bundle.getInt("id");
-        final int idUsuarioAtual = bundle.getInt("idUsuario");
+        idServico = bundle.getInt("id");
+        idUsuarioAtual = bundle.getInt("idUsuario");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncio);
         imgAnuncio = (ImageView) findViewById(R.id.activity_anuncio_img_anuncio);
@@ -61,37 +66,8 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         categoria = new Categoria();
         subCategoria = new SubCategoria();
 
-        try {
-            srv = conexao.getServicosById(idServico);
-            Picasso.with(this).load(srv.getImagemServico()).into(imgAnuncio);
-            titulo.setText(srv.getTitulo());
-            descricao.setText(srv.getDescricao());
-            preco.setText(srv.getPreco() + "");
-            int pgto = srv.getFormaPgto();
-            switch (pgto){
-                case 0: formaPgto.setText("A Negociar");
-                    break;
-                case 1: formaPgto.setText("A Vista");
-                    break;
-                case 2: formaPgto.setText("2x");
-                    break;
-                case 3: formaPgto.setText("3x");
-                    break;
-                case 4: formaPgto.setText("4x");
-                    break;
-                case 5: formaPgto.setText("6x");
-                    break;
-                case 6: formaPgto.setText("12x");
-                    break;
-                case 7: formaPgto.setText("24x");
-                    break;
-                default: formaPgto.setText("A Negociar");
-                    break;
-            }
-        }catch (Exception e){
-            String erro = "Problema de conexao";
-            Toast.makeText(this,erro,Toast.LENGTH_SHORT).show();
-        }
+        startLoadingDialog();
+        threadUpdate();
 
         agenda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,37 +82,8 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         contato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApiModels api = new ApiModels();
-                int idAnunciante = api.getServicosById(idServico).getIdUsuario();
-                Chat chat = new Chat();
-                if (api.getChatJaExisteEntreOsUsuarios(idAnunciante,idUsuarioAtual)){
-                    chat = api.getChatDosUsuarios(idAnunciante,idUsuarioAtual);
-                }
-                else{
-                    PostApiModels postApi = new PostApiModels();
-                    chat.setUsuario_1(idUsuarioAtual);
-                    chat.setUsuario_2(idAnunciante);
-                    do {
-                        postApi.postChat(chat);
-                        chat = api.getChatDosUsuarios(idUsuarioAtual, idAnunciante);
-                    }
-                    while (chat == null);
-                }
-                Bundle bundleChat = new Bundle();
-                bundleChat.putInt("idChat", chat.getId());
-                if(api.getUsuarioEUsuario1DoChat(chat.getId(), idUsuarioAtual)) {
-                    bundleChat.putInt("idUsuarioOrigem", idUsuarioAtual);
-                    bundleChat.putInt("isMe", 1);
-                    bundleChat.putInt("idUsuarioDestino", chat.getUsuario_2());
-                }
-                else{
-                    bundleChat.putInt("idUsuarioOrigem", idUsuarioAtual);
-                    bundleChat.putInt("isMe", 2);
-                    bundleChat.putInt("idUsuarioDestino", chat.getUsuario_1());
-                }
-                Intent intent = new Intent(AnuncioServicoActivity.this,MensagemActivity.class);
-                intent.putExtra("bundleChat", bundleChat);
-                startActivity(intent);
+                startLoadingDialog();
+                threadContatoUpdate();
             }
         });
         denuncia.setOnClickListener(new View.OnClickListener() {
@@ -151,5 +98,114 @@ public class AnuncioServicoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void threadContatoUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                int idAnunciante = conexao.getServicosById(idServico).getIdUsuario();
+                Chat chat = new Chat();
+                if (conexao.getChatJaExisteEntreOsUsuarios(idAnunciante,idUsuarioAtual)){
+                    chat = conexao.getChatDosUsuarios(idAnunciante,idUsuarioAtual);
+                }
+                else{
+                    PostApiModels postApi = new PostApiModels();
+                    chat.setUsuario_1(idUsuarioAtual);
+                    chat.setUsuario_2(idAnunciante);
+                    do {
+                        postApi.postChat(chat);
+                        chat = conexao.getChatDosUsuarios(idUsuarioAtual, idAnunciante);
+                    }
+                    while (chat == null);
+                }
+                Bundle bundleChat = new Bundle();
+                bundleChat.putInt("idChat", chat.getId());
+                if(conexao.getUsuarioEUsuario1DoChat(chat.getId(), idUsuarioAtual)) {
+                    bundleChat.putInt("idUsuarioOrigem", idUsuarioAtual);
+                    bundleChat.putInt("isMe", 1);
+                    bundleChat.putInt("idUsuarioDestino", chat.getUsuario_2());
+                }
+                else{
+                    bundleChat.putInt("idUsuarioOrigem", idUsuarioAtual);
+                    bundleChat.putInt("isMe", 2);
+                    bundleChat.putInt("idUsuarioDestino", chat.getUsuario_1());
+                }
+                intent = new Intent(AnuncioServicoActivity.this,MensagemActivity.class);
+                intent.putExtra("bundleChat", bundleChat);
+                threadContatoUI();
+            }
+        }.start();
+    }
+
+    private void threadContatoUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                startActivity(intent);
+                stopLoadingDialog();
+            }
+        });
+    }
+
+    private void threadUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                srv = conexao.getServicosById(idServico);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Picasso.with(AnuncioServicoActivity.this).load(srv.getImagemServico()).into(imgAnuncio);
+                    titulo.setText(srv.getTitulo());
+                    categoriaESub.setText(srv.getDescCategoria() + " > " + srv.getDescSubCategoria());
+                    descricao.setText(srv.getDescricao());
+                    preco.setText(srv.getPreco() + "");
+                    int pgto = srv.getFormaPgto();
+                    switch (pgto){
+                        case 0: formaPgto.setText("A Negociar");
+                            break;
+                        case 1: formaPgto.setText("A Vista");
+                            break;
+                        case 2: formaPgto.setText("2x");
+                            break;
+                        case 3: formaPgto.setText("3x");
+                            break;
+                        case 4: formaPgto.setText("4x");
+                            break;
+                        case 5: formaPgto.setText("6x");
+                            break;
+                        case 6: formaPgto.setText("12x");
+                            break;
+                        case 7: formaPgto.setText("24x");
+                            break;
+                        default: formaPgto.setText("A Negociar");
+                            break;
+                    }
+                }catch (Exception e){
+                    String erro = "Problema de conexao";
+                    Toast.makeText(AnuncioServicoActivity.this,erro,Toast.LENGTH_SHORT).show();
+                }
+                stopLoadingDialog();
+            }
+        });
+    }
+
+    private void startLoadingDialog(){
+        loginDialog = new LoadingDialog(AnuncioServicoActivity.this);
+        loginDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loginDialog.show();
+    }
+
+    private void stopLoadingDialog(){
+        loginDialog.dismiss();
     }
 }

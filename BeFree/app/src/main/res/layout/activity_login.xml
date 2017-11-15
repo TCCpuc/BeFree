@@ -52,7 +52,7 @@
                     android:id="@+id/username_edit_text"
                     style="@style/RegistrationEditTextStyle"
                     android:layout_gravity="center_horizontal"
-                    android:hint="Username"
+                    android:hint="E-Mail"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@+id/password_edit_text" />
 
@@ -70,7 +70,7 @@
                     android:id="@+id/password_edit_text"
                     style="@style/RegistrationEditTextStyle"
                     android:layout_gravity="center_horizontal"
-                    android:hint="Password"
+                    android:hint="Senha"
                     android:nextFocusDown="@+id/email_sign_in_button"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword" />

@@ -57,8 +57,6 @@ public class GenderActivity extends AppCompatActivity {
         notEventos = false;
         api = new ApiModels();
 
-
-
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,10 +119,10 @@ public class GenderActivity extends AppCompatActivity {
             LinearLayout dayLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_day);
             final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
 
-            if(notEventos){
+            if (notEventos) {
                 backgroundLayout.setVisibility(View.GONE);
                 dia.setText("Você não tem nenhum evento agendado");
-            }else {
+            } else {
                 final Evento ev = gender.get(position);
                 avaliar.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -143,44 +141,157 @@ public class GenderActivity extends AppCompatActivity {
                 descricao.setText(ev.getConteudo());
                 String horario;
 
-                if(ev.isAvaliado()) {
-                    tempo.setText("AVALIADO\n\n" + ev.getNotaAvaliacao());
-                }else if(oldDate(ev.getDtEvento()) && (ev.getSituacaoEvento() == 0)){
-                    ev.setSituacaoEvento(2);
-                    tempo.setText("RECUSADO");
-                    backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
-                }else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2){
-                    defaultLayout.setVisibility(View.GONE);
-                    avaliarLayout.setVisibility(View.VISIBLE);
-                }else if(ev.getSituacaoEvento() == 2){
-                    tempo.setText("RECUSADO");
-                    backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
-                }else if (ev.getSituacaoEvento() == 1){
-                    if(ev.getHrInicio() <= 9){
-                        horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
-                    }else{
-                        horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
+
+                if (ev.getIdUsuarioContratante() == idUsuario) {
+                    switch (ev.getSituacaoEvento()) {
+                        case 0:
+                            if(oldDate(ev.getDtEvento())){
+                                defaultLayout.setVisibility(View.GONE);
+                                //NAO MOSTRAR
+                            }else {
+                                //PENDENTE COM OK
+                                if (ev.getHrInicio() <= 9) {
+                                    horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
+                                } else {
+                                    horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
+                                }
+                                if (ev.getHrFinal() <= 9) {
+                                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                                } else {
+                                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                                }
+                                tempo.setText(horario);
+                            }
+                            break;
+                        case 1:
+                            if(oldDate(ev.getDtEvento())){
+                                defaultLayout.setVisibility(View.GONE);
+                                if(ev.isAvaliado()){
+                                    //NAO MOSTRAR
+                                }else {
+                                    avaliarLayout.setVisibility(View.VISIBLE);
+                                }
+                            }else {
+                                if (ev.getHrInicio() <= 9) {
+                                    horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
+                                } else {
+                                    horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
+                                }
+                                if (ev.getHrFinal() <= 9) {
+                                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                                } else {
+                                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                                }
+                                backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
+                                tempo.setText(horario);
+                            }
+                            break;
+                        default:
+                            if(oldDate(ev.getDtEvento())){
+                                defaultLayout.setVisibility(View.GONE);
+                            }else {
+                                tempo.setText("RECUSADO");
+                                backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+                            }
+                            break;
                     }
-                    if(ev.getHrFinal() <= 9){
-                        horario = (horario + " - 0" + ev.getHrFinal() + ":00");
-                    }else {
-                        horario = (horario + " - " + ev.getHrFinal() + ":00");
+                } else {
+                    switch (ev.getSituacaoEvento()) {
+                        case 0:
+                            if (oldDate(ev.getDtEvento())) {
+                                ev.setSituacaoEvento(2);
+                                tempo.setText("RECUSADO");
+                                backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+
+                            } else {
+                                //MOSTRAR PENDENTE E ONCLICKLISTENER (ACEITAR/RECUSAR)
+                                if (ev.getHrInicio() <= 9) {
+                                    horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
+                                } else {
+                                    horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
+                                }
+                                if (ev.getHrFinal() <= 9) {
+                                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                                } else {
+                                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                                }
+                                tempo.setText(horario);
+                            }
+                            break;
+                        case 1:
+                            if (oldDate(ev.getDtEvento())) {
+                                if (ev.isAvaliado()) {
+                                    tempo.setText("AVALIADO\n\n" + ev.getNotaAvaliacao());
+                                } else {
+                                    tempo.setText("NÃO AVALIADO\n\n");
+                                }
+                            } else {
+                                if (ev.getHrInicio() <= 9) {
+                                    horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
+                                } else {
+                                    horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
+                                }
+                                if (ev.getHrFinal() <= 9) {
+                                    horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                                } else {
+                                    horario = (horario + " - " + ev.getHrFinal() + ":00");
+                                }
+                                backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
+                                tempo.setText(horario);
+                            }
+                            break;
+                        default:
+                            tempo.setText("RECUSADO");
+                            backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+                            break;
                     }
-                    backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
-                    tempo.setText(horario);
                 }
-                else {
-                    if(ev.getHrInicio() <= 9){
-                        horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
-                    }else{
-                        horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
-                    }
-                    if(ev.getHrFinal() <= 9){
-                        horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+            }
+            return view;
+        }
+
+                /*
+                if (ev.getIdUsuarioContratante() == idUsuario){
+                    else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2 && idUsuario != ev.getIdUsuario()){
+                        defaultLayout.setVisibility(View.GONE);
+                        avaliarLayout.setVisibility(View.VISIBLE);
+                }else {
+                    if(ev.isAvaliado()) {
+                        //VERIFICA SE EVENTO É AVALIADO
+                        tempo.setText("AVALIADO\n\n" + ev.getNotaAvaliacao());
+                    }else if(oldDate(ev.getDtEvento()) && (ev.getSituacaoEvento() == 0)){
+                        ev.setSituacaoEvento(2);
+                        tempo.setText("RECUSADO");
+                        backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+                    }else if(ev.getSituacaoEvento() == 2){
+                        tempo.setText("RECUSADO");
+                        backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
+                    }else if (ev.getSituacaoEvento() == 1){
+                        if(ev.getHrInicio() <= 9){
+                            horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
+                        }else{
+                            horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
+                        }
+                        if(ev.getHrFinal() <= 9){
+                            horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                        }else {
+                            horario = (horario + " - " + ev.getHrFinal() + ":00");
+                        }
+                        backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
+                        tempo.setText(horario);
                     }else {
-                        horario = (horario + " - " + ev.getHrFinal() + ":00");
+                        if(ev.getHrInicio() <= 9){
+                            horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
+                        }else{
+                            horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
+                        }
+                        if(ev.getHrFinal() <= 9){
+                            horario = (horario + " - 0" + ev.getHrFinal() + ":00");
+                        }else {
+                            horario = (horario + " - " + ev.getHrFinal() + ":00");
+                        }
+                        tempo.setText(horario);
                     }
-                    tempo.setText(horario);
                 }
 
                 if(beforeDate.equals(ev.getDtEvento())){
@@ -189,9 +300,7 @@ public class GenderActivity extends AppCompatActivity {
                     beforeDate = ev.getDtEvento();
                 }
             }
-
-            return view;
-        }
+*/
     }
 
     private class loadingAdapter extends BaseAdapter{
