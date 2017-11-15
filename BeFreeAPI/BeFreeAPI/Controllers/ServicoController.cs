@@ -211,6 +211,19 @@ namespace BeFreeAPI.Controllers
         }
 
         [ResponseType(typeof(vwServico))]
+        public IHttpActionResult GetVwServicosById(int id)
+        {
+
+            String str = "SELECT * " +
+                         "FROM vw_servico AS S " +
+                         "WHERE S.idServico = " + id;
+
+            var buscar = db.Database.SqlQuery<vwServico>(str);
+
+            return Ok(buscar);
+        }
+
+        [ResponseType(typeof(vwServico))]
         public IHttpActionResult GetVwServicos(int usuario)
         {
 
