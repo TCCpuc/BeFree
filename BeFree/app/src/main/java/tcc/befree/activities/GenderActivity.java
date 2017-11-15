@@ -94,6 +94,8 @@ public class GenderActivity extends AppCompatActivity {
             }
         }
 
+
+
         @Override
         public Object getItem(int position) {
             return gender.get(position);
@@ -118,6 +120,7 @@ public class GenderActivity extends AppCompatActivity {
             LinearLayout backgroundLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_background);
             LinearLayout defaultLayout = (LinearLayout) view.findViewById(R.id.item_agenda_default_layout);
             LinearLayout dayLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_day);
+            LinearLayout all = (LinearLayout) view.findViewById(R.id.item_agenda_layout_all);
             final LinearLayout avaliarLayout = (LinearLayout) view.findViewById(R.id.item_agenda_layout_avaliar);
 
             if (notEventos) {
@@ -148,7 +151,8 @@ public class GenderActivity extends AppCompatActivity {
                     switch (ev.getSituacaoEvento()) {
                         case 0:
                             if(oldDate(ev.getDtEvento())){
-                                defaultLayout.setVisibility(View.GONE);
+                                view = getLayoutInflater().inflate(R.layout.item_agenda_null, null);
+                                return view;
                                 //NAO MOSTRAR
                             }else {
                                 //PENDENTE COM OK
@@ -169,6 +173,8 @@ public class GenderActivity extends AppCompatActivity {
                             if(oldDate(ev.getDtEvento())){
                                 defaultLayout.setVisibility(View.GONE);
                                 if(ev.isAvaliado()){
+                                    view = getLayoutInflater().inflate(R.layout.item_agenda_null, null);
+                                    return view;
                                     //NAO MOSTRAR
                                 }else {
                                     avaliarLayout.setVisibility(View.VISIBLE);
@@ -190,7 +196,8 @@ public class GenderActivity extends AppCompatActivity {
                             break;
                         default:
                             if(oldDate(ev.getDtEvento())){
-                                defaultLayout.setVisibility(View.GONE);
+                                view = getLayoutInflater().inflate(R.layout.item_agenda_null, null);
+                                return view;
                             }else {
                                 tempo.setText("RECUSADO");
                                 backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
@@ -255,6 +262,7 @@ public class GenderActivity extends AppCompatActivity {
                     beforeDate = ev.getDtEvento();
                 }
             }
+
             return view;
         }
 
@@ -308,6 +316,7 @@ public class GenderActivity extends AppCompatActivity {
                     beforeDate = ev.getDtEvento();
                 }
             }
+
 */
     }
 
