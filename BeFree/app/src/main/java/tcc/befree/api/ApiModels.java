@@ -100,7 +100,6 @@ public class ApiModels implements Runnable{
         Usuarios usuario = new Usuarios();
         try {
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/GetUsuarioByEmail/?email=" + email;
-
             Thread thread = new Thread(this);
             thread.start();
             controlaThread();
@@ -132,6 +131,7 @@ public class ApiModels implements Runnable{
             usuario.imagemPerfil = jSonObject.getString("imagemPerfil");
         }catch (Exception er){
             er.printStackTrace();
+            return null;
         }
 
         jSonArray = null;

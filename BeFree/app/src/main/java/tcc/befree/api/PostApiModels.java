@@ -292,13 +292,22 @@ public class PostApiModels implements Runnable{
             wr.writeBytes(jSonObject.toString());
             wr.flush();
             wr.close();
+            int HttpResult = 0;
 
-            int HttpResult =urlConnection.getResponseCode();
+            while (true){
+                HttpResult = urlConnection.getResponseCode();
+                if(HttpResult != 0){
+                    break;
+                }
+                Thread.sleep(100);
+            }
 
             semaforo = true;
+
         }catch (Exception e){
             String erro = e.getMessage();
             semaforo = true;
+
         }
     }
 }

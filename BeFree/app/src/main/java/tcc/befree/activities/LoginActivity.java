@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -27,8 +28,11 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -40,6 +44,9 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -71,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private Button mEmailSignInButton;
     private SignInButton signInButton;
     private TextView txtCriaCadastro;
-    private FacebookCallback<LoginResult> callback;
+    //private FacebookCallback<LoginResult> callback;
     private Animation animation;
     private View focusView;
     private LoadingDialog loginDialog;
@@ -134,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         callbackManager = CallbackManager.Factory.create();
 
-        callback = new FacebookCallback<LoginResult>() {
+        /*callback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Profile profile = Profile.getCurrentProfile();
@@ -148,8 +155,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onError(FacebookException e) {
             }
-        };
+        };*/
         loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, callback);
 
 
@@ -174,8 +182,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
 
-                if (currentProfile != null)
-                    createUsuarioFacebook(currentProfile);
+               // if (currentProfile != null)
+                    //createUsuarioFacebook(currentProfile);
             }
         };
 
@@ -400,36 +408,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     }
 
-    private void createUsuarioFacebook(Profile currentProfile){
-
-        Usuarios usuarioFacebook;
-
-        if(currentProfile != null) {
-
-            ApiModels apiModels = new ApiModels();
-
-            usuarioFacebook = apiModels.getUsuariosByEmail(currentProfile.getId());
-            if (usuarioFacebook == null) {
-                usuarioFacebook.nomeUsuario = currentProfile.getFirstName() + " " + currentProfile.getLastName();
-                usuarioFacebook.cpf = "";
-                usuarioFacebook.email = currentProfile.getId();
-                usuarioFacebook.senha = " ";
-                Uri uriImageFacebook = currentProfile.getProfilePictureUri(100, 100);
-                usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
-
-                PostApiModels postApiModels = new PostApiModels();
-                if (postApiModels.authenticateUserFacebook(usuarioFacebook)) {
-                    usuarioFacebook = apiModels.getUsuariosByEmail(currentProfile.getId());
-                    nextActivity(usuarioFacebook);
-                }
-                else
-                    Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
-            }
-            else
-                nextActivity(usuarioFacebook);
-        }
-    }
-
     private void nextActivity(Usuarios usuario){
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -458,4 +436,78 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            AccessToken accessToken = loginResult.getAccessToken();
+            Profile profile = Profile.getCurrentProfile();
+            startLoadingDialog();
+            // Facebook Email address
+            GraphRequest request = GraphRequest.newMeRequest(
+                    loginResult.getAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(
+                                JSONObject object,
+                                GraphResponse response) {
+                            Log.v("LoginActivity Response ", response.toString());
+                            try {
+                                Profile profile = Profile.getCurrentProfile();
+                                if (profile != null){
+                                    ApiModels apiModels = new ApiModels();
+                                    Usuarios usuarioFacebook = apiModels.getUsuariosByEmail(object.getString("email"));
+                                    if (usuarioFacebook == null) {
+                                        usuarioFacebook = new Usuarios();
+                                        usuarioFacebook.nomeUsuario = object.getString("name");
+                                        usuarioFacebook.cpf = "";
+                                        usuarioFacebook.email = object.getString("email");
+                                        usuarioFacebook.senha = " ";
+                                        Uri uriImageFacebook = profile.getProfilePictureUri(100, 100);
+                                        usuarioFacebook.imagemPerfil = uriImageFacebook.toString();
+
+                                        PostApiModels postApiModels = new PostApiModels();
+                                        if (postApiModels.authenticateUserFacebook(usuarioFacebook)) {
+                                            usuarioFacebook = apiModels.getUsuariosByEmail(object.getString("email"));
+                                            nextActivity(usuarioFacebook);
+                                        }
+                                        else{
+                                            Toast.makeText(getApplicationContext(), "Não foi possível realizar o login!", Toast.LENGTH_LONG).show();
+                                        }
+                                        LoginManager.getInstance().logOut();
+                                    }
+                                    else{
+                                        stopLoadingDialog();
+                                        nextActivity(usuarioFacebook);
+                                        LoginManager.getInstance().logOut();
+                                    }
+                                }else {
+                                    Toast.makeText(getApplicationContext(), "Não foi possivel realizar login", Toast.LENGTH_LONG).show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+            stopLoadingDialog();
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,email,gender, birthday");
+            request.setParameters(parameters);
+            request.executeAsync();
+
+
+        }
+
+        @Override
+        public void onCancel() {
+            LoginManager.getInstance().logOut();
+
+        }
+
+        @Override
+        public void onError(FacebookException e) {
+
+        }
+    };
 }
