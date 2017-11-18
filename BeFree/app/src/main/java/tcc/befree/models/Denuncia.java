@@ -8,7 +8,7 @@ public class Denuncia {
     private int idServico;
     private int idBusca;
     private int idUsuarioDenunciante;
-    private String Denuncia;
+    private int Denuncia;
 
     public int getIdServico() {
         return idServico;
@@ -34,11 +34,11 @@ public class Denuncia {
         this.idUsuarioDenunciante = idUsuarioDenunciante;
     }
 
-    public String getDenuncia() {
+    public int getDenuncia() {
         return Denuncia;
     }
 
-    public void setDenuncia(String denuncia) {
+    public void setDenuncia(int denuncia) {
         Denuncia = denuncia;
     }
 }
