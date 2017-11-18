@@ -26,9 +26,11 @@ import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.api.PutApiModels;
 import tcc.befree.models.Categoria;
+import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.telas.Dialog.LoadingDialog;
 import tcc.befree.utils.Utils;
 
 /**
@@ -55,6 +57,9 @@ public class EditServicoActivity extends AppCompatActivity {
     private EditText descricao;
     private SubCategoria subCategoria;
     private Bitmap bitmapUsuarioPerfil;
+    private LoadingDialog loginDialog;
+    private DDD[] ddd;
+    private Categoria[] categorias;
     private static final int SELECT_FILE1 = 100;
 
     @Override
@@ -64,9 +69,9 @@ public class EditServicoActivity extends AppCompatActivity {
 
         Intent it = this.getIntent();
         Bundle loginActivityIntent = it.getExtras();
+
         idServico = loginActivityIntent.getInt("idServico");
-        ApiModels api = new ApiModels();
-        servico = api.getServicosById(idServico);
+
         spinnerDDDs = (Spinner) findViewById(R.id.create_servico_spinnerDDD);
         photoText = (TextView) findViewById(R.id.create_servico_photo_text);
         spinnerCategorias = (Spinner) findViewById(R.id.create_servico_spinnerCategoria);
@@ -80,36 +85,9 @@ public class EditServicoActivity extends AppCompatActivity {
         nome = (EditText) findViewById(R.id.create_servico_titulo);
         descricao = (EditText) findViewById(R.id.create_servico_txtDescricao);
         editValorCheck = (CheckBox) findViewById(R.id.create_servico_valor_check);
-        subCategoria = new ApiModels().getSubCategoriasByID(servico.getIdSubCategoria());
 
-        //popula o spinner do ddd
-        ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
-        arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDDDs.setAdapter(arrayAdapterDDD);
-        spinnerDDDs.setSelection(servico.getIdDDD() - 1);
-        //popula o spinner de categoria
-        ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
-        arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategorias.setAdapter(arrayAdapterCategoria);
-        spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
-        //popula restante
-        photoText.setText("Clique na foto para editar");
-        Picasso.with(this).load(servico.getImagemServico()).into(photo);
-        nome.setText(servico.getTitulo());
-        descricao.setText(servico.getDescricao());
-        submit.setText("Editar Servico");
-        title.setText(servico.getTitulo());
-        spinnerFormaPgto.setSelection(servico.getFormaPgto());
-        if(servico.getPreco() == 0){
-            editValor.setFocusable(false);
-            editValor.setFocusableInTouchMode(false);
-            editValorCheck.setChecked(true);
-        }else {
-            editValor.setFocusable(true);
-            editValor.setFocusableInTouchMode(true);
-            editValor.setText("RS:" + servico.getPreco());
-            editValorCheck.setChecked(false);
-        }
+        startLoadingDialog();
+        threadLoadingUpdate();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +168,57 @@ public class EditServicoActivity extends AppCompatActivity {
         });
     }
 
+    private void threadLoadingUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                ApiModels api = new ApiModels();
+                servico = api.getServicosById(idServico);
+                subCategoria = new ApiModels().getSubCategoriasByID(servico.getIdSubCategoria());
+                ddd = api.getDDDsVetor();
+                categorias = api.getCategoriasVetor();
+                threadLoadingUI();
+            }
+        }.start();
+    }
+
+    private void threadLoadingUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //popula o spinner do ddd
+                ArrayAdapter arrayAdapterDDD = new ArrayAdapter(EditServicoActivity.this, android.R.layout.simple_spinner_item, ddd);
+                arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerDDDs.setAdapter(arrayAdapterDDD);
+                spinnerDDDs.setSelection(servico.getIdDDD() - 1);
+                //popula o spinner de categoria
+                ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(EditServicoActivity.this, android.R.layout.simple_spinner_item, categorias);
+                arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerCategorias.setAdapter(arrayAdapterCategoria);
+                spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
+                //popula restante
+                photoText.setText("Clique na foto para editar");
+                Picasso.with(EditServicoActivity.this).load(servico.getImagemServico()).into(photo);
+                nome.setText(servico.getTitulo());
+                descricao.setText(servico.getDescricao());
+                submit.setText("Editar Servico");
+                title.setText(servico.getTitulo());
+                spinnerFormaPgto.setSelection(servico.getFormaPgto());
+                if(servico.getPreco() == 0){
+                    editValor.setFocusable(false);
+                    editValor.setFocusableInTouchMode(false);
+                    editValorCheck.setChecked(true);
+                }else {
+                    editValor.setFocusable(true);
+                    editValor.setFocusableInTouchMode(true);
+                    editValor.setText("RS:" + servico.getPreco());
+                    editValorCheck.setChecked(false);
+                }
+                stopLoadingDialog();
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -229,5 +258,15 @@ public class EditServicoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void startLoadingDialog(){
+        loginDialog = new LoadingDialog(EditServicoActivity.this);
+        loginDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loginDialog.show();
+    }
+
+    private void stopLoadingDialog(){
+        loginDialog.dismiss();
     }
 }

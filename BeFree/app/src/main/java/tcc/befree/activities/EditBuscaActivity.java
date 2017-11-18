@@ -27,8 +27,10 @@ import tcc.befree.api.ApiModels;
 import tcc.befree.api.PutApiModels;
 import tcc.befree.models.Busca;
 import tcc.befree.models.Categoria;
+import tcc.befree.models.DDD;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.telas.Dialog.LoadingDialog;
 import tcc.befree.utils.Utils;
 
 /**
@@ -55,6 +57,9 @@ public class EditBuscaActivity extends AppCompatActivity {
     private EditText descricao;
     private SubCategoria subCategoria;
     private Bitmap bitmapUsuarioPerfil;
+    private LoadingDialog loginDialog;
+    private DDD[] ddd;
+    private Categoria[] categorias;
     private static final int SELECT_FILE1 = 100;
 
     @Override
@@ -66,8 +71,7 @@ public class EditBuscaActivity extends AppCompatActivity {
         Bundle loginActivityIntent = it.getExtras();
 
         idBusca = loginActivityIntent.getInt("idBusca");
-        ApiModels api = new ApiModels();
-        busca = api.getBuscaByID(idBusca);
+
         spinnerDDDs = (Spinner) findViewById(R.id.create_busca_spinnerDDD);
         photoText = (TextView) findViewById(R.id.create_busca_photo_text);
         spinnerCategorias = (Spinner) findViewById(R.id.create_busca_spinnerCategoria);
@@ -81,36 +85,9 @@ public class EditBuscaActivity extends AppCompatActivity {
         nome = (EditText) findViewById(R.id.create_busca_titulo);
         descricao = (EditText) findViewById(R.id.create_busca_txtDescricao);
         editValorCheck = (CheckBox) findViewById(R.id.create_busca_valor_check);
-        subCategoria = new ApiModels().getSubCategoriasByID(busca.idSubCategoria);
 
-        //popula o spinner do ddd
-        ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
-        arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDDDs.setAdapter(arrayAdapterDDD);
-        spinnerDDDs.setSelection(busca.idDDD - 1);
-        //popula o spinner de categoria
-        ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getCategoriasVetor());
-        arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategorias.setAdapter(arrayAdapterCategoria);
-        spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
-        //popula restante
-        photoText.setText("Clique na foto para editar");
-        Picasso.with(this).load(busca.imagemBusca).into(photo);
-        nome.setText(busca.titulo);
-        descricao.setText(busca.descricao);
-        submit.setText("Editar Busca");
-        title.setText(busca.titulo);
-        spinnerFormaPgto.setSelection(busca.getFormaPgto());
-        if(busca.getPreco() == 0){
-            editValor.setFocusable(false);
-            editValor.setFocusableInTouchMode(false);
-            editValorCheck.setChecked(true);
-        }else {
-            editValor.setFocusable(true);
-            editValor.setFocusableInTouchMode(true);
-            editValor.setText("RS:" + busca.getPreco());
-            editValorCheck.setChecked(false);
-        }
+        startLoadingDialog();
+        threadLoadingUpdate();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +168,57 @@ public class EditBuscaActivity extends AppCompatActivity {
         });
     }
 
+    private void threadLoadingUpdate(){
+        new Thread(){
+            @Override
+            public void run() {
+                ApiModels api = new ApiModels();
+                busca = api.getBuscaByID(idBusca);
+                subCategoria = api.getSubCategoriasByID(busca.idSubCategoria);
+                ddd = api.getDDDsVetor();
+                categorias = api.getCategoriasVetor();
+                threadLoadingUI();
+            }
+        }.start();
+    }
+
+    private void threadLoadingUI(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //popula o spinner do ddd
+                ArrayAdapter arrayAdapterDDD = new ArrayAdapter(EditBuscaActivity.this, android.R.layout.simple_spinner_item, ddd);
+                arrayAdapterDDD.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerDDDs.setAdapter(arrayAdapterDDD);
+                spinnerDDDs.setSelection(busca.idDDD - 1);
+                //popula o spinner de categoria
+                ArrayAdapter arrayAdapterCategoria = new ArrayAdapter(EditBuscaActivity.this, android.R.layout.simple_spinner_item, categorias);
+                arrayAdapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerCategorias.setAdapter(arrayAdapterCategoria);
+                spinnerCategorias.setSelection(subCategoria.idCategoria - 1);
+                //popula restante
+                photoText.setText("Clique na foto para editar");
+                Picasso.with(EditBuscaActivity.this).load(busca.imagemBusca).into(photo);
+                nome.setText(busca.titulo);
+                descricao.setText(busca.descricao);
+                submit.setText("Editar Busca");
+                title.setText(busca.titulo);
+                spinnerFormaPgto.setSelection(busca.getFormaPgto());
+                if(busca.getPreco() == 0){
+                    editValor.setFocusable(false);
+                    editValor.setFocusableInTouchMode(false);
+                    editValorCheck.setChecked(true);
+                }else {
+                    editValor.setFocusable(true);
+                    editValor.setFocusableInTouchMode(true);
+                    editValor.setText("RS:" + busca.getPreco());
+                    editValorCheck.setChecked(false);
+                }
+                stopLoadingDialog();
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -230,5 +258,15 @@ public class EditBuscaActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void startLoadingDialog(){
+        loginDialog = new LoadingDialog(EditBuscaActivity.this);
+        loginDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loginDialog.show();
+    }
+
+    private void stopLoadingDialog(){
+        loginDialog.dismiss();
     }
 }

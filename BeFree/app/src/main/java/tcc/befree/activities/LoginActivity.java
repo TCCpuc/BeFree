@@ -69,13 +69,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private TextInputEditText Password = null;
     private LoginButton loginButton;
     private Button forgotPassword;
+    private Button mEmailSignInButton;
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
     private AccessTokenTracker accessTokenTracker;
     private AccessToken accessToken;
     //private View mProgressView;
     private View relativeLayout;
-    private Button mEmailSignInButton;
     private SignInButton signInButton;
     private TextView txtCriaCadastro;
     //private FacebookCallback<LoginResult> callback;
@@ -140,22 +140,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         });
 
         callbackManager = CallbackManager.Factory.create();
-
-        /*callback = new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Profile profile = Profile.getCurrentProfile();
-                Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-            }
-        };*/
         loginButton.setReadPermissions("user_friends");
         loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, callback);
@@ -413,12 +397,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("arrayUsuario", usuario.toString());
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putInt("idUsuario",usuario.idUsuario);
-        intent.putExtra("idUsuario", bundle);
-        */
-        //stopLoadingDialog();
         startActivity(intent);
     }
 
@@ -434,7 +412,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Toast.makeText(getApplicationContext(), "Falha de Conexão", Toast.LENGTH_LONG).show();
     }
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
@@ -484,7 +462,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 }else {
                                     Toast.makeText(getApplicationContext(), "Não foi possivel realizar login", Toast.LENGTH_LONG).show();
                                 }
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

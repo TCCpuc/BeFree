@@ -161,7 +161,7 @@
                                 android:gravity="top"
                                 android:background="@drawable/border"
                                 android:textAlignment="inherit"
-                                android:imeOptions="actionUnspecified"
+                                android:imeOptions="actionDone"
                                 android:inputType="textMultiLine"
                                 android:padding="5dp"
                                 android:maxLines="10"
