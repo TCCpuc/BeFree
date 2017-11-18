@@ -154,6 +154,7 @@ namespace BeFreeAPI.Controllers
 
         // DELETE: api/Busca/5
         [ResponseType(typeof(Busca))]
+        [HttpGet]
         public IHttpActionResult DeleteBusca(int id)
         {
             Busca busca = db.tbBuscas.Find(id);
