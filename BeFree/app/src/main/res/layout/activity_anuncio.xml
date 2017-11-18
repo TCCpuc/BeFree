@@ -123,12 +123,12 @@
                         android:text="PREÇO"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/activity_anuncio_preco"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="350 reias / Dia"
+                        android:background="@drawable/border_white"
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"

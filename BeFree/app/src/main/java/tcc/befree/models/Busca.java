@@ -14,16 +14,16 @@ public class Busca {
     public String imagemBusca;
     public int idDDD;
     public boolean mostrar = true;
-    private float preco;
+    private int preco;
     private int formaPgto;
     private String descCategoria;
     private String descSubCategoria;
 
-    public float getPreco() {
+    public int getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(int preco) {
         this.preco = preco;
     }
 

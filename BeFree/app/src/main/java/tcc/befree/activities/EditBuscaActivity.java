@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
 import tcc.befree.api.PutApiModels;
@@ -31,6 +35,7 @@ import tcc.befree.models.DDD;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
 import tcc.befree.telas.Dialog.LoadingDialog;
+import tcc.befree.utils.MoneyTextWatcher;
 import tcc.befree.utils.Utils;
 
 /**
@@ -97,7 +102,7 @@ public class EditBuscaActivity extends AppCompatActivity {
                 buscaAlterada.descricao = editDescricao.getText().toString();
                 buscaAlterada.titulo = nome.getText().toString();
                 try {
-                    buscaAlterada.setPreco(Float.parseFloat(editValor.getText().toString()));
+                    buscaAlterada.setPreco(Integer.parseInt(editValor.getText().toString()));
                 }catch (Exception e){
                     buscaAlterada.setPreco(0);
                 }
@@ -127,6 +132,8 @@ public class EditBuscaActivity extends AppCompatActivity {
                 }
             }
         });
+
+        editValor.addTextChangedListener(new MoneyTextWatcher(editValor));
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,11 +214,18 @@ public class EditBuscaActivity extends AppCompatActivity {
                 if(busca.getPreco() == 0){
                     editValor.setFocusable(false);
                     editValor.setFocusableInTouchMode(false);
+                    editValor.setHint("");
                     editValorCheck.setChecked(true);
                 }else {
-                    editValor.setFocusable(true);
-                    editValor.setFocusableInTouchMode(true);
-                    editValor.setText("RS:" + busca.getPreco());
+                    editValor.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            editValor.setFocusable(true);
+                            editValor.setFocusableInTouchMode(true);
+                            String x = (busca.getPreco() + "");
+                            editValor.setText(x);
+                        }
+                    });
                     editValorCheck.setChecked(false);
                 }
                 stopLoadingDialog();

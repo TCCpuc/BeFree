@@ -14,7 +14,7 @@ public class Servico {
     private String imagemServico;
     private int idDDD;
     private boolean mostrar = true;
-    private float preco;
+    private int preco;
     private int formaPgto;
     private float mediaAvaliacao;
     private String descCategoria;
@@ -92,11 +92,11 @@ public class Servico {
         this.mostrar = mostrar;
     }
 
-    public float getPreco() {
+    public int getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(int preco) {
         this.preco = preco;
     }
 

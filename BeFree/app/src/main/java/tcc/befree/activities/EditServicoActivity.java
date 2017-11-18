@@ -31,6 +31,7 @@ import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
 import tcc.befree.telas.Dialog.LoadingDialog;
+import tcc.befree.utils.MoneyTextWatcher;
 import tcc.befree.utils.Utils;
 
 /**
@@ -97,7 +98,7 @@ public class EditServicoActivity extends AppCompatActivity {
                 servicoAlterado.setDescricao(editDescricao.getText().toString());
                 servicoAlterado.setTitulo(nome.getText().toString());
                 try {
-                    servicoAlterado.setPreco(Float.parseFloat(editValor.getText().toString()));
+                    servicoAlterado.setPreco(Integer.parseInt(editValor.getText().toString()));
                 }catch (Exception e){
                     servicoAlterado.setPreco(0);
                 }
@@ -127,6 +128,8 @@ public class EditServicoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        editValor.addTextChangedListener(new MoneyTextWatcher(editValor));
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,9 +212,15 @@ public class EditServicoActivity extends AppCompatActivity {
                     editValor.setFocusableInTouchMode(false);
                     editValorCheck.setChecked(true);
                 }else {
-                    editValor.setFocusable(true);
-                    editValor.setFocusableInTouchMode(true);
-                    editValor.setText("RS:" + servico.getPreco());
+                    editValor.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            editValor.setFocusable(true);
+                            editValor.setFocusableInTouchMode(true);
+                            String x = (servico.getPreco() + "");
+                            editValor.setText(x);
+                        }
+                    });
                     editValorCheck.setChecked(false);
                 }
                 stopLoadingDialog();

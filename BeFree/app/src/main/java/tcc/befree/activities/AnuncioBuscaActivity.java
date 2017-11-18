@@ -6,7 +6,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import tcc.befree.models.Chat;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.AnuncioDenunciaDialog;
 import tcc.befree.telas.Dialog.LoadingDialog;
+import tcc.befree.utils.MoneyTextWatcher;
 
 public class AnuncioBuscaActivity extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
     protected ImageView imgAnuncio;
     private TextView titulo;
     private TextView descricao;
-    private TextView preco;
+    private EditText preco;
     private TextView formaPgto;
     private TextView categoriaESub;
     private FloatingActionButton contato;
@@ -58,9 +61,11 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         denuncia = (FloatingActionButton) findViewById(R.id.anuncio_denunciar);
         titulo = (TextView) findViewById(R.id.activity_anuncio_txtNome);
         descricao = (TextView) findViewById(R.id.activity_anuncio_txtDescricao);
-        preco = (TextView) findViewById(R.id.activity_anuncio_preco);
+        preco = (EditText) findViewById(R.id.activity_anuncio_preco);
         formaPgto = (TextView) findViewById(R.id.activity_anuncio_forma_pagamento);
         categoriaESub = (TextView) findViewById(R.id.activity_anuncio_categoria);
+
+        preco.addTextChangedListener(new MoneyTextWatcher(preco));
 
         conexao = new ApiModels();
         srv = new Busca();
@@ -162,6 +167,7 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
                     titulo.setText(srv.titulo);
                     descricao.setText(srv.descricao);
                     categoriaESub.setText(srv.getDescCategoria() + " > " + srv.getDescSubCategoria());
+
                     preco.setText(srv.getPreco() + "");
                     int pgto = srv.getFormaPgto();
                     switch (pgto){
