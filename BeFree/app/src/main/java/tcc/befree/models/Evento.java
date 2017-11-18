@@ -19,6 +19,7 @@ public class Evento {
     private String titulo; //SERVICO
     private String conteudo; //SERVICO
     private String imagem; //SERVICO
+    private Boolean isUsuario;
 
     public int getIdEvento() {
         return idEvento;
@@ -130,5 +131,13 @@ public class Evento {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public Boolean isUsuario() {
+        return isUsuario;
+    }
+
+    public void setUsuario(Boolean usuario) {
+        isUsuario = usuario;
     }
 }

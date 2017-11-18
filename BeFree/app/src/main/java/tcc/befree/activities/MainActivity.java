@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity{
     private int idDDDBuscaAvancada = 0;
     private int idSubCategoriaBuscaAvancada = 0;
     private int id = 0;
+    private int activityBrequestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity{
                             // ABRIR MEU PERFIL
                             Intent intent = new Intent(MainActivity.this, UserPerfilActivity.class);
                             intent.putExtra("arrayUsuario", usuario.toString());
-                            startActivity(intent);
+                            startActivityForResult(intent, activityBrequestCode);
 
                         } else if (id == R.id.menu_calendario) {
                             // ABRIR Agenda
@@ -202,6 +203,16 @@ public class MainActivity extends AppCompatActivity{
             drawer.closeDrawer(GravityCompat.START);
         } else {
             logoff();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == this.activityBrequestCode && resultCode == RESULT_OK){
+            startLoadingDialog();
+            threadLoadingUpdate();
         }
     }
 

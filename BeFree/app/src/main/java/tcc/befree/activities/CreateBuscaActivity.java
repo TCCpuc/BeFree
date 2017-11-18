@@ -39,6 +39,7 @@ import tcc.befree.models.Categoria;
 import tcc.befree.models.DDD;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.utils.MoneyTextWatcher;
 import tcc.befree.utils.Utils;
 
 public class CreateBuscaActivity extends AppCompatActivity {
@@ -129,7 +130,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 else {
                     novaBusca.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
                     try {
-                        novaBusca.setPreco(Float.parseFloat(editValor.getText().toString()));
+                        novaBusca.setPreco(Integer.parseInt(editValor.getText().toString()));
                     }catch (Exception e){
                         novaBusca.setPreco(0);
                     }
@@ -168,6 +169,8 @@ public class CreateBuscaActivity extends AppCompatActivity {
                 }
             }
         });
+
+        editValor.addTextChangedListener(new MoneyTextWatcher(editValor));
 
         photo.setOnClickListener(new View.OnClickListener(){
             @Override

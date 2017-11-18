@@ -92,6 +92,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
 
         startLoadingDialog();
         threadUpdate();
+
     }
 
     @Override
@@ -121,21 +122,8 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     username.setFocusableInTouchMode(false);
                     username.setFocusable(false);
                     username.setBackgroundColor(Color.WHITE);
-                    try {
-                        usuario.nomeUsuario = username.getText().toString();
-                        usuario.ddd = ddd.getSelectedItemPosition() + 1;
-//                        if (ddd.getSelectedItemPosition() > 5)
-//                            usuario.ddd = ddd.getSelectedItemPosition() + 13;
-//                        else
-//                            usuario.ddd = ddd.getSelectedItemPosition() + 12;
-                        if(bitmapUsuarioPerfil!= null){
-                            usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
-                        }
-                        new PutApiModels().putUsuarios(usuario);
-                    }
-                    catch (Exception E){
-                        System.err.print("Erro ao atualizar usuario");
-                    }
+                    startLoadingDialog();
+                    threadUpdateUsuario();
                 }else {
                     edit_dados.setText("Confirmar");
                     usernameButton.setVisibility(View.VISIBLE);
@@ -210,18 +198,8 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    usuario.nomeUsuario = username.getText().toString();
-                                    usuario.ddd = ddd.getSelectedItemPosition() + 1;
-                                    if(bitmapUsuarioPerfil!= null){
-                                        usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
-                                    }
-                                    new PutApiModels().putUsuarios(usuario);
-                                }
-                                catch (Exception E){
-                                    System.err.print("Erro ao atualizar usuario");
-                                }
-                                finish();
+                                startLoadingDialog();
+                                threadUpdateUsuarioBack();
                             }
 
                         })
@@ -236,9 +214,77 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
 
                 //super.onBackPressed();
         }else{
+            Intent resultInt = new Intent();
+            resultInt.putExtra("Result", "Done");
+            setResult(UserPerfilActivity.RESULT_OK, resultInt);
+            UserPerfilActivity.super.onBackPressed();
             finish();
         }
     }
+
+    private void threadUpdateUsuarioBack(){
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    usuario.nomeUsuario = username.getText().toString();
+                    usuario.ddd = ddd.getSelectedItemPosition() + 1;
+                    if(bitmapUsuarioPerfil!= null){
+                        usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                    }
+                    new PutApiModels().putUsuarios(usuario);
+                }
+                catch (Exception E){
+                    System.err.print("Erro ao atualizar usuario");
+                }
+                threadUIUsuarioBack();
+            }
+        }.start();
+    }
+
+    private void threadUIUsuarioBack() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                stopLoadingDialog();
+                Intent resultInt = new Intent();
+                resultInt.putExtra("Result", "Done");
+                setResult(UserPerfilActivity.RESULT_OK, resultInt);
+                UserPerfilActivity.super.onBackPressed();
+                finish();
+            }
+        });
+    }
+
+    private void threadUpdateUsuario(){
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    usuario.nomeUsuario = username.getText().toString();
+                    usuario.ddd = ddd.getSelectedItemPosition() + 1;
+                    if(bitmapUsuarioPerfil!= null){
+                        usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
+                    }
+                    new PutApiModels().putUsuarios(usuario);
+                }
+                catch (Exception E){
+                    System.err.print("Erro ao atualizar usuario");
+                }
+                threadUIUsuario();
+            }
+        }.start();
+    }
+
+    private void threadUIUsuario() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                stopLoadingDialog();
+            }
+        });
+    }
+
     private void threadUpdate(){
         new Thread(){
             @Override

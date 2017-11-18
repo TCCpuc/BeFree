@@ -304,17 +304,16 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="VALOR"
+                            android:text="FAIXA DE PREÇO (R$:)"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <EditText
                             android:id="@+id/create_busca_valor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="R$:"
                             android:background="@drawable/border_white"
                             android:textAlignment="center"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:maxLines="1"
                             android:layout_marginBottom="10dp"
                             android:focusableInTouchMode="false"

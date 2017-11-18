@@ -37,6 +37,7 @@ import tcc.befree.models.DDD;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.InsertImageDialog;
+import tcc.befree.utils.MoneyTextWatcher;
 import tcc.befree.utils.Utils;
 
 public class CreateServicoActivity extends AppCompatActivity {
@@ -126,7 +127,7 @@ public class CreateServicoActivity extends AppCompatActivity {
                 else {
                     novoServico.setFormaPgto(spinnerFormaPgto.getSelectedItemPosition());
                     try {
-                        novoServico.setPreco(Float.parseFloat(editValor.getText().toString()));
+                        novoServico.setPreco(Integer.parseInt(editValor.getText().toString()));
                     }catch (Exception e){
                         novoServico.setPreco(0);
                     }
@@ -164,6 +165,8 @@ public class CreateServicoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        editValor.addTextChangedListener(new MoneyTextWatcher(editValor));
 
         photo.setOnClickListener(new View.OnClickListener(){
             @Override

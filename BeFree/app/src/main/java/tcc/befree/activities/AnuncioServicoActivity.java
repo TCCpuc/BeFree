@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.telas.Dialog.AnuncioDenunciaDialog;
 import tcc.befree.telas.Dialog.LoadingDialog;
+import tcc.befree.utils.MoneyTextWatcher;
 
 public class AnuncioServicoActivity extends AppCompatActivity {
     private Bundle bundle;
@@ -31,9 +33,10 @@ public class AnuncioServicoActivity extends AppCompatActivity {
     protected ImageView imgAnuncio;
     private TextView titulo;
     private TextView descricao;
-    private TextView preco;
     private TextView formaPgto;
     private TextView categoriaESub;
+    private TextView negociar;
+    private EditText preco;
     private FloatingActionButton contato;
     private FloatingActionButton agenda;
     private FloatingActionButton denuncia;
@@ -57,9 +60,13 @@ public class AnuncioServicoActivity extends AppCompatActivity {
         denuncia = (FloatingActionButton) findViewById(R.id.anuncio_denunciar);
         titulo = (TextView) findViewById(R.id.activity_anuncio_txtNome);
         descricao = (TextView) findViewById(R.id.activity_anuncio_txtDescricao);
-        preco = (TextView) findViewById(R.id.activity_anuncio_preco);
+        preco = (EditText) findViewById(R.id.activity_anuncio_preco);
         formaPgto = (TextView) findViewById(R.id.activity_anuncio_forma_pagamento);
         categoriaESub = (TextView) findViewById(R.id.activity_anuncio_categoria);
+        negociar = (TextView) findViewById(R.id.activity_anuncio_preco_negociar);
+
+
+        preco.addTextChangedListener(new MoneyTextWatcher(preco));
 
         conexao = new ApiModels();
         srv = new Servico();
@@ -168,7 +175,16 @@ public class AnuncioServicoActivity extends AppCompatActivity {
                     titulo.setText(srv.getTitulo());
                     categoriaESub.setText(srv.getDescCategoria() + " > " + srv.getDescSubCategoria());
                     descricao.setText(srv.getDescricao());
-                    preco.setText(srv.getPreco() + "");
+
+                    if (srv.getPreco() == 0){
+                        preco.setVisibility(View.GONE);
+                        negociar.setVisibility(View.VISIBLE);
+                    }else {
+                        preco.setVisibility(View.VISIBLE);
+                        negociar.setVisibility(View.GONE);
+                        preco.setText(srv.getPreco() + "");
+                    }
+
                     int pgto = srv.getFormaPgto();
                     switch (pgto){
                         case 0: formaPgto.setText("A Negociar");
