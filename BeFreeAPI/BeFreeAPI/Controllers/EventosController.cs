@@ -93,11 +93,7 @@ namespace BeFreeAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-
-            return Ok("erro");
-
-            /*
+            
             db.tbEventos.Add(evento);
             try
             {
@@ -107,7 +103,7 @@ namespace BeFreeAPI.Controllers
                 String erro = err.Message;
                 return BadRequest();
             }
-            return CreatedAtRoute("DefaultApi", new { id = evento.idEvento }, evento);*/
+            return CreatedAtRoute("DefaultApi", new { id = evento.idEvento }, evento);
         }
 
         // DELETE: api/Eventos/5
@@ -146,7 +142,7 @@ namespace BeFreeAPI.Controllers
 
             VwEventoUsuario oi = new VwEventoUsuario();
             String str = "SELECT * " +
-                         "FROM vw_evento_usuario AS EU" +
+                         "FROM vw_evento_usuario AS EU " +
                          "WHERE EU.idUsuario = " + usuario +
                          "   OR EU.idUsuarioContratante = " + usuario;
 

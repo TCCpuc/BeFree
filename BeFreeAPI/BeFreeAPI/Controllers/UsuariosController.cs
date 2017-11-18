@@ -13,6 +13,8 @@ using BeFreeAPI.Utils;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Configuration;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace BeFreeAPI.Controllers
 {
@@ -189,13 +191,22 @@ namespace BeFreeAPI.Controllers
         {
 
             IQueryable<Usuario> usuario = null;
-
             try
             {
 
                 usuario = db.tbUsuarios.Where(u => u.codigoSeguranca == codigo);
-                if (usuario == null)
-                    return NotFound();
+                if (usuario.Count() <= 0) {
+                    List<Retorno> retorno = new List<Retorno>();
+                    retorno.Add(new Retorno(2, "Código de segurança inválido."));
+                    return Ok(retorno);
+                }
+
+
+                var usuarioEncontrado = usuario.FirstOrDefault();
+                usuarioEncontrado.codigoSeguranca = "";
+                PutUsuario(usuarioEncontrado.idUsuario, usuarioEncontrado);
+
+                usuario = db.tbUsuarios.Where(u => u.idUsuario == usuarioEncontrado.idUsuario);
 
             }
             catch (Exception err)
@@ -213,23 +224,27 @@ namespace BeFreeAPI.Controllers
 
             try
             {
+                //colocar bodyEmail no banco
+                IQueryable<Usuario> usuario = db.tbUsuarios.Where(u => u.email == email);
+                if (usuario.Count() <= 0)
+                {
+                    List<Retorno> retorno = new List<Retorno>();
+                    retorno.Add(new Retorno(2, "Não foi encontrado usuário para o email digitado."));
+                    return Ok(retorno);
+                }
+
                 string bodyEmail = function.GenerateRandomString();
                 bool emailOK = function.EnviaEmail(email, "Recuperação de Senha Befree", bodyEmail);
 
-                //colocar bodyEmail no banco
-                IQueryable<Usuario> usuario = db.tbUsuarios.Where(u => u.email == email);
-                if (usuario == null)
-                {
-                    return NotFound();
-                }
                 var usuarioEncontrado = usuario.FirstOrDefault();
                 usuarioEncontrado.codigoSeguranca = bodyEmail;
                 PutUsuario(usuarioEncontrado.idUsuario, usuarioEncontrado);
             }
             catch (Exception err)
             {
-
-                return NotFound();
+                List<Retorno> retorno = new List<Retorno>();
+                retorno.Add(new Retorno(2, "Não foi encontrado usuário para o email digitado."));
+                return Ok(retorno);
             }
 
             return Ok();

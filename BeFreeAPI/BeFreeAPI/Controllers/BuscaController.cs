@@ -186,7 +186,7 @@ namespace BeFreeAPI.Controllers
 
             Random random = new Random();
 
-            string nomeImage = "buscas\\" + busca.titulo.ToString().Replace(" ", "_") + "_" + busca.descricao.ToString().Replace(" ", "_") + "_" + random.Next(1000000).ToString() + ".jpeg";
+            string nomeImage = "buscas\\" + random.Next(1000000).ToString() + random.Next(3000000).ToString() +  random.Next(3000000).ToString() + ".jpeg";
 
             Image image = function.Base64ToImage(busca.imagemBusca);
             if (image != null)

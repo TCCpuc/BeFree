@@ -213,12 +213,18 @@ public class PostApiModels implements Runnable{
             jSonObject.put("imagemPerfil", usuario.imagemPerfil);
 
             thread.start();
+            thread.wait();
             controlaThread();
             thread.interrupt();
 
         } catch (JSONException e) {
             e.printStackTrace();
             thread.interrupt();
+            return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            thread.interrupt();
+            return false;
         }
 
         return true;
@@ -294,12 +300,11 @@ public class PostApiModels implements Runnable{
             wr.close();
             int HttpResult = 0;
 
-            while (true){
+            for(;;){
                 HttpResult = urlConnection.getResponseCode();
                 if(HttpResult != 0){
                     break;
                 }
-                Thread.sleep(100);
             }
 
             semaforo = true;

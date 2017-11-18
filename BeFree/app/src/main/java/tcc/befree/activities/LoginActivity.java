@@ -141,21 +141,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         callbackManager = CallbackManager.Factory.create();
 
-        /*callback = new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Profile profile = Profile.getCurrentProfile();
-                Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-            }
-        };*/
         loginButton.setReadPermissions("user_friends");
         loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, callback);
@@ -182,8 +167,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
 
-               // if (currentProfile != null)
-                    //createUsuarioFacebook(currentProfile);
             }
         };
 
@@ -369,6 +352,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         if (requestCode == SING_IN_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(intent);
+            handleSingInResult(result);
 
         } else { //Facebook login
             callbackManager.onActivityResult(requestCode, responseCode, intent);

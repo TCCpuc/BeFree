@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
@@ -10,10 +11,19 @@ using System.Net.Mail;
 using System.Text;
 using System.Web;
 
+
 namespace BeFreeAPI.Utils
 {
     public class Function
     {
+
+        public string ToJSON(Retorno ret)
+        {
+
+            var json = "[" + JsonConvert.SerializeObject(ret) + "]";
+            return json;
+        }
+
         public Image Base64ToImage(string base64String)
         {
             //base64String.Replace("-", "+").Replace("_", "/").Replace("*", "=");
