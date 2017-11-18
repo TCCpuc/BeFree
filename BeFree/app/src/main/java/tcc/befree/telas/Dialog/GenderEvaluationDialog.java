@@ -41,7 +41,6 @@ public class GenderEvaluationDialog   extends Dialog {
         // TODO Auto-generated constructor stub
         this.c = a;
         this.evento = evento;
-
     }
 
     @Override

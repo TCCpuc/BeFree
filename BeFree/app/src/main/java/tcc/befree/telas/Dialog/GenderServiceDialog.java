@@ -33,12 +33,14 @@ public class GenderServiceDialog  extends Dialog {
     private Button refuse;
     private Button ok;
     private Evento evento;
+    private Boolean isUsuario;
 
-    public GenderServiceDialog(GenderActivity a, Evento evento) {
+    public GenderServiceDialog(GenderActivity a, Evento evento, Boolean isUsuario) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
         this.evento = evento;
+        this.isUsuario = isUsuario;
     }
 
     @Override
@@ -87,6 +89,12 @@ public class GenderServiceDialog  extends Dialog {
             accept.setVisibility(View.GONE);
             refuse.setVisibility(View.GONE);
             ok.setVisibility(View.VISIBLE);
+        }else {
+            if (isUsuario){
+                accept.setVisibility(View.GONE);
+                refuse.setVisibility(View.GONE);
+                ok.setVisibility(View.VISIBLE);
+            }
         }
     }
 

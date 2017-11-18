@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class AnuncioDenunciaDialog  extends Dialog {
 
     private Activity c;
     private TextView title;
-    private EditText descricao;
+    private Spinner descricao;
     private CircleImageView imagem;
     private Button accept;
     private Button back;
@@ -60,7 +61,7 @@ public class AnuncioDenunciaDialog  extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_anuncio_denuncia);
         title = (TextView) findViewById(R.id.dialog_anuncio_denuncia_titulo);
-        descricao = (EditText) findViewById(R.id.dialog_anuncio_denuncia_denuncia);
+        descricao = (Spinner) findViewById(R.id.dialog_anuncio_denuncia_denuncia);
         imagem = (CircleImageView) findViewById(R.id.dialog_anuncio_denuncia_image);
         accept = (Button) findViewById(R.id.dialog_anuncio_denuncia_send);
         back = (Button) findViewById(R.id.dialog_anuncio_denuncia_back);
@@ -75,7 +76,7 @@ public class AnuncioDenunciaDialog  extends Dialog {
                 public void onClick(View v) {
                     denuncia.setIdBusca(busca.idBusca);
                     denuncia.setIdUsuarioDenunciante(iDUsuario);
-                    denuncia.setDenuncia(descricao.getText().toString());
+                    denuncia.setDenuncia(descricao.getSelectedItemPosition());
                     api.postDenuncia(denuncia);
                     Toast.makeText(c.getApplicationContext(), "Obrigado pela denúncia!!", Toast.LENGTH_LONG).show();
                     dismiss();
@@ -95,7 +96,7 @@ public class AnuncioDenunciaDialog  extends Dialog {
                 public void onClick(View v) {
                     denuncia.setIdServico(servico.getIdServico());
                     denuncia.setIdUsuarioDenunciante(iDUsuario);
-                    denuncia.setDenuncia(descricao.getText().toString());
+                    denuncia.setDenuncia(descricao.getSelectedItemPosition());
                     api.postDenuncia(denuncia);
                     Toast.makeText(c.getApplicationContext(), "Obrigado pela denúncia!!", Toast.LENGTH_LONG).show();
                     dismiss();
@@ -108,8 +109,6 @@ public class AnuncioDenunciaDialog  extends Dialog {
                 }
             });
         }
-
-
     }
 
     @Override

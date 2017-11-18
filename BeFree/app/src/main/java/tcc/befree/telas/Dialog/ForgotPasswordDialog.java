@@ -2,14 +2,14 @@ package tcc.befree.telas.Dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,7 +35,10 @@ public class ForgotPasswordDialog extends Dialog implements
     private EditText dialogMessage;
     private EditText passwordText;
     private EditText passwordText2;
-    private int count = 0;
+    private String senha;
+    private int count;
+    private Usuarios usuario;
+    private LoadingDialog loginDialog;
     String email = null;
 
     public ForgotPasswordDialog(Activity a) {
@@ -60,6 +63,7 @@ public class ForgotPasswordDialog extends Dialog implements
         sendButton.setOnClickListener(this);
         code.setOnClickListener(this);
         backButton.setOnClickListener(this);
+        count = 0;
     }
 
     @Override
@@ -69,7 +73,7 @@ public class ForgotPasswordDialog extends Dialog implements
                 if(count == 0){
                     email = dialogMessage.getText().toString();
                     //VERIFICAR NO BANCO SE EMAIL EXISTE
-                    if(dialogMessage.getText().length() == 0) {
+                    if(email.length() == 0) {
                         textMessage.setText("Campo vazio, por favor digite um email");
                         dialogMessage.setText("");
                         dialogMessage.requestFocus();
@@ -78,7 +82,7 @@ public class ForgotPasswordDialog extends Dialog implements
                         dialogMessage.setText("");
                         dialogMessage.requestFocus();
                     }else{
-                        apiModels.getCodePassword(dialogMessage.getText().toString());
+                        apiModels.getCodePassword(email);
                         textMessage.setText("Digite o codigo enviado para seu email");
                         dialogMessage.setHint("Código");
                         code.setVisibility(View.GONE);
@@ -89,13 +93,9 @@ public class ForgotPasswordDialog extends Dialog implements
                 }else if(count == 1){
                     //VERIFICAR NO BANCO SE CODIGO É CORRETO
                     String codigoDigitado = dialogMessage.getText().toString();
-                    boolean codigoExiste = false;
-                    if (email == null)
-                        //Está no fluxo de código
-                        email = apiModels.getEmailByCodigoSeguranca(codigoDigitado);
-                    String codigoNoBanco = apiModels.getCodigoSegurancaByEmail(email);
-                    if(codigoDigitado.equals(codigoNoBanco)){
-                        textMessage.setText("Digite uma nova senha");
+                    usuario = apiModels.validateCode(codigoDigitado);
+                    if(usuario != null){
+                        textMessage.setText("Por Favor digite uma senha");
                         dialogMessage.setText("");
                         dialogMessage.setVisibility(View.GONE);
                         passwordText.setVisibility(View.VISIBLE);
@@ -109,7 +109,7 @@ public class ForgotPasswordDialog extends Dialog implements
                     }
 
                 }else if (count == 2){
-                    String senha = passwordText.getText().toString();
+                    senha = passwordText.getText().toString();
                     if(senha.length() == 0){
                         passwordText.setText("");
                         passwordText2.setText("");
@@ -122,15 +122,9 @@ public class ForgotPasswordDialog extends Dialog implements
                         textMessage.setText("Senhas diferentes, tente novamente");
                         passwordText.requestFocus();
                     }else{
-                        textMessage.setText("Senha alterada com sucesso");
-                        sendButton.setVisibility(View.GONE);
-                        Usuarios usuarioComSenhaAlterada = apiModels.getUsuariosByEmail(email);
-                        usuarioComSenhaAlterada.senha = senha;
-                        usuarioComSenhaAlterada.codigoSeguranca = null;
-                        new PutApiModels().putUsuarios(usuarioComSenhaAlterada);
-                        passwordText.setVisibility(View.GONE);
-                        passwordText2.setVisibility(View.GONE);
-                        count ++;
+                        usuario.senha = passwordText.getText().toString();
+                        startLoadingDialog();
+                        threadUpdate();
                     }
                 }else if (count == 3){
                     this.dismiss();
@@ -165,25 +159,37 @@ public class ForgotPasswordDialog extends Dialog implements
             return true;
     }
 
-
-
-
-
-   /* public void showDialog(Activity activity){
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView();
-
-        TextView text = (TextView) dialog.findViewById(R.id.dialog_text);
-
-        Button dialogButton = (Button) dialog.findViewById(R.id.dialog_btn_send);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
+    private void threadUpdate(){
+        new Thread(){
             @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+            public void run() {
+                new PutApiModels().putUsuarios(usuario);
+                threadUI();
+            }
+        }.start();
+    }
+
+    private void threadUI(){
+        c.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textMessage.setText("Senha alterada com sucesso");
+                sendButton.setVisibility(View.GONE);
+                passwordText.setVisibility(View.GONE);
+                passwordText2.setVisibility(View.GONE);
+                count ++;
+                stopLoadingDialog();
             }
         });
-        dialog.show();
-    }*/
+    }
+
+    private void startLoadingDialog(){
+        loginDialog = new LoadingDialog(c);
+        loginDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loginDialog.show();
+    }
+
+    private void stopLoadingDialog(){
+        loginDialog.dismiss();
+    }
 }
