@@ -19,7 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -228,23 +231,27 @@ public class CalendarActivity extends AppCompatActivity {
                 if (dia.getText().equals("DIA")){
                     Toast.makeText(getApplicationContext(), "Selecione o dia desejado", Toast.LENGTH_LONG).show();
                 }else{
-                    String horafim[] = horaFinal.getText().toString().split(":");
-                    int horafinal = Integer.parseInt(horafim[0]);
-                    String horaini[] = horaInicial.getText().toString().split(":");
-                    int horainicial = Integer.parseInt(horaini[0]);
-                    novoEvento = new Evento();
-                    novoEvento.setIdServico(data.getInt("idServico"));
-                    novoEvento.setIdUsuarioContratante(data.getInt("idUsuario"));
-                    novoEvento.setDtEvento(dia.getText().toString());
-                    novoEvento.setHrInicio(horainicial);
-                    novoEvento.setHrFinal(horafinal);
+                    if(oldDate(dia.getText().toString())){
+                        Toast.makeText(getApplicationContext(), "Data invalida", Toast.LENGTH_LONG).show();
+                    }else {
+                        String horafim[] = horaFinal.getText().toString().split(":");
+                        int horafinal = Integer.parseInt(horafim[0]);
+                        String horaini[] = horaInicial.getText().toString().split(":");
+                        int horainicial = Integer.parseInt(horaini[0]);
+                        novoEvento = new Evento();
+                        novoEvento.setIdServico(data.getInt("idServico"));
+                        novoEvento.setIdUsuarioContratante(data.getInt("idUsuario"));
+                        novoEvento.setDtEvento(dia.getText().toString());
+                        novoEvento.setHrInicio(horainicial);
+                        novoEvento.setHrFinal(horafinal);
 
-                    try {
-                        startLoadingDialog();
-                        threadUpdate();
-                    }catch (Exception e){
-                        Toast.makeText(getApplicationContext(), "Erro de Postagem", Toast.LENGTH_LONG).show();
-                        stopLoadingDialog();
+                        try {
+                            startLoadingDialog();
+                            threadUpdate();
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(), "Erro de Postagem", Toast.LENGTH_LONG).show();
+                            stopLoadingDialog();
+                        }
                     }
                 }
             }
@@ -285,5 +292,28 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void stopLoadingDialog(){
         loginDialog.dismiss();
+    }
+
+    public boolean oldDate(String data){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String today [] = dateFormat.format(date).split("/");
+        String oldDay [] = data.split("/");
+        int oDia = Integer.parseInt(oldDay[0]);
+        int oMes = Integer.parseInt(oldDay[1]);
+        int oAno = Integer.parseInt(oldDay[2]);
+        int tDia = Integer.parseInt(today[0]);
+        int tMes = Integer.parseInt(today[1]);
+        int tAno = Integer.parseInt(today[2]);
+
+        if(oAno < tAno){
+            return true;
+        }else if(oMes < tMes && oAno == tAno ){
+            return true;
+        }else if(oDia < tDia && oMes == tMes && oAno == tAno){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
