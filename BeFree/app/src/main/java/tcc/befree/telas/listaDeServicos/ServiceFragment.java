@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ public class ServiceFragment extends Fragment {
     private boolean meusAnuncios;
     public ArrayList<Servico> results = new ArrayList<>();
     private ArrayList<Servico> valuesComMostrarTrue;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +57,17 @@ public class ServiceFragment extends Fragment {
         }*/
         rootView = inflater.inflate(R.layout.fragment_slide, this.container, false);
         ls = (RecyclerView) rootView.findViewById(R.id.list);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+
         getLista();
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
         return this.rootView ;
     }
 
@@ -63,9 +75,6 @@ public class ServiceFragment extends Fragment {
     public void getLista() {
 
         ls.setLayoutManager(new LinearLayoutManager(getContext()));
-        //ls.setOnClickListener();
-        LinearSnapHelper snapHelper  = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(ls);
         ls.setAdapter(new loadingAdapter());
         threadUpdate();
     }
@@ -147,5 +156,20 @@ public class ServiceFragment extends Fragment {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    void refreshItems() {
+        // Load items
+        // ...
+        getLista();
+        // Load complete
+        onItemsLoadComplete();
+    }
+
+    void onItemsLoadComplete() {
+        // Update the adapter and notify data set changed
+        // ...
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }
