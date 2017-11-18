@@ -35,9 +35,11 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
     protected ImageView imgAnuncio;
     private TextView titulo;
     private TextView descricao;
-    private EditText preco;
+    private TextView negociar;
     private TextView formaPgto;
     private TextView categoriaESub;
+    private TextView tipoPreco;
+    private EditText preco;
     private FloatingActionButton contato;
     private FloatingActionButton agenda;
     private FloatingActionButton denuncia;
@@ -64,8 +66,12 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
         preco = (EditText) findViewById(R.id.activity_anuncio_preco);
         formaPgto = (TextView) findViewById(R.id.activity_anuncio_forma_pagamento);
         categoriaESub = (TextView) findViewById(R.id.activity_anuncio_categoria);
+        negociar = (TextView) findViewById(R.id.activity_anuncio_preco_negociar);
+        tipoPreco = (TextView) findViewById(R.id.activity_anuncio_tipo_preco);
 
         preco.addTextChangedListener(new MoneyTextWatcher(preco));
+
+        tipoPreco.setText("FAIXA DE PREÇO (R$:)");
 
         conexao = new ApiModels();
         srv = new Busca();
@@ -168,7 +174,15 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
                     descricao.setText(srv.descricao);
                     categoriaESub.setText(srv.getDescCategoria() + " > " + srv.getDescSubCategoria());
 
-                    preco.setText(srv.getPreco() + "");
+                    if (srv.getPreco() == 0){
+                        preco.setVisibility(View.GONE);
+                        negociar.setVisibility(View.VISIBLE);
+                    }else {
+                        preco.setVisibility(View.VISIBLE);
+                        negociar.setVisibility(View.GONE);
+                        preco.setText(srv.getPreco() + "");
+                    }
+
                     int pgto = srv.getFormaPgto();
                     switch (pgto){
                         case 0: formaPgto.setText("A Negociar");

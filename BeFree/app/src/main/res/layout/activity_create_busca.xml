@@ -304,7 +304,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="VALOR"
+                            android:text="FAIXA DE PREÇO (R$:)"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <EditText

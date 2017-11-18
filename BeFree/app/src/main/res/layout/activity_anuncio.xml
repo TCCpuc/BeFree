@@ -51,6 +51,7 @@
                 android:id="@+id/activity_anuncio_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:fitsSystemWindows="true"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_collapseMode="pin" />
 
@@ -118,16 +119,32 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/activity_anuncio_tipo_preco"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="PREÇO"
+                        android:text="PREÇO (R$:)"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/activity_anuncio_preco_negociar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:text="A Negociar"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="5dp"
+                        android:textSize="15dp"/>
 
                     <EditText
                         android:id="@+id/activity_anuncio_preco"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:textColor="@android:color/darker_gray"
+                        android:visibility="visible"
                         android:background="@drawable/border_white"
                         android:cursorVisible="false"
                         android:focusable="false"
@@ -249,13 +266,15 @@
 
     <TextView
         android:id="@+id/activity_anuncio_txtNome"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="3dp"
         android:ems="10"
         android:gravity="center"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:textSize="29dp"/>
+        android:textAlignment="center"
+        android:fitsSystemWindows="true"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"/>
 
 </android.support.design.widget.CoordinatorLayout>
