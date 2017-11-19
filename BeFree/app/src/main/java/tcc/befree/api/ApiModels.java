@@ -1224,7 +1224,7 @@ public class ApiModels implements Runnable{
         ArrayList<Integer> result = new ArrayList<>();
         for (SubCategoria c : getSubCategorias()) {
             if (c.idCategoria == idcategoriaBuscaAvancada)
-                result.add(c.idCategoria);
+                result.add(c.idSubCategoria);
         };
         return result;
     }
