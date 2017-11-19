@@ -71,7 +71,7 @@ public class AnuncioBuscaActivity extends AppCompatActivity {
 
         preco.addTextChangedListener(new MoneyTextWatcher(preco));
 
-        tipoPreco.setText("FAIXA DE PREÇO (R$:)");
+        tipoPreco.setText("FAIXA DE PREÇO (R$)");
 
         conexao = new ApiModels();
         srv = new Busca();

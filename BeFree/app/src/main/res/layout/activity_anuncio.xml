@@ -122,7 +122,7 @@
                         android:id="@+id/activity_anuncio_tipo_preco"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="PREÇO (R$:)"
+                        android:text="PREÇO (R$)"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
