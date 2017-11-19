@@ -214,9 +214,6 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
 
                 //super.onBackPressed();
         }else{
-            Intent resultInt = new Intent();
-            resultInt.putExtra("Result", "Done");
-            setResult(UserPerfilActivity.RESULT_OK, resultInt);
             UserPerfilActivity.super.onBackPressed();
             finish();
         }
