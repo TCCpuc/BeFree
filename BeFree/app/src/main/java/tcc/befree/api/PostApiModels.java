@@ -171,10 +171,11 @@ public class PostApiModels implements Runnable{
 
         jSonObject = new JSONObject();
         try {
+
             jSonObject.put("idServico",denuncia.getIdServico());
             jSonObject.put("idBusca",denuncia.getIdBusca());
+            jSonObject.put("causa",denuncia.getDenuncia());
             jSonObject.put("idUsuarioDenunciante",denuncia.getIdUsuarioDenunciante());
-            jSonObject.put("denuncia",denuncia.getDenuncia());
             thread.start();
             controlaThread();
             thread.interrupt();

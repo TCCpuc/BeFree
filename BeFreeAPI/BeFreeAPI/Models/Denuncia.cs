@@ -17,5 +17,7 @@ namespace BeFreeAPI.Models
         public int? idServico { get; set; }
 
         public int? idBusca { get; set; }
+
+        public int idUsuarioDenunciante { get; set; }
     }
 }

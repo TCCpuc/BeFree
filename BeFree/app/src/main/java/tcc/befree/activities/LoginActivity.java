@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -184,23 +184,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 startActivity(createUser);
             }
         });
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
-        if(opr.isDone()){
-            GoogleSignInResult resul = opr.get();
-        }else{
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-
-                }
-            });
-        }
     }
 
     @Override
@@ -319,12 +302,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //TODO: Replace this with your own logic
         return password.length() >= 4;
     }
-/*
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-*/
 
     @Override
     protected void onResume() {
@@ -347,6 +324,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     @Override
+    protected void onStart(){
+        super.onStart();
+
+        //Evento chamado na inicialização da Activity
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
         super.onActivityResult(requestCode, responseCode, intent);
 
@@ -359,6 +343,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         }
     }
+
 
     private void handleSingInResult(GoogleSignInResult result){
 
@@ -375,10 +360,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         usuarioGoogle = apiModels.getUsuariosByEmail(account.getEmail());
         if(usuarioGoogle == null) {
+            usuarioGoogle = new Usuarios();
             usuarioGoogle.email = account.getEmail();
             usuarioGoogle.nomeUsuario = account.getDisplayName();
-            usuarioGoogle.imagemPerfil = account.getPhotoUrl().toString();
-
+            usuarioGoogle.imagemPerfil = (account.getPhotoUrl() == null) ? "" : account.getPhotoUrl().toString();
+            usuarioGoogle.cpf = "";
+            usuarioGoogle.senha = "  ";
             PostApiModels postApiModels = new PostApiModels();
             if (postApiModels.postUsuarios(usuarioGoogle)) {
                 usuarioGoogle = apiModels.getUsuariosByEmail(usuarioGoogle.email);
@@ -397,12 +384,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("arrayUsuario", usuario.toString());
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putInt("idUsuario",usuario.idUsuario);
-        intent.putExtra("idUsuario", bundle);
-        */
-        //stopLoadingDialog();
         startActivity(intent);
     }
 
