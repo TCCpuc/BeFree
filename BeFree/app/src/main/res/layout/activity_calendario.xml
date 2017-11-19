@@ -5,29 +5,32 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:textAlignment="center"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/appBarLayout"
+        android:orientation="horizontal"
+        android:padding="20dip">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Calendario"
-                android:layout_gravity="center"
-                android:id="@+id/user_perfil_title" />
+        <ImageButton
+            android:id="@+id/cabecalho_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_back_arrow"
+            android:background="?android:selectableItemBackground" />
 
-        </android.support.v7.widget.Toolbar>
+        <TextView android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:text="CALENDÁRIO" />
 
-    </android.support.design.widget.AppBarLayout>
+    </RelativeLayout>
 
 
     <CalendarView

@@ -50,8 +50,7 @@ public class CalendarActivity extends AppCompatActivity {
     private Evento novoEvento;
     private PostApiModels post;
     private LoadingDialog loginDialog;
-
-
+    private ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +71,7 @@ public class CalendarActivity extends AppCompatActivity {
         horaFinalUp = (ImageButton) findViewById(R.id.activity_calendario_finalTime_up);
         horaFinalDown = (ImageButton) findViewById(R.id.activity_calendario_finalTime_down);
         agendar = (Button) findViewById(R.id.activity_calendario_agendar);
+        back = (ImageButton) findViewById(R.id.cabecalho_back);
 
         Toast.makeText(getApplicationContext(), "Selecione o dia desejado", Toast.LENGTH_LONG).show();
 
@@ -98,6 +98,13 @@ public class CalendarActivity extends AppCompatActivity {
                 }
 
                 dia.setText(labelDia + "/" + labelMes + "/" + year);
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
             }
         });
         horaInicial.addTextChangedListener(new TextWatcher() {
@@ -260,6 +267,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         finish();
     }
 

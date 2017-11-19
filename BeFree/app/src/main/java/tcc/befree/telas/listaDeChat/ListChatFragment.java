@@ -1,5 +1,6 @@
 package tcc.befree.telas.listaDeChat;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ public class ListChatFragment extends Fragment {
     private ListView listView;
     private View view;
     private int idUsuario;
+    private int activityBrequestCode;
 
     ApiModels api = new ApiModels();
 
@@ -76,7 +78,7 @@ public class ListChatFragment extends Fragment {
 
                 //based on item add info to intent
                 //MANDA O BUNDLE COM O ID DO USUARIO2, E O ID DO CHAT
-                startActivity(intent);
+                startActivityForResult(intent, activityBrequestCode);
             }
         });
 
@@ -86,6 +88,8 @@ public class ListChatFragment extends Fragment {
 
         return view;
     }
+
+
 
 
     private class MyAdapter extends BaseAdapter {
@@ -170,4 +174,13 @@ public class ListChatFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == this.activityBrequestCode && resultCode == Activity.RESULT_OK){
+            listView.setAdapter(new loadingAdapter());
+            threadUpdate();
+        }
+    }
 }

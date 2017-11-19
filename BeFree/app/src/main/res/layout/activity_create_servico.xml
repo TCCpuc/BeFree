@@ -114,7 +114,7 @@
                                 android:id="@+id/create_servico_titulo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Titulo da servico"
+                                android:hint=""
                                 android:background="@drawable/border_white"
                                 android:textAlignment="center"
                                 android:inputType="textCapWords"

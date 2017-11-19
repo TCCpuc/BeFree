@@ -5,19 +5,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="@color/colorPrimary"
-        android:id="@+id/cabecalho" android:orientation="horizontal"
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/cabecalho"
+        android:orientation="horizontal"
         android:padding="20dip">
-        <TextView android:textColor="#FFFFFF"
+
+        <ImageButton
+            android:id="@+id/cabecalho_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_back_arrow"
+            android:background="?android:selectableItemBackground" />
+
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/messages_username"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"
-            android:textSize="16dp"
             android:gravity="center_horizontal"
-            android:id="@+id/messages_username"
-            android:text="[NOME DO USUARIO]" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:text="" />
+
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -25,13 +39,15 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/border"
         android:layout_alignParentBottom="true">
 
         <EditText
             android:id="@+id/messageEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
+            android:inputType="textCapSentences"
+            android:imeOptions="actionSend"
             android:hint="@string/app_name"
             android:layout_weight="0.8"/>
 

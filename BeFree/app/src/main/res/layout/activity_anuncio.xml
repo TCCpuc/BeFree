@@ -98,7 +98,7 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:padding="5dp"
-                        android:text="Descricao do servico Descricao do servicoDescricao do servico Descricao do servico Descricao do servico v "
+                        android:text=""
                         android:textSize="15dp" />
 
                 </LinearLayout>

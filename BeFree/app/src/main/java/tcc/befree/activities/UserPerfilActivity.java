@@ -48,9 +48,11 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
     private TextView imageText;
     private Button edit_dados;
     private boolean edit_dados_val;
+    private boolean edit_dados_editado;
     private Button edit_password;
     private EditText username;
     private ImageButton usernameButton;
+    private ImageButton back;
     private EditText email;
     private ImageButton emailButton;
     private EditText cpf;
@@ -85,10 +87,19 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         ddd = (Spinner) findViewById(R.id.user_perfil_ddd);
         dddButton = (ImageButton) findViewById(R.id.user_perfil_ddd_button);
         titulo = (TextView) findViewById(R.id.user_perfil_title);
+        back = (ImageButton) findViewById(R.id.cabecalho_back);
+
 
         //Recebendo Atributos do Usuario
+        edit_dados_editado = false;
         usuario = new Usuarios();
         it = this.getIntent();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         startLoadingDialog();
         threadUpdate();
@@ -133,6 +144,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     photo.setOnClickListener(this);
                     dddButton.setVisibility(View.VISIBLE);
                     edit_dados_val = true;
+                    edit_dados_editado = true;
                 }
                 break;
             case R.id.user_perfil_photo:
@@ -213,6 +225,12 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     .show();
 
                 //super.onBackPressed();
+        }else if(edit_dados_editado){
+            Intent resultInt = new Intent();
+            resultInt.putExtra("Result", "Done");
+            setResult(UserPerfilActivity.RESULT_OK, resultInt);
+            super.onBackPressed();
+            finish();
         }else{
             UserPerfilActivity.super.onBackPressed();
             finish();
