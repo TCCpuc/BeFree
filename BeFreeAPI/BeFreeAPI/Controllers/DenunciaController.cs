@@ -81,7 +81,22 @@ namespace BeFreeAPI.Controllers
             }
 
             db.tbDenuncias.Add(denuncia);
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (DenunciaExists(denuncia.idDenuncia))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = denuncia.idDenuncia }, denuncia);
         }

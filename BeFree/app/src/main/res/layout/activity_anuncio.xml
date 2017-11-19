@@ -237,7 +237,7 @@
         android:layout_marginRight="5dp"
         android:clickable="true"
         android:src="@drawable/ic_discuss"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
 
@@ -248,7 +248,7 @@
         android:layout_marginRight="70dp"
         android:clickable="true"
         android:src="@drawable/ic_event"
-        app:backgroundTint="@color/green"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
 
@@ -260,7 +260,7 @@
         android:clickable="true"
         android:scaleType="center"
         android:src="@android:drawable/stat_sys_warning"
-        app:backgroundTint="@color/red"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|left|end" />
 
