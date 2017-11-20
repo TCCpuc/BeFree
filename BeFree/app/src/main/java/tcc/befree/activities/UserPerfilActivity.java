@@ -133,6 +133,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     username.setFocusableInTouchMode(false);
                     username.setFocusable(false);
                     username.setBackgroundColor(Color.WHITE);
+                    titulo.setText(username.getText().toString());
                     startLoadingDialog();
                     threadUpdateUsuario();
                 }else {
@@ -329,7 +330,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                 ddd.setId(usuario.ddd);
                 ddd.setSelection(usuario.ddd - 1);
                 ddd.setEnabled(false);
-                titulo.setText(usuario.nomeUsuario);
+                titulo.setText((usuario.nomeUsuario).toUpperCase());
                 edit_dados.setOnClickListener(UserPerfilActivity.this);
                 edit_password.setOnClickListener(UserPerfilActivity.this);
                 usernameButton.setOnClickListener(UserPerfilActivity.this);
