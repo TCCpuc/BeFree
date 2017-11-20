@@ -12,28 +12,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+        <RelativeLayout android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
+            android:id="@+id/cabecalho"
+            android:orientation="horizontal"
+            android:padding="20dip">
 
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:textAlignment="center"
-                app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <ImageButton
+                android:id="@+id/cabecalho_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_back_arrow"
+                android:background="?android:selectableItemBackground" />
 
-                <TextView
-                    android:id="@+id/create_busca_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CRIAR BUSCA"
-                    android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/create_busca_title"
+                android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_width="fill_parent"
+                android:gravity="center_horizontal"
+                android:layout_centerInParent="true"
+                android:text="CRIAR BUSCA" />
 
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.AppBarLayout>
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -114,7 +119,7 @@
                                 android:id="@+id/create_busca_titulo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint=""
+                                android:hint="Digite seu título"
                                 android:background="@drawable/border_white"
                                 android:textAlignment="center"
                                 android:inputType="textCapWords"

@@ -454,7 +454,7 @@ public class MainActivity extends AppCompatActivity{
                 for(int x = 0; x < gender.size(); x++){
                     ev = gender.get(x);
                     if(oldDate(ev.getDtEvento())){
-                        if(!ev.isAvaliado()){
+                        if(!ev.isAvaliado() && ev.getIdUsuarioContratante() == id){
                             eventosNotificacao++;
                         }
                     }else{

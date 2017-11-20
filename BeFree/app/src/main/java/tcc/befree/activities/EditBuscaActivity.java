@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -65,6 +66,7 @@ public class EditBuscaActivity extends AppCompatActivity {
     private LoadingDialog loginDialog;
     private DDD[] ddd;
     private Categoria[] categorias;
+    private ImageButton back;
     private static final int SELECT_FILE1 = 100;
 
     @Override
@@ -90,6 +92,14 @@ public class EditBuscaActivity extends AppCompatActivity {
         nome = (EditText) findViewById(R.id.create_busca_titulo);
         descricao = (EditText) findViewById(R.id.create_busca_txtDescricao);
         editValorCheck = (CheckBox) findViewById(R.id.create_busca_valor_check);
+        back = (ImageButton) findViewById(R.id.cabecalho_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         startLoadingDialog();
         threadLoadingUpdate();
@@ -271,6 +281,7 @@ public class EditBuscaActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         finish();
     }
 
