@@ -89,6 +89,7 @@ public class PostApiModels implements Runnable{
             jSonObject.put("MENSAGEM",Utils.workaroundReplace(mensagem.getMensagem()));
             jSonObject.put("USUARIO_ORIGEM",mensagem.getUsuario_origem());
             jSonObject.put("USUARIO_DESTINO",mensagem.getUsuario_destino());
+            jSonObject.put("lida",0);
 
             thread.start();
             controlaThread();

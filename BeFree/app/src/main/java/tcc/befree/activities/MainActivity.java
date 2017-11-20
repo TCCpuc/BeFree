@@ -46,6 +46,7 @@ import tcc.befree.models.Busca;
 import tcc.befree.models.DDD;
 import tcc.befree.models.Evento;
 import tcc.befree.models.Mensagem;
+import tcc.befree.models.MensagensNaoLidas;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.models.Usuarios;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity{
     private ArrayList<SubCategoria> subCategorias;
     private ArrayList<Evento> gender;
     private LoadingDialog loginDialog;
+    private MensagensNaoLidas mensagensNotificacao;
     private int eventosNotificacao;
     private int ultimaPosicao = 0;
     private int abaAtual = 0;
@@ -445,7 +447,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void run() {
                 Evento ev;
+                mensagensNotificacao = new MensagensNaoLidas();
                 eventosNotificacao = 0;
+                mensagensNotificacao = api.getNumMensagemNaoLida(id);
                 gender = api.getEventosbyIdUsuario(id);
                 for(int x = 0; x < gender.size(); x++){
                     ev = gender.get(x);
@@ -471,7 +475,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void run() {
                 setNavItemCount(R.id.menu_calendario, eventosNotificacao);
-                setNavItemCount(R.id.menu_chat, 4);
+                setNavItemCount(R.id.menu_chat, mensagensNotificacao.getNumeroMensagens());
             }
         });
     }
@@ -495,7 +499,6 @@ public class MainActivity extends AppCompatActivity{
                 categorias = api.getCategorias();
                 subCategorias = api.getSubCategorias();
                 ddds = api.getDDDs();
-                threadUpdateNotification();
                 threadLoadingUI();
             }
         }.start();
@@ -586,6 +589,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 //int id = getIntent().getExtras().getInt("bundle");
                 refreshLista();
+                threadUpdateNotification();
                 stopLoadingDialog();
             }
         });

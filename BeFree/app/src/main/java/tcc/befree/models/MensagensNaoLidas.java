@@ -8,11 +8,6 @@ public class MensagensNaoLidas {
     private int idUsuario;
     private int numeroMensagens;
 
-    public MensagensNaoLidas(int id, int num) {
-        this.idUsuario = id;
-        this.numeroMensagens = num;
-    }
-
     public int getIdUsuario() {
         return idUsuario;
     }

@@ -87,7 +87,7 @@ public class MensagemActivity extends AppCompatActivity {
             @Override
             public void run() {
                 usuario = api.getUsuarioById(idUsuarioDestino);
-                msg = api.getMensagensDoChat(idChat);
+                msg = api.getMensagensDoChat(idChat, idUsuarioOrigem);
                 threadUI();
             }
         }.start();
@@ -119,7 +119,7 @@ public class MensagemActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    List<Mensagem> newMessage = api.getMensagensDoChat(idChat);
+                    List<Mensagem> newMessage = api.getMensagensDoChat(idChat, idUsuarioOrigem);
                     if(chatHistory.size() != (newMessage.size()) ){
                         for (chatHistory.size();chatHistory.size()<newMessage.size();){
                             chatHistory.add(newMessage.get(chatHistory.size()));
