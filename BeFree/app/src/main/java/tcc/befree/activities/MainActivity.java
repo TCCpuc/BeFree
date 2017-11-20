@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -25,12 +26,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import tcc.befree.R;
 import tcc.befree.api.ApiModels;
@@ -38,6 +44,8 @@ import tcc.befree.models.Categoria;
 import tcc.befree.models.CircleImageView;
 import tcc.befree.models.Busca;
 import tcc.befree.models.DDD;
+import tcc.befree.models.Evento;
+import tcc.befree.models.Mensagem;
 import tcc.befree.models.Servico;
 import tcc.befree.models.SubCategoria;
 import tcc.befree.models.Usuarios;
@@ -69,7 +77,9 @@ public class MainActivity extends AppCompatActivity{
     private ArrayList<Integer> subCategoriasDaCategoria;
     private ArrayList<DDD> ddds;
     private ArrayList<SubCategoria> subCategorias;
+    private ArrayList<Evento> gender;
     private LoadingDialog loginDialog;
+    private int eventosNotificacao;
     private int ultimaPosicao = 0;
     private int abaAtual = 0;
     private int currentPage;
@@ -92,6 +102,7 @@ public class MainActivity extends AppCompatActivity{
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+        eventosNotificacao = 0;
         api = new ApiModels();
         Intent it = this.getIntent();
         Bundle loginActivityIntent = it.getExtras();
@@ -104,6 +115,11 @@ public class MainActivity extends AppCompatActivity{
         startLoadingDialog();
         threadLoadingUpdate();
 
+    }
+
+    private void setNavItemCount(@IdRes int itemId, int count) {
+        TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
+        view.setText(count > 0 ? (String.valueOf(count) + " ") : null);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -156,7 +172,7 @@ public class MainActivity extends AppCompatActivity{
                             // ABRIR Agenda
                             Intent intent = new Intent(MainActivity.this, GenderActivity.class);
                             intent.putExtra("idUsuario", usuario.idUsuario);
-                            startActivity(intent);
+                            startActivityForResult(intent, activityBrequestCode);
 
                         } else if (id == R.id.menu_chat) {
                             // ABRIR CHAT
@@ -164,11 +180,11 @@ public class MainActivity extends AppCompatActivity{
                             bundle.putInt("idUsuario",usuario.idUsuario);
                             Intent intent = new Intent(MainActivity.this, ListChatActivity.class);
                             intent.putExtra("bundle", bundle);
-                            startActivity(intent);
+                            startActivityForResult(intent, activityBrequestCode);
 
                         } else if (id == R.id.menu_sobre) {
                             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-                            startActivity(intent);
+                            startActivityForResult(intent, activityBrequestCode);
 
                         } else if (id == R.id.menu_pagina_inicial) {
                             id = 0;
@@ -214,6 +230,7 @@ public class MainActivity extends AppCompatActivity{
             startLoadingDialog();
             threadLoadingUpdate();
         }
+        threadUpdateNotification();
     }
 
     private void logoff(){
@@ -271,7 +288,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
-            //Busca simples
+                //Busca simples
                 buscaSimples = searchQuery;
                 busca();
                 return true;
@@ -292,11 +309,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         return true;
-
-
-
-        //getMenuInflater().inflate(R.menu.main, menu);
-        //return true;
     }
 
     private void busca() {
@@ -427,6 +439,45 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }
     }
+
+
+    private void threadUpdateNotification(){
+        new Thread(){
+            @Override
+            public void run() {
+                Evento ev;
+                eventosNotificacao = 0;
+                gender = api.getEventosbyIdUsuario(id);
+                for(int x = 0; x < gender.size(); x++){
+                    ev = gender.get(x);
+                    if(oldDate(ev.getDtEvento())){
+                        if(!ev.isAvaliado()){
+                            eventosNotificacao++;
+                        }
+                    }else{
+                        if(ev.getSituacaoEvento() == 0){
+                            if (ev.getIdUsuarioContratante() != id){
+                                eventosNotificacao++;
+                            }
+                        }
+                    }
+                }
+                threadUINotification();
+            }
+        }.start();
+    }
+
+    private void threadUINotification(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setNavItemCount(R.id.menu_calendario, eventosNotificacao);
+                setNavItemCount(R.id.menu_chat, 4);
+            }
+        });
+    }
+
+
     private void threadLoadingUpdate(){
         new Thread(){
             @Override
@@ -435,6 +486,7 @@ public class MainActivity extends AppCompatActivity{
                 categorias = api.getCategorias();
                 subCategorias = api.getSubCategorias();
                 ddds = api.getDDDs();
+                threadUpdateNotification();
                 threadLoadingUI();
             }
         }.start();
@@ -538,5 +590,28 @@ public class MainActivity extends AppCompatActivity{
 
     private void stopLoadingDialog(){
         loginDialog.dismiss();
+    }
+
+    public boolean oldDate(String data){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String today [] = dateFormat.format(date).split("/");
+        String oldDay [] = data.split("/");
+        int oDia = Integer.parseInt(oldDay[0]);
+        int oMes = Integer.parseInt(oldDay[1]);
+        int oAno = Integer.parseInt(oldDay[2]);
+        int tDia = Integer.parseInt(today[0]);
+        int tMes = Integer.parseInt(today[1]);
+        int tAno = Integer.parseInt(today[2]);
+
+        if(oAno < tAno){
+            return true;
+        }else if(oMes < tMes && oAno == tAno ){
+            return true;
+        }else if(oDia < tDia && oMes == tMes && oAno == tAno){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

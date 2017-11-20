@@ -104,8 +104,6 @@ public class GenderActivity extends AppCompatActivity {
             }
         }
 
-
-
         @Override
         public Object getItem(int position) {
             return gender.get(position);
@@ -275,59 +273,6 @@ public class GenderActivity extends AppCompatActivity {
 
             return view;
         }
-
-                /*
-                if (ev.getIdUsuarioContratante() == idUsuario){
-                    else if(!ev.isAvaliado() && oldDate(ev.getDtEvento()) && ev.getSituacaoEvento() != 2 && idUsuario != ev.getIdUsuario()){
-                        defaultLayout.setVisibility(View.GONE);
-                        avaliarLayout.setVisibility(View.VISIBLE);
-                }else {
-                    if(ev.isAvaliado()) {
-                        //VERIFICA SE EVENTO É AVALIADO
-                        tempo.setText("AVALIADO\n\n" + ev.getNotaAvaliacao());
-                    }else if(oldDate(ev.getDtEvento()) && (ev.getSituacaoEvento() == 0)){
-                        ev.setSituacaoEvento(2);
-                        tempo.setText("RECUSADO");
-                        backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
-                    }else if(ev.getSituacaoEvento() == 2){
-                        tempo.setText("RECUSADO");
-                        backgroundLayout.setBackgroundColor(Color.parseColor("#ffe6e6"));
-                    }else if (ev.getSituacaoEvento() == 1){
-                        if(ev.getHrInicio() <= 9){
-                            horario = ("CONFIRMADO \n\n0" + ev.getHrInicio() + ":00");
-                        }else{
-                            horario = ("CONFIRMADO \n\n" + ev.getHrInicio() + ":00");
-                        }
-                        if(ev.getHrFinal() <= 9){
-                            horario = (horario + " - 0" + ev.getHrFinal() + ":00");
-                        }else {
-                            horario = (horario + " - " + ev.getHrFinal() + ":00");
-                        }
-                        backgroundLayout.setBackgroundColor(Color.parseColor("#b3ffb3"));
-                        tempo.setText(horario);
-                    }else {
-                        if(ev.getHrInicio() <= 9){
-                            horario = ("PENDENTE \n\n0" + ev.getHrInicio() + ":00");
-                        }else{
-                            horario = ("PENDENTE \n\n" + ev.getHrInicio() + ":00");
-                        }
-                        if(ev.getHrFinal() <= 9){
-                            horario = (horario + " - 0" + ev.getHrFinal() + ":00");
-                        }else {
-                            horario = (horario + " - " + ev.getHrFinal() + ":00");
-                        }
-                        tempo.setText(horario);
-                    }
-                }
-
-                if(beforeDate.equals(ev.getDtEvento())){
-                    dayLayout.setVisibility(View.GONE);
-                }else {
-                    beforeDate = ev.getDtEvento();
-                }
-            }
-
-*/
     }
 
     private class loadingAdapter extends BaseAdapter{
