@@ -98,7 +98,7 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:padding="5dp"
-                        android:text="Descricao do servico Descricao do servicoDescricao do servico Descricao do servico Descricao do servico v "
+                        android:text=""
                         android:textSize="15dp" />
 
                 </LinearLayout>
@@ -122,7 +122,7 @@
                         android:id="@+id/activity_anuncio_tipo_preco"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="PREÇO (R$:)"
+                        android:text="PREÇO (R$)"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView

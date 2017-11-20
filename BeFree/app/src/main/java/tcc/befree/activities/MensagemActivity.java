@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,6 +30,7 @@ public class MensagemActivity extends AppCompatActivity {
     private EditText messageET;
     private ListView messagesContainer;
     private ImageButton sendBtn;
+    private ImageButton back;
     private MensagemAdapter adapter;
     private ArrayList<Mensagem> chatHistory;
     private int idUsuarioOrigem;
@@ -47,8 +50,18 @@ public class MensagemActivity extends AppCompatActivity {
 
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
         messageET = (EditText) findViewById(R.id.messageEdit);
+        back = (ImageButton) findViewById(R.id.cabecalho_back);
         sendBtn = (ImageButton) findViewById(R.id.chatSendButton);
         userName = (TextView) findViewById(R.id.messages_username);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
+
         api = new ApiModels();
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
@@ -84,7 +97,7 @@ public class MensagemActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                userName.setText(usuario.nomeUsuario);
+                userName.setText((usuario.nomeUsuario).toUpperCase());
                 chatHistory = (msg);
                 initControls();
                 adapter = new MensagemAdapter(MensagemActivity.this, chatHistory, idUsuarioOrigem);
@@ -136,6 +149,16 @@ public class MensagemActivity extends AppCompatActivity {
     }
     private void initControls() {
 
+        messageET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    sendBtn.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +222,15 @@ public class MensagemActivity extends AppCompatActivity {
             view = getLayoutInflater().inflate(R.layout.item_loading, null);
             return view;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultInt = new Intent();
+        resultInt.putExtra("Result", "Done");
+        setResult(UserPerfilActivity.RESULT_OK, resultInt);
+        MensagemActivity.super.onBackPressed();
+        finish();
     }
 
     private void scroll()

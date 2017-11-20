@@ -9,15 +9,33 @@
     android:layout_height="match_parent"
     tools:context="tcc.befree.activities.ListChatActivity">
 
-    <LinearLayout android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="@color/colorPrimary"
-        android:id="@+id/cabecalho" android:orientation="horizontal"
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/cabecalho"
+        android:orientation="horizontal"
         android:padding="20dip">
-        <TextView android:textColor="#FFFFFF" android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" android:layout_width="fill_parent"
-            android:gravity="center_horizontal" android:id="@+id/chat_title"
-            android:text="Chat" />
-    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/cabecalho_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_back_arrow"
+            android:background="?android:selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/chat_title"
+            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:text="CHAT" />
+
+    </RelativeLayout>
 
         <fragment
             class="tcc.befree.telas.listaDeChat.ListChatFragment"

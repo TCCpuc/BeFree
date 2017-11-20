@@ -1220,6 +1220,8 @@ public class ApiModels implements Runnable{
         }
     }
 
+    //ESSE COMENTÁRIO NÃO DEVE EXISTIR NA BRANCH DE BACKUP
+
     public ArrayList<Integer> getSubCategoriasDaCategoria(int idcategoriaBuscaAvancada) {
         ArrayList<Integer> result = new ArrayList<>();
         for (SubCategoria c : getSubCategorias()) {

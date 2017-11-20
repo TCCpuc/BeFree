@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class GenderActivity extends AppCompatActivity {
     private String beforeDate = "";
     private int idUsuario;
     private boolean notEventos;
+    private ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +52,20 @@ public class GenderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gender);
 
         day = (ListView) findViewById(R.id.gender_day);
+        back = (ImageButton) findViewById(R.id.cabecalho_back);
 
         Bundle intent = this.getIntent().getExtras();
         idUsuario = intent.getInt("idUsuario");
 
         notEventos = false;
         api = new ApiModels();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         day.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,6 +88,7 @@ public class GenderActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         finish();
     }
 
