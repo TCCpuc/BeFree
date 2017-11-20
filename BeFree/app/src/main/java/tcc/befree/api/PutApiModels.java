@@ -12,6 +12,7 @@ import tcc.befree.models.Busca;
 import tcc.befree.models.Evento;
 import tcc.befree.models.Servico;
 import tcc.befree.models.Usuarios;
+import tcc.befree.utils.Utils;
 
 /**
  * Created by Guilherme Domingues on 10/9/2017.
@@ -41,7 +42,7 @@ public class PutApiModels implements Runnable {
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idUsuario",usuario.idUsuario);
-            jSonObject.put("nomeUsuario",usuario.nomeUsuario);
+            jSonObject.put("nomeUsuario", Utils.workaroundReplace(usuario.nomeUsuario));
             jSonObject.put("cpf",usuario.cpf);
             jSonObject.put("idCidade",usuario.idCidade);
             jSonObject.put("idEstado",usuario.idEstado);
@@ -80,8 +81,8 @@ public class PutApiModels implements Runnable {
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idServico",servico.getIdServico());
-            jSonObject.put("titulo",servico.getTitulo());
-            jSonObject.put("descricao",servico.getDescricao());
+            jSonObject.put("titulo",Utils.workaroundReplace(servico.getTitulo()));
+            jSonObject.put("descricao",Utils.workaroundReplace(servico.getDescricao()));
             jSonObject.put("idUsuario",servico.getIdUsuario());
             jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
             jSonObject.put("idStatus",servico.getIdStatus());
@@ -142,8 +143,8 @@ public class PutApiModels implements Runnable {
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idBusca",busca.idBusca);
-            jSonObject.put("titulo",busca.titulo);
-            jSonObject.put("descricao",busca.descricao);
+            jSonObject.put("titulo",Utils.workaroundReplace(busca.titulo));
+            jSonObject.put("descricao",Utils.workaroundReplace(busca.descricao));
             jSonObject.put("idUsuario",busca.idUsuario);
             jSonObject.put("idSubCategoria",busca.idSubCategoria);
             jSonObject.put("idStatus",busca.idStatus);
