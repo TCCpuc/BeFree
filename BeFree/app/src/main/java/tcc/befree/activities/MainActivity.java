@@ -483,6 +483,16 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void run() {
                 usuario = api.getUsuarioById(id);
+            }
+        }.start();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new Thread(){
+            @Override
+            public void run() {
                 categorias = api.getCategorias();
                 subCategorias = api.getSubCategorias();
                 ddds = api.getDDDs();

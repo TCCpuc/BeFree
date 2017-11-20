@@ -133,6 +133,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     username.setFocusableInTouchMode(false);
                     username.setFocusable(false);
                     username.setBackgroundColor(Color.WHITE);
+                    titulo.setText(username.getText().toString());
                     startLoadingDialog();
                     threadUpdateUsuario();
                 }else {
