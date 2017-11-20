@@ -69,6 +69,8 @@ public class Utils {
                 .replace('Â','A')
                 .replace('â','â')
                 .replace('à','a')
-                .replace('À','A');
+                .replace('À','A')
+                .replace('á','a')
+                .replace('Á','A');
     }
 }
