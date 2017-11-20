@@ -77,7 +77,6 @@ public class MensagemActivity extends AppCompatActivity {
         idUsuarioDestino = bundle.getInt("idUsuarioDestino");
         loadingAdapter();
         //loadHistory(chatHistory);
-
     }
 
     public void loadingAdapter(){

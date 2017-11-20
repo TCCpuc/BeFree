@@ -168,48 +168,6 @@ public class ApiModels implements Runnable{
 
 
     /* ---------------------------------- MÉTODOS DE SERVIÇO ----------------------------------- */
-    //Retorna todos os Servicos
-    public ArrayList<Servico> getServicos(){
-
-        ArrayList<Servico> arrayServicos = new ArrayList<Servico>();
-
-        try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GettbServicoes";
-
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-            workaroundSleepThread(thread);
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Servico servico = new Servico();
-
-                servico.setIdServico(jSonObject.getInt("idServico"));
-                servico.setTitulo(jSonObject.getString("titulo"));
-                servico.setDescricao(jSonObject.getString("descricao"));
-                servico.setIdUsuario(jSonObject.getInt("idUsuario"));
-                servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
-                servico.setIdStatus(jSonObject.getInt("idStatus"));
-                servico.setImagemServico(jSonObject.getString("imagemServico"));
-                servico.setIdDDD(jSonObject.getInt("idDDD"));
-                Float x = Float.parseFloat(jSonObject.getString("preco"));
-                    x = x * 100;
-                    servico.setPreco((int) Math.floor(x));
-                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
-                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria("descrCategoria");
-                servico.setDescSubCategoria("descrSubCategoria");
-
-                arrayServicos.add(servico);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        jSonArray = null;
-        return arrayServicos;
-    }
 
     //Retorna Servicos pelo id
     public Servico getServicosById(int id){
@@ -252,129 +210,7 @@ public class ApiModels implements Runnable{
         return servico;
     }
 
-    public ArrayList<Servico> getServicosByUsuario(int id){
-
-        ArrayList<Servico> arrayServicos = new ArrayList<Servico>();
-
-        try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Servico/GetServicoByUsuario/?idUsuario=" + id;
-
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-            workaroundSleepThread(thread);
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Servico servico = new Servico();
-
-                servico.setIdServico(jSonObject.getInt("idServico"));
-                servico.setTitulo(jSonObject.getString("titulo"));
-                servico.setDescricao(jSonObject.getString("descricao"));
-                servico.setIdUsuario(jSonObject.getInt("idUsuario"));
-                servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
-                servico.setIdStatus(jSonObject.getInt("idStatus"));
-                servico.setImagemServico(jSonObject.getString("imagemServico"));
-                servico.setIdDDD(jSonObject.getInt("idDDD"));
-                Float x = Float.parseFloat(jSonObject.getString("preco"));
-                    x = x * 100;
-                servico.setPreco((int) Math.floor(x));
-                servico.setFormaPgto(jSonObject.getInt("formaPagto"));
-                servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                servico.setDescCategoria("descrCategoria");
-                servico.setDescSubCategoria("descrSubCategoria");
-
-                arrayServicos.add(servico);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        jSonArray = null;
-        return arrayServicos;
-    }
-
     /* ---------------------------------- MÉTODOS DE BUSCAS ----------------------------------- */
-    //Retorna todas as Buscas
-    public ArrayList<Busca> getBuscas(){
-
-        ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
-
-        try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GettbBuscas";
-
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-            workaroundSleepThread(thread);
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Busca busca = new Busca();
-
-                busca.idBusca = jSonObject.getInt("idBusca");
-                busca.titulo = jSonObject.getString("titulo");
-                busca.descricao = jSonObject.getString("descricao");
-                busca.idUsuario = jSonObject.getInt("idUsuario");
-                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                busca.idStatus = jSonObject.getInt("idStatus");
-                busca.imagemBusca = jSonObject.getString("imagemBusca");
-                busca.idDDD = jSonObject.getInt("idDDD");
-                Float x = Float.parseFloat(jSonObject.getString("preco"));
-                    x = x * 100;
-                    busca.setPreco((int) Math.floor(x));
-                busca.setFormaPgto(jSonObject.getInt("formaPagto"));
-                busca.setDescCategoria("descrCategoria");
-                busca.setDescSubCategoria("descrSubCategoria");
-                arrayBuscas.add(busca);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        jSonArray = null;
-        return arrayBuscas;
-    }
-
-    public ArrayList<Busca> getBuscaByUsuario(int id){
-
-        ArrayList<Busca> arrayBuscas = new ArrayList<Busca>();
-
-        try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Busca/GetBuscaByUsuario/?idUsuario=" + id;
-
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-            workaroundSleepThread(thread);
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Busca busca = new Busca();
-
-                busca.idBusca = jSonObject.getInt("idBusca");
-                busca.titulo = jSonObject.getString("titulo");
-                busca.descricao = jSonObject.getString("descricao");
-                busca.idUsuario = jSonObject.getInt("idUsuario");
-                busca.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                busca.idStatus = jSonObject.getInt("idStatus");
-                busca.imagemBusca = jSonObject.getString("imagemBusca");
-                busca.idDDD = jSonObject.getInt("idDDD");
-                Float x = Float.parseFloat(jSonObject.getString("preco"));
-                    x = x * 100;
-                    busca.setPreco((int) Math.floor(x));
-                busca.setFormaPgto(jSonObject.getInt("formaPagto"));
-                busca.setDescCategoria("descrCategoria");
-                busca.setDescSubCategoria("descrSubCategoria");
-                arrayBuscas.add(busca);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        jSonArray = null;
-        return arrayBuscas;
-    }
 
     public Busca getBuscaByID(int id){
 
@@ -409,8 +245,6 @@ public class ApiModels implements Runnable{
         jSonArray = null;
         return busca;
     }
-
-
 
     /* ---------------------------------- MÉTODOS DE CATEGORIAS ----------------------------------- */
 
@@ -499,30 +333,6 @@ public class ApiModels implements Runnable{
         return  arrayCategorias;
     }
 
-    //Retorna Categoria por ID
-    final public Categoria getCategoriaByID(int idCategoria){
-
-        Categoria categoria = new Categoria();
-        try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Categoria/GetCategoria/" + idCategoria;
-
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-            workaroundSleepThread(thread);
-            JSONObject jSonObject = jSonArray.getJSONObject(0);
-            categoria.idCategoria = jSonObject.getInt("idCategoria");
-            categoria.descricao = jSonObject.getString("descricao");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        jSonArray = null;
-        return categoria;
-    }
-
     /* ---------------------------------- MÉTODOS DE SUBCATEGORIAS ----------------------------------- */
 
 
@@ -565,35 +375,6 @@ public class ApiModels implements Runnable{
 
         try{
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/SubCategoria/GetSubCategoriaByCategoria/?idCategoria=" + idCategoria;
-
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-            workaroundSleepThread(thread);
-            vetorSubCategorias = new SubCategoria[jSonArray.length()];
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                SubCategoria subCategoria = new SubCategoria();
-                subCategoria.idCategoria = jSonObject.getInt("idCategoria");
-                subCategoria.idSubCategoria = jSonObject.getInt("idSubCategoria");
-                subCategoria.descricao = jSonObject.getString("descricao");
-                vetorSubCategorias[i] = subCategoria;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        jSonArray = null;
-        return vetorSubCategorias;
-    }
-
-    //Retorna todas os DDDs como vetor
-    final public SubCategoria[] getSubCategoriasVetor() {
-
-        SubCategoria[] vetorSubCategorias= null;
-
-        try{
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/SubCategoria/gettbSubCategorias";
 
             Thread thread = new Thread(this);
             thread.start();
@@ -851,7 +632,6 @@ public class ApiModels implements Runnable{
     public ArrayList<Mensagem> getMensagensDoChat(int idDoChat, int idDoUsuario){
 
         ArrayList<Mensagem> arrayMensagens= new ArrayList<Mensagem>();
-
         try{
             //OK
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Mensagem/GetMensagensDoChat/" + idDoChat + "/" + idDoUsuario;
@@ -892,18 +672,6 @@ public class ApiModels implements Runnable{
     }
 
     public List<Chat> getChatsDoUsuario(int idDousuario){
-//--------------
-//      MOCK:
-//
-//        List<Chat> l = new ArrayList<Chat>();
-//        Chat c = new Chat();
-//        c.setId(1);
-//        c.setUltima_mensagem(1);
-//        c.setUsuario_1(2032);
-//        c.setUsuario_2(2034);
-//        l.add(c);
-//        return l;
-//--------------
         ArrayList<Chat> chats = new ArrayList<Chat>();
         try{
             //NOK - O nome está correto
@@ -941,10 +709,7 @@ public class ApiModels implements Runnable{
 
     public ArrayList<Evento> getEventosbyIdUsuario(int idDoUsuario){
 
-        //CLASSE A SER FEITA
-        //SIMULAR
         ArrayList<Evento> ar = new ArrayList<Evento>();
-
         try{
             urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Eventos/GetEventosByUsuario/?usuario=" + idDoUsuario;
             Thread thread = new Thread(this);
@@ -1007,49 +772,7 @@ public class ApiModels implements Runnable{
         return idDoUsuarioAtual == id;
     }
 
-    public String getImagemMiniaturaDoUsuario(int idUsuario){
-//--------------
-//      MOCK:
-//
-//        return "https://pbs.twimg.com/profile_images/2552140292/6umzaqwv0mj922yihwpq_400x400.jpeg";
-//--------------
-        String imagem = "";
-        try{
-            //OK
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/GetUsuario/" + idUsuario;
-            //SQL = SELECT U.IMAGEMPERFIL FROM tbUSUARIO U WHERE U.IDusuario IN (SELECT USUARIO_2 FROM CHAT WHERE ID = {CHAT.ID})
-            Thread thread = new Thread(this);
-            thread.start();
-            controlaThread();
-            thread.interrupt();
-            workaroundSleepThread(thread);
-            JSONObject jSonObject = jSonArray.getJSONObject(0);
-            imagem = jSonObject.getString("imagemPerfil");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        jSonArray = null;
-        return imagem;
-    }
-
     /* ------------------------------- UTILS -------------------------------------------------- */
-
-    public DDD getDDDByCodigo(String nome) {
-        DDD ddd = new DDD();
-        ddd.id = 1;
-        return ddd;
-    }
-
-    public SubCategoria getSubCategoriaByNome(String nome) {
-        SubCategoria subCategoria = new SubCategoria();
-        subCategoria.idCategoria = 1;
-        return subCategoria;
-    }
-
-    public String getNomeMiniaturaDoChat(int i, int i1) {
-
-        return "GET USERNAME";
-    }
 
     public ArrayList<Busca> getBuscasExcetoDoUsuario(int idUsuario) {
 
@@ -1124,33 +847,6 @@ public class ApiModels implements Runnable{
                 servico.setDescSubCategoria("descrSubCategoria");
                 arrayServicos.add(servico);
             }
-            /*
-            for (int i = 0; i < jSonArray.length();i++){
-                JSONObject jSonObject = jSonArray.getJSONObject(i);
-                Servico servico = new Servico();
-
-                if (jSonObject.getInt("idUsuario") != idUsuario) {
-                    servico.setIdServico(jSonObject.getInt("idServico"));
-                    servico.setTitulo(jSonObject.getString("titulo"));
-                    servico.setDescricao(jSonObject.getString("descricao"));
-                    servico.setIdUsuario(jSonObject.getInt("idUsuario"));
-                    servico.setIdSubCategoria(jSonObject.getInt("idSubCategoria"));
-                    servico.setIdStatus(jSonObject.getInt("idStatus"));
-                    servico.setImagemServico(jSonObject.getString("imagemServico"));
-                    servico.setIdDDD(jSonObject.getInt("idDDD"));
-                    Float x = Float.parseFloat(jSonObject.getString("preco"));
-                    x = x * 100;
-                    busca.setPreco((int) Math.floor(x));
-                    servico.setFormaPgto(jSonObject.getInt("formaPagto"));
-                    servico.setMediaAvaliacao(jSonObject.getInt("mediaAvaliacao"));
-                    servico.setDescCategoria("descCategoria");
-                    servico.setDescSubCategoria("descSubCategoria");
-
-                    arrayServicos.add(servico);
-                }
-            }
-            */
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1305,15 +1001,5 @@ public class ApiModels implements Runnable{
                 return u;
         }
         return null;
-    }
-
-
-    public String getEmailByCodigoSeguranca(String codigo) {
-        try{
-            return getUsuarioByCodigoSeguranca(codigo).email;
-        }
-        catch (Exception E){
-            return null;
-        }
     }
 }

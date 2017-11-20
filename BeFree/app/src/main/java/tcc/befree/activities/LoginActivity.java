@@ -344,7 +344,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-
     private void handleSingInResult(GoogleSignInResult result){
 
         if(result.isSuccess()){
@@ -460,19 +459,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             parameters.putString("fields", "id,name,email,gender, birthday");
             request.setParameters(parameters);
             request.executeAsync();
-
-
         }
 
         @Override
         public void onCancel() {
             LoginManager.getInstance().logOut();
-
         }
 
         @Override
-        public void onError(FacebookException e) {
-
-        }
+        public void onError(FacebookException e) {}
     };
 }

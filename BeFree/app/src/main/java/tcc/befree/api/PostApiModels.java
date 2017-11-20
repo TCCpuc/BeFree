@@ -132,7 +132,6 @@ public class PostApiModels implements Runnable{
             e.printStackTrace();
             thread.interrupt();
         }
-
         return true;
     }
 
@@ -172,7 +171,6 @@ public class PostApiModels implements Runnable{
 
         jSonObject = new JSONObject();
         try {
-
             jSonObject.put("idServico",denuncia.getIdServico());
             jSonObject.put("idBusca",denuncia.getIdBusca());
             jSonObject.put("causa",denuncia.getDenuncia());

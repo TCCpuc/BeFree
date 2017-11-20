@@ -27,9 +27,7 @@ public class SplashScreen extends AppCompatActivity {
 
         translateScale.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
+            public void onAnimationStart(Animation animation) { }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -40,16 +38,12 @@ public class SplashScreen extends AppCompatActivity {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
+            public void onAnimationRepeat(Animation animation) {}
         });
 
         hold.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
+            public void onAnimationStart(Animation animation) {}
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -58,13 +52,8 @@ public class SplashScreen extends AppCompatActivity {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
+            public void onAnimationRepeat(Animation animation) {}
         });
-
         imageView.startAnimation(hold);
-
-
     }
 }

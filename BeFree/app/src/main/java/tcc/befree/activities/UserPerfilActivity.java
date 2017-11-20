@@ -68,7 +68,6 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
     private ArrayAdapter arrayAdapterDDD;
     private LoadingDialog loginDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +88,6 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
         titulo = (TextView) findViewById(R.id.user_perfil_title);
         back = (ImageButton) findViewById(R.id.cabecalho_back);
 
-
         //Recebendo Atributos do Usuario
         edit_dados_editado = false;
         usuario = new Usuarios();
@@ -103,7 +101,6 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
 
         startLoadingDialog();
         threadUpdate();
-
     }
 
     @Override
