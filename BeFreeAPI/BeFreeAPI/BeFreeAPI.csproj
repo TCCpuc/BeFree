@@ -277,6 +277,7 @@
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Busca.cs" />
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\MensagensNaoLidas.cs" />
     <Compile Include="Models\Servico.cs" />
     <Compile Include="Models\SubCategoria.cs" />
     <Compile Include="Models\DDD.cs" />

@@ -10,6 +10,7 @@ using BeFreeWeb.Models;
 using System.Net.Http;
 using System.Configuration;
 using Newtonsoft.Json;
+using System.Net.Http.Formatting;
 
 namespace BeFreeWeb.Controllers
 {
@@ -123,9 +124,16 @@ namespace BeFreeWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                using (HttpClient httpclient = new HttpClient())
+                {
+                    UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Usuarios/PutUsuario/" + usuario.idUsuario);
+                    var httpResponseMessage = httpclient.PostAsync(uriBuilder.ToString(), new ObjectContent<Usuario>(usuario, new JsonMediaTypeFormatter()));
+                    var result = httpResponseMessage.Result;
+                    if (result.IsSuccessStatusCode)
+                        return Json(new { Sucesso = true });
+                    else
+                        return Json(new { Sucesso = false, Mensagem = result.Content.ReadAsStringAsync().Result });
+                }
             }
             return View(usuario);
         }
@@ -148,11 +156,24 @@ namespace BeFreeWeb.Controllers
         // POST: Usuario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async System.Threading.Tasks.Task<ActionResult> DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
-            db.SaveChanges();
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Usuarios/DeleteUsuario/" + id);
+                    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
+                    string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                    //model = JsonConvert.DeserializeObject<List<Usuario>>(result);
+
+                }
+                catch (Exception err)
+                {
+                    string erro = err.Message;
+                }
+
+            }
             return RedirectToAction("Index");
         }
 

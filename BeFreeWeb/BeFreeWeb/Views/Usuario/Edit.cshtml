@@ -35,15 +35,25 @@
 
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     @Html.HiddenFor(model => model.idUsuario)
+                                    @Html.HiddenFor(model => model.idCidade)
+                                    @Html.HiddenFor(model => model.idEstado)
+                                    @Html.HiddenFor(model => model.bairro)
+                                    @Html.HiddenFor(model => model.logradouro)
+                                    @Html.HiddenFor(model => model.numero)
+                                    @Html.HiddenFor(model => model.cep)
+                                    @Html.HiddenFor(model => model.dataCadastro)
+                                    @Html.HiddenFor(model => model.dataNascimento)
+                                    @Html.HiddenFor(model => model.ativo)
+                                    @Html.HiddenFor(model => model.senha)
+                                    @Html.HiddenFor(model => model.codigoSeguranca)
+                                    @Html.HiddenFor(model => model.imagemPerfil)
 
                                     <div class="form-group row" style="height:auto">
                                         <div class="col-sm-9" style="height:auto">
 
 
                                             <div align="center">
-
-                                                <img src=@Model.imagemPerfil alt="..." style="height:300px;width:auto;align-self:center">
-
+                                                <img src=@Model.imagemPerfil alt="..." style="height:300px;width:300px;align-self:center">
                                             </div>
                                             <div class="line"></div>
 
@@ -59,81 +69,6 @@
                                                 @Html.LabelFor(model => model.cpf, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
                                                 <div class="col-sm-9">
                                                     @Html.EditorFor(model => model.cpf, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.idCidade, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.idCidade, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.idEstado, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.idEstado, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.bairro, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.bairro, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.logradouro, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.logradouro, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.numero, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.numero, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.cep, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.cep, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.dataNascimento, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.dataNascimento, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.ativo, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    <div class="checkbox">
-                                                        @Html.EditorFor(model => model.ativo)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="line"></div>
-
-                                            <div class="form-group row">
-                                                @Html.LabelFor(model => model.senha, htmlAttributes: new { @class = "col-sm-3 form-control-label" })
-                                                <div class="col-sm-9">
-                                                    @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control" } })
                                                 </div>
                                             </div>
                                             <div class="line"></div>

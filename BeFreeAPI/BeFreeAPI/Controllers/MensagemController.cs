@@ -37,17 +37,20 @@ namespace BeFreeAPI.Controllers
 
         // GET: api/Mensagem/5
         [ResponseType(typeof(Mensagem))]
-        public IHttpActionResult GetMensagensDoChat(int id)
+        [Route("api/{ controller}/{ action}/{id}/{idUsuario}")]
+        public IHttpActionResult GetMensagensDoChat(int id, int idUsuario)
         {
 
             String query = "UPDATE tbMensagem " +
                            "SET lida = 1 " +
                            "WHERE CHAT = " + id +
+                           "  AND USUARIO_DESTINO = " + idUsuario +
                            "  AND lida = 0";
 
             var buscar = db.Database.ExecuteSqlCommand(query);
 
             IQueryable<Mensagem> mensagem = db.tbMensagems.Where(m => m.CHAT == id);
+            
             if (mensagem == null)
             {
                 return NotFound();
@@ -130,6 +133,24 @@ namespace BeFreeAPI.Controllers
             return Ok(mensagem);
         }
 
+        [HttpGet]
+        [ResponseType(typeof(MensagensNaoLidas))]
+        public IHttpActionResult GetMensagensNaoLidasByUsuario(int id)
+        {
+            List<MensagensNaoLidas> mensagensNaoLidas = new List<MensagensNaoLidas>();
+
+            String query = "SELECT * " +
+                           "FROM tbMensagem " +
+                           "WHERE USUARIO_DESTINO = " + id +
+                           "  AND lida = '0' ";
+
+            var mensagem = db.tbMensagems.SqlQuery(query);
+
+            mensagensNaoLidas.Add(new MensagensNaoLidas(id, (mensagem == null) ? 0 : mensagem.Count()));
+
+            return Ok(mensagensNaoLidas);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -144,4 +165,6 @@ namespace BeFreeAPI.Controllers
             return db.tbMensagems.Count(e => e.ID == id) > 0;
         }
     }
+
+
 }
