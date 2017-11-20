@@ -269,6 +269,7 @@ public class PostApiModels implements Runnable{
 
     //Verifica se a thread foi executada com sucesso para executar proxima
     private void controlaThread(){
+
         for(;;){
             if (semaforo)
                 break;

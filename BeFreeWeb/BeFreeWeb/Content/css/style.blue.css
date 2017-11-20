@@ -1740,7 +1740,7 @@ section.forms .line {
   height: 100%;
   display: block;
   z-index: -1;
-  background: url(../img/bg.jpg);
+  background: url(http://www.coteaz.com/images/immagini_articoli/services.jpg);
   background-size: cover;
   -webkit-filter: blur(10px);
   filter: blur(10px);

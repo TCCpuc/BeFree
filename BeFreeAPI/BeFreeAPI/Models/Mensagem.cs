@@ -22,5 +22,7 @@ namespace BeFreeAPI.Models
 
         public string MENSAGEM { get; set; }
 
+        public bool? lida { get; set; }
+
     }
 }

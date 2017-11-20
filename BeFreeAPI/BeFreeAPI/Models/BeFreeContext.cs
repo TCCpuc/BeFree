@@ -23,6 +23,7 @@ namespace BeFreeAPI.Models
         public virtual DbSet<Mensagem> tbMensagems { get; set; }
         public virtual DbSet<Evento> tbEventos { get; set; }
         public virtual DbSet<Denuncia> tbDenuncias { get; set; }
+        public virtual DbSet<Log> tbLogs { get; set; }
         public virtual DbSet<VwChatUsuarios> vw_chat_usuario { get; set; }
         public virtual DbSet<VwEventoUsuario> vw_evento_usuario { get; set; }
         public virtual DbSet<vwServico> vw_servico { get; set; }

@@ -39,6 +39,14 @@ namespace BeFreeAPI.Controllers
         [ResponseType(typeof(Mensagem))]
         public IHttpActionResult GetMensagensDoChat(int id)
         {
+
+            String query = "UPDATE tbMensagem " +
+                           "SET lida = 1 " +
+                           "WHERE CHAT = " + id +
+                           "  AND lida = 0";
+
+            var buscar = db.Database.ExecuteSqlCommand(query);
+
             IQueryable<Mensagem> mensagem = db.tbMensagems.Where(m => m.CHAT == id);
             if (mensagem == null)
             {
@@ -68,6 +76,7 @@ namespace BeFreeAPI.Controllers
             {
                 db.SaveChanges();
             }
+
             catch (DbUpdateConcurrencyException)
             {
                 if (!MensagemExists(id))
@@ -78,6 +87,11 @@ namespace BeFreeAPI.Controllers
                 {
                     throw;
                 }
+            }
+            catch (Exception err)
+            {
+                String erro = err.Message;
+                return BadRequest();
             }
 
             return StatusCode(HttpStatusCode.NoContent);

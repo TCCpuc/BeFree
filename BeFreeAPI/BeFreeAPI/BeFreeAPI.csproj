@@ -260,6 +260,7 @@
     <Compile Include="Controllers\DenunciaController.cs" />
     <Compile Include="Controllers\EventosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MensagemController.cs" />
     <Compile Include="Controllers\ServicoController.cs" />
     <Compile Include="Controllers\SubCategoriaController.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\Evento.cs" />
     <Compile Include="Models\Denuncia.cs" />
+    <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\VwChatUsuarios.cs" />
     <Compile Include="Models\VwEventoUsuario.cs" />
