@@ -50,4 +50,27 @@ public class Utils {
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
     }
 
+    public static String workaroundReplace(String string) {
+        return string
+                .replace('ç','c')
+                .replace('Ç','C')
+                .replace('ã','a')
+                .replace('Ã','A')
+                .replace('é','e')
+                .replace('É','E')
+                .replace('ê','e')
+                .replace('Ê','E')
+                .replace('õ','o')
+                .replace('Õ','O')
+                .replace('ó','o')
+                .replace('Ó','O')
+                .replace('í','i')
+                .replace('Í','I')
+                .replace('Â','A')
+                .replace('â','â')
+                .replace('à','a')
+                .replace('À','A')
+                .replace('á','a')
+                .replace('Á','A');
+    }
 }

@@ -1,5 +1,7 @@
 package tcc.befree.models;
 
+import tcc.befree.utils.Utils;
+
 /**
  * Created by gabro on 20/05/2017.
  */

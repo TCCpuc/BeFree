@@ -12,6 +12,7 @@ import tcc.befree.models.Busca;
 import tcc.befree.models.Evento;
 import tcc.befree.models.Servico;
 import tcc.befree.models.Usuarios;
+import tcc.befree.utils.Utils;
 
 /**
  * Created by Guilherme Domingues on 10/9/2017.
@@ -25,8 +26,15 @@ public class PutApiModels implements Runnable {
     private boolean semaforo;
     private String urlAPI = "";
 
+    public boolean putUsuariosSemSenha(Usuarios usuario){
+        return putUsuarios(usuario, false);
+    }
 
     public boolean putUsuarios(Usuarios usuario){
+        return putUsuarios(usuario, true);
+    }
+
+    public boolean putUsuarios(Usuarios usuario, boolean comSenha){
 
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/PutUsuario/" + usuario.idUsuario ;
@@ -34,7 +42,7 @@ public class PutApiModels implements Runnable {
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idUsuario",usuario.idUsuario);
-            jSonObject.put("nomeUsuario",usuario.nomeUsuario);
+            jSonObject.put("nomeUsuario", Utils.workaroundReplace(usuario.nomeUsuario));
             jSonObject.put("cpf",usuario.cpf);
             jSonObject.put("idCidade",usuario.idCidade);
             jSonObject.put("idEstado",usuario.idEstado);
@@ -45,7 +53,10 @@ public class PutApiModels implements Runnable {
             jSonObject.put("dataNascimento",usuario.dataNascimento);
             jSonObject.put("dataCadastro",usuario.dataCadastro);
             jSonObject.put("ativo",usuario.ativo);
-            jSonObject.put("senha",usuario.senha);
+            if (comSenha)
+                jSonObject.put("senha",usuario.senha);
+            else
+                jSonObject.put("senha",new ApiModels().getUsuarioById(usuario.idUsuario).senha);
             jSonObject.put("email",usuario.email);
             jSonObject.put("ddd",usuario.ddd);
             jSonObject.put("imagemPerfil", usuario.imagemPerfil);
@@ -70,8 +81,8 @@ public class PutApiModels implements Runnable {
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idServico",servico.getIdServico());
-            jSonObject.put("titulo",servico.getTitulo());
-            jSonObject.put("descricao",servico.getDescricao());
+            jSonObject.put("titulo",Utils.workaroundReplace(servico.getTitulo()));
+            jSonObject.put("descricao",Utils.workaroundReplace(servico.getDescricao()));
             jSonObject.put("idUsuario",servico.getIdUsuario());
             jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
             jSonObject.put("idStatus",servico.getIdStatus());
@@ -132,8 +143,8 @@ public class PutApiModels implements Runnable {
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idBusca",busca.idBusca);
-            jSonObject.put("titulo",busca.titulo);
-            jSonObject.put("descricao",busca.descricao);
+            jSonObject.put("titulo",Utils.workaroundReplace(busca.titulo));
+            jSonObject.put("descricao",Utils.workaroundReplace(busca.descricao));
             jSonObject.put("idUsuario",busca.idUsuario);
             jSonObject.put("idSubCategoria",busca.idSubCategoria);
             jSonObject.put("idStatus",busca.idStatus);

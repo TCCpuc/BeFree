@@ -824,13 +824,37 @@ public class ApiModels implements Runnable{
         return existe;
     }
 
-    public ArrayList<Mensagem> getMensagensDoChat(int idDoChat){
+    final public MensagensNaoLidas getNumMensagemNaoLida(int idUsuario){
+
+        MensagensNaoLidas mensagem = new MensagensNaoLidas();
+
+        try{
+            urlAPI = ("https://befreeapi-com.umbler.net/BeFreeAPI/api/Mensagem/GetMensagensNaoLidasByUsuario/?id=" + idUsuario);
+
+            Thread thread = new Thread(this);
+            thread.start();
+            controlaThread();
+            thread.interrupt();
+            workaroundSleepThread(thread);
+            JSONObject jSonObject = jSonArray.getJSONObject(0);
+            mensagem.setIdUsuario(jSonObject.getInt("idUsuario"));
+            mensagem.setNumeroMensagens(jSonObject.getInt("numeroMensagens"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        jSonArray = null;
+        return mensagem;
+    }
+
+    public ArrayList<Mensagem> getMensagensDoChat(int idDoChat, int idDoUsuario){
 
         ArrayList<Mensagem> arrayMensagens= new ArrayList<Mensagem>();
 
         try{
             //OK
-            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Mensagem/GetMensagensDoChat/" + idDoChat;
+            urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Mensagem/GetMensagensDoChat/" + idDoChat + "/" + idDoUsuario;
             //SQL = SELECT * FROM MENSAGEM WHERE CHAT = {idDoChat} ORDER BY DATA
             Thread thread = new Thread(this);
             thread.start();

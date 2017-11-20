@@ -41,6 +41,7 @@ public class MensagemActivity extends AppCompatActivity {
     private TextView userName;
     private ApiModels api;
     private Usuarios usuario;
+    private Boolean paraThread;
     private ArrayList<Mensagem> msg;
 
     @Override
@@ -63,6 +64,8 @@ public class MensagemActivity extends AppCompatActivity {
         });
 
         api = new ApiModels();
+
+        paraThread = false;
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         Intent intent = this.getIntent();
@@ -87,7 +90,7 @@ public class MensagemActivity extends AppCompatActivity {
             @Override
             public void run() {
                 usuario = api.getUsuarioById(idUsuarioDestino);
-                msg = api.getMensagensDoChat(idChat);
+                msg = api.getMensagensDoChat(idChat, idUsuarioOrigem);
                 threadUI();
             }
         }.start();
@@ -119,12 +122,15 @@ public class MensagemActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    List<Mensagem> newMessage = api.getMensagensDoChat(idChat);
+                    List<Mensagem> newMessage = api.getMensagensDoChat(idChat, idUsuarioOrigem);
                     if(chatHistory.size() != (newMessage.size()) ){
                         for (chatHistory.size();chatHistory.size()<newMessage.size();){
                             chatHistory.add(newMessage.get(chatHistory.size()));
                             threadUIMessage();
                         }
+                    }
+                    if(paraThread){
+                        break;
                     }
                 }
             }
@@ -229,6 +235,7 @@ public class MensagemActivity extends AppCompatActivity {
         Intent resultInt = new Intent();
         resultInt.putExtra("Result", "Done");
         setResult(UserPerfilActivity.RESULT_OK, resultInt);
+        paraThread = true;
         MensagemActivity.super.onBackPressed();
         finish();
     }

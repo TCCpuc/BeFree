@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "309254585978-p8o29lo53bfbs93q28n18i3h1tb9tcaj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tcc.befree",
+            "certificate_hash": "2ad2fa47db2a5372672477cb3f86d7d23ee29e2c"
+          }
+        },
+        {
+          "client_id": "309254585978-fai4ebhbm5duu1tg1e13f3q8r5aen6lp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tcc.befree",
+            "certificate_hash": "e94aa931788888e156e64e1e54343d118ede7aab"
+          }
+        },
+        {
           "client_id": "309254585978-eqbrgcn66ee5hh2364u8m71uc5vas280.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

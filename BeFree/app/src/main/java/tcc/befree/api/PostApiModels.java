@@ -32,8 +32,8 @@ public class PostApiModels implements Runnable{
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idServico",servico.getIdServico());
-            jSonObject.put("titulo",servico.getTitulo());
-            jSonObject.put("descricao",servico.getDescricao());
+            jSonObject.put("titulo", Utils.workaroundReplace(servico.getTitulo()));
+            jSonObject.put("descricao", Utils.workaroundReplace(servico.getDescricao()));
             jSonObject.put("idUsuario",servico.getIdUsuario());
             jSonObject.put("idSubCategoria",servico.getIdSubCategoria());
             jSonObject.put("idStatus",servico.getIdStatus());
@@ -86,9 +86,10 @@ public class PostApiModels implements Runnable{
         try {
             //jSonObject.put("id",mensagem.getId());
             jSonObject.put("CHAT",mensagem.getChat());
-            jSonObject.put("MENSAGEM",mensagem.getMensagem());
+            jSonObject.put("MENSAGEM",Utils.workaroundReplace(mensagem.getMensagem()));
             jSonObject.put("USUARIO_ORIGEM",mensagem.getUsuario_origem());
             jSonObject.put("USUARIO_DESTINO",mensagem.getUsuario_destino());
+            jSonObject.put("lida",0);
 
             thread.start();
             controlaThread();
@@ -112,8 +113,8 @@ public class PostApiModels implements Runnable{
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idBusca",busca.idBusca);
-            jSonObject.put("titulo",busca.titulo);
-            jSonObject.put("descricao",busca.descricao);
+            jSonObject.put("titulo",Utils.workaroundReplace(busca.titulo));
+            jSonObject.put("descricao",Utils.workaroundReplace(busca.descricao));
             jSonObject.put("idUsuario",busca.idUsuario);
             jSonObject.put("idSubCategoria",busca.idSubCategoria);
             jSonObject.put("idStatus",busca.idStatus);
@@ -196,7 +197,7 @@ public class PostApiModels implements Runnable{
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idUsuario",usuario.idUsuario);
-            jSonObject.put("nomeUsuario",usuario.nomeUsuario);
+            jSonObject.put("nomeUsuario",Utils.workaroundReplace(usuario.nomeUsuario));
             jSonObject.put("cpf",usuario.cpf);
             jSonObject.put("idCidade",usuario.idCidade);
             jSonObject.put("idEstado",usuario.idEstado);
@@ -239,7 +240,7 @@ public class PostApiModels implements Runnable{
         jSonObject = new JSONObject();
         try {
             jSonObject.put("idUsuario",usuario.idUsuario);
-            jSonObject.put("nomeUsuario",usuario.nomeUsuario);
+            jSonObject.put("nomeUsuario",Utils.workaroundReplace(usuario.nomeUsuario));
             jSonObject.put("cpf",usuario.cpf);
             jSonObject.put("idCidade",usuario.idCidade);
             jSonObject.put("idEstado",usuario.idEstado);
