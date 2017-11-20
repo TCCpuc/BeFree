@@ -372,7 +372,6 @@ public class MainActivity extends AppCompatActivity{
         if (item.getItemId() == android.R.id.home){
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
-        //SE O DRAWER NAO ABRIR TENTAR RETURN TRUE
         return super.onOptionsItemSelected(item);
     }
 

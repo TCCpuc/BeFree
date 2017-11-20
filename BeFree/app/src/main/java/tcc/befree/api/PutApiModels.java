@@ -25,8 +25,15 @@ public class PutApiModels implements Runnable {
     private boolean semaforo;
     private String urlAPI = "";
 
+    public boolean putUsuariosSemSenha(Usuarios usuario){
+        return putUsuarios(usuario, false);
+    }
 
     public boolean putUsuarios(Usuarios usuario){
+        return putUsuarios(usuario, true);
+    }
+
+    public boolean putUsuarios(Usuarios usuario, boolean comSenha){
 
         Thread thread = new Thread(this);
         urlAPI = "https://befreeapi-com.umbler.net/BeFreeAPI/api/Usuarios/PutUsuario/" + usuario.idUsuario ;
@@ -45,7 +52,10 @@ public class PutApiModels implements Runnable {
             jSonObject.put("dataNascimento",usuario.dataNascimento);
             jSonObject.put("dataCadastro",usuario.dataCadastro);
             jSonObject.put("ativo",usuario.ativo);
-            jSonObject.put("senha",usuario.senha);
+            if (comSenha)
+                jSonObject.put("senha",usuario.senha);
+            else
+                jSonObject.put("senha",new ApiModels().getUsuarioById(usuario.idUsuario).senha);
             jSonObject.put("email",usuario.email);
             jSonObject.put("ddd",usuario.ddd);
             jSonObject.put("imagemPerfil", usuario.imagemPerfil);

@@ -281,7 +281,7 @@ public class UserPerfilActivity extends AppCompatActivity implements View.OnClic
                     if(bitmapUsuarioPerfil!= null){
                         usuario.imagemPerfil = Utils.convert(bitmapUsuarioPerfil);
                     }
-                    new PutApiModels().putUsuarios(usuario);
+                    new PutApiModels().putUsuariosSemSenha(usuario);
                 }
                 catch (Exception E){
                     System.err.print("Erro ao atualizar usuario");
