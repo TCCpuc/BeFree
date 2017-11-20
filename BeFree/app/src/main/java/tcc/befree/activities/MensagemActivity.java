@@ -41,6 +41,7 @@ public class MensagemActivity extends AppCompatActivity {
     private TextView userName;
     private ApiModels api;
     private Usuarios usuario;
+    private Boolean paraThread;
     private ArrayList<Mensagem> msg;
 
     @Override
@@ -63,6 +64,8 @@ public class MensagemActivity extends AppCompatActivity {
         });
 
         api = new ApiModels();
+
+        paraThread = false;
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         Intent intent = this.getIntent();
@@ -125,6 +128,9 @@ public class MensagemActivity extends AppCompatActivity {
                             chatHistory.add(newMessage.get(chatHistory.size()));
                             threadUIMessage();
                         }
+                    }
+                    if(paraThread){
+                        break;
                     }
                 }
             }
@@ -229,6 +235,7 @@ public class MensagemActivity extends AppCompatActivity {
         Intent resultInt = new Intent();
         resultInt.putExtra("Result", "Done");
         setResult(UserPerfilActivity.RESULT_OK, resultInt);
+        paraThread = true;
         MensagemActivity.super.onBackPressed();
         finish();
     }
