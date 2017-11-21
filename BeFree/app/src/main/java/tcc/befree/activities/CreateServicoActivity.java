@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class CreateServicoActivity extends AppCompatActivity {
     private EditText descricaoServico;
     private Bitmap bitmapUsuarioPerfil;
     private Servico novoServico;
+    private ImageButton back;
     private static final int SELECT_FILE1 = 100;
 
     @Override
@@ -83,6 +85,14 @@ public class CreateServicoActivity extends AppCompatActivity {
         nomeServico = (EditText) findViewById(R.id.create_servico_titulo);
         descricaoServico = (EditText) findViewById(R.id.create_servico_txtDescricao);
         editValorCheck = (CheckBox) findViewById(R.id.create_servico_valor_check);
+        back = (ImageButton) findViewById(R.id.cabecalho_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //popula o spinner do ddd
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
@@ -253,6 +263,7 @@ public class CreateServicoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         finish();
     }
 

@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Button;
@@ -59,6 +60,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
     private EditText descricaoBusca;
     private Bitmap bitmapUsuarioPerfil;
     private Busca novaBusca;
+    private ImageButton back;
     private static final int SELECT_FILE1 = 100;
 
 
@@ -86,6 +88,14 @@ public class CreateBuscaActivity extends AppCompatActivity {
         nomeBusca = (EditText) findViewById(R.id.create_busca_titulo);
         descricaoBusca = (EditText) findViewById(R.id.create_busca_txtDescricao);
         editValorCheck = (CheckBox) findViewById(R.id.create_busca_valor_check);
+        back = (ImageButton) findViewById(R.id.cabecalho_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //popula o spinner do ddd
         ArrayAdapter arrayAdapterDDD = new ArrayAdapter(this, android.R.layout.simple_spinner_item, new ApiModels().getDDDsVetor());
@@ -257,6 +267,7 @@ public class CreateBuscaActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         finish();
     }
 
