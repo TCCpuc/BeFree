@@ -578,6 +578,12 @@ public class ApiModels implements Runnable{
             jSonArray = new JSONArray(jsonString);
             semaforo = true;
         }catch (Exception e){
+            try {
+                Thread.sleep(1000);
+            }catch (Exception ne){
+                System.out.print(e.toString());
+            }
+            this.run();
             String erro = e.getMessage();
             semaforo = true;
         }

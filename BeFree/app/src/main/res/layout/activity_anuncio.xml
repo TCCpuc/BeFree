@@ -53,7 +53,21 @@
                 android:layout_height="?attr/actionBarSize"
                 android:fitsSystemWindows="true"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/activity_anuncio_txtNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:ems="10"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:fitsSystemWindows="true"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"/>
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -263,18 +277,5 @@
         app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|left|end" />
-
-    <TextView
-        android:id="@+id/activity_anuncio_txtNome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:ems="10"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:fitsSystemWindows="true"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"/>
 
 </android.support.design.widget.CoordinatorLayout>
