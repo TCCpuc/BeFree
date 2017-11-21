@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BeFreeWeb.Models.Denuncia>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.causa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idServico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idBusca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idUsuarioDenunciante)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.causa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idServico)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idBusca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idUsuarioDenunciante)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idDenuncia }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idDenuncia }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idDenuncia })
+        </td>
+    </tr>
+}
+
+</table>

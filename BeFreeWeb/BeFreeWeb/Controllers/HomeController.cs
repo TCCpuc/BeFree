@@ -1,4 +1,5 @@
 ﻿using BeFreeWeb.Models;
+using BeFreeWeb.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,28 +14,21 @@ namespace BeFreeWeb.Controllers
 {
     public class HomeController : Controller
     {
+        Functions functions = new Functions();
+
         public async Task<ActionResult> Index()
         {
-            //List<Usuario> model = new List<Usuario>();
             if (Session["IsAuthenticated"].ToString() == "true")
             {
-                /*
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    try
-                    {
-                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Usuarios/GetUsuario/" + Session["IdUsuarioAtual"]);
-                        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
-                        string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                        model = JsonConvert.DeserializeObject<List<Usuario>>(result);
-                    }
-                    catch (Exception err)
-                    {
-                        string erro = err.Message;
-                    }
-                    
-                }
-                Usuario usuario = model[0]; */
+
+
+                int qtdUsuarios = await functions.GetQtdUsuarios();
+                int qtdServicos = await functions.GetQtdServicos();
+                int qtdBuscas = await functions.GetQtdBuscas();
+                int qtdDenuncias = await functions.GetQtdDenuncias();
+
+
+
                 return View();
             }
             else

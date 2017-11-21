@@ -27,7 +27,6 @@ namespace BeFreeAPI.Models
         public virtual DbSet<VwChatUsuarios> vw_chat_usuario { get; set; }
         public virtual DbSet<VwEventoUsuario> vw_evento_usuario { get; set; }
         public virtual DbSet<vwServico> vw_servico { get; set; }
-
         public virtual DbSet<VwBusca> vw_busca { get; set; }
 
         public System.Data.Entity.DbSet<BeFreeAPI.Models.DDD> tbDDDs { get; set; }

@@ -1,0 +1,50 @@
+﻿@model BeFreeWeb.Models.Denuncia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Denuncia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.causa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.causa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idServico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idServico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idBusca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idBusca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuarioDenunciante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuarioDenunciante)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idDenuncia }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
