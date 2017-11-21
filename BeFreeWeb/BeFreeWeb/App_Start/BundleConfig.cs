@@ -9,7 +9,8 @@ namespace BeFreeWeb
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-{version}.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -25,13 +26,14 @@ namespace BeFreeWeb
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/jquery.cookie.js",
+                      "~/Scripts/jquery.cookie.js",                      
                       "~/Scripts/jquery.validate.min.js",
                       "~/Scripts/charts-home.js",
                       "~/Scripts/front.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/bootstrap.css",
+                      "~/Content/css/bootstrap.min.css",
                       "~/Content/css/custom.css",
                       "~/Content/site.css"));
         }

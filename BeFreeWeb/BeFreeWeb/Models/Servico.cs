@@ -30,5 +30,11 @@ namespace BeFreeWeb.Models
 
         [Display(Name = "DDD")]
         public int idDDD { get; set; }
+
+        public List<Categoria> categorias { get; set; }
+
+        public List<SubCategoria> subCategorias { get; set; }
+
+        public Usuario usuario { get; set; }
     }
 }
