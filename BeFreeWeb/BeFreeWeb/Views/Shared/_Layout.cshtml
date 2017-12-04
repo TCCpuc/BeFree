@@ -5,8 +5,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
 
 @Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
+@*@Scripts.Render("~/bundles/jqueryval")*@
 @Scripts.Render("~/bundles/bootstrap")
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,11 +17,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    @*<link rel="stylesheet" href="~/Content/css/bootstrap.min.css">*@
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="~/Content/css/style.default.css" id="theme-stylesheet">
+    @*<link rel="stylesheet" href="~/Content/css/style.default.css" id="theme-stylesheet">*@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="~/Content/css/custom.css">
     <!-- Favicon-->
@@ -57,78 +58,6 @@
 
                         <!-- Navbar Menu -->
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            <!-- Search-->
-                            <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="icon-search"></i></a></li>
-                            <!-- Notifications-->
-                            <li class="nav-item dropdown">
-                                <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red">12</span></a>
-                                <ul aria-labelledby="notifications" class="dropdown-menu">
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification">
-                                                <div class="notification-content"><i class="fa fa-envelope bg-green"></i>You have 6 new messages </div>
-                                                <div class="notification-time"><small>4 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification">
-                                                <div class="notification-content"><i class="fa fa-twitter bg-blue"></i>You have 2 followers</div>
-                                                <div class="notification-time"><small>4 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification">
-                                                <div class="notification-content"><i class="fa fa-upload bg-orange"></i>Server Rebooted</div>
-                                                <div class="notification-time"><small>4 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification">
-                                                <div class="notification-content"><i class="fa fa-twitter bg-blue"></i>You have 2 followers</div>
-                                                <div class="notification-time"><small>10 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>view all notifications                                            </strong></a></li>
-                                </ul>
-                            </li>
-                            <!-- Messages                        -->
-                            <li class="nav-item dropdown">
-                                <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange">10</span></a>
-                                <ul aria-labelledby="notifications" class="dropdown-menu">
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="~/Content/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                            <div class="msg-body">
-                                                <h3 class="h5">Jason Doe</h3><span>Sent You Message</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="~/Content/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                            <div class="msg-body">
-                                                <h3 class="h5">Frank Williams</h3><span>Sent You Message</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="~/Content/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                            <div class="msg-body">
-                                                <h3 class="h5">Ashley Wood</h3><span>Sent You Message</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>Read all messages    </strong></a></li>
-                                </ul>
-                            </li>
                             <!-- Logout    -->
                             <li class="nav-item"><a href="login.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
                         </ul>
@@ -157,7 +86,7 @@
                             <li><a href="~/Usuario/Index">Usuários</a></li>
                             <li><a href="~/Servico/Index">Serviços</a></li>
                             <li><a href="~/Busca/Index">Buscas</a></li>
-                            <li><a href="~/Log/Log">Alterações no Banco</a></li>
+                            @*<li><a href="~/Log/Log">Alterações no Banco</a></li>*@
                             <li><a href="~/Denuncia/Denuncia">Denuncias</a></li>
                         </ul>
                     </li>
@@ -166,7 +95,7 @@
             @RenderBody()
         </div>
 
-       
+
         <!-- Page Footer-->
         <footer class="main-footer">
             <div class="container-fluid">
@@ -181,38 +110,6 @@
             </div>
         </footer>
     </div>
-
-    <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="exampleModalLabel" class="modal-title">Signin Modal</h4>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" placeholder="Email Address" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" placeholder="Password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Signin" class="btn btn-primary">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 </html>
 

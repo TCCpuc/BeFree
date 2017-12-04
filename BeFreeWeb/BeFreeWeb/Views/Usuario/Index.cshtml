@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BeFreeWeb.Models.Usuario>
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Usuários";
 }
 <html>
 <head>
@@ -71,7 +71,6 @@
                                                 </td>
                                                 <td>
                                                     @Html.ActionLink("Edit", "Edit", new { id = item.idUsuario }) |
-                                                    <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Form in simple modal </button>
                                                     @Html.ActionLink("Delete", "Delete", new { id = item.idUsuario })
                                                 </td>
                                             </tr>

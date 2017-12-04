@@ -22,10 +22,10 @@ namespace BeFreeWeb.Controllers
             {
 
 
-                int qtdUsuarios = await functions.GetQtdUsuarios();
-                int qtdServicos = await functions.GetQtdServicos();
-                int qtdBuscas = await functions.GetQtdBuscas();
-                int qtdDenuncias = await functions.GetQtdDenuncias();
+                Session["qtdUsuarios"] = await functions.GetQtdUsuarios();
+                Session["qtdServicos"]  = await functions.GetQtdServicos();
+                Session["qtdBuscas"]  = await functions.GetQtdBuscas();
+                Session["qtdDenuncias"] = await functions.GetQtdDenuncias();
 
 
 

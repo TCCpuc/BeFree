@@ -85,33 +85,9 @@ namespace BeFreeWeb.Controllers
         }
 
         // GET: Denuncia/Edit/5
-        public async System.Threading.Tasks.Task<ActionResult> Edit(int? id)
+        public async System.Threading.Tasks.Task<ActionResult> Aceitar(int? id)
         {
-            List<Usuario> model = new List<Usuario>();
-            if (Session["IsAuthenticated"].ToString() == "true")
-            {
-
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    try
-                    {
-                        UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Usuarios/GetUsuario/?id=" + id);
-                        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
-                        string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                        model = JsonConvert.DeserializeObject<List<Usuario>>(result);
-
-                    }
-                    catch (Exception err)
-                    {
-                        string erro = err.Message;
-                    }
-
-                }
-                Usuario usuario = model[0];
-                return View(usuario);
-            }
-            else
-                return RedirectToAction("Login");
+            return null;
         }
 
         // POST: Denuncia/Edit/5
@@ -131,18 +107,9 @@ namespace BeFreeWeb.Controllers
         }
 
         // GET: Denuncia/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Recusar(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Denuncia denuncia = db.Denuncias.Find(id);
-            if (denuncia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(denuncia);
+            return RedirectToAction("Index");
         }
 
         // POST: Denuncia/Delete/5

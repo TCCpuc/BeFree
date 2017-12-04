@@ -130,6 +130,7 @@ namespace BeFreeAPI.Controllers
 
         // DELETE: api/Usuarios/5
         [ResponseType(typeof(Usuario))]
+        [HttpGet]
         public IHttpActionResult DeleteUsuario(int id)
         {
             Usuario usuario = db.tbUsuarios.Find(id);

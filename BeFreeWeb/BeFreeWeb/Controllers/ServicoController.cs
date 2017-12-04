@@ -10,6 +10,7 @@ using BeFreeWeb.Models;
 using System.Net.Http;
 using System.Configuration;
 using Newtonsoft.Json;
+using System.Net.Http.Formatting;
 
 namespace BeFreeWeb.Controllers
 {
@@ -117,30 +118,44 @@ namespace BeFreeWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idServico,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemServico,idDDD")] Servico servico)
+        public ActionResult Edit(Servico servico)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(servico).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                using (HttpClient httpclient = new HttpClient())
+                {
+                    UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Servico/PutServico/" + servico.idServico);
+                    var httpResponseMessage = httpclient.PostAsync(uriBuilder.ToString(), new ObjectContent<Servico>(servico, new JsonMediaTypeFormatter()));
+                    var result = httpResponseMessage.Result;
+                    if (result.IsSuccessStatusCode)
+                        return RedirectToAction("Index");
+                    else
+                        return View(servico);
+                }
             }
-            return View(servico);
+            return RedirectToAction("Index");
         }
 
         // GET: Servico/Delete/5
-        public ActionResult Delete(int? id)
+        public async System.Threading.Tasks.Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            using (HttpClient httpClient = new HttpClient())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                try
+                {
+                    UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Servico/DeleteServico/" + id);
+                    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
+                    string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                    //model = JsonConvert.DeserializeObject<List<Usuario>>(result);
+
+                }
+                catch (Exception err)
+                {
+                    string erro = err.Message;
+                }
+
             }
-            Servico servico = db.Servicoes.Find(id);
-            if (servico == null)
-            {
-                return HttpNotFound();
-            }
-            return View(servico);
+            return RedirectToAction("Index");
         }
 
         // POST: Servico/Delete/5

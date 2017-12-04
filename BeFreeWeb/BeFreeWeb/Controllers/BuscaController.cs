@@ -10,7 +10,7 @@ using BeFreeWeb.Models;
 using System.Net.Http;
 using System.Configuration;
 using Newtonsoft.Json;
-
+using System.Net.Http.Formatting;
 
 namespace BeFreeWeb.Controllers
 {
@@ -118,30 +118,44 @@ namespace BeFreeWeb.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idBusca,titulo,descricao,idUsuario,idSubCategoria,idStatus,imagemBusca,idDDD")] Busca busca)
+        public ActionResult Edit(Busca busca)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(busca).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                using (HttpClient httpclient = new HttpClient())
+                {
+                    UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Busca/PutBusca/" + busca.idBusca);
+                    var httpResponseMessage = httpclient.PostAsync(uriBuilder.ToString(), new ObjectContent<Busca>(busca, new JsonMediaTypeFormatter()));
+                    var result = httpResponseMessage.Result;
+                    if (result.IsSuccessStatusCode)
+                        return RedirectToAction("Index");
+                    else
+                        return View(busca);
+                }
             }
-            return View(busca);
+            return RedirectToAction("Index");
         }
 
         // GET: Busca/Delete/5
-        public ActionResult Delete(int? id)
+        public async System.Threading.Tasks.Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            using (HttpClient httpClient = new HttpClient())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                try
+                {
+                    UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Busca/DeleteBusca/" + id);
+                    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
+                    string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                    //model = JsonConvert.DeserializeObject<List<Usuario>>(result);
+
+                }
+                catch (Exception err)
+                {
+                    string erro = err.Message;
+                }
+
             }
-            Busca busca = db.Buscas.Find(id);
-            if (busca == null)
-            {
-                return HttpNotFound();
-            }
-            return View(busca);
+            return RedirectToAction("Index");
         }
 
         // POST: Busca/Delete/5

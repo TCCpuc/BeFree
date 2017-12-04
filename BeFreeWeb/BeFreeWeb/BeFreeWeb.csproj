@@ -362,6 +362,7 @@
     <Content Include="Views\Denuncia\Details.cshtml" />
     <Content Include="Views\Denuncia\Edit.cshtml" />
     <Content Include="Views\Denuncia\Index.cshtml" />
+    <Content Include="Views\Usuario\PartialModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

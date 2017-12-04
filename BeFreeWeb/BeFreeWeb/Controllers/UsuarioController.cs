@@ -141,36 +141,6 @@ namespace BeFreeWeb.Controllers
         // GET: Usuario/Delete/5
         public async System.Threading.Tasks.Task<ActionResult> Delete(int? id)
         {
-            /*if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-           
-            using (HttpClient httpClient = new HttpClient())
-            {
-                try
-                {
-                    UriBuilder uriBuilder = new UriBuilder(ConfigurationManager.AppSettings["UrlApi"] + "Usuarios/GetUsuario/?id=" + id);
-                    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(uriBuilder.ToString());
-                    string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                    var model = JsonConvert.DeserializeObject<List<Usuario>>(result);
-
-                }
-                catch (Exception err)
-                {
-                    string erro = err.Message;
-                }
-
-            }*/
-
-            return View();
-        }
-
-        // POST: Usuario/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<ActionResult> DeleteConfirmed(int id)
-        {
             using (HttpClient httpClient = new HttpClient())
             {
                 try
@@ -189,6 +159,15 @@ namespace BeFreeWeb.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        // POST: Usuario/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async System.Threading.Tasks.Task<ActionResult> DeleteConfirmed(int id)
+        {
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {
